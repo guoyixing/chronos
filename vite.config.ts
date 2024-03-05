@@ -14,13 +14,14 @@ export default defineConfig({
         rollupOptions: {
             output: {
                 globals: {
-                    packageName: 'packageName'
+                    packageName: 'packageName',
+                    konva: 'konva'
                 }
             }
         }
     },
     optimizeDeps: {
-        include: [],
+        include: ['konva'],
         exclude: ['./index.html']
     },
     plugins: [
