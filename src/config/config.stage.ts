@@ -41,7 +41,6 @@ export class StageConfig {
         this._grid = grid || new GridConfig();
     }
 
-
     get size(): { width: number; height: number } {
         return this._size;
     }
