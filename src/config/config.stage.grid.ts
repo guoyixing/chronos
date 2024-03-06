@@ -18,13 +18,11 @@ export class GridConfig {
      */
     private _width: number = 1;
 
-
     constructor(size?: number, color?: string, width?: number) {
         this._size = size || this._size;
         this._color = color || this._color;
         this._width = width || this._width;
     }
-
 
     get size(): number {
         return this._size;

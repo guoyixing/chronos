@@ -4,16 +4,19 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build:vite": "vite build",
-    "dev": "vite dev"
+    "dev": "vite dev",
+    "lint": "eslint --fix --ext .ts ./",
+    "build:vite": "vite build"
   },
   "devDependencies": {
-    "typescript": "^5.3.3",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
+    "eslint": "^8.57.0",
     "vite": "^5.1.5",
     "vite-plugin-dts": "^3.7.3",
-    "konva": "^9.3.5"
+    "konva": "^9.3.5",
+    "typescript": "^5.3.3"
   },
-
   "dependencies": {
     "konva": "^9.3.5"
   }
