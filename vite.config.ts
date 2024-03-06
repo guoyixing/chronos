@@ -5,20 +5,20 @@ import dts from 'vite-plugin-dts';
 export default defineConfig({
     build: {
         lib: {
-            name: 'package-name',
-            fileName: 'package-name',
-            entry: resolve(__dirname, './src/application.ts')
+            name: 'chronos',
+            fileName: 'chronos',
+            entry: resolve(__dirname, './src/main/chronos.ts'),
         },
         outDir: resolve(__dirname, 'dist'),
         emptyOutDir: false,
         rollupOptions: {
             output: {
                 globals: {
-                    packageName: 'packageName',
+                    packageName: 'chronos',
                     konva: 'konva'
                 }
-            }
-        }
+            },
+        },
     },
     optimizeDeps: {
         include: ['konva'],
