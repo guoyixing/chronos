@@ -1,4 +1,5 @@
-import {WindowConfig} from "../config/config.window";
+import {StageConfig} from "../config/config.stage";
+import Konva from "konva";
 
 
 /**
@@ -6,29 +7,53 @@ import {WindowConfig} from "../config/config.window";
  */
 export class RendererWindow {
 
-    private readonly windowConfig: WindowConfig
+    private readonly stageConfig: StageConfig
 
-    constructor(windowConfig: WindowConfig) {
-        this.windowConfig = windowConfig
+    constructor(stageConfig: StageConfig) {
+        this.stageConfig = stageConfig
     }
 
-    draw(htmlElement: HTMLElement): HTMLCanvasElement {
-        const canvas = document.createElement('canvas');
-        const config = this.windowConfig.windowSize;
+    draw(): Konva.Stage {
+        //创建konva舞台
+        let stage = new Konva.Stage({
+            container: this.stageConfig.rootElement.id,
+            width: this.stageConfig.size.width,
+            height: this.stageConfig.size.height
+        })
+        if (this.stageConfig.showGrid) {
+            stage.add(this.drawGrid());
+        }
+        //绘制
+        stage.draw();
+        return stage;
+    }
 
-        let ctx = canvas.getContext('2d');
+    /**
+     * 绘制网格
+     */
+    drawGrid(): Konva.Layer {
+        let layer = new Konva.Layer();
+        let width = this.stageConfig.size.width;
+        let height = this.stageConfig.size.height;
+        let grid = this.stageConfig.grid;
 
-        ctx!.fillStyle = 'black';
+        //绘制纵线
+        for (let i = 0; i < width; i += grid.size) {
+            layer.add(new Konva.Line({
+                points: [i, 0, i, height],
+                stroke: grid.color,
+                strokeWidth: grid.width,
+            }));
+        }
 
-        canvas.width = config.w + config.x;
-        canvas.height = config.h + config.y;
-
-        const width = config.w - config.x;
-        const height = config.h - config.y;
-
-        ctx!.strokeRect(config.x, config.y, width, height);
-
-        htmlElement.appendChild(canvas);
-        return canvas;
+        //绘制横线
+        for (let j = 0; j < height; j += grid.size) {
+            layer.add(new Konva.Line({
+                points: [0, j, width, j],
+                stroke: grid.color,
+                strokeWidth: grid.width,
+            }));
+        }
+        return layer;
     }
 }

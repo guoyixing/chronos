@@ -1,10 +1,13 @@
 import {Renderer} from "./engine/renderer";
-import Konva from 'konva';
 
-let divElement: HTMLDivElement = document.getElementById('test');
+let divElement: HTMLElement | null = document.getElementById('root');
 
 if (divElement) {
-    const windowManager = new Renderer(divElement);
+
+    if (divElement.tagName !== 'DIV') {
+        throw new Error('不支持的标签类型，仅支持 DIV 标签');
+    }
+    const windowManager = new Renderer(divElement as HTMLDivElement);
 }
 
 let button = document.createElement('button');

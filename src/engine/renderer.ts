@@ -1,6 +1,6 @@
 import {EventProvider} from "./event.provider.js";
 import {RendererWindow} from "./renderer.window.js";
-import {WindowConfig} from "../config/config.window";
+import {StageConfig} from "../config/config.stage";
 
 /**
  * Renderer
@@ -12,7 +12,7 @@ export class Renderer {
      * 构造器挂载的 DOM
      * @private
      */
-    private readonly htmlElement: HTMLElement
+    private readonly htmlElement: HTMLDivElement
 
     /**
      * 鼠标句柄 [移动,点击]
@@ -21,7 +21,7 @@ export class Renderer {
      */
     private eventProvider: EventProvider
 
-    constructor(htmlElement: HTMLElement) {
+    constructor(htmlElement: HTMLDivElement) {
         this.htmlElement = htmlElement;
 
         const provider = {
@@ -40,9 +40,9 @@ export class Renderer {
      * @private 内部生命周期
      */
     private onInitial(event: Event) {
-        const config = new WindowConfig(this.htmlElement, 1, 20);
+        const config = new StageConfig(this.htmlElement,true);
         const window = new RendererWindow(config);
-        window.draw(this.htmlElement)
+        window.draw()
     }
 
     private mouseClick(event: MouseEvent) {
