@@ -2,12 +2,14 @@ import {GridConfig} from "./config.stage.grid";
 
 
 export interface Size {
-    width:number,
-    height:number
+    width: number,
+    height: number,
+    border: number
 }
 
 /**
- * 窗口配置
+ * 窗口配置,后续需要添加一个 [自省] 调整窗口的大小，全局都是基于这个类的配置
+ *
  */
 export class StageConfig {
 
@@ -35,11 +37,19 @@ export class StageConfig {
     constructor(divElement: HTMLDivElement, showGrid?: boolean, size?: Size, grid?: GridConfig) {
         this._rootElement = divElement;
         this._showGrid = showGrid || this._showGrid
-        this._size = size || {
-            width: divElement.clientWidth,
-            height: divElement.clientHeight
-        };
         this._grid = grid || new GridConfig();
+
+        // div的相对定位矩阵
+        const clientRect = divElement.getBoundingClientRect();
+        this._size = size || {
+            width: clientRect.width,
+            height: clientRect.height,
+            border: 1
+        };
+    }
+
+    get border(): number {
+        return this._size.border
     }
 
     get size(): Size {
