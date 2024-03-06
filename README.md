@@ -16,9 +16,28 @@ npx tsc
 npm run dev
 ```
 
+## Verify Project
+
+```
+npm run lint
+```
+
 ## Publish Npm Lib
 ```
 todo
+```
+
+## Package Json
+```
+开发时依赖( devDependencies )           
+vite                        开发调试运行时
+vite-plugin-dts             构建插件
+            
+eslint                      代码检查工具
+typescript                  ts语言
+
+编译后依赖( dependencies )
+konva                       canvas库
 ```
 
 # 渲染器（ Renderer ）

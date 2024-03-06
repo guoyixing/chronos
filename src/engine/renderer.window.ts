@@ -1,41 +1,18 @@
-import {StageConfig} from "../config/config.stage";
 import Konva from "konva";
-
+import {StageGroup} from "../config/config.type";
 
 /**
- * 窗口渲染器
+ * 窗口渲染器,网格
  */
 export class RendererWindow {
-
-    private readonly stageConfig: StageConfig
-
-    constructor(stageConfig: StageConfig) {
-        this.stageConfig = stageConfig
-    }
-
-    draw(): Konva.Stage {
-        //创建konva舞台
-        let stage = new Konva.Stage({
-            container: this.stageConfig.rootElement.id,
-            width: this.stageConfig.size.width,
-            height: this.stageConfig.size.height
-        })
-        if (this.stageConfig.showGrid) {
-            stage.add(this.drawGrid());
-        }
-        //绘制
-        stage.draw();
-        return stage;
-    }
 
     /**
      * 绘制网格
      */
-    drawGrid(): Konva.Layer {
-        let layer = new Konva.Layer();
-        let width = this.stageConfig.size.width;
-        let height = this.stageConfig.size.height;
-        let grid = this.stageConfig.grid;
+    drawGrid(layer: Konva.Layer, {config, stage}: StageGroup) {
+        const width = config.size.width;
+        const height = config.size.height;
+        const grid = config.grid;
 
         //绘制纵线
         for (let i = 0; i < width; i += grid.size) {
@@ -54,6 +31,6 @@ export class RendererWindow {
                 strokeWidth: grid.width,
             }));
         }
-        return layer;
+        stage.add(layer)
     }
 }

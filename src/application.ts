@@ -9,13 +9,3 @@ if (divElement) {
     divElement.style.overflow = 'hidden';
     const windowManager = new Renderer(divElement as HTMLDivElement);
 }
-
-let button = document.createElement('button');
-
-button.textContent = "点击我";
-
-button.addEventListener('click', () => {
-    console.log('按钮被点击了');
-});
-
-document.body.appendChild(button);
