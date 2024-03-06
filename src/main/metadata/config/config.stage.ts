@@ -1,11 +1,17 @@
 import {GridConfig} from "./config.stage.grid";
 
+
+export interface Size {
+    width:number,
+    height:number
+}
+
 /**
- * 窗口配置 todo style
+ * 窗口配置
  */
 export class StageConfig {
 
-    private _size: { width: number, height: number };
+    private _size: Size;
 
     /**
      * 舞台所在的div元素
@@ -26,12 +32,7 @@ export class StageConfig {
      * @param size 舞台大小
      * @param grid 网格配置
      */
-    constructor(divElement: HTMLDivElement, showGrid?: boolean,
-                size?: {
-                    width: number,
-                    height: number
-                },
-                grid?: GridConfig) {
+    constructor(divElement: HTMLDivElement, showGrid?: boolean, size?: Size, grid?: GridConfig) {
         this._rootElement = divElement;
         this._showGrid = showGrid || this._showGrid
         this._size = size || {
@@ -41,11 +42,11 @@ export class StageConfig {
         this._grid = grid || new GridConfig();
     }
 
-    get size(): { width: number; height: number } {
+    get size(): Size {
         return this._size;
     }
 
-    set size(value: { width: number; height: number }) {
+    set size(value: Size) {
         this._size = value;
     }
 
@@ -64,7 +65,6 @@ export class StageConfig {
     set showGrid(value: boolean) {
         this._showGrid = value;
     }
-
 
     get grid(): GridConfig {
         return this._grid;

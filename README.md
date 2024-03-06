@@ -24,7 +24,7 @@ npm run lint
 
 ## Publish Npm Lib
 ```
-todo
+tsconfig add -> "exclude": ["src/test"]
 ```
 
 ## Package Json
@@ -40,7 +40,7 @@ typescript                  ts语言
 konva                       canvas库
 ```
 
-# 渲染器（ Renderer ）
+# 渲染器（ Context ）
 ```
 1, 负责canvas层复杂操作
 2, 管理用户行为事件 ( DomEventProvider ) ( keyword, click, mounse[x,y] )     
