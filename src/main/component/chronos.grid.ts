@@ -30,7 +30,7 @@ export class ChronosGrid implements DragListener {
         const {stageConfig, rootLayer} = this.context;
         const [width, height] = this.context.getSize()
         const grid = stageConfig.grid;
-        console.log("grid")
+
         //获取当前左上角的坐标
         const coordinate = this.context.getFixedCoordinate();
 
