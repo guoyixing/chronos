@@ -12,34 +12,55 @@ export class ChronosTimeline implements DragListener {
 
     private readonly lineProps: TimelineProps
 
+    private readonly _layer: Konva.Layer
+
     constructor(context: Context, lineProps: TimelineProps) {
         this.context = context;
+        this._layer = this.context.applyLayer('timeline')
         this.lineProps = lineProps;
         this.stageMoveListen()
     }
 
     get layer() {
-        return this.context.rootLayer
+        return this._layer
     }
 
+    /**
+     * 困了想不出来算法了，这里留给我写，明天精神好摸鱼就写
+     */
     stageMoveListen(): void {
-        const {rootLayer} = this.context;
 
         const [width, height] = this.context.getSize()
         const coordinate = this.context.getFixedCoordinate()
 
-        for (let i = 0; i < this.lineProps.years.length; i++) {
-            const rect = new Konva.Rect({
-                x: coordinate.x,
-                y: coordinate.y,
-                width: width,
+        const years = this.lineProps.years
+        const leftMax = width
+        const min = width / 10
+        const color = ['red', 'green', 'blue']
 
-                // 待配置
+        let nextWith = 0
+        for (let i = 1; i < years.length +1; i++) {
+            let w = width - nextWith
+
+            if (w > leftMax) {
+                w = leftMax
+            }
+
+            if (w < min) {
+                w = min * i;
+            }
+
+            const rect = new Konva.Rect({
+                x: coordinate.x + nextWith,
+                y: coordinate.y,
+                width: w,
                 height: height / 10,
-                stroke: 'red',
-                strokeWidth: 1
+                stroke: color[i],
+                strokeWidth: 2
             });
-            rootLayer.add(rect)
+            this._layer.add(rect)
+
+            nextWith -= coordinate.x
         }
     }
 }

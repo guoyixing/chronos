@@ -42,7 +42,6 @@ export class DragEventPublisher {
      */
     private publishMoveEvent() {
         this.publisher('dragmove', () => {
-            console.timeLog()
             this.listenerBucket.forEach((value,layer) => {
                 layer.destroyChildren();
                 this.notificationListener(value);

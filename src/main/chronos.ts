@@ -22,11 +22,11 @@ export class Chronos {
 
             const grid = new ChronosGrid(this.context);
 
+            const chronosWindow = new ChronosWindow(this.context);
+
             const chronosTimeline = new ChronosTimeline(this.context, {
                 years: [2024, 2025]
             });
-
-            const chronosWindow = new ChronosWindow(this.context);
 
             // 发布事件不持有上下文,将 on 函数绑定到当前舞台
             const eventFunction =  this.context.stage.on.bind(this.context.stage)
