@@ -1,7 +1,9 @@
 import {Context} from "../context/context";
 import Konva from "konva";
+import {DragListener} from "../context/drag.event";
 
-export class ChronosGrid {
+export class ChronosGrid implements DragListener {
+
     private readonly context: Context
 
     constructor(renderer: Context) {
@@ -10,14 +12,15 @@ export class ChronosGrid {
         this.stageMoveListen();
     }
 
+    get layer() {
+        return this.context.rootLayer
+    }
+
     /**
      * 舞台移动监听
      */
     stageMoveListen() {
-        this.context.stage.on('dragmove', () => {
-            this.context.rootLayer.destroyChildren();
-            this.draw();
-        });
+        this.draw();
     }
 
     /**
@@ -27,7 +30,7 @@ export class ChronosGrid {
         const {stageConfig, rootLayer} = this.context;
         const [width, height] = this.context.getSize()
         const grid = stageConfig.grid;
-
+        console.log("grid")
         //获取当前左上角的坐标
         const coordinate = this.context.getFixedCoordinate();
 

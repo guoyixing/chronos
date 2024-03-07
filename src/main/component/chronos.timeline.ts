@@ -1,46 +1,45 @@
 import {Context} from "../context/context";
 import Konva from "konva";
+import {DragListener} from "../context/drag.event";
 
 interface TimelineProps {
     years: Array<number>
 }
 
-export class ChronosTimeline {
+export class ChronosTimeline implements DragListener {
 
-    private readonly renderer: Context
+    private readonly context: Context
 
     private readonly lineProps: TimelineProps
 
-    constructor(renderer: Context, lineProps: TimelineProps) {
-        this.renderer = renderer;
+    constructor(context: Context, lineProps: TimelineProps) {
+        this.context = context;
         this.lineProps = lineProps;
-        this.drawTimeline()
+        this.stageMoveListen()
     }
 
-    drawTimeline() {
-        const {
-            rootLayer
-        } = this.renderer;
+    get layer() {
+        return this.context.rootLayer
+    }
 
-        // 按年份平均分
-        let [width] = this.renderer.getSize();
-        width = width / this.lineProps.years.length
+    stageMoveListen(): void {
+        const {rootLayer} = this.context;
 
-        const border = this.renderer.getRelativeY()
+        const [width, height] = this.context.getSize()
+        const coordinate = this.context.getFixedCoordinate()
+
         for (let i = 0; i < this.lineProps.years.length; i++) {
             const rect = new Konva.Rect({
-                x: width * i,
-                y: border,
+                x: coordinate.x,
+                y: coordinate.y,
                 width: width,
 
                 // 待配置
-                height: 50,
-                stroke: 'black',
+                height: height / 10,
+                stroke: 'red',
                 strokeWidth: 1
             });
-            console.log(width * i)
             rootLayer.add(rect)
         }
     }
-
 }

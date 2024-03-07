@@ -47,24 +47,12 @@ export class Context {
      * 可见区域能够绘制的大小
      */
     getSize(): [width: number, heigh: number] {
+        // 防止内容覆写到边框上
+        const border = 2 * this.stageConfig.border;
         return [
-            this.stageConfig.size.width - 2 * this.stageConfig.border,
-            this.stageConfig.size.height - 2 * this.stageConfig.border
+            this.stageConfig.size.width - border,
+            this.stageConfig.size.height - border
         ]
-    }
-
-    /**
-     * 0 + border : 可见区域的 Y 坐标
-     */
-    getRelativeY() {
-        return this.stageConfig.border
-    }
-
-    /**
-     * 同上
-     */
-    getRelativeX() {
-        return this.stageConfig.border
     }
 
     /**
@@ -73,9 +61,11 @@ export class Context {
      * @return {x: number, y: number}
      */
     getFixedCoordinate(): { x: number; y: number } {
+        // 添加上 border 不让绘制在边框上
+        const border = this.stageConfig.border
         return {
-            x: -this.stage.x(),
-            y: -this.stage.y()
+            x: -this.stage.x() + border,
+            y: -this.stage.y() + border
         }
     }
 
@@ -87,5 +77,9 @@ export class Context {
         this.layerIndex.set(name, layer);
         this.stage.add(layer)
         return layer
+    }
+
+    fetchLayer(name: string): Konva.Layer | undefined {
+        return this.layerIndex.get(name)
     }
 }
