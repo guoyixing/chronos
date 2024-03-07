@@ -1,27 +1,28 @@
 import Konva from "konva";
 import {Context} from "../context/context";
+import {DragListener} from "../context/drag.event";
 
 /**
- * 窗口渲染器,网格
+ * 窗口边框
  */
-export class ChronosWindow {
+export class ChronosWindow implements DragListener {
 
     private readonly context: Context
 
-    private layer: Konva.Layer
+    private readonly _layer: Konva.Layer
 
     constructor(renderer: Context) {
         this.context = renderer;
-        this.layer = this.context.applyLayer('window');
+        this._layer = this.context.applyLayer('window');
         this.draw();
-        this.stageMoveListen();
+    }
+
+    get layer() {
+        return this._layer
     }
 
     stageMoveListen() {
-        this.context.stage.on('dragmove', () => {
-            this.layer.destroyChildren();
-            this.draw();
-        });
+        this.draw()
     }
 
     /**
@@ -43,6 +44,6 @@ export class ChronosWindow {
             strokeWidth: 1
         });
 
-        this.layer.add(windowBorder);
+        this._layer.add(windowBorder);
     }
 }
