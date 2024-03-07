@@ -25,6 +25,9 @@ export class StageConfig {
      */
     private _showGrid: boolean = false;
 
+    /**
+     * 网格配置
+     */
     private _grid: GridConfig;
 
     /**
