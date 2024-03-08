@@ -63,7 +63,7 @@ export class ChronosLaneGroup implements DragListener {
      * 绘制泳道组
      */
     draw() {
-        const [width, height] = this.context.getSize()
+        const [_, height] = this.context.getSize()
 
         //计算泳道组起始坐标，y坐标是不变的，x坐标是根据舞台位置计算的
         const fixedCoordinate = this.context.getFixedCoordinate();
@@ -71,12 +71,8 @@ export class ChronosLaneGroup implements DragListener {
         //泳道组起始坐标
         const startX = fixedCoordinate.x + this._startOffSet.x;
 
-        //左侧泳道分割矩形，x坐标
-        const x = startX + this._laneLeftWidth
         //左侧泳道分割矩形，y开始坐标
         const y = this._startOffSet.y + fixedCoordinate.y
-        //左侧泳道分割竖线，y结束坐标
-        const yEnd = this._startOffSet.y + height + fixedCoordinate.y
         //左侧泳道分割竖线绘制
         const laneLeft = new Konva.Rect({
             x: startX,
@@ -97,7 +93,7 @@ export class ChronosLaneGroup implements DragListener {
         }
 
         //修改舞台移动限制
-        this.context.stageMoveLimit.yTop = - (this._height + this._startOffSet.y - height);
+        this.context.stageMoveLimit.yTop = -(this._height + this._startOffSet.y - height);
         this.context.stageMoveLimit.yBottom = 0;
     }
 
@@ -142,6 +138,11 @@ export class ChronosLaneGroup implements DragListener {
     set rowHeight(value: number) {
         this._rowHeight = value;
     }
+
+
+    get startOffSet(): { x: number; y: number } {
+        return this._startOffSet;
+    }
 }
 
 /**
@@ -152,7 +153,7 @@ export class ChronosLane {
     /**
      * 泳道名称
      */
-    private _id: string
+    private readonly _id: string
 
     /**
      * 泳道名称
@@ -191,8 +192,9 @@ export class ChronosLane {
      * @return 泳道高度
      */
     draw(): { height: number } {
+        const context = this._group.context;
         //泳道宽度
-        const [width] = this._group.context.getSize()
+        const [width] = context.getSize()
         //泳道高度
         const height = this._rowNum * this._group.rowHeight;
 
@@ -218,6 +220,23 @@ export class ChronosLane {
             fontFamily: 'Calibri',
             fill: '#555',
         });
+
+        const fixedCoordinate = context.getFixedCoordinate();
+        //泳道组原始左上角y坐标
+        const laneGroupLeftTopY = fixedCoordinate.y + this._group.startOffSet.y;
+        console.log(this._startCoordinate.y, laneGroupLeftTopY)
+        if (this._startCoordinate.y >= laneGroupLeftTopY) {
+            //当泳道左上角y坐标 大于等于 泳道组原始左上角y坐标时，泳道名字需要再初始化的位置
+            laneName.y(this._startCoordinate.y + 10);
+        } else if (this._startCoordinate.y < laneGroupLeftTopY
+            && yBottom - 20 - laneName.height() >= laneGroupLeftTopY) {
+            //当泳道左上角y坐标 小于 泳道组原始左上角y坐标时，并且 当泳道左上角y坐标 大于等于 泳道底边-边框-文字高度的位置时，
+            //泳道名字需要在泳道组原始左上角y坐标+边框的位置
+            laneName.y(laneGroupLeftTopY + 10);
+        } else {
+            //其他时候，泳道名字需要在泳道底边-边框-文字高度的位置
+            laneName.y(yBottom - 10 - laneName.height());
+        }
 
         this._group.layer.add(laneName);
         return {height: height};
