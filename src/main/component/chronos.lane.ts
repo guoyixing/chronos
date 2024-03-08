@@ -224,7 +224,6 @@ export class ChronosLane {
         const fixedCoordinate = context.getFixedCoordinate();
         //泳道组原始左上角y坐标的相对位置（相对窗口的位置）
         const laneGroupLeftTopY = fixedCoordinate.y + this._group.startOffSet.y;
-        console.log(this._startCoordinate.y, laneGroupLeftTopY)
         if (this._startCoordinate.y >= laneGroupLeftTopY) {
             //当泳道左上角y坐标 大于等于 泳道组原始左上角y坐标的相对位置时，泳道名字需要再初始化的位置
             laneName.y(this._startCoordinate.y + 10);
