@@ -2,6 +2,9 @@ import {Context} from "../context/context";
 import Konva from "konva";
 import {DragListener} from "../context/drag.event";
 
+/**
+ * 网格组件
+ */
 export class ChronosGrid implements DragListener {
 
     private readonly context: Context
@@ -9,6 +12,7 @@ export class ChronosGrid implements DragListener {
     constructor(renderer: Context) {
         this.context = renderer;
         this.draw();
+        //注册监听
         this.stageMoveListen();
     }
 
