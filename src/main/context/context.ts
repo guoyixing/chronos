@@ -26,6 +26,11 @@ export class Context {
      */
     layerIndex: Map<string, Konva.Layer>;
 
+    /**
+     * 舞台限制移动的范围，y轴移动范围是泳道组的高度
+     */
+    stageMoveLimit: { yTop: number, yBottom: number } = {yTop: 0, yBottom: 0};
+
     constructor(htmlElement: HTMLDivElement) {
         this.rootLayer = new Konva.Layer()
         this.layerIndex = new Map()
@@ -46,7 +51,7 @@ export class Context {
     /**
      * 可见区域能够绘制的大小
      */
-    getSize(): [width: number, heigh: number] {
+    getSize(): [width: number, height: number] {
         // 防止内容覆写到边框上
         const border = 2 * this.stageConfig.border;
         return [

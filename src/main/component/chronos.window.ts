@@ -22,7 +22,30 @@ export class ChronosWindow implements DragListener {
     }
 
     stageMoveListen() {
+        this.limitStageMove();
         this.draw()
+    }
+
+    /**
+     * 限制舞台的移动范围
+     * 不限制x轴移动
+     * 限制y轴移动，y轴移动范围是泳道组的高度
+     */
+    limitStageMove(): void {
+        //获取当前舞台的坐标
+        const stage = this.context.stage;
+        const stageX = stage.x();
+
+        let stageY = stage.y();
+
+        const stageMoveLimit = this.context.stageMoveLimit;
+        if (stageY < stageMoveLimit.yTop) {
+            stageY = stageMoveLimit.yTop;
+        }
+        if (stageY > stageMoveLimit.yBottom) {
+            stageY = stageMoveLimit.yBottom;
+        }
+        stage.position({ x: stageX, y: stageY });
     }
 
     /**
