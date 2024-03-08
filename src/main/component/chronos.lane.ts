@@ -222,16 +222,16 @@ export class ChronosLane {
         });
 
         const fixedCoordinate = context.getFixedCoordinate();
-        //泳道组原始左上角y坐标
+        //泳道组原始左上角y坐标的相对位置（相对窗口的位置）
         const laneGroupLeftTopY = fixedCoordinate.y + this._group.startOffSet.y;
         console.log(this._startCoordinate.y, laneGroupLeftTopY)
         if (this._startCoordinate.y >= laneGroupLeftTopY) {
-            //当泳道左上角y坐标 大于等于 泳道组原始左上角y坐标时，泳道名字需要再初始化的位置
+            //当泳道左上角y坐标 大于等于 泳道组原始左上角y坐标的相对位置时，泳道名字需要再初始化的位置
             laneName.y(this._startCoordinate.y + 10);
         } else if (this._startCoordinate.y < laneGroupLeftTopY
             && yBottom - 20 - laneName.height() >= laneGroupLeftTopY) {
-            //当泳道左上角y坐标 小于 泳道组原始左上角y坐标时，并且 当泳道左上角y坐标 大于等于 泳道底边-边框-文字高度的位置时，
-            //泳道名字需要在泳道组原始左上角y坐标+边框的位置
+            //当泳道左上角y坐标 小于 泳道组原始左上角y坐标的相对位置时，并且 当泳道左上角y坐标 大于等于 泳道底边-边框-文字高度的位置时，
+            //泳道名字需要在泳道组原始左上角y坐标的相对位置+边框的位置
             laneName.y(laneGroupLeftTopY + 10);
         } else {
             //其他时候，泳道名字需要在泳道底边-边框-文字高度的位置
