@@ -35,7 +35,7 @@ export class ChronosLaneGroup implements DragListener {
     /**
      * 渲染起始坐标
      */
-    private _startOffSet: { x: number, y: number }
+    private readonly _startOffSet: { x: number, y: number }
 
     /**
      * 高度
