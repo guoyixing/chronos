@@ -31,11 +31,10 @@ export class Context {
      */
     stageMoveLimit: { yTop: number, yBottom: number } = {yTop: 0, yBottom: 0};
 
-    constructor(htmlElement: HTMLDivElement) {
+    constructor(stageConfig: StageConfig) {
         this.rootLayer = new Konva.Layer()
         this.layerIndex = new Map()
         this.layerIndex.set('root', this.rootLayer)
-        const stageConfig = new StageConfig(htmlElement, true)
         this.stageConfig = stageConfig
 
         this.stage = new Konva.Stage({
@@ -43,7 +42,7 @@ export class Context {
             width: stageConfig.size.width,
             height: stageConfig.size.height,
             //舞台拖动
-            draggable: true
+            draggable: stageConfig.draggable
         })
         this.stage.add(this.rootLayer)
     }

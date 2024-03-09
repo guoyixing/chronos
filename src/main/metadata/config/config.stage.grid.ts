@@ -18,10 +18,17 @@ export class GridConfig {
      */
     private _width: number = 1;
 
-    constructor(size?: number, color?: string, width?: number) {
+    /**
+     * 是否显示点
+     * 鼠标移动到网格上的时候，是否显示点
+     */
+    private _point: boolean = false;
+
+    constructor(size?: number, color?: string, width?: number, point?: boolean) {
         this._size = size || this._size;
         this._color = color || this._color;
         this._width = width || this._width;
+        this._point = typeof point === 'undefined' ? this.point : point;
     }
 
     get size(): number {
@@ -46,5 +53,13 @@ export class GridConfig {
 
     set width(value: number) {
         this._width = value;
+    }
+
+    get point(): boolean {
+        return this._point;
+    }
+
+    set point(value: boolean) {
+        this._point = value;
     }
 }

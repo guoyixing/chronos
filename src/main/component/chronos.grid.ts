@@ -9,15 +9,39 @@ export class ChronosGrid implements DragListener {
 
     private readonly context: Context
 
+    /**
+     * 网格横线坐标
+     */
+    private xLine: number[] = []
+
+    /**
+     * 网格纵线坐标
+     */
+    private yLine: number[] = []
+
+    /**
+     * 点
+     */
+    private point: Konva.Circle | null = null;
+
     constructor(renderer: Context) {
         this.context = renderer;
-        this.draw();
         //注册监听
         this.stageMoveListen();
+        if (this.context.stageConfig.grid.point) {
+            this.mouseMoveListen();
+        }
     }
 
     get layer() {
         return this.context.rootLayer
+    }
+
+    /**
+     * 获取点的坐标
+     */
+    getPoint() {
+        return this.point ? {x: this.point.x(), y: this.point.y()} : null;
     }
 
     /**
@@ -28,9 +52,24 @@ export class ChronosGrid implements DragListener {
     }
 
     /**
+     * 鼠标移动监听
+     */
+    mouseMoveListen() {
+        //TODO 后续统一监听
+        this.context.stage.on('mousemove', () => {
+            this.drawPoint();
+        });
+
+    }
+
+    /**
      * 绘制网格
      */
     draw() {
+        //清空网格坐标
+        this.xLine = [];
+        this.yLine = [];
+
         const {stageConfig, rootLayer} = this.context;
         const [width, height] = this.context.getSize()
         const grid = stageConfig.grid;
@@ -46,6 +85,7 @@ export class ChronosGrid implements DragListener {
 
         //绘制纵线
         for (let i = x; i < x + width + grid.size; i += grid.size) {
+            this.xLine.push(i);
             rootLayer.add(new Konva.Line({
                 //x开始，y开始，x结束，y结束
                 //y开始-网格大小，是为了移动的时候，上方不会出现空白
@@ -58,11 +98,52 @@ export class ChronosGrid implements DragListener {
 
         //绘制横线
         for (let j = y; j < y + height + grid.size; j += grid.size) {
+            this.yLine.push(j);
             rootLayer.add(new Konva.Line({
                 points: [x - grid.size, j, x + width + grid.size, j],
                 stroke: grid.color,
                 strokeWidth: grid.width,
             }));
         }
+    }
+
+    /**
+     * 绘制鼠标移动到网格上的点
+     */
+    drawPoint() {
+        //获取鼠标位置
+        const pointerPosition = this.context.stage.getPointerPosition();
+        if (!pointerPosition) {
+            return;
+        }
+        const fixedCoordinate = this.context.getFixedCoordinate();
+        const mouseX = pointerPosition.x + fixedCoordinate.x;
+        const mouseY = pointerPosition.y + fixedCoordinate.y;
+
+        //获取x线与鼠标最近的坐标
+        const x = this.xLine.reduce((prev, curr) => {
+            return (Math.abs(curr - mouseX) < Math.abs(prev - mouseX) ? curr : prev);
+        })
+
+        //获取y线与鼠标最近的坐标
+        const y = this.yLine.reduce((prev, curr) => {
+            return (Math.abs(curr - mouseY) < Math.abs(prev - mouseY) ? curr : prev);
+        })
+
+        //清空点
+        if (this.point) {
+            this.point.remove();
+        }
+
+        //绘制点
+        this.point = new Konva.Circle({
+            x: x,
+            y: y,
+            radius: 3,
+            fill: '#DD0000',
+        });
+
+        //绘制点
+        this.layer.add(this.point);
     }
 }

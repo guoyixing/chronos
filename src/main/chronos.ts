@@ -4,6 +4,7 @@ import {ChronosTimeline} from "./component/chronos.timeline";
 import {ChronosGrid} from "./component/chronos.grid";
 import {DragEventPublisher} from "./context/drag.event";
 import {ChronosLaneGroup} from "./component/chronos.lane";
+import {StageConfig} from "./metadata/config/config.stage";
 
 export class Chronos {
 
@@ -17,7 +18,8 @@ export class Chronos {
 
         rootHtml.style.overflow = 'hidden';
 
-        this.context = new Context(rootHtml)
+        const stageConfig = new StageConfig(rootHtml, true)
+        this.context = new Context(stageConfig)
 
         document.addEventListener('DOMContentLoaded', () => {
             //网格
@@ -33,10 +35,10 @@ export class Chronos {
 
 
             // 发布事件不持有上下文,将 on 函数绑定到当前舞台
-            const eventFunction =  this.context.stage.on.bind(this.context.stage)
+            const eventFunction = this.context.stage.on.bind(this.context.stage)
 
             // 发布事件不持有上下文
-            new DragEventPublisher(eventFunction,chronosWindow,chronosTimeline,grid,chronosLaneGroup);
+            new DragEventPublisher(eventFunction, chronosWindow, chronosTimeline, grid, chronosLaneGroup);
         });
     }
 

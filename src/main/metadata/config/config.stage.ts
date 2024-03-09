@@ -21,6 +21,11 @@ export class StageConfig {
     private _rootElement: HTMLDivElement;
 
     /**
+     * 是否运行拖动
+     */
+    private _draggable: boolean = true;
+
+    /**
      * 是否展示网格
      */
     private _showGrid: boolean = false;
@@ -34,12 +39,14 @@ export class StageConfig {
      * 构造器
      * @param divElement 舞台所在的div元素
      * @param showGrid 是否展示网格
+     * @param draggable 是否允许拖动
      * @param size 舞台大小
      * @param grid 网格配置
      */
-    constructor(divElement: HTMLDivElement, showGrid?: boolean, size?: Size, grid?: GridConfig) {
+    constructor(divElement: HTMLDivElement, showGrid?: boolean, draggable?: boolean, size?: Size, grid?: GridConfig) {
         this._rootElement = divElement;
-        this._showGrid = showGrid || this._showGrid
+        this._showGrid = typeof showGrid === 'undefined' ? this._showGrid : showGrid
+        this._draggable = typeof draggable === 'undefined' ? this._draggable : draggable
         this._grid = grid || new GridConfig();
 
         // div的相对定位矩阵
@@ -85,5 +92,13 @@ export class StageConfig {
 
     set grid(value: GridConfig) {
         this._grid = value;
+    }
+
+    get draggable(): boolean {
+        return this._draggable;
+    }
+
+    set draggable(value: boolean) {
+        this._draggable = value;
     }
 }
