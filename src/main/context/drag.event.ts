@@ -27,7 +27,7 @@ export class DragEventPublisher {
         for (const listener of moveListeners) {
             const arr = map.get(listener.layer);
             if (!arr) {
-                map.set(listener.layer,[listener])
+                map.set(listener.layer, [listener])
                 continue
             }
             arr.push(listener)
@@ -66,7 +66,7 @@ export class DragEventPublisher {
     }
 
     public removeListener(item: DragListener): boolean {
-        const listeners = this.listenerBucket.get(  item.layer);
+        const listeners = this.listenerBucket.get(item.layer);
 
         if (!listeners) {
             return false;
@@ -84,7 +84,7 @@ export class DragEventPublisher {
     appendListener(listener: DragListener) {
         const listeners = this.listenerBucket.get(listener.layer);
         if (!listeners) {
-            this.listenerBucket.set(listener.layer,[listener])
+            this.listenerBucket.set(listener.layer, [listener])
             return
         }
         listeners.push(listener)
