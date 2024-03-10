@@ -73,7 +73,7 @@ export class ChronosTimeline implements DragListener {
             coordinateXList.push(i);
         }
 
-        const slidingWindowList = this.slidingWindowDateTime(leftWidth, rightWidth);
+        const slidingWindowList = this.processingSlidingWindowDate(leftWidth, rightWidth);
 
         return [slidingWindowList, coordinateXList];
     }
@@ -81,7 +81,7 @@ export class ChronosTimeline implements DragListener {
     /**
      * 构建滑动窗口区域内的日期，正负数不敏感
      */
-    slidingWindowDateTime(leftWidth: number, rightWidth: number): TimeStructure {
+    processingSlidingWindowDate(leftWidth: number, rightWidth: number): TimeStructure {
         const grid = this.context.stageConfig.grid;
 
         // 从某年开始
@@ -129,7 +129,7 @@ export class ChronosTimeline implements DragListener {
         coordinateXList = [...coordinateXListReverse].reverse();
 
         // 最终绘画的对象
-        const dayRectList: {
+        const drawList: {
             dayTextList: Text[],
             monthTextList: Text[],
             dayRectList: Konva.Rect[],
@@ -157,8 +157,8 @@ export class ChronosTimeline implements DragListener {
                     const dayText = this.buildText(x!, dayY, String(dayList[i]), grid.width);
                     const rect = this.buildDayRect(x!, dayY, dayColor, grid);
 
-                    dayRectList.dayRectList.push(rect);
-                    dayRectList.dayTextList.push(dayText);
+                    drawList.dayRectList.push(rect);
+                    drawList.dayTextList.push(dayText);
                 }
 
                 const monthDrawWidth = (dayList.length) * grid.size;
@@ -167,18 +167,18 @@ export class ChronosTimeline implements DragListener {
                 const monthText = this.buildText(monthX, monthY, month + "月", monthDrawWidth);
                 const monthRect = this.buildMonthRect(monthX, monthY, monthDrawWidth, grid);
 
-                dayRectList.monthTextList.push(monthText);
-                dayRectList.monthRectList.push(monthRect);
+                drawList.monthTextList.push(monthText);
+                drawList.monthRectList.push(monthRect);
 
                 monthNextX += dayList.length;
             }
         }
 
-        this._layer.add(...dayRectList.dayRectList);
-        this._layer.add(...dayRectList.dayTextList);
+        this._layer.add(...drawList.dayRectList);
+        this._layer.add(...drawList.dayTextList);
 
-        this._layer.add(...dayRectList.monthRectList);
-        this._layer.add(...dayRectList.monthTextList);
+        this._layer.add(...drawList.monthRectList);
+        this._layer.add(...drawList.monthTextList);
     }
 
     private buildMonthRect(x: number, y: number, width: number, grid: GridConfig) {

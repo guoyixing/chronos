@@ -2,6 +2,7 @@ import {Chronos} from "../main/chronos";
 
 import mock from './mock.json';
 import {ChronosNodeDraw} from "../main/component/node/chronos.node.draw";
+
 console.log(mock);
 
 const divElement: HTMLElement | null = document.getElementById('root');

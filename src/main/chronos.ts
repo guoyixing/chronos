@@ -41,6 +41,8 @@ export class Chronos {
 
             // 追加一个 debugger
             publisher.appendListener(new Debugger(this.context))
+
+            console.log(this.context.stage.toJSON());
         });
     }
 
