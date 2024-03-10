@@ -5,7 +5,7 @@ export interface DragListener {
     layer: Konva.Layer
 }
 
-type Publisher = (evtStr: string, handler: () => void) => void
+type Publisher = (evtStr: string, handler: (e: Konva.KonvaEventObject<DragEvent>) => void) => void
 
 /**
  * 帮助 Layer 发布拖拽移动事件，不持有上下文，职责是发布事件
@@ -41,11 +41,13 @@ export class DragEventPublisher {
      * 监听拖拽
      */
     private publishMoveEvent() {
-        this.publisher('dragmove', () => {
-            this.listenerBucket.forEach((value,layer) => {
-                layer.destroyChildren();
-                this.notificationListener(value);
-            })
+        this.publisher('dragmove', (e) => {
+            if (e.target instanceof Konva.Stage) {
+                this.listenerBucket.forEach((value, layer) => {
+                    layer.destroyChildren();
+                    this.notificationListener(value);
+                })
+            }
         })
     }
 
