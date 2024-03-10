@@ -50,23 +50,41 @@ export class ChronosWindow implements DragListener {
 
     /**
      * 绘制窗体
+     * 不能使用rect，因为rect会挡住下面的图层的内容
      */
     draw() {
         const [width, height] = this.context.getSize()
         const coordinate = this.context.getFixedCoordinate()
 
-        // 4变形边框绘制
-        const windowBorder = new Konva.Rect({
-            x: coordinate.x,
-            y: coordinate.y,
-            width: width,
-            height: height,
-
-            // 以下选项属于终端样式配置
+        //画上边线
+        const topLine = new Konva.Line({
+            points: [coordinate.x, coordinate.y, coordinate.x + width, coordinate.y],
+            stroke: 'black',
+            strokeWidth: 1
+        });
+        //画下边线
+        const bottomLine = new Konva.Line({
+            points: [coordinate.x, coordinate.y + height, coordinate.x + width, coordinate.y + height],
+            stroke: 'black',
+            strokeWidth: 1
+        });
+        //画左边线
+        const leftLine = new Konva.Line({
+            points: [coordinate.x, coordinate.y, coordinate.x, coordinate.y + height],
+            stroke: 'black',
+            strokeWidth: 1
+        });
+        //画右边线
+        const rightLine = new Konva.Line({
+            points: [coordinate.x + width, coordinate.y, coordinate.x + width, coordinate.y + height],
             stroke: 'black',
             strokeWidth: 1
         });
 
-        this._layer.add(windowBorder);
+        //加入图层
+        this._layer.add(topLine);
+        this._layer.add(bottomLine);
+        this._layer.add(leftLine);
+        this._layer.add(rightLine);
     }
 }

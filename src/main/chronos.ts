@@ -24,12 +24,12 @@ export class Chronos {
         document.addEventListener('DOMContentLoaded', () => {
             //网格
             const grid = new ChronosGrid(this.context);
+            //泳道组
+            const chronosLaneGroup = new ChronosLaneGroup(this.context, {x: 0, y: 60});
             //时间轴
             const chronosTimeline = new ChronosTimeline(this.context, {
                 years: [2024, 2025]
             });
-            //泳道组
-            const chronosLaneGroup = new ChronosLaneGroup(this.context, {x: 0, y: 60});
             //窗体
             const chronosWindow = new ChronosWindow(this.context);
 
