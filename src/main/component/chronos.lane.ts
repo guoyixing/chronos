@@ -1,7 +1,6 @@
 import {DragListener} from "../context/drag.event";
 import Konva from "konva";
 import {Context} from "../context/context";
-import {i} from "vite/dist/node/types.d-AKzkD8vd";
 
 /**
  * 泳道组
@@ -49,8 +48,8 @@ export class ChronosLaneGroup implements DragListener {
                 }, rowHeight?: number, laneLeftWidth?: number,
     ) {
         this.context = context;
-        this._rowHeight = rowHeight || this._rowHeight;
-        this._laneLeftWidth = laneLeftWidth || this._laneLeftWidth;
+        this._rowHeight = rowHeight ?? this._rowHeight;
+        this._laneLeftWidth = laneLeftWidth ?? this._laneLeftWidth;
         this._startOffSet = startOffSet;
         //申请图层
         this._layer = this.context.applyLayer('lane')
@@ -188,7 +187,7 @@ export class ChronosLane {
         this._name = name;
         this._index = index;
         this._group = group;
-        this._rowNum = rowNum || this._rowNum;
+        this._rowNum = rowNum ?? this._rowNum;
         this._startCoordinate = startCoordinate;
     }
 
