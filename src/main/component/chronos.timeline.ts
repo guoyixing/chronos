@@ -101,8 +101,9 @@ export class ChronosTimeline implements DragListener {
             // 加1更好的操作月份
             const month = datetime.getMonth() + 1;
 
-            result[year] = result[year] ? result[year] : {};
-            result[year][month] = result[year][month] ? result[year][month] : [];
+            result[year] = result[year] || {};
+            
+            result[year][month] = result[year][month] || [];
 
             result[year][month].push(datetime.getDate());
         }
@@ -151,10 +152,10 @@ export class ChronosTimeline implements DragListener {
                 const dayList = slidingWindowList[year][month];
 
                 // 搜集天和天数的框框
-                for (let i = 0; i < dayList.length; i++) {
+                for ( const element of dayList ) {
                     const x = coordinateXListReverse.pop();
-
-                    const dayText = this.buildText(x!, dayY, String(dayList[i]), grid.width);
+                    
+                    const dayText = this.buildText( x!, dayY, String( element), grid.width);
                     const rect = this.buildDayRect(x!, dayY, dayColor, grid);
 
                     drawList.dayRectList.push(rect);
@@ -202,7 +203,7 @@ export class ChronosTimeline implements DragListener {
             width: grid.size,
             height: grid.size,
             strokeWidth: grid.width,
-
+ 
             // todo style
             fill: color,
             stroke: "black",
