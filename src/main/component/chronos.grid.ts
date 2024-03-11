@@ -31,6 +31,7 @@ export class ChronosGrid implements DragListener {
         if (this.context.stageConfig.grid.point) {
             this.mouseMoveListen();
         }
+        this.context.registerComponent("grid", this);
     }
 
     get layer() {
@@ -59,7 +60,6 @@ export class ChronosGrid implements DragListener {
         this.context.stage.on('mousemove', () => {
             this.drawPoint();
         });
-
     }
 
     /**

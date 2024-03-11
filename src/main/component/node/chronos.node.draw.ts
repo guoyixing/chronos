@@ -2,6 +2,7 @@ import {Context} from "../../context/context";
 import {ChronosGrid} from "../chronos.grid";
 import {StageConfig} from "../../metadata/config/config.stage";
 import {GridConfig} from "../../metadata/config/config.stage.grid";
+import {ChronosNodeBrush} from "./chronos.node.brush";
 
 /**
  * 节点画板
@@ -25,6 +26,8 @@ export class ChronosNodeDraw {
         document.addEventListener('DOMContentLoaded', () => {
             //网格
             const grid = new ChronosGrid(this.context);
+            //画笔
+            const chronosNodeBrush = new ChronosNodeBrush(this.context);
         });
     }
 }
