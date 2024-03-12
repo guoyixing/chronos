@@ -37,7 +37,6 @@ type DrawList = {
  */
 const oneDayMillisecond = 86400000;
 
-
 export class ChronosTimeline implements DragListener {
 
     private readonly context: Context;
@@ -46,7 +45,7 @@ export class ChronosTimeline implements DragListener {
 
     private readonly years: number;
 
-    private readonly headWidth: number = 80;
+    private readonly headWidth: number = 20;
 
     constructor(context: Context, years: number, headWidth?: number) {
         this.context = context;
@@ -82,7 +81,7 @@ export class ChronosTimeline implements DragListener {
 
         // grid.size * 2 向右多画一格
         const rightWidth = x + width + grid.size;
-        const leftWidth = x - grid.size;
+        const leftWidth = x;
 
         const coordinateXList = [];
         for (let i = leftWidth; i < rightWidth; i += grid.size) {
@@ -209,7 +208,7 @@ export class ChronosTimeline implements DragListener {
             const yearTextWidth = windowWidth * (yearWidthList[year] / (monthNextX * grid.size)) + this.headWidth;
             const center = yearTextWidth / 2;
 
-            if (yearTextWidth > windowWidth / 4) {
+            if (yearTextWidth > grid.size * 6) {
                 const yearText = this.buildText(yearTextX + center, yearY, year + "年");
                 drawList.yearTextList.push(yearText);
             }
@@ -219,11 +218,7 @@ export class ChronosTimeline implements DragListener {
 
         // 渲染绘画
         Object.keys(drawList).forEach(key => {
-            // 使用JS的语法糖屏蔽一下报错
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
-            const listElement = drawList[key];
-            this._layer.add(...listElement);
+            this._layer.add(...drawList[key as keyof DrawList]);
         });
     }
 
