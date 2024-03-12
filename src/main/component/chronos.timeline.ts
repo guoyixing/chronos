@@ -47,8 +47,11 @@ export class ChronosTimeline implements DragListener {
 
     private readonly headWidth: number = 20;
 
+    private readonly grid: GridConfig;
+
     constructor(context: Context, years: number, headWidth?: number) {
         this.context = context;
+        this.grid = this.context.stageConfig.grid;
         this._layer = this.context.applyLayer("timeline");
         this.years = years;
         this.headWidth = headWidth ?? this.headWidth;
@@ -63,40 +66,36 @@ export class ChronosTimeline implements DragListener {
      * 先预处理再去绘画图形
      */
     stageMoveListen(): void {
-        const [slidingWindowList, coordinateXList] = this.preprocessing();
-        this.drawAll(slidingWindowList, coordinateXList);
+        this.drawAll();
     }
 
     /**
-     * 预处理数据
+     * 通过日期获滑动窗口边界，天数,以及每天对应的 x 坐标
      *
-     * 处理滑动窗口内的天数,以及每天对应的 x 坐标
+     * @param offset 可以多画多少格
      */
-    preprocessing(): [slidingWindowList: TimeStructure, coordinateXList: number[]] {
+    processingBounds(offset?: number): [slidingWindowList: TimeStructure, coordinateXList: number[]] {
         const [width] = this.context.getSize();
-        const grid = this.context.stageConfig.grid;
 
         const coordinate = this.context.getFixedCoordinate();
-        const x = coordinate.x - coordinate.x % grid.size;
+        const x = coordinate.x - coordinate.x % this.grid.size;
 
-        // grid.size * 2 向右多画一格
-        const rightWidth = x + width + grid.size;
-        const leftWidth = x;
+        const rightWidth = x + width + this.grid.size + this.grid.size * (offset || 1);
+        const leftWidth = x - this.grid.size * (offset || 1);
 
         const coordinateXList = [];
-        for (let i = leftWidth; i < rightWidth; i += grid.size) {
+        for (let i = leftWidth; i < rightWidth; i += this.grid.size) {
             coordinateXList.push(i + this.headWidth);
         }
 
-        const slidingWindowList = this.processingSlidingWindowDate(leftWidth, rightWidth);
-
+        const slidingWindowList = this.processingDateTime(leftWidth, rightWidth);
         return [slidingWindowList, coordinateXList];
     }
 
     /**
      * 构建滑动窗口区域内的日期，正负数不敏感
      */
-    processingSlidingWindowDate(leftWidth: number, rightWidth: number): TimeStructure {
+    processingDateTime(leftWidth: number, rightWidth: number): TimeStructure {
         const grid = this.context.stageConfig.grid;
 
         // 从某年开始
@@ -127,99 +126,107 @@ export class ChronosTimeline implements DragListener {
 
     /**
      * 绘画年月日
-     *
-     * @param slidingWindowList 滑动窗口的时间集合
-     * @param coordinateXList   预处理好的 x 坐标集合
      */
-    drawAll(slidingWindowList: TimeStructure, coordinateXList: number[]) {
-        const grid = this.context.stageConfig.grid;
-        const coordinate = this.context.getFixedCoordinate();
-
-        // 坐标系反转, 第N个 day 可以从表尾 pop
-        const coordinateXListReverse = [...coordinateXList].reverse();
-
+    drawAll() {
         const drawList = this.buildDrawList();
 
-        // 上一个月份的坐标
-        let monthNextX = 0;
-        const dayY = coordinate.y + grid.size * 2;
-        const monthY = dayY - grid.size;
-        const yearY = coordinate.y;
-
-        const yearWidthList: {
-            [year: string]: number
-        } = {};
-
-        // 绘制 [ 月, 日 ] 三重for循环,但循环次数没有增加,虽然长得很可疑但是很合理
-        for (const year in slidingWindowList) {
-            // 记录一下月份第一次绘制的坐标
-            const beginYear = monthNextX;
-
-            for (const month in slidingWindowList[year]) {
-                // 斑马线
-                const dayColor = parseInt(month) % 2 == 0 ? "#54A754" : "#359EE8";
-
-                // 这个月的天数
-                const dayList = slidingWindowList[year][month];
-
-                // 搜集天和天数的框框
-                for (const element of dayList) {
-                    const dayX = coordinateXListReverse.pop();
-                    const dayText = this.buildText(dayX!, dayY, String(element));
-                    const dayRect = this.buildDayRect(dayX!, dayY, dayColor, grid);
-
-                    drawList.dayRectList.push(dayRect);
-                    drawList.dayTextList.push(dayText);
-                }
-
-                // 按每个月有多少天计算月份条的宽度
-                const monthDrawWidth = (dayList.length) * grid.size;
-                const monthX = coordinateXList[monthNextX];
-
-                // 绘制月份
-                const monthRect = this.buildMonthRect(monthX, monthY, monthDrawWidth, grid);
-                drawList.monthRectList.push(monthRect);
-
-                // 小于两个方格不绘画
-                if (monthDrawWidth > 2 * grid.size) {
-                    const monthText = this.buildText(monthX + monthDrawWidth / 2, monthY, month + "月");
-                    drawList.monthTextList.push(monthText);
-                }
-
-                // 增加这个年的宽度
-                yearWidthList[year] = yearWidthList[year] || 0;
-                yearWidthList[year] += dayList.length * grid.size;
-
-                // 告诉下一个月我这次画了几天
-                monthNextX += dayList.length;
-            }
-
-            // 绘制年份的矩形
-            const yearWidth = monthNextX * grid.size;
-            const yearRect = this.buildYearRect(coordinateXList[beginYear], yearY, yearWidth, grid, "#ea6924");
-            drawList.yearRectList.push(yearRect);
-        }
-
-        // 绘制年份的字
-        let yearTextX = coordinate.x;
-        const [windowWidth] = this.context.getSize();
-        for (const year in slidingWindowList) {
-            // 窗口和月份长度的比例 * 窗口的大小
-            const yearTextWidth = windowWidth * (yearWidthList[year] / (monthNextX * grid.size)) + this.headWidth;
-            const center = yearTextWidth / 2;
-
-            if (yearTextWidth > grid.size * 6) {
-                const yearText = this.buildText(yearTextX + center, yearY, year + "年");
-                drawList.yearTextList.push(yearText);
-            }
-
-            yearTextX += yearTextWidth;
-        }
+        this.drawYear(drawList);
+        this.drawMonth(drawList);
+        this.drawDay(drawList);
 
         // 渲染绘画
         Object.keys(drawList).forEach(key => {
             this._layer.add(...drawList[key as keyof DrawList]);
         });
+    }
+
+    drawYear(drawList: DrawList) {
+        const [slidingWindowList, coordinateXList] = this.processingBounds();
+        const coordinate = this.context.getFixedCoordinate();
+
+        // 绘制年份的字
+        let yearTextX = coordinate.x;
+
+        // 上一个月份的坐标
+        let yearNextX = 0;
+        for (const year in slidingWindowList) {
+            // 记录一下月份第一次绘制的坐标
+            const beginYear = yearNextX;
+
+            for (const month in slidingWindowList[year]) {
+                yearNextX += slidingWindowList[year][month].length;
+            }
+
+            // 绘制年份的矩形
+            const yearX = coordinateXList[beginYear];
+            const yearWidth = yearNextX * this.grid.size;
+            const yearRect = this.buildYearRect(yearX, coordinate.y, yearWidth, this.grid, "#ea6924");
+
+            if (yearWidth > this.grid.size * 5) {
+                const yearText = this.buildText(yearTextX + yearWidth / 2, coordinate.y, year + "年");
+                drawList.yearTextList.push(yearText);
+            }
+
+            drawList.yearRectList.push(yearRect);
+            yearTextX += yearWidth;
+        }
+    }
+
+    drawMonth(drawList: DrawList) {
+        const [slidingWindowList, coordinateXList] = this.processingBounds(20);
+        const coordinate = this.context.getFixedCoordinate();
+
+        // 上一个月份的坐标
+        let monthNextX = 0;
+        const monthY = coordinate.y + this.grid.size;
+
+        // 绘制 [ 月 ]
+        for (const year in slidingWindowList) {
+            for (const month in slidingWindowList[year]) {
+                // 这个月的天数
+                const dayList = slidingWindowList[year][month];
+                // 按每个月有多少天计算月份条的宽度
+                const monthDrawWidth = (dayList.length) * this.grid.size;
+                const monthX = coordinateXList[monthNextX];
+                // 绘制月份
+                const monthRect = this.buildMonthRect(monthX, monthY, monthDrawWidth, this.grid);
+                const monthText = this.buildText(monthX + monthDrawWidth / 2, monthY, month + "月");
+
+                drawList.monthRectList.push(monthRect);
+                drawList.monthTextList.push(monthText);
+
+                // 告诉下一个月我这次画了几天
+                monthNextX += dayList.length;
+            }
+        }
+    }
+
+    drawDay(drawList: DrawList) {
+        const [slidingWindowList, coordinateXList] = this.processingBounds();
+        const coordinate = this.context.getFixedCoordinate();
+
+        // 坐标系反转, 第N个 day 可以从表尾 pop
+        const coordinateXListReverse = [...coordinateXList].reverse();
+        const dayY = coordinate.y + this.grid.size * 2;
+
+        // 绘制 [ 日 ] 三重for循环,但循环次数没有增加
+        for (const year in slidingWindowList) {
+            for (const month in slidingWindowList[year]) {
+                // 斑马线
+                const dayColor = parseInt(month) % 2 == 0 ? "#54A754" : "#359EE8";
+                // 这个月的天数
+                const dayList = slidingWindowList[year][month];
+                // 搜集天和天数的框框
+                for (const element of dayList) {
+                    const dayX = coordinateXListReverse.pop();
+                    const dayText = this.buildText(dayX!, dayY, String(element));
+                    const dayRect = this.buildDayRect(dayX!, dayY, dayColor, this.grid);
+
+                    drawList.dayRectList.push(dayRect);
+                    drawList.dayTextList.push(dayText);
+                }
+            }
+        }
     }
 
     /**
