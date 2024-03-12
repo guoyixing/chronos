@@ -59,20 +59,18 @@ export class ChronosToolbar implements DragListener {
     }
 
     draw() {
-        //获取固定坐标
-        const fixedCoordinate = this.context.getFixedCoordinate();
-        //绘制工具栏底色
-        const rect = new Konva.Rect({
-            x: this._startOffSet.x + fixedCoordinate.x,
-            y: this._startOffSet.y + fixedCoordinate.y,
-            width: this._width,
-            height: this.context.stageConfig.size.height,
-            fill: 'lightgray',
-            stroke: 'black',
-            strokeWidth: 1
-        });
-        this._layer.add(rect);
+        //绘制背景
+        this.drawBackground();
+        //绘制工具组
+        this.drawToolbarGroup();
+    }
 
+    /**
+     * 绘制工具组
+     * @private
+     */
+    private drawToolbarGroup() {
+        const fixedCoordinate = this.context.getFixedCoordinate();
         //下一个元素的y坐标
         let nextY = 0;
         //绘制工具
@@ -104,6 +102,25 @@ export class ChronosToolbar implements DragListener {
         });
     }
 
+    /**
+     * 绘制背景
+     */
+    private drawBackground() {
+        //获取固定坐标
+        const fixedCoordinate = this.context.getFixedCoordinate();
+        //绘制工具栏底色
+        const rect = new Konva.Rect({
+            x: this._startOffSet.x + fixedCoordinate.x,
+            y: this._startOffSet.y + fixedCoordinate.y,
+            width: this._width,
+            height: this.context.stageConfig.size.height,
+            fill: 'lightgray',
+            stroke: 'black',
+            strokeWidth: 1
+        });
+        this._layer.add(rect);
+        return fixedCoordinate;
+    }
 
     get layer(): Konva.Layer {
         return this._layer;
