@@ -30,7 +30,7 @@ export class Context {
      * 组件索引
      * TODO 考虑和图层索引合并
      */
-    componentIndex: Map<string, any>;
+    private _componentIndex: Map<string, any>;
 
     /**
      * 舞台限制移动的范围，y轴移动范围是泳道组的高度
@@ -39,7 +39,7 @@ export class Context {
 
     constructor(stageConfig: StageConfig) {
         this.rootLayer = new Konva.Layer()
-        this.componentIndex = new Map()
+        this._componentIndex = new Map()
         this.layerIndex = new Map()
         this.layerIndex.set('root', this.rootLayer)
         this.stageConfig = stageConfig
@@ -98,13 +98,18 @@ export class Context {
      * 注册组件
      */
     registerComponent(name: string, component: any) {
-        this.componentIndex.set(name, component)
+        this._componentIndex.set(name, component)
     }
 
     /**
      * 获取组件
      */
     getComponent(name: string): any {
-        return this.componentIndex.get(name)
+        return this._componentIndex.get(name)
+    }
+
+
+    get componentIndex(): Map<string, any> {
+        return this._componentIndex;
     }
 }

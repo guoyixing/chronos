@@ -1,11 +1,12 @@
 import {DragListener} from "../context/drag.event";
 import Konva from "konva";
 import {Context} from "../context/context";
+import {ChronosTool, ToolbarRegister} from "./chronos.toolbar";
 
 /**
  * 泳道组
  */
-export class ChronosLaneGroup implements DragListener {
+export class ChronosLaneGroup implements DragListener, ToolbarRegister {
 
     /**
      * 图层
@@ -42,6 +43,11 @@ export class ChronosLaneGroup implements DragListener {
      */
     private _height: number = 0
 
+    /**
+     * 是否绘制左侧
+     */
+    private _isDrawLeft: boolean = true;
+
     constructor(context: Context, startOffSet: {
                     x: number;
                     y: number
@@ -53,10 +59,21 @@ export class ChronosLaneGroup implements DragListener {
         this._startOffSet = startOffSet;
         //申请图层
         this._layer = this.context.applyLayer('lane')
+        //注册
+        this.context.registerComponent("lane", this);
         //初始化泳道组
         this.initLaneGroup();
         //注册监听
         this.stageMoveListen();
+    }
+
+    get toolbar(): ChronosTool {
+        return new ChronosTool("泳道", () => {
+            this._isDrawLeft = !this._isDrawLeft;
+            //重新绘制
+            this._layer.destroyChildren();
+            this.draw()
+        })
     }
 
     /**
@@ -77,7 +94,7 @@ export class ChronosLaneGroup implements DragListener {
             const lane = this._laneGroup[i];
             lane.index = i;
             lane.startCoordinate = {x: startX, y: this._height}
-            this._height += lane.draw().height;
+            this._height += lane.draw(this._isDrawLeft).height;
         }
 
         //修改舞台移动限制
@@ -195,7 +212,7 @@ export class ChronosLane {
      * 绘制泳道
      * @return 泳道高度
      */
-    draw(): { height: number } {
+    draw(isDrawLeft: boolean): { height: number } {
         //泳道宽度
         const [width] = this._group.context.getSize()
         //泳道高度
@@ -203,13 +220,6 @@ export class ChronosLane {
 
         //绘制边线
         const [drawBorderTop, drawBorderBottom] = this.drawBorder(width, height);
-
-        //左侧泳道分割块绘制
-        const drawLeft = this.drawLeft(height);
-
-        //绘制泳道名
-        const drawName = this.drawName(height);
-
         const group = new Konva.Group({
             draggable: true,
             //只允许沿着y轴拖动
@@ -222,8 +232,17 @@ export class ChronosLane {
         });
         group.add(drawBorderTop);
         group.add(drawBorderBottom);
-        group.add(drawLeft);
-        group.add(drawName);
+
+        let drawLeft: Konva.Rect
+        if (isDrawLeft) {
+            //左侧泳道分割块绘制
+            drawLeft = this.drawLeft(height);
+
+            //绘制泳道名
+            const drawName = this.drawName(height);
+            group.add(drawLeft);
+            group.add(drawName);
+        }
 
         group.on('mouseover', function () {
             document.body.style.cursor = 'pointer';
@@ -237,7 +256,9 @@ export class ChronosLane {
             //浮动到最上层
             group.moveToTop();
             //添加选中效果
-            drawLeft.fill('#e0e0e0');
+            if (drawLeft) {
+                drawLeft.fill('#e0e0e0');
+            }
         });
 
         //拖动结束
@@ -246,7 +267,6 @@ export class ChronosLane {
             this._group.layer.destroyChildren();
             this._group.draw();
         });
-
 
 
         this._group.layer.add(group);

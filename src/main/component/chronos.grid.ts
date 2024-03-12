@@ -1,11 +1,12 @@
 import {Context} from "../context/context";
 import Konva from "konva";
 import {DragListener} from "../context/drag.event";
+import {ChronosTool, ToolbarRegister} from "./chronos.toolbar";
 
 /**
  * 网格组件
  */
-export class ChronosGrid implements DragListener {
+export class ChronosGrid implements DragListener, ToolbarRegister {
 
     private readonly context: Context
 
@@ -32,6 +33,14 @@ export class ChronosGrid implements DragListener {
             this.mouseMoveListen();
         }
         this.context.registerComponent("grid", this);
+    }
+
+    get toolbar(): ChronosTool {
+        return new ChronosTool("网格", () => {
+            this.context.stageConfig.showGrid = !this.context.stageConfig.showGrid
+            this.layer.destroyChildren()
+            this.draw()
+        })
     }
 
     get layer() {
@@ -66,6 +75,9 @@ export class ChronosGrid implements DragListener {
      * 绘制网格
      */
     draw() {
+        if (!this.context.stageConfig.showGrid) {
+            return
+        }
         //清空网格坐标
         this.xLine = [];
         this.yLine = [];
