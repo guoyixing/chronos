@@ -162,11 +162,17 @@ export class ChronosTimeline implements DragListener {
             const yearWidth = yearNextX * this.grid.size;
             const yearRect = this.buildYearRect(yearX, coordinate.y, yearWidth, this.grid, "#ea6924");
 
-            if (yearWidth > this.grid.size * 5) {
-                const yearText = this.buildText(yearTextX + yearWidth / 2, coordinate.y, year + "年");
-                drawList.yearTextList.push(yearText);
+            let center =  yearWidth / 2
+
+            for (let i = 0; i < 10; i++) {
+                if (center < this.grid.size * i) {
+                    center -= this.grid.size
+                    break
+                }
             }
 
+            const yearText = this.buildText(yearTextX + center, coordinate.y, year + "年");
+            drawList.yearTextList.push(yearText);
             drawList.yearRectList.push(yearRect);
             yearTextX += yearWidth;
         }
