@@ -7,6 +7,7 @@ import {ChronosLaneGroup} from "./component/chronos.lane";
 import {StageConfig} from "./metadata/config/config.stage";
 import {Debugger} from "./context/debugger";
 import {ChronosToolbar} from "./component/chronos.toolbar";
+import {ChronosNodeBar} from "./component/node/chronos.node.bar";
 
 export class Chronos {
 
@@ -29,9 +30,11 @@ export class Chronos {
             //泳道组
             const chronosLaneGroup = new ChronosLaneGroup(this.context, {x: 40, y: 60});
             //时间轴
-            const chronosTimeline = new ChronosTimeline(this.context,2025);
+            const chronosTimeline = new ChronosTimeline(this.context, 2025);
+            //节点选取箱
+            const nodeBar = new ChronosNodeBar(this.context)
             //工具栏
-            const toolBar = new ChronosToolbar(this.context,{x: 0, y: 0});
+            const toolBar = new ChronosToolbar(this.context, {x: 0, y: 0});
             //窗体
             const chronosWindow = new ChronosWindow(this.context);
 
@@ -40,7 +43,8 @@ export class Chronos {
             const eventFunction = this.context.stage.on.bind(this.context.stage)
 
             // 发布事件不持有上下文
-            const publisher = new DragEventPublisher(eventFunction, chronosWindow, chronosTimeline, grid, chronosLaneGroup,toolBar);
+            const publisher = new DragEventPublisher(eventFunction, chronosWindow,
+                chronosTimeline, grid, chronosLaneGroup, toolBar, nodeBar);
 
             // 追加一个 debugger
             publisher.appendListener(new Debugger(this.context))
