@@ -45,7 +45,7 @@ export class ChronosTimeline implements DragListener {
 
     private readonly years: number;
 
-    private readonly headWidth: number = 20;
+    private readonly headWidth: number = 40;
 
     private readonly grid: GridConfig;
 
@@ -67,6 +67,17 @@ export class ChronosTimeline implements DragListener {
      */
     stageMoveListen(): void {
         this.drawAll();
+    }
+
+
+    public convertXToTimestamp(x: number) {
+        return (x / this.grid.size * oneDayMillisecond) + new Date(this.years, 0, 1).getTime();
+    }
+
+    public convertTimestampToX(timestamp: number) {
+        const time = new Date(this.years, 0, 1).getTime();
+        const difference = timestamp - time ;
+        return difference / oneDayMillisecond * this.grid.size;
     }
 
     /**
@@ -99,7 +110,7 @@ export class ChronosTimeline implements DragListener {
         const grid = this.context.stageConfig.grid;
 
         // 从某年开始
-        const thisYear = new Date(this.years, 0, 0).getTime();
+        const thisYear = new Date(this.years, 0, 1).getTime();
 
         leftWidth /= grid.size;
         rightWidth /= grid.size;
@@ -162,12 +173,12 @@ export class ChronosTimeline implements DragListener {
             const yearWidth = yearNextX * this.grid.size;
             const yearRect = this.buildYearRect(yearX, coordinate.y, yearWidth, this.grid, "#ea6924");
 
-            let center =  yearWidth / 2
+            let center = yearWidth / 2;
 
             for (let i = 0; i < 10; i++) {
                 if (center < this.grid.size * i) {
-                    center -= this.grid.size
-                    break
+                    center -= this.grid.size;
+                    break;
                 }
             }
 
