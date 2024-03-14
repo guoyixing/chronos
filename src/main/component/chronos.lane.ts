@@ -103,6 +103,36 @@ export class ChronosLaneGroup implements DragListener, ToolbarRegister {
     }
 
     /**
+     * 根据id获取泳道
+     * @param id 泳道id
+     */
+    laneById(id: string): ChronosLane | undefined {
+        for (let chronosLane of this._laneGroup) {
+            if (chronosLane.id === id) {
+                return chronosLane;
+            }
+        }
+    }
+
+    /**
+     * 根据y轴坐标获取泳道
+     * @param y y轴坐标
+     */
+    laneByY(y: number): ChronosLane | undefined {
+        for (let i = this.laneGroup.length - 1; i >= 0; i--) {
+            //遍历的泳道
+            const lane = this.laneGroup[i];
+            if (y === lane.startCoordinate.y) {
+                throw new Error('y坐标在泳道分割线上，无法获取泳道')
+            }
+            if (y > lane.startCoordinate.y) {
+                //获取鼠标移动到的泳道的索引
+                return lane;
+            }
+        }
+    }
+
+    /**
      * 舞台移动监听
      */
     stageMoveListen(): void {
@@ -165,7 +195,7 @@ export class ChronosLaneGroup implements DragListener, ToolbarRegister {
 export class ChronosLane {
 
     /**
-     * 泳道名称
+     * 泳道id
      */
     private readonly _id: string
 
@@ -272,6 +302,27 @@ export class ChronosLane {
         this._group.layer.add(group);
 
         return {height: height};
+    }
+
+    /**
+     * 根据行号获取泳道的y坐标
+     */
+    getYByRow(row: number): number {
+        if (row < 0 || row >= this._rowNum) {
+            throw new Error('行号超出范围')
+        }
+        return this._startCoordinate.y + row * this._group.rowHeight;
+    }
+
+    /**
+     * 根据y坐标获取泳道的行号
+     */
+    getRowByY(y: number): number {
+        if (y < this._startCoordinate.y || y > this._startCoordinate.y + this._rowNum * this._group.rowHeight) {
+            throw new Error('y坐标超出范围')
+        }
+        //获取小于等于y坐标的行号
+        return Math.floor((y - this._startCoordinate.y) / this._group.rowHeight);
     }
 
     /**
