@@ -26,17 +26,17 @@ export class ChronosToolbar implements DragListener {
     /**
      * 工具组
      */
-    private _toolGroup: Array<ChronosTool> = []
+    toolGroup: Array<ChronosTool> = []
 
     /**
      * 渲染起始坐标
      */
-    private readonly _startOffSet: { x: number, y: number }
+    startOffSet: { x: number, y: number }
 
     /**
      * 宽度
      */
-    private readonly _width: number = 41
+    width: number = 41
 
     constructor(context: Context,
                 startOffSet: {
@@ -44,10 +44,10 @@ export class ChronosToolbar implements DragListener {
                     y: number
                 }, width?: number) {
         this.context = context;
-        this._startOffSet = startOffSet;
+        this.startOffSet = startOffSet;
         //申请图层
         this._layer = this.context.applyLayer('toolbar')
-        this._width = width ?? this._width;
+        this.width = width ?? this.width;
         //初始化工具组
         this.initToolGroup();
         //绘制
@@ -74,10 +74,10 @@ export class ChronosToolbar implements DragListener {
         //下一个元素的y坐标
         let nextY = 0;
         //绘制工具
-        this._toolGroup.forEach((tool, index) => {
+        this.toolGroup.forEach((tool) => {
             const text = new Konva.TextPath({
-                x: this._startOffSet.x + fixedCoordinate.x + this._width / 2,
-                y: this._startOffSet.y + fixedCoordinate.y + nextY + 10,
+                x: this.startOffSet.x + fixedCoordinate.x + this.width / 2,
+                y: this.startOffSet.y + fixedCoordinate.y + nextY + 10,
                 text: tool.name,
                 fontSize: 16,
                 fill: 'black',
@@ -110,9 +110,9 @@ export class ChronosToolbar implements DragListener {
         const fixedCoordinate = this.context.getFixedCoordinate();
         //绘制工具栏底色
         const rect = new Konva.Rect({
-            x: this._startOffSet.x + fixedCoordinate.x,
-            y: this._startOffSet.y + fixedCoordinate.y,
-            width: this._width,
+            x: this.startOffSet.x + fixedCoordinate.x,
+            y: this.startOffSet.y + fixedCoordinate.y,
+            width: this.width,
             height: this.context.stageConfig.size.height,
             fill: 'lightgray',
             stroke: 'black',
@@ -133,7 +133,7 @@ export class ChronosToolbar implements DragListener {
         //从上下文中获取注册的工具
         this.context.componentIndex.forEach((component) => {
             if (this.isToolbarRegister(component)) {
-                this._toolGroup.push(component.toolbar);
+                this.toolGroup.push(component.toolbar);
             }
         });
     }
@@ -151,32 +151,15 @@ export class ChronosTool {
     /**
      * 名称
      */
-    private _name: string
+    name: string
 
     /**
      * 鼠标点时候的回调方法
      */
-    private _callback: () => void
+    callback: () => void
 
     constructor(name: string, callback: () => void) {
-        this._name = name;
-        this._callback = callback;
-    }
-
-
-    get name(): string {
-        return this._name;
-    }
-
-    set name(value: string) {
-        this._name = value;
-    }
-
-    get callback(): () => void {
-        return this._callback;
-    }
-
-    set callback(value: () => void) {
-        this._callback = value;
+        this.name = name;
+        this.callback = callback;
     }
 }
