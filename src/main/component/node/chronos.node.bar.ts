@@ -21,34 +21,34 @@ export class ChronosNodeBar implements DragListener, ToolbarRegister {
     /**
      * 渲染起始坐标
      */
-    private _startOffSet: { x: number, y: number }
+    startOffSet: { x: number, y: number }
 
     /**
      * 宽度
      */
-    private _width: number = 200
+    width: number = 200
 
     /**
      * 高度
      */
-    private _height: number = 320
+    height: number = 320
 
     /**
      * 是否显示
      */
-    private isShow: boolean = false
+    isShow: boolean = false
 
 
     constructor(context: Context, startOffSet?: { x: number, y: number }, width?: number, height?: number) {
         this.context = context;
         this._layer = this.context.applyLayer('nodeBar')
         const size = this.context.stageConfig.size;
-        this._startOffSet = startOffSet ?? {
+        this.startOffSet = startOffSet ?? {
             x: size.width / 2,
             y: size.height / 3
         };
-        this._width = width ?? this._width;
-        this._height = height ?? this._height;
+        this.width = width ?? this.width;
+        this.height = height ?? this.height;
         //注册
         this.context.registerComponent("nodeBar", this);
     }
@@ -57,10 +57,10 @@ export class ChronosNodeBar implements DragListener, ToolbarRegister {
         const fixedCoordinate = this.context.getFixedCoordinate();
         //绘制背景
         const background = new Konva.Rect({
-            x: this._startOffSet.x + fixedCoordinate.x,
-            y: this._startOffSet.y + fixedCoordinate.y,
-            width: this._width,
-            height: this._height,
+            x: this.startOffSet.x + fixedCoordinate.x,
+            y: this.startOffSet.y + fixedCoordinate.y,
+            width: this.width,
+            height: this.height,
             fill: 'white',
             stroke: 'black',
             strokeWidth: 1,
@@ -69,9 +69,9 @@ export class ChronosNodeBar implements DragListener, ToolbarRegister {
 
         //绘制窗体头
         const windowHead = new Konva.Rect({
-            x: this._startOffSet.x + fixedCoordinate.x,
-            y: this._startOffSet.y + fixedCoordinate.y,
-            width: this._width,
+            x: this.startOffSet.x + fixedCoordinate.x,
+            y: this.startOffSet.y + fixedCoordinate.y,
+            width: this.width,
             height: 20,
             fill: 'lightgray',
             stroke: 'black',
@@ -80,8 +80,8 @@ export class ChronosNodeBar implements DragListener, ToolbarRegister {
 
         //绘制关闭按钮
         const close = new Konva.Text({
-            x: this._startOffSet.x + fixedCoordinate.x + this._width - 20,
-            y: this._startOffSet.y + fixedCoordinate.y + 5,
+            x: this.startOffSet.x + fixedCoordinate.x + this.width - 20,
+            y: this.startOffSet.y + fixedCoordinate.y + 5,
             text: 'X',
             fontSize: 15,
             fill: 'black',
@@ -110,9 +110,9 @@ export class ChronosNodeBar implements DragListener, ToolbarRegister {
         });
         //监听移动结束
         group.on('dragend', () => {
-            this._startOffSet = {
-                x: this._startOffSet.x + group.x() - x,
-                y: this._startOffSet.y + group.y() - y
+            this.startOffSet = {
+                x: this.startOffSet.x + group.x() - x,
+                y: this.startOffSet.y + group.y() - y
             }
         });
     }

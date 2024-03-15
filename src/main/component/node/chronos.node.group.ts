@@ -21,12 +21,12 @@ export class ChronosNodeGroup implements DragListener {
     /**
      * 节点组
      */
-    private _nodeGroup: ChronosNodeEntry[] = []
+    nodeGroup: ChronosNodeEntry[] = []
 
     constructor(context: Context, nodeGroup?: ChronosNodeEntry[]) {
         this.context = context;
         this._layer = this.context.applyLayer('nodeGroup')
-        this._nodeGroup = nodeGroup ?? this._nodeGroup;
+        this.nodeGroup = nodeGroup ?? this.nodeGroup;
         this.stageMoveListen();
     }
 

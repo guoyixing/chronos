@@ -13,12 +13,12 @@ export class ChronosGrid implements DragListener, ToolbarRegister {
     /**
      * 网格横线坐标
      */
-    private xLine: number[] = []
+    xLine: number[] = []
 
     /**
      * 网格纵线坐标
      */
-    private yLine: number[] = []
+    yLine: number[] = []
 
     /**
      * 点

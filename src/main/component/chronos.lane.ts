@@ -21,27 +21,27 @@ export class ChronosLaneGroup implements DragListener, ToolbarRegister {
     /**
      * 泳道组
      */
-    private _laneGroup: Array<ChronosLane> = []
+    laneGroup: Array<ChronosLane> = []
 
     /**
      * 元素行高
      */
-    private _rowHeight: number = 40
+    rowHeight: number = 40
 
     /**
      * 泳道左侧宽度
      */
-    private _laneLeftWidth: number = 80
+    laneLeftWidth: number = 80
 
     /**
      * 渲染起始坐标
      */
-    private readonly _startOffSet: { x: number, y: number }
+    startOffSet: { x: number, y: number }
 
     /**
      * 高度
      */
-    private _height: number = 0
+    height: number = 0
 
     /**
      * 是否绘制左侧
@@ -54,9 +54,9 @@ export class ChronosLaneGroup implements DragListener, ToolbarRegister {
                 }, rowHeight?: number, laneLeftWidth?: number,
     ) {
         this.context = context;
-        this._rowHeight = rowHeight ?? this._rowHeight;
-        this._laneLeftWidth = laneLeftWidth ?? this._laneLeftWidth;
-        this._startOffSet = startOffSet;
+        this.rowHeight = rowHeight ?? this.rowHeight;
+        this.laneLeftWidth = laneLeftWidth ?? this.laneLeftWidth;
+        this.startOffSet = startOffSet;
         //申请图层
         this._layer = this.context.applyLayer('lane')
         //注册
@@ -86,19 +86,19 @@ export class ChronosLaneGroup implements DragListener, ToolbarRegister {
         const fixedCoordinate = this.context.getFixedCoordinate();
 
         //泳道组起始坐标
-        const startX = fixedCoordinate.x + this._startOffSet.x;
+        const startX = fixedCoordinate.x + this.startOffSet.x;
 
         //绘制泳道
-        this._height = this._startOffSet.y;
-        for (let i = 0; i < this._laneGroup.length; i++) {
-            const lane = this._laneGroup[i];
+        this.height = this.startOffSet.y;
+        for (let i = 0; i < this.laneGroup.length; i++) {
+            const lane = this.laneGroup[i];
             lane.index = i;
-            lane.startCoordinate = {x: startX, y: this._height}
-            this._height += lane.draw(this._isDrawLeft).height;
+            lane.startCoordinate = {x: startX, y: this.height}
+            this.height += lane.draw(this._isDrawLeft).height;
         }
 
         //修改舞台移动限制
-        this.context.stageMoveLimit.yTop = -(this._height - height);
+        this.context.stageMoveLimit.yTop = -(this.height - height);
         this.context.stageMoveLimit.yBottom = 0;
     }
 
@@ -107,7 +107,7 @@ export class ChronosLaneGroup implements DragListener, ToolbarRegister {
      * @param id 泳道id
      */
     laneById(id: string): ChronosLane | undefined {
-        for (let chronosLane of this._laneGroup) {
+        for (let chronosLane of this.laneGroup) {
             if (chronosLane.id === id) {
                 return chronosLane;
             }
@@ -146,46 +146,15 @@ export class ChronosLaneGroup implements DragListener, ToolbarRegister {
         //TODO 临时模拟数据
         const rowNum = 3;
         for (let i = 0; i < 7; i++) {
-            this._laneGroup.push(new ChronosLane(i + '', '泳道' + i, i, {
-                x: this._startOffSet.x,
-                y: this._startOffSet.y + i * rowNum * this._rowHeight
+            this.laneGroup.push(new ChronosLane(i + '', '泳道' + i, i, {
+                x: this.startOffSet.x,
+                y: this.startOffSet.y + i * rowNum * this.rowHeight
             }, this, rowNum));
         }
     }
 
     get layer(): Konva.Layer {
         return this._layer;
-    }
-
-    get laneLeftWidth(): number {
-        return this._laneLeftWidth;
-    }
-
-    set laneLeftWidth(value: number) {
-        this._laneLeftWidth = value;
-    }
-
-
-    get rowHeight(): number {
-        return this._rowHeight;
-    }
-
-    set rowHeight(value: number) {
-        this._rowHeight = value;
-    }
-
-
-    get startOffSet(): { x: number; y: number } {
-        return this._startOffSet;
-    }
-
-
-    get laneGroup(): Array<ChronosLane> {
-        return this._laneGroup;
-    }
-
-    set laneGroup(value: Array<ChronosLane>) {
-        this._laneGroup = value;
     }
 }
 
@@ -197,45 +166,45 @@ export class ChronosLane {
     /**
      * 泳道id
      */
-    private readonly _id: string
+    readonly id: string
 
     /**
      * 泳道名称
      */
-    private _name: string
+    name: string
 
     /**
      * 泳道行数
      */
-    private _rowNum: number = 1
+    rowNum: number = 1
 
     /**
      * 渲染起始坐标
      */
-    private _startCoordinate: { x: number, y: number }
+    startCoordinate: { x: number, y: number }
 
     /**
      * 泳道组
      */
-    private _group: ChronosLaneGroup;
+    group: ChronosLaneGroup;
 
     /**
      * 索引
      * 当前泳道在泳道组中的索引
      */
-    private _index: number;
+    index: number;
 
 
     constructor(id: string, name: string, index: number, startCoordinate: {
         x: number,
         y: number
     }, group: ChronosLaneGroup, rowNum?: number,) {
-        this._id = id;
-        this._name = name;
-        this._index = index;
-        this._group = group;
-        this._rowNum = rowNum ?? this._rowNum;
-        this._startCoordinate = startCoordinate;
+        this.id = id;
+        this.name = name;
+        this.index = index;
+        this.group = group;
+        this.rowNum = rowNum ?? this.rowNum;
+        this.startCoordinate = startCoordinate;
     }
 
     /**
@@ -244,9 +213,9 @@ export class ChronosLane {
      */
     draw(isDrawLeft: boolean): { height: number } {
         //泳道宽度
-        const [width] = this._group.context.getSize()
+        const [width] = this.group.context.getSize()
         //泳道高度
-        const height = this._rowNum * this._group.rowHeight;
+        const height = this.rowNum * this.group.rowHeight;
 
         //绘制边线
         const [drawBorderTop, drawBorderBottom] = this.drawBorder(width, height);
@@ -294,12 +263,12 @@ export class ChronosLane {
         //拖动结束
         group.on('dragend', () => {
             this.moveIndex();
-            this._group.layer.destroyChildren();
-            this._group.draw();
+            this.group.layer.destroyChildren();
+            this.group.draw();
         });
 
 
-        this._group.layer.add(group);
+        this.group.layer.add(group);
 
         return {height: height};
     }
@@ -308,21 +277,21 @@ export class ChronosLane {
      * 根据行号获取泳道的y坐标
      */
     getYByRow(row: number): number {
-        if (row < 0 || row >= this._rowNum) {
+        if (row < 0 || row >= this.rowNum) {
             throw new Error('行号超出范围')
         }
-        return this._startCoordinate.y + row * this._group.rowHeight;
+        return this.startCoordinate.y + row * this.group.rowHeight;
     }
 
     /**
      * 根据y坐标获取泳道的行号
      */
     getRowByY(y: number): number {
-        if (y < this._startCoordinate.y || y > this._startCoordinate.y + this._rowNum * this._group.rowHeight) {
+        if (y < this.startCoordinate.y || y > this.startCoordinate.y + this.rowNum * this.group.rowHeight) {
             throw new Error('y坐标超出范围')
         }
         //获取小于等于y坐标的行号
-        return Math.floor((y - this._startCoordinate.y) / this._group.rowHeight);
+        return Math.floor((y - this.startCoordinate.y) / this.group.rowHeight);
     }
 
     /**
@@ -333,30 +302,30 @@ export class ChronosLane {
     private moveIndex() {
         //调整移动泳道的顺序
         //获取当前鼠标的位置
-        const pointerPosition = this._group.context.stage.getPointerPosition();
+        const pointerPosition = this.group.context.stage.getPointerPosition();
         if (pointerPosition) {
-            const fixedCoordinate = this._group.context.getFixedCoordinate();
+            const fixedCoordinate = this.group.context.getFixedCoordinate();
             //鼠标的y坐标
             const mouseY = pointerPosition.y + fixedCoordinate.y;
 
             //泳道需要移动到的索引
-            let index = this._index;
+            let index = this.index;
 
             //计算当前鼠标停留的泳道，倒叙遍历
-            for (let i = this._group.laneGroup.length - 1; i >= 0; i--) {
+            for (let i = this.group.laneGroup.length - 1; i >= 0; i--) {
                 //遍历的泳道
-                const lane = this._group.laneGroup[i];
+                const lane = this.group.laneGroup[i];
                 if (mouseY > lane.startCoordinate.y) {
                     //获取鼠标移动到的泳道的索引
-                    index = lane._index;
+                    index = lane.index;
                     break;
                 }
             }
 
             //移动泳道
-            if (index !== this._index) {
-                this._group.laneGroup.splice(this._index, 1);
-                this._group.laneGroup.splice(index, 0, this);
+            if (index !== this.index) {
+                this.group.laneGroup.splice(this.index, 1);
+                this.group.laneGroup.splice(index, 0, this);
             }
         }
     }
@@ -368,25 +337,25 @@ export class ChronosLane {
      */
     private drawName(height: number): Konva.Text {
         //固定坐标
-        const fixedCoordinate = this._group.context.getFixedCoordinate();
+        const fixedCoordinate = this.group.context.getFixedCoordinate();
         //底部泳道分割横线，y坐标
-        const yBottom = this._startCoordinate.y + height;
+        const yBottom = this.startCoordinate.y + height;
         //在左边框与分割线中间位置，绘制泳道名
         const laneName = new Konva.Text({
-            x: this._startCoordinate.x + 10,
-            y: this._startCoordinate.y + 10,
-            text: this._name,
+            x: this.startCoordinate.x + 10,
+            y: this.startCoordinate.y + 10,
+            text: this.name,
             fontSize: 16,
             fontFamily: 'Calibri',
             fill: '#555',
         });
         //泳道组原始左上角y坐标的相对位置（相对窗口的位置）
-        const laneGroupLeftTopY = fixedCoordinate.y + this._group.startOffSet.y;
-        if (this._startCoordinate.y >= laneGroupLeftTopY) {
+        const laneGroupLeftTopY = fixedCoordinate.y + this.group.startOffSet.y;
+        if (this.startCoordinate.y >= laneGroupLeftTopY) {
             //当泳道左上角y坐标 大于等于 泳道组原始左上角y坐标的相对位置时，泳道名字需要再初始化的位置
-            laneName.y(this._startCoordinate.y + 10);
+            laneName.y(this.startCoordinate.y + 10);
 
-        } else if (this._startCoordinate.y < laneGroupLeftTopY
+        } else if (this.startCoordinate.y < laneGroupLeftTopY
             && yBottom - 20 - laneName.height() >= laneGroupLeftTopY) {
             //当泳道左上角y坐标 小于 泳道组原始左上角y坐标的相对位置时，并且 当泳道左上角y坐标 大于等于 泳道底边-边框-文字高度的位置时，
             //泳道名字需要在泳道组原始左上角y坐标的相对位置+边框的位置
@@ -406,14 +375,14 @@ export class ChronosLane {
      * @private
      */
     private drawLeft(height: number): Konva.Rect {
-        const x = this._startCoordinate.x;
-        const y = this._startCoordinate.y;
+        const x = this.startCoordinate.x;
+        const y = this.startCoordinate.y;
 
         //左侧泳道分割块绘制
         return new Konva.Rect({
             x: x,
             y: y,
-            width: this._group.laneLeftWidth,
+            width: this.group.laneLeftWidth,
             height: height,
             fill: '#f0f0f0',
             stroke: 'black',
@@ -428,63 +397,25 @@ export class ChronosLane {
      */
     drawBorder(width: number, height: number): Konva.Line[] {
         //泳道分割横线，xEnd坐标
-        const xEnd = this._startCoordinate.x + width;
+        const xEnd = this.startCoordinate.x + width;
         //底部泳道分割横线，y坐标
-        const yBottom = this._startCoordinate.y + height;
+        const yBottom = this.startCoordinate.y + height;
 
         //顶部泳道分割横线绘制
         const laneTop = new Konva.Line({
-            points: [this._startCoordinate.x, this._startCoordinate.y, xEnd, this._startCoordinate.y],
+            points: [this.startCoordinate.x, this.startCoordinate.y, xEnd, this.startCoordinate.y],
             stroke: 'black',
             strokeWidth: 1
         });
-        this._group.layer.add(laneTop);
+        this.group.layer.add(laneTop);
 
         //底部泳道分割横线绘制
         const laneBottom = new Konva.Line({
-            points: [this._startCoordinate.x, yBottom, xEnd, yBottom],
+            points: [this.startCoordinate.x, yBottom, xEnd, yBottom],
             stroke: 'black',
             strokeWidth: 1
         });
 
         return [laneTop, laneBottom];
-    }
-
-    get id(): string {
-        return this._id;
-    }
-
-    get name(): string {
-        return this._name;
-    }
-
-    set name(value: string) {
-        this._name = value;
-    }
-
-    get rowNum(): number {
-        return this._rowNum;
-    }
-
-    set rowNum(value: number) {
-        this._rowNum = value;
-    }
-
-
-    get startCoordinate(): { x: number; y: number } {
-        return this._startCoordinate;
-    }
-
-    set startCoordinate(value: { x: number; y: number }) {
-        this._startCoordinate = value;
-    }
-
-
-    get index(): number {
-        return this._index;
-    }
-
-    set index(value: number) {
-        this._index = value;
     }
 }

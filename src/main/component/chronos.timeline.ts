@@ -53,6 +53,8 @@ export class ChronosTimeline implements DragListener {
         this.context = context;
         this.grid = this.context.stageConfig.grid;
         this._layer = this.context.applyLayer("timeline");
+        //注册
+        this.context.registerComponent("timeline", this);
         this.years = years;
         this.headWidth = headWidth ?? this.headWidth;
         this.stageMoveListen();

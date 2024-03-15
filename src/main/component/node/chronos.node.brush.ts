@@ -20,7 +20,7 @@ export class ChronosNodeBrush {
     /**
      * 线条组
      */
-    private _lineGroup: Array<ChronosNodeLine> = []
+    lineGroup: Array<ChronosNodeLine> = []
 
     /**
      * 线条组是否闭合
@@ -66,7 +66,7 @@ export class ChronosNodeBrush {
      * 绘制线条
      */
     draw() {
-        if (this._lineGroup.length <= 0) {
+        if (this.lineGroup.length <= 0) {
             return
         }
 
@@ -92,9 +92,9 @@ export class ChronosNodeBrush {
      * 判断是否是闭合图形
      */
     private setClose() {
-        this._isClose = this._lineGroup.length > 1
-            && this._lineGroup[this._lineGroup.length - 1].end.x === this._lineGroup[0].start.x
-            && this._lineGroup[this._lineGroup.length - 1].end.y === this._lineGroup[0].start.y;
+        this._isClose = this.lineGroup.length > 1
+            && this.lineGroup[this.lineGroup.length - 1].end.x === this.lineGroup[0].start.x
+            && this.lineGroup[this.lineGroup.length - 1].end.y === this.lineGroup[0].start.y;
         console.log(this._isClose)
     }
 
@@ -107,7 +107,7 @@ export class ChronosNodeBrush {
             return
         }
 
-        const end = this._lineGroup[this._lineGroup.length - 1];
+        const end = this.lineGroup[this.lineGroup.length - 1];
         const circle = new Konva.Circle({
             x: end.start.x,
             y: end.start.y,
@@ -121,7 +121,7 @@ export class ChronosNodeBrush {
      * 绘制起点
      */
     private drawStartPoint() {
-        const start = this._lineGroup[0];
+        const start = this.lineGroup[0];
         const circle = new Konva.Circle({
             x: start.start.x,
             y: start.start.y,
@@ -136,7 +136,7 @@ export class ChronosNodeBrush {
      */
     private drawLine() {
         const pointArray: number[] = []
-        this._lineGroup.forEach((line) => {
+        this.lineGroup.forEach((line) => {
             pointArray.push(line.start.x, line.start.y)
         })
 
@@ -160,11 +160,11 @@ export class ChronosNodeBrush {
         return new Konva.Shape({
             sceneFunc: (context, shape) => {
                 context.beginPath();
-                const start = this._lineGroup[0];
+                const start = this.lineGroup[0];
                 context.moveTo(start.start.x, start.start.y);
 
-                for (let i = 1; i < this._lineGroup.length; i++) {
-                    const line = this._lineGroup[i];
+                for (let i = 1; i < this.lineGroup.length; i++) {
+                    const line = this.lineGroup[i];
                     context.lineTo(line.start.x, line.start.y);
                 }
                 context.closePath();
@@ -187,7 +187,7 @@ export class ChronosNodeBrush {
             return
         }
         //获取上一个点
-        const last = this._lineGroup[this._lineGroup.length - 1];
+        const last = this.lineGroup[this.lineGroup.length - 1];
 
         //如果上一个线的起点和当前线的起点一样，那么就不添加
         if (last && last.start.x === point.x && last.start.y === point.y) {
@@ -197,7 +197,7 @@ export class ChronosNodeBrush {
         if (last) {
             last.end = point;
         }
-        this._lineGroup.push(line)
+        this.lineGroup.push(line)
 
         //判断线条组是否闭合
         this.setClose();
@@ -213,32 +213,16 @@ export class ChronosNodeLine {
     /**
      * 起点
      */
-    private _start: { x: number, y: number }
+    start: { x: number, y: number }
 
     /**
      * 终点
      */
-    private _end: { x: number, y: number }
+    end: { x: number, y: number }
 
 
     constructor(start: { x: number; y: number }, end?: { x: number; y: number }) {
-        this._start = start;
-        this._end = end || {x: start.x, y: start.y};
-    }
-
-    get start(): { x: number; y: number } {
-        return this._start;
-    }
-
-    set start(value: { x: number; y: number }) {
-        this._start = value;
-    }
-
-    get end(): { x: number; y: number } {
-        return this._end;
-    }
-
-    set end(value: { x: number; y: number }) {
-        this._end = value;
+        this.start = start;
+        this.end = end || {x: start.x, y: start.y};
     }
 }
