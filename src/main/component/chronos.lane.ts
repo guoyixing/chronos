@@ -2,6 +2,7 @@ import {DragListener} from "../context/drag.event";
 import Konva from "konva";
 import {Context} from "../context/context";
 import {ChronosTool, ToolbarRegister} from "./chronos.toolbar";
+import {ChronosNodeEntry} from "./node/chronos.node.entry";
 
 /**
  * 泳道组
@@ -176,7 +177,7 @@ export class ChronosLane {
     /**
      * 泳道行数
      */
-    rowNum: number = 1
+    rowNum: number = 2
 
     /**
      * 渲染起始坐标
@@ -193,6 +194,18 @@ export class ChronosLane {
      * 当前泳道在泳道组中的索引
      */
     index: number;
+
+    /**
+     * 泳道行
+     * 可以存放节点的行对应的y坐标
+     * 均为单数行
+     */
+    private row: number[] = []
+
+    /**
+     * 泳道中的节点
+     */
+    node: Array<ChronosNodeEntry> = []
 
 
     constructor(id: string, name: string, index: number, startCoordinate: {
@@ -216,6 +229,12 @@ export class ChronosLane {
         const [width] = this.group.context.getSize()
         //泳道高度
         const height = this.rowNum * this.group.rowHeight;
+
+        //设置row
+        this.row = [];
+        for (let i = 0; i < this.rowNum; i++) {
+            this.row.push(this.startCoordinate.y + i * this.group.rowHeight + this.group.rowHeight / 2);
+        }
 
         //绘制边线
         const [drawBorderTop, drawBorderBottom] = this.drawBorder(width, height);
@@ -280,7 +299,7 @@ export class ChronosLane {
         if (row < 0 || row >= this.rowNum) {
             throw new Error('行号超出范围')
         }
-        return this.startCoordinate.y + row * this.group.rowHeight;
+        return this.row[row];
     }
 
     /**
@@ -290,8 +309,16 @@ export class ChronosLane {
         if (y < this.startCoordinate.y || y > this.startCoordinate.y + this.rowNum * this.group.rowHeight) {
             throw new Error('y坐标超出范围')
         }
-        //获取小于等于y坐标的行号
-        return Math.floor((y - this.startCoordinate.y) / this.group.rowHeight);
+        //在row中找到最接近的行
+        let row = 0;
+        let min = Math.abs(y - this.row[0]);
+        for (let i = 1; i < this.row.length; i++) {
+            if (Math.abs(y - this.row[i]) < min) {
+                min = Math.abs(y - this.row[i]);
+                row = i;
+            }
+        }
+        return row;
     }
 
     /**

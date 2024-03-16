@@ -2,6 +2,7 @@ import {DragListener} from "../../context/drag.event";
 import {ChronosTool, ToolbarRegister} from "../chronos.toolbar";
 import {Context} from "../../context/context";
 import Konva from "konva";
+import {ChronosNodeEntry} from "./chronos.node.entry";
 
 /**
  * 节点选取箱
@@ -145,6 +146,26 @@ export class ChronosNodeBar implements DragListener, ToolbarRegister {
             }
         })
     };
+
+    /**
+     * 根据节点获取一个图形
+     */
+    getGraphicsByNode(node:ChronosNodeEntry) {
+        if (node.type === 'star') {
+            return new Konva.Star({
+                x: node.startTime.x,
+                y: node.lane.y,
+                numPoints: 5,
+                innerRadius: 5,
+                outerRadius: 10,
+                fill: 'yellow',
+                stroke: 'black',
+                strokeWidth: 1,
+                draggable: true,
+            });
+        }
+        throw new Error('未知的节点类型')
+    }
 
     /**
      * 舞台移动监听
