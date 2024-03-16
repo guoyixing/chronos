@@ -8,6 +8,7 @@ import {StageConfig} from "./metadata/config/config.stage";
 import {Debugger} from "./context/debugger";
 import {ChronosToolbar} from "./component/chronos.toolbar";
 import {ChronosNodeBar} from "./component/node/chronos.node.bar";
+import {ChronosNodeGroup} from "./component/node/chronos.node.group";
 
 export class Chronos {
 
@@ -33,6 +34,8 @@ export class Chronos {
             const chronosTimeline = new ChronosTimeline(this.context, 2025);
             //节点选取箱
             const nodeBar = new ChronosNodeBar(this.context)
+            //节点
+            const chronosNodeGroup = new ChronosNodeGroup(this.context, []);
             //工具栏
             const toolBar = new ChronosToolbar(this.context, {x: 0, y: 0});
             //窗体
@@ -49,7 +52,7 @@ export class Chronos {
             // 追加一个 debugger
             publisher.appendListener(new Debugger(this.context))
 
-            console.log(this.context.stage.toJSON());
+            // console.log(this.context.stage.toJSON());
         });
     }
 

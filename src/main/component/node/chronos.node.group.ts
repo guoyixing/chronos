@@ -1,7 +1,7 @@
 import {Context} from "../../context/context";
 import {DragListener} from "../../context/drag.event";
 import Konva from "konva";
-import {ChronosNodeEntry} from "./chronos.node.entry";
+import {ChronosNodeEntry, NodeEntry} from "./chronos.node.entry";
 
 /**
  * 节点组
@@ -23,11 +23,55 @@ export class ChronosNodeGroup implements DragListener {
      */
     nodeGroup: ChronosNodeEntry[] = []
 
-    constructor(context: Context, nodeGroup?: ChronosNodeEntry[]) {
+    constructor(context: Context, nodeGroup?: NodeEntry[]) {
         this.context = context;
         this._layer = this.context.applyLayer('nodeGroup')
-        this.nodeGroup = nodeGroup ?? this.nodeGroup;
-        this.stageMoveListen();
+
+        const initData = this.initNodeEntry(nodeGroup);
+        this.nodeGroup = initData ?? this.nodeGroup;
+        this.draw();
+    }
+
+    initNodeEntry(nodeGroup: NodeEntry[] | undefined) {
+
+        //TODO 临时数据
+        nodeGroup =  [
+            {
+                id: '1',
+                name: '节点1',
+                type: 'star',
+                startTime: {
+                    x: 400
+                },
+                lane: {
+                    y: 400
+                }
+            },
+            {
+                id: '1',
+                name: '节点1',
+                type: 'star',
+                startTime: {
+                    x: 200
+                },
+                lane: {
+                    y: 200
+                }
+            }
+        ]
+        if (!nodeGroup) {
+            return undefined;
+        }
+
+        return nodeGroup.map((entry) => {
+            return new ChronosNodeEntry(this.context, this, entry);
+        })
+    }
+
+    draw() {
+        this.nodeGroup.forEach((entry) => {
+            entry.draw();
+        })
     }
 
     stageMoveListen() {
