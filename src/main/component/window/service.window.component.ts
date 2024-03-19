@@ -5,7 +5,7 @@ import {ComponentService} from "../service.component";
 import {TYPES} from "../../config/inversify.config";
 
 /**
- * 组件窗口服务
+ * 窗口组件服务
  */
 @injectable()
 export class ChronosWindowService implements ComponentService {

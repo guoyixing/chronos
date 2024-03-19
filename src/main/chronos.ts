@@ -6,6 +6,7 @@ import {ContextConfig} from "./config/context.inversify.config";
 import {Component} from "./component/component";
 import {LifecycleManager} from "./core/lifecycle/manager.lifecycle";
 import {EventManager} from "./core/event/manager.event";
+import {GridConfig} from "./config/grid.inversify.config";
 
 
 export class Chronos {
@@ -20,6 +21,7 @@ export class Chronos {
         //TODO 感觉这里写的不对
         new ContextConfig(chronosContainer, rootHtml)
         new WindowConfig(chronosContainer, rootHtml)
+        new GridConfig(chronosContainer, rootHtml)
 
         //生命周期管理器
         const lifecycleManager = new LifecycleManager(chronosContainer);
