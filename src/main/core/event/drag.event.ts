@@ -1,8 +1,9 @@
 import Konva from "konva";
+import {ComponentData} from "../../component/data.component";
 
 export interface DragListener {
     stageMoveListen: () => void
-    layer: Konva.Layer
+    data: ComponentData
 }
 
 type Publisher = (evtStr: string, handler: (e: Konva.KonvaEventObject<DragEvent>) => void) => void
@@ -25,9 +26,9 @@ export class DragEventPublisher {
         const map = new Map()
 
         for (const listener of moveListeners) {
-            const arr = map.get(listener.layer);
+            const arr = map.get(listener.data.layer);
             if (!arr) {
-                map.set(listener.layer, [listener])
+                map.set(listener.data.layer, [listener])
                 continue
             }
             arr.push(listener)
@@ -66,7 +67,7 @@ export class DragEventPublisher {
     }
 
     public removeListener(item: DragListener): boolean {
-        const listeners = this.listenerBucket.get(item.layer);
+        const listeners = this.listenerBucket.get(item.data.layer);
 
         if (!listeners) {
             return false;
@@ -82,9 +83,9 @@ export class DragEventPublisher {
     }
 
     appendListener(listener: DragListener) {
-        const listeners = this.listenerBucket.get(listener.layer);
+        const listeners = this.listenerBucket.get(listener.data.layer);
         if (!listeners) {
-            this.listenerBucket.set(listener.layer, [listener])
+            this.listenerBucket.set(listener.data.layer, [listener])
             return
         }
         listeners.push(listener)
