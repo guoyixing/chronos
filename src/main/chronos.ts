@@ -4,6 +4,8 @@ import {TYPES} from "./config/inversify.config";
 import {WindowConfig} from "./config/window.inversify.config";
 import {ContextConfig} from "./config/context.inversify.config";
 import {Component} from "./component/component";
+import {LifecycleManager} from "./core/lifecycle/manager.lifecycle";
+import {EventManager} from "./core/event/manager.event";
 
 
 export class Chronos {
@@ -14,16 +16,19 @@ export class Chronos {
         }
         rootHtml.style.overflow = 'hidden'
 
-        const chronosContainer = new Container();
+        const chronosContainer = new Container()
         //TODO 感觉这里写的不对
         new ContextConfig(chronosContainer, rootHtml)
-        new WindowConfig(chronosContainer, rootHtml);
+        new WindowConfig(chronosContainer, rootHtml)
 
-        //TODO 移动到生命周期中
-        const window = chronosContainer.get<Component<any,any>>(TYPES.ChronosComponent);
-        window.service.draw()
+        //生命周期管理器
+        const lifecycleManager = new LifecycleManager(chronosContainer);
+        lifecycleManager.init()
+        lifecycleManager.start()
+        lifecycleManager.destroy()
 
-        console.log(1)
+        //事件监听
+        new EventManager(chronosContainer)
     }
 
 }

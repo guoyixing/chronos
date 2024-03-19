@@ -5,7 +5,9 @@ import {DrawContext} from "../core/context/draw.context";
 import {Context} from "../core/context/context";
 import {TYPES} from "./inversify.config";
 
-
+/**
+ * 上下文配置
+ */
 export class ContextConfig {
     constructor(chronosContainer: Container, divElement: HTMLDivElement) {
         const drawContext = new DrawContext({rootElement: divElement, draggable: true});

@@ -2,8 +2,6 @@ import {Chronos} from "../main/chronos";
 
 import mock from './mock.json';
 
-console.log(mock);
-
 const divElement: HTMLElement | null = document.getElementById('root');
 
 if (!(divElement instanceof HTMLDivElement)) {
@@ -13,8 +11,8 @@ if (!(divElement instanceof HTMLDivElement)) {
 try {
     new Chronos(divElement as HTMLDivElement,{});
 } catch (e) {
-
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    console.log(e)
     // @ts-expect-error
     window.open(`https://stackoverflow.com/search?q=js+${e.message}`, '_blank');
 }
