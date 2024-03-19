@@ -18,6 +18,8 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "konva": "^9.3.5"
+    "konva": "^9.3.5",
+    "inversify": "^6.0.2",
+    "reflect-metadata": "0.1.13"
   }
 }

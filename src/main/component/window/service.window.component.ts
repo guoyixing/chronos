@@ -1,29 +1,33 @@
+import {ChronosWindowData} from "./data.window.component";
+import {inject, injectable} from "inversify";
 import Konva from "konva";
-import {Context} from "../context/context";
-import {DragListener} from "../context/drag.event";
+import {ComponentService} from "../service.component";
+import {TYPES} from "../../config/inversify.config";
 
 /**
- * 窗口边框
+ * 组件窗口服务
  */
-export class ChronosWindow implements DragListener {
+@injectable()
+export class ChronosWindowService implements ComponentService {
 
-    private readonly context: Context
+    /**
+     * 数据
+     */
+    private _data: ChronosWindowData
 
-    private readonly _layer: Konva.Layer
-
-    constructor(renderer: Context) {
-        this.context = renderer;
-        this._layer = this.context.applyLayer('window');
-        this.draw();
+    constructor(@inject(TYPES.ChronosWindowData) data: ChronosWindowData) {
+        this._data = data;
     }
 
-    get layer() {
-        return this._layer
-    }
-
-    stageMoveListen() {
-        this.limitStageMove();
-        this.draw()
+    /**
+     * 可见区域能够绘制的大小
+     */
+    getVisualRange(): { width: number, height: number } {
+        // 防止内容覆写到边框上
+        const border = 2 * this._data.border
+        const width = this._data.width - border
+        const height = this._data.height - border
+        return {width, height}
     }
 
     /**
@@ -33,28 +37,28 @@ export class ChronosWindow implements DragListener {
      */
     limitStageMove(): void {
         //获取当前舞台的坐标
-        const stage = this.context.stage;
+        const stage = this._data.context.drawContext.stage;
         const stageX = stage.x();
-
         let stageY = stage.y();
 
-        const stageMoveLimit = this.context.stageMoveLimit;
+        const stageMoveLimit = this._data.context.drawContext.stageMoveLimit;
         if (stageY < stageMoveLimit.yTop) {
             stageY = stageMoveLimit.yTop;
         }
         if (stageY > stageMoveLimit.yBottom) {
             stageY = stageMoveLimit.yBottom;
         }
-        stage.position({ x: stageX, y: stageY });
+        stage.position({x: stageX, y: stageY});
     }
+
 
     /**
      * 绘制窗体
      * 不能使用rect，因为rect会挡住下面的图层的内容
      */
     draw() {
-        const [width, height] = this.context.getSize()
-        const coordinate = this.context.getFixedCoordinate()
+        const {width, height} = this.getVisualRange()
+        const coordinate = this._data.context.drawContext.getFixedCoordinate()
 
         //画上边线
         const topLine = new Konva.Line({
@@ -82,9 +86,9 @@ export class ChronosWindow implements DragListener {
         });
 
         //加入图层
-        this._layer.add(topLine);
-        this._layer.add(bottomLine);
-        this._layer.add(leftLine);
-        this._layer.add(rightLine);
+        this._data.layer.add(topLine);
+        this._data.layer.add(bottomLine);
+        this._data.layer.add(leftLine);
+        this._data.layer.add(rightLine);
     }
 }
