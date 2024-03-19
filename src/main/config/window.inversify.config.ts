@@ -3,12 +3,14 @@ import "reflect-metadata";
 
 import {ChronosWindowData} from "../component/window/data.window.component";
 import {ChronosWindowService} from "../component/window/service.window.component";
-import {TYPES} from "./inversify.config";
+import {bindComponent, bindLifecycle, TYPES} from "./inversify.config";
 import {Context} from "../core/context/context";
 import {ChronosWindowComponent} from "../component/window/window.component";
-import {Component} from "../component/component";
+import {StageDragListener} from "../core/event/event";
 
-
+/**
+ * 窗口配置
+ */
 export class WindowConfig {
 
     constructor(chronosContainer: Container, divElement: HTMLDivElement) {
@@ -20,11 +22,14 @@ export class WindowConfig {
             context: chronosContainer.get<Context>(TYPES.Context),
             layer: chronosContainer.get<Context>(TYPES.Context).drawContext.applyLayer("window")
         }
+
         chronosContainer.bind<ChronosWindowData>(TYPES.ChronosWindowData).toConstantValue(data);
         chronosContainer.bind<ChronosWindowService>(TYPES.ChronosWindowService).to(ChronosWindowService);
-
-        chronosContainer.bind<Component<ChronosWindowData,ChronosWindowService>>(TYPES.ChronosComponent).to(ChronosWindowComponent);
         chronosContainer.bind<ChronosWindowComponent>(TYPES.ChronosWindowComponent).to(ChronosWindowComponent);
 
+        chronosContainer.bind<StageDragListener>(TYPES.StageDragListener).to(ChronosWindowComponent);
+
+        bindComponent(chronosContainer, ChronosWindowComponent)
+        bindLifecycle(chronosContainer, ChronosWindowComponent)
     }
 }
