@@ -13,13 +13,18 @@ export const TYPES = {
     DestroyLifecycle: Symbol.for("DestroyLifecycle"),
 
     StageDragListener: Symbol.for("StageDragListener"),
+    MouseMoveListener: Symbol.for("MouseMoveListener"),
 
     Component: Symbol.for("Component"),
     BaseComponent: Symbol.for("BaseComponent"),
 
     ChronosWindowData: Symbol.for("ChronosWindowData"),
     ChronosWindowService: Symbol.for("ChronosWindowService"),
-    ChronosWindowComponent: Symbol.for("ChronosWindowComponent")
+    ChronosWindowComponent: Symbol.for("ChronosWindowComponent"),
+
+    ChronosGridData: Symbol.for("ChronosGridData"),
+    ChronosGridService: Symbol.for("ChronosGridService"),
+    ChronosGridComponent: Symbol.for("ChronosGridComponent")
 };
 
 /**

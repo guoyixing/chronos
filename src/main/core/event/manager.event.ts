@@ -1,7 +1,7 @@
 import {Container} from "inversify";
 import {Context} from "../context/context";
 import {TYPES} from "../../config/inversify.config";
-import {StageDragListener} from "./event";
+import {MouseMoveListener, StageDragListener} from "./event";
 import Konva from "konva";
 
 /**
@@ -17,25 +17,45 @@ export class EventManager {
     /**
      * 舞台拖拽事件发布者
      */
-    private stageDragEventPublisher: (event: string, func: (e: any) => void) => void;
+    private stageEventPublisher: (event: string, func: (e: any) => void) => void;
 
     constructor(chronosContainer: Container) {
         this.ioc = chronosContainer;
         const context = chronosContainer.get<Context>(TYPES.Context);
-        this.stageDragEventPublisher = context.drawContext.stage.on.bind(context.drawContext.stage)
+        this.stageEventPublisher = context.drawContext.stage.on.bind(context.drawContext.stage)
         this.publishStageDragEvent()
+        this.publishMouseMoveEvent()
     }
 
     /**
-     * 监听拖拽
+     * 发布舞台拖拽事件
      */
     publishStageDragEvent() {
         const listeners = this.ioc.getAll<StageDragListener>(TYPES.StageDragListener);
-        this.stageDragEventPublisher('dragmove', (e) => {
+        this.stageEventPublisher('dragmove', (e) => {
             if (e.target instanceof Konva.Stage) {
                 listeners.forEach((listener) => {
                     try {
                         listener.stageDragListen();
+                    } catch (e) {
+                        const error = e as Error
+                        console.error(`Drag move error : ${error.message}`)
+                    }
+                })
+            }
+        })
+    }
+
+    /**
+     * 发布鼠标移动事件
+     */
+    publishMouseMoveEvent() {
+        const listeners = this.ioc.getAll<MouseMoveListener>(TYPES.MouseMoveListener);
+        this.stageEventPublisher('mousemove', (e) => {
+            if (e.target instanceof Konva.Stage) {
+                listeners.forEach((listener) => {
+                    try {
+                        listener.mouseMoveListen();
                     } catch (e) {
                         const error = e as Error
                         console.error(`Drag move error : ${error.message}`)
