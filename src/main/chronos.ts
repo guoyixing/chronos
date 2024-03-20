@@ -7,11 +7,12 @@ import {Component} from "./component/component";
 import {LifecycleManager} from "./core/lifecycle/manager.lifecycle";
 import {EventManager} from "./core/event/manager.event";
 import {GridConfig} from "./config/grid.inversify.config";
+import {LaneConfig} from "./config/lane.inversify.config";
 
 
 export class Chronos {
 
-    constructor(rootHtml: HTMLDivElement,data:{}) {
+    constructor(rootHtml: HTMLDivElement, data: {}) {
         if (!rootHtml) {
             throw Error("div 还没有被渲染")
         }
@@ -22,6 +23,7 @@ export class Chronos {
         new ContextConfig(chronosContainer, rootHtml)
         new WindowConfig(chronosContainer, rootHtml)
         new GridConfig(chronosContainer, rootHtml)
+        new LaneConfig(chronosContainer, rootHtml)
 
         //生命周期管理器
         const lifecycleManager = new LifecycleManager(chronosContainer);

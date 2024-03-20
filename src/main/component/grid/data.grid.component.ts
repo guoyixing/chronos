@@ -4,7 +4,7 @@ import Konva from "konva";
 import {Context} from "../../core/context/context";
 
 /**
- * 网格组件数据
+ * 网格-组件数据
  */
 @injectable()
 export class ChronosGridData extends ComponentData {
@@ -60,8 +60,8 @@ export class ChronosGridData extends ComponentData {
      */
     hidePoint: boolean = true;
 
-    constructor(context: Context, layer: Konva.Layer) {
-        super(context, layer);
+    constructor(context: Context) {
+        super(context);
     }
 
 }

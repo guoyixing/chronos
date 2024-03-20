@@ -50,18 +50,18 @@ export class EventManager {
      * 发布鼠标移动事件
      */
     publishMouseMoveEvent() {
-        const listeners = this.ioc.getAll<MouseMoveListener>(TYPES.MouseMoveListener);
-        this.stageEventPublisher('mousemove', (e) => {
-            if (e.target instanceof Konva.Stage) {
-                listeners.forEach((listener) => {
-                    try {
-                        listener.mouseMoveListen();
-                    } catch (e) {
-                        const error = e as Error
-                        console.error(`Drag move error : ${error.message}`)
-                    }
-                })
-            }
-        })
+        // const listeners = this.ioc.getAll<MouseMoveListener>(TYPES.MouseMoveListener);
+        // this.stageEventPublisher('mousemove', (e) => {
+        //     if (e.target instanceof Konva.Stage) {
+        //         listeners.forEach((listener) => {
+        //             try {
+        //                 listener.mouseMoveListen();
+        //             } catch (e) {
+        //                 const error = e as Error
+        //                 console.error(`Drag move error : ${error.message}`)
+        //             }
+        //         })
+        //     }
+        // })
     }
 }

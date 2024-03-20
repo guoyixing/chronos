@@ -23,10 +23,17 @@ export class ChronosGridComponent extends BaseComponent<ChronosGridData, Chronos
     }
 
     /**
+     * 初始化
+     */
+    init() {
+        this.data.layer = this.data.context.drawContext.rootLayer
+    }
+
+    /**
      * 舞台拖拽监听
      */
     stageDragListen() {
-        this.data.layer.destroyChildren()
+        this.data.layer?.destroyChildren()
         this.service.draw()
     }
 

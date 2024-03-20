@@ -63,7 +63,7 @@ export abstract class BaseComponent<D extends ComponentData, S extends Component
      * 初始化
      */
     init(): void {
-
+        this.data.layer = this.data.context.drawContext.applyLayer(this.name())
     }
 
     /**

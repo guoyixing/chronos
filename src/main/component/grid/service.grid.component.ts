@@ -6,7 +6,7 @@ import {TYPES} from "../../config/inversify.config";
 import {ChronosWindowComponent} from "../window/window.component";
 
 /**
- * 网格组件服务
+ * 网格-组件服务
  */
 @injectable()
 export class ChronosGridService implements ComponentService {
@@ -112,7 +112,7 @@ export class ChronosGridService implements ComponentService {
         });
 
         //绘制点
-        this._data.layer.add(this._data.point);
+        this._data.layer?.add(this._data.point);
     }
 
 }

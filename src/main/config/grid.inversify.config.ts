@@ -12,8 +12,7 @@ import {ChronosGridData} from "../component/grid/data.grid.component";
 export class GridConfig {
     constructor(chronosContainer: Container, divElement: HTMLDivElement) {
 
-        const data: ChronosGridData = new ChronosGridData(chronosContainer.get<Context>(TYPES.Context),
-            chronosContainer.get<Context>(TYPES.Context).drawContext.rootLayer);
+        const data: ChronosGridData = new ChronosGridData(chronosContainer.get<Context>(TYPES.Context));
         // data.hidePoint = false;
 
         chronosContainer.bind<ChronosGridData>(TYPES.ChronosGridData).toConstantValue(data);

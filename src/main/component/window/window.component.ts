@@ -7,7 +7,7 @@ import {Lifecycle} from "../../core/lifecycle/lifecycle";
 import {StageDragListener} from "../../core/event/event";
 
 /**
- * 窗口边框
+ * 窗口-组件
  */
 @injectable()
 export class ChronosWindowComponent extends BaseComponent<ChronosWindowData, ChronosWindowService> implements StageDragListener, Lifecycle {
@@ -22,11 +22,15 @@ export class ChronosWindowComponent extends BaseComponent<ChronosWindowData, Chr
         super(data, service);
     }
 
+    order(): number {
+        return 9999
+    }
+
     /**
      * 舞台拖拽监听
      */
     stageDragListen() {
-        this.data.layer.destroyChildren()
+        this.data.layer?.destroyChildren()
         this.service.limitStageMove()
         this.service.draw()
     }
