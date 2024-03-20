@@ -19,8 +19,7 @@ export class WindowConfig {
             width: size.width,
             height: size.height,
             border: 1,
-            context: chronosContainer.get<Context>(TYPES.Context),
-            layer: chronosContainer.get<Context>(TYPES.Context).drawContext.applyLayer("window")
+            context: chronosContainer.get<Context>(TYPES.Context)
         }
 
         chronosContainer.bind<ChronosWindowData>(TYPES.ChronosWindowData).toConstantValue(data);

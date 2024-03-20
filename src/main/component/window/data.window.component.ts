@@ -5,7 +5,7 @@ import {Context} from "../../core/context/context";
 import Konva from "konva";
 
 /**
- * 窗体组件数据
+ * 窗体-组件数据
  */
 @injectable()
 export class ChronosWindowData extends ComponentData {
@@ -26,8 +26,8 @@ export class ChronosWindowData extends ComponentData {
     border: number
 
 
-    constructor(context: Context, layer: Konva.Layer, width: number, height: number, border: number) {
-        super(context, layer);
+    constructor(context: Context, width: number, height: number, border: number) {
+        super(context);
         this.width = width;
         this.height = height;
         this.border = border;

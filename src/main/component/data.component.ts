@@ -13,10 +13,9 @@ export class ComponentData {
     /**
      * 组件图层
      */
-    readonly layer: Konva.Layer
+    layer?: Konva.Layer
 
-    constructor(context: Context, layer: Konva.Layer) {
+    constructor(context: Context) {
         this.context = context
-        this.layer = layer
     }
 }

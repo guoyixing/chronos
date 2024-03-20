@@ -5,7 +5,7 @@ import {ComponentService} from "../service.component";
 import {TYPES} from "../../config/inversify.config";
 
 /**
- * 窗口组件服务
+ * 窗口-组件服务
  */
 @injectable()
 export class ChronosWindowService implements ComponentService {
@@ -59,36 +59,39 @@ export class ChronosWindowService implements ComponentService {
     draw() {
         const {width, height} = this.getVisualRange()
         const coordinate = this._data.context.drawContext.getFixedCoordinate()
-
+        const border = this._data.border;
+        const x = coordinate.x + border;
+        const y = coordinate.y + border;
         //画上边线
         const topLine = new Konva.Line({
-            points: [coordinate.x, coordinate.y, coordinate.x + width, coordinate.y],
+            points: [x, y, x + width, y],
             stroke: 'black',
             strokeWidth: 1
         });
         //画下边线
         const bottomLine = new Konva.Line({
-            points: [coordinate.x, coordinate.y + height, coordinate.x + width, coordinate.y + height],
+            points: [x, y + height, x + width, y + height],
             stroke: 'black',
             strokeWidth: 1
         });
         //画左边线
         const leftLine = new Konva.Line({
-            points: [coordinate.x, coordinate.y, coordinate.x, coordinate.y + height],
+            points: [x, y, x, y + height],
             stroke: 'black',
             strokeWidth: 1
         });
         //画右边线
         const rightLine = new Konva.Line({
-            points: [coordinate.x + width, coordinate.y, coordinate.x + width, coordinate.y + height],
+            points: [x + width, y, x + width, y + height],
             stroke: 'black',
             strokeWidth: 1
         });
 
         //加入图层
-        this._data.layer.add(topLine);
-        this._data.layer.add(bottomLine);
-        this._data.layer.add(leftLine);
-        this._data.layer.add(rightLine);
+        const layer = this._data.layer;
+        layer?.add(topLine);
+        layer?.add(bottomLine);
+        layer?.add(leftLine);
+        layer?.add(rightLine);
     }
 }
