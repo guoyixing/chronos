@@ -5,21 +5,38 @@ import {Lifecycle} from "../../core/lifecycle/lifecycle";
 import {ChronosGridData} from "./data.grid.component";
 import {ChronosGridService} from "./service.grid.component";
 import {TYPES} from "../../config/inversify.config";
+import {ChronosToolPlug, ToolbarPlugRegister} from "../toolbar/plug.toolbar.component";
 
 /**
  * 网格
  */
 @injectable()
-export class ChronosGridComponent extends BaseComponent<ChronosGridData, ChronosGridService> implements StageDragListener, MouseMoveListener, Lifecycle {
+export class ChronosGridComponent extends BaseComponent<ChronosGridData, ChronosGridService>
+    implements StageDragListener, MouseMoveListener, Lifecycle, ToolbarPlugRegister {
 
     /**
      * 组件名称
      */
     name = () => "grid"
 
+    order(): number {
+        return -9999
+    }
+
     constructor(@inject(TYPES.ChronosGridData) data: ChronosGridData,
                 @inject(TYPES.ChronosGridService) service: ChronosGridService) {
         super(data, service);
+    }
+
+    /**
+     * 工具栏插件注册
+     */
+    toolbar(): ChronosToolPlug {
+        return new ChronosToolPlug("网格", () => {
+            this.data.hide = !this.data.hide
+            this.data.layer?.destroyChildren()
+            this.service.draw()
+        })
     }
 
     /**
@@ -45,11 +62,4 @@ export class ChronosGridComponent extends BaseComponent<ChronosGridData, Chronos
     }
 
 
-    // get toolbar(): ChronosTool {
-    //     return new ChronosTool("网格", () => {
-    //         this.context.stageConfig.showGrid = !this.context.stageConfig.showGrid
-    //         this.layer.destroyChildren()
-    //         this.draw()
-    //     })
-    // }
 }

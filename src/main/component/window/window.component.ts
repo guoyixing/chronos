@@ -10,7 +10,8 @@ import {StageDragListener} from "../../core/event/event";
  * 窗口-组件
  */
 @injectable()
-export class ChronosWindowComponent extends BaseComponent<ChronosWindowData, ChronosWindowService> implements StageDragListener, Lifecycle {
+export class ChronosWindowComponent extends BaseComponent<ChronosWindowData, ChronosWindowService>
+    implements StageDragListener, Lifecycle {
 
     /**
      * 组件名称
