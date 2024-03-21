@@ -5,6 +5,7 @@ import {MouseMoveListener, StageDragListener} from "../core/event/event";
 import {ChronosGridService} from "../component/grid/service.grid.component";
 import {ChronosGridComponent} from "../component/grid/grid.component";
 import {ChronosGridData} from "../component/grid/data.grid.component";
+import {ToolbarPlugRegister} from "../component/toolbar/plug.toolbar.component";
 
 /**
  * 网格配置
@@ -21,6 +22,7 @@ export class GridConfig {
 
         chronosContainer.bind<StageDragListener>(TYPES.StageDragListener).to(ChronosGridComponent);
         chronosContainer.bind<MouseMoveListener>(TYPES.MouseMoveListener).to(ChronosGridComponent);
+        chronosContainer.bind<ToolbarPlugRegister>(TYPES.ToolbarPlugRegister).to(ChronosGridComponent);
 
         bindComponent(chronosContainer, ChronosGridComponent)
         bindLifecycle(chronosContainer, ChronosGridComponent)

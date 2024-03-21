@@ -8,13 +8,14 @@ import {ChronosWindowComponent} from "../../window/window.component";
 import {ChronosLaneEntryService} from "../entry/service.entry.lane.component";
 import {ChronosLaneEntryComponent} from "../entry/entry.lane.component";
 import {StageDragListener} from "../../../core/event/event";
+import {ChronosToolPlug, ToolbarPlugRegister} from "../../toolbar/plug.toolbar.component";
 
 /**
  * 泳道组-组件
  */
 @injectable()
 export class ChronosLaneGroupComponent extends BaseComponent<ChronosLaneGroupData, ChronosLaneGroupService>
-    implements Lifecycle, StageDragListener {
+    implements Lifecycle, StageDragListener, ToolbarPlugRegister {
 
     /**
      * 组件名称
@@ -24,6 +25,20 @@ export class ChronosLaneGroupComponent extends BaseComponent<ChronosLaneGroupDat
     constructor(@inject(TYPES.ChronosLaneGroupData) data: ChronosLaneGroupData,
                 @inject(TYPES.ChronosLaneGroupService) service: ChronosLaneGroupService) {
         super(data, service);
+    }
+
+    /**
+     * 工具栏插件注册
+     */
+    toolbar(): ChronosToolPlug {
+        return new ChronosToolPlug("泳道", () => {
+            this.data.laneGroup.forEach((entry) => {
+                entry.data.hideLeft = !entry.data.hideLeft
+            })
+            //重新绘制
+            this.data.layer?.destroyChildren();
+            this.service.draw()
+        })
     }
 
     /**
@@ -41,15 +56,6 @@ export class ChronosLaneGroupComponent extends BaseComponent<ChronosLaneGroupDat
             this.data.laneGroup.push(component);
         })
     }
-
-    // get toolbar(): ChronosTool {
-    //     return new ChronosTool("泳道", () => {
-    //         this._isDrawLeft = !this._isDrawLeft;
-    //         //重新绘制
-    //         this._layer.destroyChildren();
-    //         this.draw()
-    //     })
-    // }
 
     /**
      * 舞台拖拽监听

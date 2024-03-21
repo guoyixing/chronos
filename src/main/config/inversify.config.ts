@@ -3,6 +3,7 @@ import {Container, interfaces} from "inversify";
 import {BaseComponent, Component} from "../component/component";
 import {ChronosLaneEntryData} from "../component/lane/entry/data.entry.lane.component";
 import Newable = interfaces.Newable;
+import {ToolbarPlugRegister} from "../component/toolbar/plug.toolbar.component";
 
 export const TYPES = {
     //上下文
@@ -42,6 +43,12 @@ export const TYPES = {
     ChronosLaneGroupData: Symbol.for("ChronosLaneGroupData"),
     ChronosLaneGroupService: Symbol.for("ChronosLaneGroupService"),
     ChronosLaneGroupComponent: Symbol.for("ChronosLaneGroupComponent"),
+
+    //组件-工具栏
+    ChronosToolbarData: Symbol.for("ChronosToolbarData"),
+    ChronosToolbarService: Symbol.for("ChronosToolbarService"),
+    ChronosToolbarComponent: Symbol.for("ChronosToolbarComponent"),
+    ToolbarPlugRegister: Symbol.for("ToolbarPlugRegister"),
 };
 
 /**
