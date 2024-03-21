@@ -60,31 +60,32 @@ export class ChronosWindowService implements ComponentService {
         const {width, height} = this.getVisualRange()
         const coordinate = this._data.context.drawContext.getFixedCoordinate()
         const border = this._data.border;
+        const borderColor = this._data.borderColor;
         const x = coordinate.x + border;
         const y = coordinate.y + border;
         //画上边线
         const topLine = new Konva.Line({
             points: [x, y, x + width, y],
-            stroke: 'black',
-            strokeWidth: 1
+            stroke: borderColor,
+            strokeWidth: border
         });
         //画下边线
         const bottomLine = new Konva.Line({
             points: [x, y + height, x + width, y + height],
-            stroke: 'black',
-            strokeWidth: 1
+            stroke: borderColor,
+            strokeWidth: border
         });
         //画左边线
         const leftLine = new Konva.Line({
             points: [x, y, x, y + height],
-            stroke: 'black',
-            strokeWidth: 1
+            stroke: borderColor,
+            strokeWidth: border
         });
         //画右边线
         const rightLine = new Konva.Line({
             points: [x + width, y, x + width, y + height],
-            stroke: 'black',
-            strokeWidth: 1
+            stroke: borderColor,
+            strokeWidth: border
         });
 
         //加入图层

@@ -25,6 +25,11 @@ export class ChronosWindowData extends ComponentData {
      */
     border: number
 
+    /**
+     * 边框颜色
+     */
+    borderColor: string = "black"
+
 
     constructor(context: Context, width: number, height: number, border: number) {
         super(context);

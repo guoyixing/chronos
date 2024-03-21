@@ -49,6 +49,51 @@ export class ChronosLaneEntryData extends ComponentData {
      */
     hideLeft: boolean = false
 
+    /**
+     * 泳道左侧背景颜色
+     */
+    leftBackgroundColor: string = "#f0f0f0"
+
+    /**
+     * 泳道边框颜色
+     */
+    borderColor: string = "black"
+
+    /**
+     * 泳道边框宽度
+     */
+    border: number = 1
+
+    /**
+     * 泳道文字颜色
+     */
+    textColor: string = "#555"
+
+    /**
+     * 泳道文字大小
+     */
+    fontSize: number = 16
+
+    /**
+     * 泳道文字字体
+     */
+    fontFamily: string = 'Calibri'
+
+    /**
+     * 泳道文字左边距
+     */
+    textLeftMargin: number = 10
+
+    /**
+     * 泳道文字上边距
+     */
+    textTopMargin: number = 10
+
+    /**
+     * 泳道文字下边距
+     */
+    textBottomMargin: number = 10
+
 
     constructor(context: Context, id: string, name: string, rowNum: number) {
         super(context);
