@@ -48,15 +48,16 @@ export class ChronosToolbarService implements ComponentService {
         const fixedCoordinate = data.context.drawContext.getFixedCoordinate();
         //下一个元素的y坐标
         let nextY = 0;
+
         //绘制工具
         data.toolPlugs.forEach((tool) => {
             const text = new Konva.TextPath({
                 x: data.startOffSet.x + fixedCoordinate.x + data.width / 2,
-                y: data.startOffSet.y + fixedCoordinate.y + nextY + 10,
+                y: data.startOffSet.y + fixedCoordinate.y + nextY + data.plugMargin,
                 text: tool.name,
-                fontSize: 16,
-                fill: 'black',
-                data: 'M0 0 L0 200'
+                fontSize: data.fontSize,
+                fill: data.textColor,
+                data: data.textDirection
             });
             text.on('click', () => {
                 tool.callback();
@@ -64,16 +65,16 @@ export class ChronosToolbarService implements ComponentService {
 
             text.on('mouseover', () => {
                 document.body.style.cursor = 'pointer';
-                text.fill('#359EE8');
+                text.fill(data.hoverTextColor);
             });
 
             text.on('mouseout', () => {
                 document.body.style.cursor = 'default';
-                text.fill('black');
+                text.fill(data.textColor);
             });
 
             data.layer?.add(text);
-            nextY += text.text().length * 16 + 10;
+            nextY += text.text().length * data.fontSize + data.plugMargin;
         });
     }
 
@@ -91,9 +92,9 @@ export class ChronosToolbarService implements ComponentService {
             y: data.startOffSet.y + fixedCoordinate.y,
             width: data.width,
             height: this._window.data.height,
-            fill: 'lightgray',
-            stroke: 'black',
-            strokeWidth: 1
+            fill: data.backgroundColor,
+            stroke: data.backgroundBorderColor,
+            strokeWidth: data.backgroundBorder
         });
         data.layer?.add(rect);
         return fixedCoordinate;

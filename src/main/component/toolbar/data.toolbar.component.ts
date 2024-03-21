@@ -24,6 +24,46 @@ export class ChronosToolbarData extends ComponentData {
      */
     width: number = 41
 
+    /**
+     * 背景颜色
+     */
+    backgroundColor: string = "lightgray"
+
+    /**
+     * 背景边框宽度
+     */
+    backgroundBorder: number = 1
+
+    /**
+     * 背景边框颜色
+     */
+    backgroundBorderColor: string = "black"
+
+    /**
+     * 文字大小
+     */
+    fontSize: number = 16
+
+    /**
+     * 文字颜色
+     */
+    textColor: string = "black"
+
+    /**
+     * 鼠标悬浮文字颜色
+     */
+    hoverTextColor: string = "#359EE8"
+
+    /**
+     * 文字走向
+     */
+    textDirection: string = "M0 0 L0 200"
+
+    /**
+     * 间隔距离
+     */
+    plugMargin: number = 10
+
 
     constructor(context: Context, startOffSet: {
         x: number;

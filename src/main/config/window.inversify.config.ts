@@ -15,12 +15,12 @@ export class WindowConfig {
 
     constructor(chronosContainer: Container, divElement: HTMLDivElement) {
         const size = divElement.getBoundingClientRect();
-        const data: ChronosWindowData = {
-            width: size.width,
-            height: size.height,
-            border: 1,
-            context: chronosContainer.get<Context>(TYPES.Context)
-        }
+        const data= new ChronosWindowData(
+            chronosContainer.get<Context>(TYPES.Context),
+            size.width,
+            size.height,
+            1,
+    )
 
         chronosContainer.bind<ChronosWindowData>(TYPES.ChronosWindowData).toConstantValue(data);
         chronosContainer.bind<ChronosWindowService>(TYPES.ChronosWindowService).to(ChronosWindowService);

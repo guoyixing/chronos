@@ -190,28 +190,28 @@ export class ChronosLaneEntryService implements ComponentService {
         const yBottom = data.startCoordinate.y + height;
         //在左边框与分割线中间位置，绘制泳道名
         const laneName = new Konva.Text({
-            x: data.startCoordinate.x + 10,
-            y: data.startCoordinate.y + 10,
+            x: data.startCoordinate.x + data.textLeftMargin,
+            y: data.startCoordinate.y + data.textTopMargin,
             text: data.name,
-            fontSize: 16,
-            fontFamily: 'Calibri',
-            fill: '#555',
+            fontSize: data.fontSize,
+            fontFamily: data.fontFamily,
+            fill: data.textColor,
         });
         //泳道组原始左上角y坐标的相对位置（相对窗口的位置）
         const laneGroupLeftTopY = fixedCoordinate.y + groupData.startOffSet.y;
         if (data.startCoordinate.y >= laneGroupLeftTopY) {
             //当泳道左上角y坐标 大于等于 泳道组原始左上角y坐标的相对位置时，泳道名字需要再初始化的位置
-            laneName.y(data.startCoordinate.y + 10);
+            laneName.y(data.startCoordinate.y + data.textTopMargin);
 
         } else if (data.startCoordinate.y < laneGroupLeftTopY
-            && yBottom - 20 - laneName.height() >= laneGroupLeftTopY) {
+            && yBottom - (data.textTopMargin + data.textBottomMargin) - laneName.height() >= laneGroupLeftTopY) {
             //当泳道左上角y坐标 小于 泳道组原始左上角y坐标的相对位置时，并且 当泳道左上角y坐标 大于等于 泳道底边-边框-文字高度的位置时，
             //泳道名字需要在泳道组原始左上角y坐标的相对位置+边框的位置
-            laneName.y(laneGroupLeftTopY + 10);
+            laneName.y(laneGroupLeftTopY + data.textTopMargin);
 
         } else {
             //其他时候，泳道名字需要在泳道底边-边框-文字高度的位置
-            laneName.y(yBottom - 10 - laneName.height());
+            laneName.y(yBottom - data.textBottomMargin - laneName.height());
         }
 
         return laneName;
@@ -223,8 +223,10 @@ export class ChronosLaneEntryService implements ComponentService {
      * @private
      */
     drawLeft(height: number): Konva.Rect {
-        const x = this._data.startCoordinate.x;
-        const y = this._data.startCoordinate.y;
+        const data = this._data;
+
+        const x = data.startCoordinate.x;
+        const y = data.startCoordinate.y;
 
         //左侧泳道分割块绘制
         return new Konva.Rect({
@@ -232,9 +234,9 @@ export class ChronosLaneEntryService implements ComponentService {
             y: y,
             width: this._group.data.laneLeftWidth,
             height: height,
-            fill: '#f0f0f0',
-            stroke: 'black',
-            strokeWidth: 1,
+            fill: data.leftBackgroundColor,
+            stroke: data.borderColor,
+            strokeWidth: data.border,
         });
     }
 
@@ -255,15 +257,15 @@ export class ChronosLaneEntryService implements ComponentService {
         //顶部泳道分割横线绘制
         const laneTop = new Konva.Line({
             points: [data.startCoordinate.x, data.startCoordinate.y, xEnd, data.startCoordinate.y],
-            stroke: 'black',
-            strokeWidth: 1
+            stroke: data.borderColor,
+            strokeWidth: data.border
         });
 
         //底部泳道分割横线绘制
         const laneBottom = new Konva.Line({
             points: [data.startCoordinate.x, yBottom, xEnd, yBottom],
-            stroke: 'black',
-            strokeWidth: 1
+            stroke: data.borderColor,
+            strokeWidth: data.border
         });
 
         return [laneTop, laneBottom];
