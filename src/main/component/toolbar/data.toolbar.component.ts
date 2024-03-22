@@ -22,7 +22,7 @@ export class ChronosToolbarData extends ComponentData {
     /**
      * 宽度
      */
-    width: number = 41
+    width: number = 40
 
     /**
      * 背景颜色

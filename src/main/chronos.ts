@@ -7,6 +7,7 @@ import {EventManager} from "./core/event/manager.event";
 import {GridConfig} from "./config/grid.inversify.config";
 import {LaneConfig} from "./config/lane.inversify.config";
 import {ToolbarConfig} from "./config/toolbar.inversify.config";
+import {TimelineConfig} from "./config/timeline.inversify.config";
 
 
 export class Chronos {
@@ -24,6 +25,7 @@ export class Chronos {
         new GridConfig(chronosContainer, rootHtml)
         new LaneConfig(chronosContainer, rootHtml)
         new ToolbarConfig(chronosContainer, rootHtml)
+        new TimelineConfig(chronosContainer, rootHtml)
 
         //生命周期管理器
         const lifecycleManager = new LifecycleManager(chronosContainer);

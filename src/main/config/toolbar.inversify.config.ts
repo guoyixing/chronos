@@ -14,7 +14,7 @@ export class ToolbarConfig {
 
         const data: ChronosToolbarData = new ChronosToolbarData(
             chronosContainer.get<Context>(TYPES.Context),
-            {y: 0, x: 0}
+            {y: 1, x: 1}
         );
 
         chronosContainer.bind<ChronosToolbarData>(TYPES.ChronosToolbarData).toConstantValue(data);
