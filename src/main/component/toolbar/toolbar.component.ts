@@ -40,4 +40,8 @@ export class ChronosToolbarComponent extends BaseComponent<ChronosToolbarData, C
         this.data.layer?.destroyChildren();
         this.service.draw();
     }
+
+    order(): number {
+        return 9998
+    }
 }

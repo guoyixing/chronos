@@ -7,7 +7,6 @@ import {StageDragListener} from "../core/event/event";
 import {Context} from "../core/context/context";
 import {ChronosLaneEntryData} from "../component/lane/entry/data.entry.lane.component";
 import {ToolbarPlugRegister} from "../component/toolbar/plug.toolbar.component";
-import {ChronosGridComponent} from "../component/grid/grid.component";
 
 /**
  * 泳道配置

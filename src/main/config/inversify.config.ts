@@ -49,6 +49,11 @@ export const TYPES = {
     ChronosToolbarService: Symbol.for("ChronosToolbarService"),
     ChronosToolbarComponent: Symbol.for("ChronosToolbarComponent"),
     ToolbarPlugRegister: Symbol.for("ToolbarPlugRegister"),
+
+    //组件-时间轴
+    ChronosTimelineData: Symbol.for("ChronosTimelineData"),
+    ChronosTimelineService: Symbol.for("ChronosTimelineService"),
+    ChronosTimelineComponent: Symbol.for("ChronosTimelineComponent"),
 };
 
 /**
