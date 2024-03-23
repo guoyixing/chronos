@@ -32,7 +32,7 @@ export class LaneConfig {
             context,
             entry,
             40,
-            80,
+            60,
             {x: 40, y: 60}
         )
 

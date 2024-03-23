@@ -24,7 +24,7 @@ export class ChronosWindowComponent extends BaseComponent<ChronosWindowData, Chr
     }
 
     order(): number {
-        return 9999
+        return 9998
     }
 
     /**

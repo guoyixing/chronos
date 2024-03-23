@@ -266,4 +266,23 @@ export class ChronosTimelineService implements ComponentService {
             time = nextTime
         } while (surplusWidth > 0);
     }
+
+    /**
+     * 根据时间获取x坐标
+     * @param startTime
+     */
+    getXByTime(startTime: Date) {
+        const data = this._data;
+        const coordinate = this._data.context.drawContext.getFixedCoordinate();
+
+        //当前的日期
+        const offsetDay = -(coordinate.x / data.dayWidth);
+        const currentDay = new Date(data.initTime.getTime() - offsetDay * oneDayMillisecond);
+
+        //计算当前时间相对于开始时间的距离
+        const x = betweenMs(currentDay, startTime) * (data.dayWidth / oneDayMillisecond);
+
+        //x坐标
+        return coordinate.x + data.startOffSet.x + data.headWidth + x;
+    }
 }

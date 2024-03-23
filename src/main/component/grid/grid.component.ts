@@ -50,7 +50,7 @@ export class ChronosGridComponent extends BaseComponent<ChronosGridData, Chronos
      * 舞台拖拽监听
      */
     stageDragListen() {
-        this.data.layer?.destroyChildren()
+        this.data.graphics?.destroy()
         this.service.draw()
     }
 

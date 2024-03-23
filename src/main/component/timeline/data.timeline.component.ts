@@ -31,7 +31,7 @@ export class ChronosTimelineData extends ComponentData {
     /**
      * 头部宽度
      */
-    headWidth: number = 40;
+    headWidth: number = 60;
 
     /**
      * 边框大小

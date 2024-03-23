@@ -54,6 +54,21 @@ export const TYPES = {
     ChronosTimelineData: Symbol.for("ChronosTimelineData"),
     ChronosTimelineService: Symbol.for("ChronosTimelineService"),
     ChronosTimelineComponent: Symbol.for("ChronosTimelineComponent"),
+
+    //组件-节点导航窗
+    ChronosNodeBarData: Symbol.for("ChronosNodeBarData"),
+    ChronosNodeBarService: Symbol.for("ChronosNodeBarService"),
+    ChronosNodeBarComponent: Symbol.for("ChronosNodeBarComponent"),
+
+    //组件-节点条目
+    ChronosNodeEntryData: Symbol.for("ChronosNodeEntryData"),
+    ChronosNodeEntryService: Symbol.for("ChronosNodeEntryService"),
+    ChronosNodeEntryComponent: Symbol.for("ChronosNodeEntryComponent"),
+
+    //组件-节点组
+    ChronosNodeGroupData: Symbol.for("ChronosNodeGroupData"),
+    ChronosNodeGroupService: Symbol.for("ChronosNodeGroupService"),
+    ChronosNodeGroupComponent: Symbol.for("ChronosNodeGroupComponent"),
 };
 
 /**

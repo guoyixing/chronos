@@ -31,10 +31,12 @@ export class ChronosToolbarService implements ComponentService {
      * 绘制
      */
     draw(): void {
+        const group = new Konva.Group();
         //绘制背景
-        this.drawBackground();
+        this.drawBackground(group);
         //绘制工具组
-        this.drawToolbarGroup();
+        this.drawToolbarGroup(group);
+        this._data.layer?.add(group);
     }
 
 
@@ -42,7 +44,7 @@ export class ChronosToolbarService implements ComponentService {
      * 绘制工具组
      * @private
      */
-    drawToolbarGroup() {
+    drawToolbarGroup(group: Konva.Group) {
         const data = this._data;
 
         const fixedCoordinate = data.context.drawContext.getFixedCoordinate();
@@ -73,7 +75,7 @@ export class ChronosToolbarService implements ComponentService {
                 text.fill(data.textColor);
             });
 
-            data.layer?.add(text);
+            group.add(text);
             nextY += text.text().length * data.fontSize + data.plugMargin;
         });
     }
@@ -81,7 +83,7 @@ export class ChronosToolbarService implements ComponentService {
     /**
      * 绘制背景
      */
-    private drawBackground() {
+    private drawBackground(group: Konva.Group) {
         const data = this._data;
 
         //获取固定坐标
@@ -91,13 +93,19 @@ export class ChronosToolbarService implements ComponentService {
             x: data.startOffSet.x + fixedCoordinate.x,
             y: data.startOffSet.y + fixedCoordinate.y,
             width: data.width,
-            height: this._window.data.height,
+            height: this._window.data.height - this._window.data.border * 2,
             fill: data.backgroundColor,
             stroke: data.backgroundBorderColor,
             strokeWidth: data.backgroundBorder
         });
-        data.layer?.add(rect);
-        return fixedCoordinate;
+        group.add(rect);
+    }
+
+    /**
+     * 获取图层
+     */
+    setLayer() {
+        return this._window.data.layer;
     }
 
 }
