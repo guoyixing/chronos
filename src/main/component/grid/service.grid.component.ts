@@ -37,6 +37,9 @@ export class ChronosGridService implements ComponentService {
         this._data.xLine = [];
         this._data.yLine = [];
 
+        const group = new Konva.Group();
+        this._data.graphics = group;
+
         const {width, height} = this._window.service.getVisualRange()
         const size = this._data.size;
         const rootLayer = this._data.context.drawContext.rootLayer;
@@ -53,7 +56,7 @@ export class ChronosGridService implements ComponentService {
         //绘制纵线
         for (let i = x; i < x + width + size; i += size) {
             this._data.xLine.push(i);
-            rootLayer.add(new Konva.Line({
+            group.add(new Konva.Line({
                 //x开始，y开始，x结束，y结束
                 //y开始-网格大小，是为了移动的时候，上方不会出现空白
                 //y结束+高度+网格大小，是为了移动的时候，下方不会出现空白
@@ -66,12 +69,14 @@ export class ChronosGridService implements ComponentService {
         //绘制横线
         for (let j = y; j < y + height + size; j += size) {
             this._data.yLine.push(j);
-            rootLayer.add(new Konva.Line({
+            group.add(new Konva.Line({
                 points: [x - size, j, x + width + size, j],
                 stroke: this._data.color,
                 strokeWidth: this._data.width,
             }));
         }
+        rootLayer.add(group);
+        group.moveToBottom()
     }
 
     /**

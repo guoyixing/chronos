@@ -8,6 +8,8 @@ import {GridConfig} from "./config/grid.inversify.config";
 import {LaneConfig} from "./config/lane.inversify.config";
 import {ToolbarConfig} from "./config/toolbar.inversify.config";
 import {TimelineConfig} from "./config/timeline.inversify.config";
+import {NodeBarConfig} from "./config/bar.node.inversify.config";
+import {NodeConfig} from "./config/node.inversify.config";
 
 
 export class Chronos {
@@ -26,6 +28,8 @@ export class Chronos {
         new LaneConfig(chronosContainer, rootHtml)
         new ToolbarConfig(chronosContainer, rootHtml)
         new TimelineConfig(chronosContainer, rootHtml)
+        new NodeBarConfig(chronosContainer, rootHtml)
+        new NodeConfig(chronosContainer, rootHtml)
 
         //生命周期管理器
         const lifecycleManager = new LifecycleManager(chronosContainer);

@@ -2,12 +2,18 @@ import {ComponentData} from "../data.component";
 import {Context} from "../../core/context/context";
 import {ChronosToolPlug} from "./plug.toolbar.component";
 import {injectable} from "inversify";
+import Konva from "konva";
 
 /**
  * 工具栏-组件数据
  */
 @injectable()
 export class ChronosToolbarData extends ComponentData {
+
+    /**
+     * 图形
+     */
+    graphics: Konva.Group | undefined
 
     /**
      * 工具组
@@ -22,7 +28,7 @@ export class ChronosToolbarData extends ComponentData {
     /**
      * 宽度
      */
-    width: number = 40
+    width: number = 39
 
     /**
      * 背景颜色

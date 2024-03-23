@@ -10,6 +10,11 @@ import {Context} from "../../core/context/context";
 export class ChronosGridData extends ComponentData {
 
     /**
+     * 图形
+     */
+    graphics: Konva.Group | undefined
+
+    /**
      * 网格间隙
      */
     size: number = 20;

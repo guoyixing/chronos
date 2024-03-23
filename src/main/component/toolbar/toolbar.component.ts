@@ -28,7 +28,7 @@ export class ChronosToolbarComponent extends BaseComponent<ChronosToolbarData, C
      * 初始化
      */
     init() {
-        super.init()
+        this.data.layer = this.service.setLayer()
         const plugs = this.data.context.ioc.getAll<ToolbarPlugRegister>(TYPES.ToolbarPlugRegister)
         plugs.sort((a, b) => a.toolbar().order - b.toolbar().order)
         plugs.forEach((register) => {
@@ -37,11 +37,11 @@ export class ChronosToolbarComponent extends BaseComponent<ChronosToolbarData, C
     }
 
     stageDragListen() {
-        this.data.layer?.destroyChildren();
+        this.data.graphics?.destroy();
         this.service.draw();
     }
 
     order(): number {
-        return 9998
+        return 9999
     }
 }
