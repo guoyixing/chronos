@@ -1,5 +1,6 @@
 import {Container} from "inversify";
 import {DrawContext} from "./draw.context";
+import {EventManager} from "../event/manager.event";
 
 /**
  * 上下文
@@ -14,6 +15,11 @@ export class Context {
      * 绘画上下文
      */
     readonly drawContext: DrawContext;
+
+    /**
+     * 事件管理
+     */
+    eventManager?: EventManager;
 
     constructor(config: ContextConfig) {
         this.ioc = config.ioc;

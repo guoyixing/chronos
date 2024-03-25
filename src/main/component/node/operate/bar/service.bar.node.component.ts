@@ -4,8 +4,8 @@ import Konva from "konva";
 import {ChronosWindowComponent} from "../../../window/window.component";
 import {TYPES} from "../../../../config/inversify.config";
 import {ChronosNodeBarData} from "./data.bar.node.component";
-import {ChronosNodeEntryComponent} from "../entry/entry.node.component";
 import {ChronosNodeEntryData} from "../entry/data.entry.node.component";
+import {NodeShape} from "../../board/shape/NodeShape";
 
 /**
  * 节点导航窗-组件服务
@@ -66,20 +66,19 @@ export class ChronosNodeBarService implements ComponentService {
     /**
      * 根据节点获取一个图形
      */
-    getGraphicsByNode(nodeData: ChronosNodeEntryData) {
-        if (nodeData.type === 'star') {
-            return new Konva.Star({
-                x: nodeData.coordinate?.xStart,
-                y: nodeData.coordinate?.y,
-                numPoints: 5,
-                innerRadius: 5,
-                outerRadius: 10,
-                fill: 'yellow',
-                stroke: 'black',
-                strokeWidth: 1,
-                draggable: true,
-            });
+    getGraphicsByNode(nodeData: ChronosNodeEntryData): NodeShape {
+        let type = this._data.candidateNode.get(nodeData.type);
+
+        if (!type) {
+            type = this._data.candidateTransformableNode.get(nodeData.type);
         }
+
+        if (type) {
+            const nodeShape = new type();
+            nodeShape.create(nodeData.coordinate?.xStart ?? 0, nodeData.coordinate?.y ?? 0, nodeData.coordinate?.xFinish);
+            return nodeShape;
+        }
+
         throw new Error('未知的节点类型')
     }
 

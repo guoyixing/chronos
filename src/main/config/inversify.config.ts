@@ -2,10 +2,13 @@ import {DestroyLifecycle, InitLifecycle, Lifecycle, StartLifecycle} from "../cor
 import {Container, interfaces} from "inversify";
 import {BaseComponent, Component} from "../component/component";
 import {ChronosLaneEntryData} from "../component/lane/entry/data.entry.lane.component";
-import Newable = interfaces.Newable;
 import {ToolbarPlugRegister} from "../component/toolbar/plug.toolbar.component";
+import Newable = interfaces.Newable;
 
 export const TYPES = {
+    //节点图形
+    NodeShape: Symbol.for("NodeShape"),
+
     //上下文
     Context: Symbol.for("Context"),
     DrawContext: Symbol.for("DrawContext"),

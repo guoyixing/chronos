@@ -2,6 +2,7 @@ import {ComponentData} from "../../../data.component";
 import {injectable} from "inversify";
 import {Context} from "../../../../core/context/context";
 import Konva from "konva";
+import {NodeShape} from "../../board/shape/NodeShape";
 
 /**
  * 节点导航窗-组件数据
@@ -50,9 +51,21 @@ export class ChronosNodeBarData extends ComponentData {
      */
     border: number = 1
 
+    /**
+     * 候选的变形节点
+     */
+    candidateTransformableNode: Map<String, new () => NodeShape>;
+
+    /**
+     * 候选的节点
+     */
+    candidateNode: Map<String, new () => NodeShape>;
+
 
     constructor(context: Context, width: number) {
         super(context);
         this.width = width;
+        this.candidateNode = new Map<string, new () => any>();
+        this.candidateTransformableNode = new Map<string, new () => any>();
     }
 }

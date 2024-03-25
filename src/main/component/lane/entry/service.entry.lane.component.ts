@@ -98,9 +98,10 @@ export class ChronosLaneEntryService implements ComponentService {
         //拖动结束
         group.on('dragend', () => {
             this.moveIndex();
-            groupData.layer?.destroyChildren();
-            this._group.service.draw();
+            this._group.service.reDraw()
         });
+
+        this._data.graphics = group
         groupData.layer?.add(group);
 
         //设置泳道数据
@@ -247,7 +248,6 @@ export class ChronosLaneEntryService implements ComponentService {
      */
     drawBorder(width: number, height: number): Konva.Line[] {
         const data = this._data;
-        const groupData = this._group.data;
 
         //泳道分割横线，xEnd坐标
         const xEnd = data.startCoordinate.x + width;

@@ -41,12 +41,15 @@ export class ChronosNodeGroupComponent extends BaseComponent<ChronosNodeGroupDat
         const bar = this.data.context.ioc.get<ChronosNodeBarComponent>(TYPES.ChronosNodeBarComponent);
         //获取时间轴
         const timeline = this.data.context.ioc.get<ChronosTimelineComponent>(TYPES.ChronosTimelineComponent);
+        //获取节点组
+        const nodeGroup = this.data.context.ioc.get<ChronosNodeGroupComponent>(TYPES.ChronosNodeGroupComponent);
 
 
         //初始化泳道组
         this.data.originalNodeEntryData.forEach((entryData) => {
             entryData.layer = this.data.layer;
-            const service = new ChronosNodeEntryService(entryData, window, bar, laneGroup, timeline);
+            const service = new ChronosNodeEntryService(
+                entryData, window, bar, laneGroup, timeline, nodeGroup);
             const component = new ChronosNodeEntryComponent(entryData, service);
             this.data.nodeGroup.push(component);
         })
@@ -57,7 +60,10 @@ export class ChronosNodeGroupComponent extends BaseComponent<ChronosNodeGroupDat
      */
     start() {
         this.data.nodeGroup.forEach((entryComponent) => {
-            entryComponent.service.updateCoordinate();
+            entryComponent.data.graphics?.shape?.destroy()
+            entryComponent.data.graphics = undefined
+            entryComponent.service.initCoordinate();
+            entryComponent.service.followLane()
         })
         super.start();
     }

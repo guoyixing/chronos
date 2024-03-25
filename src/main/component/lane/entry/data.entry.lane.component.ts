@@ -1,10 +1,16 @@
 import {ComponentData} from "../../data.component";
 import {Context} from "../../../core/context/context";
+import Konva from "konva";
 
 /**
  * 泳道条目-组件数据
  */
 export class ChronosLaneEntryData extends ComponentData {
+
+    /**
+     * 图形
+     */
+    graphics: Konva.Group | undefined
 
     /**
      * 泳道id

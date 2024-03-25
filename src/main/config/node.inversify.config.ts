@@ -15,12 +15,16 @@ export class NodeConfig {
 
         const context = chronosContainer.get<Context>(TYPES.Context);
 
-        const entryData = new ChronosNodeEntryData(context, '1', '节点1', 'star', new Date('2023-12-12 00:00:00'), '1', 2);
+        const entryData = new ChronosNodeEntryData(context, '2', '节点2', 'star', new Date('2023-12-12 00:00:00'), '1', 2);
         entryData.moveRangeColor = 'rgba(255,0,0,0.3)';
+
+        const arrowEntryData = new ChronosNodeEntryData(context, '3', '节点3', 'arrow', new Date('2023-12-04 00:00:00'), '2', 2)
+        arrowEntryData.finishTime = new Date('2023-12-09 00:00:00');
 
         const entry = [
             new ChronosNodeEntryData(context, '1', '节点1', 'star', new Date('2023-12-03 00:00:00'), '1', 2),
             entryData,
+            arrowEntryData,
         ]
 
 

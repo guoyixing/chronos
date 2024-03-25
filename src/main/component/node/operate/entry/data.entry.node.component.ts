@@ -1,7 +1,7 @@
 import {ComponentData} from "../../../data.component";
-import Konva from "konva";
 import {ChronosLaneEntryComponent} from "../../../lane/entry/entry.lane.component";
 import {Context} from "../../../../core/context/context";
+import {NodeShape} from "../../board/shape/NodeShape";
 
 /**
  * 节点条目-组件数据
@@ -52,7 +52,7 @@ export class ChronosNodeEntryData extends ComponentData {
     /**
      * 图形
      */
-    graphics: Konva.Shape | undefined
+    graphics: NodeShape | undefined
 
     /**
      * 坐标
@@ -60,7 +60,7 @@ export class ChronosNodeEntryData extends ComponentData {
      * xFinish: 结束x坐标，如果没有结束时间，则为undefined
      * y: y坐标
      */
-    coordinate: { xStart?: number, xFinish?: number | undefined, y?: number } = {}
+    private _coordinate: { xStart?: number, xFinish?: number | undefined, y?: number } = {}
 
     /**
      * 移动范围的颜色
@@ -85,6 +85,15 @@ export class ChronosNodeEntryData extends ComponentData {
         this.startTime = startTime;
         this.laneId = laneId;
         this.row = row;
+    }
+
+    get coordinate(): { xStart?: number; xFinish?: number | undefined; y?: number } {
+        const coordinate = this.graphics?.coordinate();
+        return coordinate || this._coordinate
+    }
+
+    set coordinate(value: { xStart?: number; xFinish?: number | undefined; y?: number }) {
+        this._coordinate = value;
     }
 }
 

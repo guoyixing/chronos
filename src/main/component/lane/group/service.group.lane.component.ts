@@ -4,6 +4,7 @@ import {ChronosLaneGroupData} from "./data.group.lane.component";
 import {ChronosWindowComponent} from "../../window/window.component";
 import {TYPES} from "../../../config/inversify.config";
 import {ChronosLaneEntryComponent} from "../entry/entry.lane.component";
+import {EVENT_TYPES} from "../../../core/event/event";
 
 /**
  * 泳道组-组件服务
@@ -55,6 +56,18 @@ export class ChronosLaneGroupService implements ComponentService {
     }
 
     /**
+     * 重新绘制
+     */
+    reDraw() {
+        this._data.layer?.destroyChildren();
+        this.draw();
+        //发布事件
+        this._data.laneGroup.forEach(lane => {
+            lane.publish(EVENT_TYPES.ReDraw)
+        })
+    }
+
+    /**
      * 根据id获取泳道
      * @param id 泳道id
      */
@@ -75,10 +88,7 @@ export class ChronosLaneGroupService implements ComponentService {
         for (let i = this._data.laneGroup.length - 1; i >= 0; i--) {
             //遍历的泳道
             const laneEntry = this._data.laneGroup[i];
-            if (y === laneEntry.data.startCoordinate.y) {
-                throw new Error('y坐标在泳道分割线上，无法获取泳道')
-            }
-            if (y > laneEntry.data.startCoordinate.y) {
+            if (y >= laneEntry.data.startCoordinate.y) {
                 //获取鼠标移动到的泳道的索引
                 return laneEntry;
             }

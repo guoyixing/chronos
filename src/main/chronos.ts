@@ -31,14 +31,16 @@ export class Chronos {
         new NodeBarConfig(chronosContainer, rootHtml)
         new NodeConfig(chronosContainer, rootHtml)
 
+        //事件监听
+        new EventManager(chronosContainer)
+
         //生命周期管理器
         const lifecycleManager = new LifecycleManager(chronosContainer);
         lifecycleManager.init()
         lifecycleManager.start()
         lifecycleManager.destroy()
 
-        //事件监听
-        new EventManager(chronosContainer)
+
     }
 
 }
