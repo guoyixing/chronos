@@ -64,6 +64,7 @@ export class ChronosNodeGroupComponent extends BaseComponent<ChronosNodeGroupDat
             entryComponent.data.graphics = undefined
             entryComponent.service.initCoordinate();
             entryComponent.service.followLane()
+            entryComponent.service.listenReDrawLane()
         })
         super.start();
     }

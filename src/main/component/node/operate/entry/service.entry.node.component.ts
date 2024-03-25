@@ -179,6 +179,14 @@ export class ChronosNodeEntryService implements ComponentService {
             }
         });
 
+    }
+
+    /**
+     * 监听泳道重绘
+     */
+    listenReDrawLane() {
+        const data = this._data;
+        const lane = data.lane;
         //监听泳道重绘
         lane?.on(EVENT_TYPES.ReDraw, () => {
             data.graphics?.shape?.destroy()
@@ -188,6 +196,7 @@ export class ChronosNodeEntryService implements ComponentService {
             this.draw()
         });
     }
+
 
     /**
      * 更新泳道
