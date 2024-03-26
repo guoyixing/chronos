@@ -269,9 +269,9 @@ export class ChronosTimelineService implements ComponentService {
 
     /**
      * 根据时间获取x坐标
-     * @param startTime
+     * @param time
      */
-    getXByTime(startTime: Date) {
+    getXByTime(time: Date) {
         const data = this._data;
         const coordinate = this._data.context.drawContext.getFixedCoordinate();
 
@@ -280,9 +280,29 @@ export class ChronosTimelineService implements ComponentService {
         const currentDay = new Date(data.initTime.getTime() - offsetDay * oneDayMillisecond);
 
         //计算当前时间相对于开始时间的距离
-        const x = betweenMs(currentDay, startTime) * (data.dayWidth / oneDayMillisecond);
+        const x = betweenMs(currentDay, time) * (data.dayWidth / oneDayMillisecond);
 
         //x坐标
         return coordinate.x + data.startOffSet.x + data.headWidth + x;
+    }
+
+    /**
+     * 根据x坐标获取时间
+     * @param x x坐标
+     */
+    getTimeByX(x: number): Date {
+        const data = this._data;
+        const coordinate = this._data.context.drawContext.getFixedCoordinate();
+
+        //当前的日期
+        const offsetDay = -(coordinate.x / data.dayWidth);
+        const currentDay = new Date(data.initTime.getTime() - offsetDay * oneDayMillisecond);
+
+        //计算时间偏移量  （x坐标 - 起始x坐标 - 头部宽度）* （每个像素点代表的时间宽度）
+        const time = (x - coordinate.x - data.startOffSet.x - data.headWidth) * (oneDayMillisecond / data.dayWidth);
+
+        //当前的时间（时间轴最左侧的时间）+时间偏移量
+        return new Date(currentDay.getTime() + time);
+
     }
 }

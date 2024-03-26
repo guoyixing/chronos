@@ -100,7 +100,7 @@ export class ChronosNodeEntryService implements ComponentService {
             //移动结束后，移除移动范围
             moveRange && moveRange.destroy();
             this.updateLane()
-            //TODO 更新时间
+            this.updateTime()
         });
         data.graphics = nodeShape
         node && data.layer?.add(node);
@@ -215,5 +215,20 @@ export class ChronosNodeEntryService implements ComponentService {
         data.lane = lane;
         data.laneId = lane.data.id;
         data.row = lane.service.getRowByY(data.coordinate.y);
+    }
+
+    /**
+     * 更新时间
+     */
+    updateTime() {
+        const data = this._data;
+        const timeline = this._timeline;
+        if (data.coordinate.xStart === undefined) {
+            throw new Error('开始时间不存在')
+        }
+        data.startTime = timeline.service.getTimeByX(data.coordinate.xStart);
+        if (data.coordinate.xFinish !== undefined){
+            data.finishTime = timeline.service.getTimeByX(data.coordinate.xFinish);
+        }
     }
 }
