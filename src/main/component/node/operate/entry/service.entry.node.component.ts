@@ -64,11 +64,28 @@ export class ChronosNodeEntryService implements ComponentService {
      */
     draw() {
         const data = this._data;
-        const laneGroup = this._laneGroup;
         //获取bar
         const nodeShape = this._bar.service.getGraphicsByNode(data);
-
         const node = nodeShape.shape;
+
+        //监听移动
+        this.listenMove(nodeShape)
+        //监听点击
+        this.listenClick(nodeShape)
+
+        data.graphics = nodeShape
+        node && data.layer?.add(node);
+    }
+
+    /**
+     * 监听移动
+     * @param nodeShape 节点
+     */
+    listenMove(nodeShape: NodeShape) {
+        const data = this._data;
+        const node = nodeShape.shape;
+        const laneGroup = this._laneGroup;
+
         //移动时候y轴绑定到泳道的行，只允许在奇数行移动
         node?.dragBoundFunc((pos) => {
             const lane = laneGroup.service.laneByY(pos.y);
@@ -102,8 +119,48 @@ export class ChronosNodeEntryService implements ComponentService {
             this.updateLane()
             this.updateTime()
         });
-        data.graphics = nodeShape
-        node && data.layer?.add(node);
+    }
+
+    /**
+     * 监听移动
+     * @param nodeShape 节点
+     */
+    listenClick(nodeShape: NodeShape) {
+        const data = this._data;
+        const node = nodeShape.shape;
+        if (nodeShape.transformable) {
+            node?.on('click', function (e) {
+                data.layer?.find('Transformer').forEach((node) => {
+                    node.destroy()
+                })
+
+                const tr = new Konva.Transformer({
+                    nodes: [e.target],
+                    rotateEnabled: false,
+                    centeredScaling: false,
+                    borderStroke: data.transformerBorderColor,
+                    borderStrokeWidth: data.transformerBorder,
+                    borderDash: data.transformerBorderDash,
+                    anchorSize: data.transformerAnchorSize,
+                    anchorStroke: data.transformerAnchorColor,
+                    anchorFill: data.transformerAnchorFillColor,
+                    enabledAnchors: ['middle-left', 'middle-right'],
+                });
+
+                tr.on('transform', (eventObj) => {
+
+                    const target = eventObj.target;
+                    const coordinate = nodeShape.coordinate();
+                    console.log(target.scaleX(),target.width(),target.x())
+                    // coordinate.xFinish && nodeShape.transform(coordinate.xStart, coordinate.y, coordinate.xFinish * target.scaleX())
+                    // console.log(coordinate.xFinish,target.scaleX())
+                    // target.scaleX(1)
+                    target.x(0)
+
+                })
+                data.layer?.add(tr);
+            });
+        }
     }
 
     /**
@@ -227,7 +284,7 @@ export class ChronosNodeEntryService implements ComponentService {
             throw new Error('开始时间不存在')
         }
         data.startTime = timeline.service.getTimeByX(data.coordinate.xStart);
-        if (data.coordinate.xFinish !== undefined){
+        if (data.coordinate.xFinish !== undefined) {
             data.finishTime = timeline.service.getTimeByX(data.coordinate.xFinish);
         }
     }

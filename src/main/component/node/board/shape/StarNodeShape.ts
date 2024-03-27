@@ -40,6 +40,7 @@ export class StarNodeShape implements NodeShape {
             strokeWidth: 1,
         });
         this.shape = new Konva.Group({
+            width: star.width(),
             x: xStart,
             y: y,
             draggable: true

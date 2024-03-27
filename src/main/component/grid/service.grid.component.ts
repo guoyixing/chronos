@@ -75,6 +75,7 @@ export class ChronosGridService implements ComponentService {
                 strokeWidth: this._data.width,
             }));
         }
+
         rootLayer.add(group);
         group.moveToBottom()
     }
