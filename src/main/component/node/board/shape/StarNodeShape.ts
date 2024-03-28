@@ -73,4 +73,11 @@ export class StarNodeShape implements NodeShape {
         throw new Error('未找到节点')
     }
 
+    /**
+     * 变形器节点偏移量
+     */
+    transformerOffset(): { left: number; right: number; } {
+        throw new Error("star类型的节点无法变形.");
+    }
+
 }

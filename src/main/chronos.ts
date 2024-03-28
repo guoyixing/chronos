@@ -10,6 +10,7 @@ import {ToolbarConfig} from "./config/toolbar.inversify.config";
 import {TimelineConfig} from "./config/timeline.inversify.config";
 import {NodeBarConfig} from "./config/bar.node.inversify.config";
 import {NodeConfig} from "./config/node.inversify.config";
+import {NodeTransformerConfig} from "./config/transformer.node.inversify.config";
 
 
 export class Chronos {
@@ -27,6 +28,7 @@ export class Chronos {
         new GridConfig(chronosContainer, rootHtml)
         new LaneConfig(chronosContainer, rootHtml)
         new ToolbarConfig(chronosContainer, rootHtml)
+        new NodeTransformerConfig(chronosContainer, rootHtml)
         new TimelineConfig(chronosContainer, rootHtml)
         new NodeBarConfig(chronosContainer, rootHtml)
         new NodeConfig(chronosContainer, rootHtml)

@@ -77,37 +77,6 @@ export class ChronosNodeEntryData extends ComponentData {
      */
     moveRangeBorder: number = 0
 
-    /**
-     * 变形器边框的颜色
-     */
-    transformerBorderColor: string = '#999'
-
-    /**
-     * 变形器边框的大小
-     */
-    transformerBorder: number = 1
-
-    /**
-     * 变形器边框的虚线
-     */
-    transformerBorderDash: number[] = [5, 5]
-
-    /**
-     * 变形器锚点的大小
-     */
-    transformerAnchorSize: number = 10
-
-    /**
-     * 变形器锚点的边框颜色
-     */
-    transformerAnchorColor: string = '#000'
-
-    /**
-     * 变形器锚点的填充颜色
-     */
-    transformerAnchorFillColor: string = '#999'
-
-
     constructor(context: Context, id: string, name: string, type: string, startTime: Date, laneId: string, row: number) {
         super(context);
         this.id = id;

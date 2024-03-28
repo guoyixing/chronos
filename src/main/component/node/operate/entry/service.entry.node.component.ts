@@ -8,6 +8,7 @@ import {ChronosTimelineComponent} from "../../../timeline/timeline.component";
 import {NodeShape} from "../../board/shape/NodeShape";
 import {ChronosNodeGroupComponent} from "../group/group.node.component";
 import {EVENT_TYPES} from "../../../../core/event/event";
+import {ChronosNodeTransformerComponent} from "../transformer/transformer.node.component";
 
 /**
  * 节点条目-组件服务
@@ -40,9 +41,14 @@ export class ChronosNodeEntryService implements ComponentService {
     private _timeline: ChronosTimelineComponent
 
     /**
-     * 时间轴
+     * 节点组
      */
     private _nodeGroup: ChronosNodeGroupComponent
+
+    /**
+     * 节点变形器
+     */
+    private _nodeTransformer: ChronosNodeTransformerComponent
 
 
     constructor(data: ChronosNodeEntryData,
@@ -50,13 +56,15 @@ export class ChronosNodeEntryService implements ComponentService {
                 bar: ChronosNodeBarComponent,
                 laneGroup: ChronosLaneGroupComponent,
                 timeline: ChronosTimelineComponent,
-                nodeGroup: ChronosNodeGroupComponent) {
+                nodeGroup: ChronosNodeGroupComponent,
+                nodeTransformer: ChronosNodeTransformerComponent) {
         this._data = data;
         this._window = window;
         this._bar = bar;
         this._laneGroup = laneGroup;
         this._timeline = timeline;
         this._nodeGroup = nodeGroup;
+        this._nodeTransformer = nodeTransformer;
     }
 
     /**
@@ -110,6 +118,7 @@ export class ChronosNodeEntryService implements ComponentService {
             //可移动范围切换到泳道的行
             const moveRangeY = node?.y() - laneGroup.data.rowHeight / 2;
             moveRange.y(moveRangeY);
+            this._nodeTransformer.service.draw()
         });
 
         //监听移动结束
@@ -129,37 +138,12 @@ export class ChronosNodeEntryService implements ComponentService {
         const data = this._data;
         const node = nodeShape.shape;
         if (nodeShape.transformable) {
-            node?.on('click', function (e) {
-                data.layer?.find('Transformer').forEach((node) => {
-                    node.destroy()
-                })
-
-                const tr = new Konva.Transformer({
-                    nodes: [e.target],
-                    rotateEnabled: false,
-                    centeredScaling: false,
-                    borderStroke: data.transformerBorderColor,
-                    borderStrokeWidth: data.transformerBorder,
-                    borderDash: data.transformerBorderDash,
-                    anchorSize: data.transformerAnchorSize,
-                    anchorStroke: data.transformerAnchorColor,
-                    anchorFill: data.transformerAnchorFillColor,
-                    enabledAnchors: ['middle-left', 'middle-right'],
-                });
-
-                tr.on('transform', (eventObj) => {
-
-                    const target = eventObj.target;
-                    const coordinate = nodeShape.coordinate();
-                    console.log(target.scaleX(),target.width(),target.x())
-                    // coordinate.xFinish && nodeShape.transform(coordinate.xStart, coordinate.y, coordinate.xFinish * target.scaleX())
-                    // console.log(coordinate.xFinish,target.scaleX())
-                    // target.scaleX(1)
-                    target.x(0)
-
-                })
-                data.layer?.add(tr);
-            });
+            node?.on('click', () => {
+                const nodeEntry = this._nodeGroup.service.getNodeEntryByNodeId(data.id);
+                console.log(nodeEntry)
+                this._nodeTransformer.data.bindNode = nodeEntry;
+                this._nodeTransformer.service.draw()
+            })
         }
     }
 

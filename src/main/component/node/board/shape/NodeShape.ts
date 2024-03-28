@@ -43,4 +43,9 @@ export interface NodeShape {
      * y: y坐标
      */
     coordinate(): { xStart: number, xFinish: number | undefined, y: number }
+
+    /**
+     * 变形器节点偏移量
+     */
+    transformerOffset(): { left: number, right: number }
 }

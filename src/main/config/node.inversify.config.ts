@@ -21,10 +21,14 @@ export class NodeConfig {
         const arrowEntryData = new ChronosNodeEntryData(context, '3', '节点3', 'arrow', new Date('2023-12-04 00:00:00'), '2', 2)
         arrowEntryData.finishTime = new Date('2023-12-09 00:00:00');
 
+        const arrowEntryData2 = new ChronosNodeEntryData(context, '4', '节点4', 'arrow', new Date('2023-12-27 00:00:00'), '3', 0)
+        arrowEntryData2.finishTime = new Date('2024-01-06 00:00:00');
+
         const entry = [
             new ChronosNodeEntryData(context, '1', '节点1', 'star', new Date('2023-12-03 00:00:00'), '1', 2),
             entryData,
             arrowEntryData,
+            arrowEntryData2,
         ]
 
 

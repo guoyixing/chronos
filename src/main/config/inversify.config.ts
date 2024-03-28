@@ -72,6 +72,11 @@ export const TYPES = {
     ChronosNodeGroupData: Symbol.for("ChronosNodeGroupData"),
     ChronosNodeGroupService: Symbol.for("ChronosNodeGroupService"),
     ChronosNodeGroupComponent: Symbol.for("ChronosNodeGroupComponent"),
+
+    //组件-节点变形器
+    ChronosNodeTransformerData: Symbol.for("ChronosNodeTransformerData"),
+    ChronosNodeTransformerService: Symbol.for("ChronosNodeTransformerService"),
+    ChronosNodeTransformerComponent: Symbol.for("ChronosNodeTransformerComponent"),
 };
 
 /**
