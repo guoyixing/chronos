@@ -53,7 +53,7 @@ export class ArrowNodeShape implements NodeShape {
             stroke: 'black',
             strokeWidth: 3,
         });
-        console.log({xStart: xStart, xFinish: xFinish, y: y})
+
         const width = arrow.width() - arrow.pointerLength();
         this.shape = new Konva.Group({
             width: width,
@@ -96,7 +96,6 @@ export class ArrowNodeShape implements NodeShape {
     coordinate(): { xStart: number; xFinish: number | undefined; y: number; } {
         const shape = this.shape;
         if (shape) {
-            console.log({xStart: shape.x(), xFinish: shape.x() + shape.width(), y: shape.y()})
             return {xStart: shape.x(), xFinish: shape.x() + shape.width(), y: shape.y()}
         }
         throw new Error('未找到节点')
@@ -107,5 +106,14 @@ export class ArrowNodeShape implements NodeShape {
      */
     transformerOffset(): { left: number; right: number; } {
         return {left: 12, right: 12}
+    }
+
+    /**
+     * 最小宽度
+     */
+    minWidth(): number {
+        const shape = this.shape;
+        const arrow = shape?.findOne<Konva.Arrow>('.arrow');
+        return arrow?.pointerLength() || 0
     }
 }

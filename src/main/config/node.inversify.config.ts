@@ -31,6 +31,19 @@ export class NodeConfig {
             arrowEntryData2,
         ]
 
+        // const entry2 = []
+        // for (let l = 1; l < 9; l++) {
+        //     for (let j = 0; j < 3; j++) {
+        //         let time = new Date('2023-12-01 00:00:00').getTime();
+        //         for (let i = 0; i < 100; i++) {
+        //             const chronosNodeEntryData = new ChronosNodeEntryData(context, l + "" + j + "" + i, '节点' + j + "" + i, 'arrow', new Date(time), l + "", j);
+        //             time += 1000 * 60 * 60 * 24 * 7;
+        //             chronosNodeEntryData.finishTime = new Date(time);
+        //             entry2.push(chronosNodeEntryData)
+        //         }
+        //     }
+        // }
+
 
         const data = new ChronosNodeGroupData(
             context,

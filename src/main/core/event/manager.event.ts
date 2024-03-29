@@ -99,4 +99,23 @@ export class EventManager {
             callbacks.forEach(callback => callback(data));
         }
     }
+
+    /**
+     * 触发事件，并终止事件传播
+     */
+    publishAndPop(publisher: EventPublisher, event: symbol, data?: any) {
+        const eventId = publisher.id + event.toString();
+        const callbacks: Array<(data?: any) => void> = [];
+
+        while (this.events[eventId] && this.events[eventId].length > 0) {
+            const callback = this.events[eventId].pop();
+            callback && callbacks.push(callback);
+            console.log(callbacks.length)
+        }
+
+        while (callbacks.length > 0) {
+            const callback = callbacks.pop();
+            callback && callback(data);
+        }
+    }
 }

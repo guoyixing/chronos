@@ -48,4 +48,9 @@ export interface NodeShape {
      * 变形器节点偏移量
      */
     transformerOffset(): { left: number, right: number }
+
+    /**
+     * 最小宽度
+     */
+    minWidth(): number;
 }

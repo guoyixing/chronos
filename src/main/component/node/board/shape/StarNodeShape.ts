@@ -80,4 +80,10 @@ export class StarNodeShape implements NodeShape {
         throw new Error("star类型的节点无法变形.");
     }
 
+    /**
+     * 最小宽度
+     */
+    minWidth(): number {
+        return 0
+    }
 }

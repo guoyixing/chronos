@@ -12,6 +12,11 @@ export class ChronosNodeTransformerData extends ComponentData {
     /**
      * 绑定的节点
      */
+    bindNodeId: string | undefined
+
+    /**
+     * 绑定的节点
+     */
     bindNode: ChronosNodeEntryComponent | undefined
 
     /**

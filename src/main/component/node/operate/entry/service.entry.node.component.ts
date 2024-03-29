@@ -7,13 +7,18 @@ import {ChronosLaneGroupComponent} from "../../../lane/group/group.lane.componen
 import {ChronosTimelineComponent} from "../../../timeline/timeline.component";
 import {NodeShape} from "../../board/shape/NodeShape";
 import {ChronosNodeGroupComponent} from "../group/group.node.component";
-import {EVENT_TYPES} from "../../../../core/event/event";
+import {EVENT_TYPES, EventPublisher} from "../../../../core/event/event";
 import {ChronosNodeTransformerComponent} from "../transformer/transformer.node.component";
 
 /**
  * 节点条目-组件服务
  */
-export class ChronosNodeEntryService implements ComponentService {
+export class ChronosNodeEntryService implements ComponentService, EventPublisher {
+
+    /**
+     * 组件ID
+     */
+    id: string
 
     /**
      * 数据
@@ -65,6 +70,7 @@ export class ChronosNodeEntryService implements ComponentService {
         this._timeline = timeline;
         this._nodeGroup = nodeGroup;
         this._nodeTransformer = nodeTransformer;
+        this.id = "nodeEntry" + this._data.id
     }
 
     /**
@@ -83,6 +89,19 @@ export class ChronosNodeEntryService implements ComponentService {
 
         data.graphics = nodeShape
         node && data.layer?.add(node);
+    }
+
+    /**
+     * 重绘
+     */
+    reDraw() {
+        const data = this._data;
+        data.graphics?.shape?.destroy()
+        data.graphics = undefined
+        this.initCoordinate();
+        this.followLane()
+        this.draw()
+        this.publish(EVENT_TYPES.ReDraw)
     }
 
     /**
@@ -118,15 +137,16 @@ export class ChronosNodeEntryService implements ComponentService {
             //可移动范围切换到泳道的行
             const moveRangeY = node?.y() - laneGroup.data.rowHeight / 2;
             moveRange.y(moveRangeY);
-            this._nodeTransformer.service.draw()
         });
 
         //监听移动结束
         node?.on('dragend', () => {
             //移动结束后，移除移动范围
             moveRange && moveRange.destroy();
+            this.clearFollowLane()
             this.updateLane()
             this.updateTime()
+            this.followLane()
         });
     }
 
@@ -139,9 +159,7 @@ export class ChronosNodeEntryService implements ComponentService {
         const node = nodeShape.shape;
         if (nodeShape.transformable) {
             node?.on('click', () => {
-                const nodeEntry = this._nodeGroup.service.getNodeEntryByNodeId(data.id);
-                console.log(nodeEntry)
-                this._nodeTransformer.data.bindNode = nodeEntry;
+                this._nodeTransformer.data.bindNodeId = data.id;
                 this._nodeTransformer.service.draw()
             })
         }
@@ -203,38 +221,29 @@ export class ChronosNodeEntryService implements ComponentService {
      */
     followLane() {
         const data = this._data;
-        const lane = data.lane;
-        //原始位置
-        let originalPosition: number | undefined;
-
-        //监听移动开始
-        lane?.data.graphics?.on('dragstart', () => {
-            originalPosition = data.graphics?.shape?.y();
-        });
-
-        //监听泳道的移动
-        lane?.data.graphics?.on('dragmove', () => {
-            const offSetY = lane?.data.graphics?.y();
-            if (originalPosition != undefined && offSetY != undefined) {
-                data.graphics?.shape?.y(originalPosition + offSetY)
-            }
-        });
-
+        data.lane?.service.follow(
+            data.id,
+            () => data.graphics?.shape?.y(),
+            (y) => data.graphics?.shape?.y(y)
+        )
     }
+
+    /**
+     * 清除跟随泳道移动
+     */
+    clearFollowLane() {
+        const data = this._data;
+        data.lane?.service.clearFollow(data.id)
+    }
+
 
     /**
      * 监听泳道重绘
      */
     listenReDrawLane() {
-        const data = this._data;
-        const lane = data.lane;
         //监听泳道重绘
-        lane?.on(EVENT_TYPES.ReDraw, () => {
-            data.graphics?.shape?.destroy()
-            data.graphics = undefined
-            this.initCoordinate();
-            this.followLane()
-            this.draw()
+        this._data.lane?.service.on(EVENT_TYPES.ReDraw, () => {
+            this.reDraw()
         });
     }
 
@@ -271,5 +280,69 @@ export class ChronosNodeEntryService implements ComponentService {
         if (data.coordinate.xFinish !== undefined) {
             data.finishTime = timeline.service.getTimeByX(data.coordinate.xFinish);
         }
+    }
+
+    /**
+     * 跟随节点移动
+     */
+    follow(id: String,
+           getX: () => number | undefined,
+           setX: (y: number) => void,
+           setY: (y: number) => void): void {
+        const data = this._data;
+        const shape = data.graphics?.shape;
+        //原始位置X
+        let originalPositionX: number | undefined;
+        let originalNodeEntryPositionX: number | undefined;
+        //监听节点的X轴移动开始
+        shape?.on('dragstart.followNodeEntryX' + id, () => {
+            originalPositionX = getX();
+            originalNodeEntryPositionX = shape?.x()
+        });
+
+        //监听节点的X轴移动
+        shape?.on('dragmove.followNodeEntryX' + id, () => {
+            const offSetX = shape?.x();
+            if (originalPositionX != undefined && offSetX != undefined && originalNodeEntryPositionX != undefined) {
+                setX(originalPositionX + (offSetX - originalNodeEntryPositionX))
+            }
+        });
+        //监听节点的Y轴移动
+        shape?.on('dragmove.followNodeEntryY' + id, () => {
+            const offSetY = shape?.y();
+            if (offSetY != undefined) {
+                setY(offSetY)
+            }
+        });
+    }
+
+    /**
+     * 清除跟随节点移动
+     */
+    clearFollow(id: String): void {
+        const data = this._data;
+        data.graphics?.shape?.off('dragstart.followNodeEntryX' + id);
+        data.graphics?.shape?.off('dragmove.followNodeEntryX' + id);
+        data.graphics?.shape?.off('dragmove.followNodeEntryY' + id);
+    }
+
+
+    /**
+     * 事件绑定
+     * @param event 事件名称
+     * @param callback 回调
+     */
+    on(event: symbol, callback: (data?: any) => void): void {
+        const eventManager = this._data.context.eventManager;
+        eventManager?.listen(this, event, callback)
+    }
+
+    /**
+     * 发布事件
+     * @param event 事件名称
+     */
+    publish(event: symbol): void {
+        const eventManager = this._data.context.eventManager;
+        eventManager?.publishAndPop(this, event)
     }
 }

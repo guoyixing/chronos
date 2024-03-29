@@ -3,11 +3,14 @@ import {ChronosLaneEntryData} from "./data.entry.lane.component";
 import {ChronosWindowComponent} from "../../window/window.component";
 import {ChronosLaneGroupComponent} from "../group/group.lane.component";
 import Konva from "konva";
+import {EventPublisher} from "../../../core/event/event";
 
 /**
  * 泳道条目-组件服务
  */
-export class ChronosLaneEntryService implements ComponentService {
+export class ChronosLaneEntryService implements ComponentService, EventPublisher {
+
+    id: string
 
     /**
      * 数据
@@ -30,6 +33,7 @@ export class ChronosLaneEntryService implements ComponentService {
         this._data = data;
         this._window = window;
         this._group = group;
+        this.id = "laneEntry" + this._data.id
     }
 
     /**
@@ -269,5 +273,56 @@ export class ChronosLaneEntryService implements ComponentService {
         });
 
         return [laneTop, laneBottom];
+    }
+
+    /**
+     * 跟随泳道移动
+     */
+    follow(id: String, getY: () => number | undefined, setY: (y: number) => void): void {
+        const data = this._data;
+        //原始位置
+        let originalPosition: number | undefined;
+
+        //监听移动开始
+        data.graphics?.on('dragstart.followLane' + id, () => {
+            originalPosition = getY();
+        });
+
+        //监听泳道的移动
+        data.graphics?.on('dragmove.followLane' + id, () => {
+            const offSetY = data.graphics?.y();
+            if (originalPosition != undefined && offSetY != undefined) {
+                setY(originalPosition + offSetY)
+            }
+        });
+    }
+
+    /**
+     * 清除跟随泳道移动
+     */
+    clearFollow(id: String): void {
+        const data = this._data;
+        data.graphics?.off('dragstart.followLane' + id);
+        data.graphics?.off('dragmove.followLane' + id);
+    }
+
+
+    /**
+     * 事件绑定
+     * @param event 事件名称
+     * @param callback 回调
+     */
+    on(event: symbol, callback: (data?: any) => void): void {
+        const eventManager = this._data.context.eventManager;
+        eventManager?.listen(this, event, callback)
+    }
+
+    /**
+     * 发布事件
+     * @param event 事件名称
+     */
+    publish(event: symbol): void {
+        const eventManager = this._data.context.eventManager;
+        eventManager?.publish(this, event)
     }
 }

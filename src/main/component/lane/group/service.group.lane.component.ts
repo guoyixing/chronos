@@ -63,7 +63,7 @@ export class ChronosLaneGroupService implements ComponentService {
         this.draw();
         //发布事件
         this._data.laneGroup.forEach(lane => {
-            lane.publish(EVENT_TYPES.ReDraw)
+            lane.service.publish(EVENT_TYPES.ReDraw)
         })
     }
 

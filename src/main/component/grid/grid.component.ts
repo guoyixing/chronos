@@ -34,7 +34,7 @@ export class ChronosGridComponent extends BaseComponent<ChronosGridData, Chronos
     toolbar(): ChronosToolPlug {
         return new ChronosToolPlug("网格", () => {
             this.data.hide = !this.data.hide
-            this.data.layer?.destroyChildren()
+            this.data.graphics?.destroy()
             this.service.draw()
         })
     }

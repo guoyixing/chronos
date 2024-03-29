@@ -3,6 +3,8 @@ import {inject, injectable} from "inversify";
 import {ChronosNodeTransformerData} from "./data.transformer.node.component";
 import {TYPES} from "../../../../config/inversify.config";
 import Konva from "konva";
+import {ChronosNodeGroupComponent} from "../group/group.node.component";
+import {EVENT_TYPES} from "../../../../core/event/event";
 
 /**
  * 节点变形器-组件服务
@@ -15,8 +17,15 @@ export class ChronosNodeTransformerService implements ComponentService {
      */
     private _data: ChronosNodeTransformerData
 
-    constructor(@inject(TYPES.ChronosNodeTransformerData) data: ChronosNodeTransformerData) {
+    /**
+     * 节点组
+     */
+    private _nodeGroup: ChronosNodeGroupComponent
+
+    constructor(@inject(TYPES.ChronosNodeTransformerData) data: ChronosNodeTransformerData,
+                @inject(TYPES.ChronosNodeGroupComponent) nodeGroup: ChronosNodeGroupComponent) {
         this._data = data;
+        this._nodeGroup = nodeGroup;
     }
 
     /**
@@ -27,12 +36,21 @@ export class ChronosNodeTransformerService implements ComponentService {
         //删除控制点
         data.leftControlPoint?.destroy();
         data.rightControlPoint?.destroy();
+        if (data.bindNodeId) {
+            data.bindNode = this._nodeGroup.service.getNodeEntryByNodeId(data.bindNodeId)
+        }
+        //清除跟随节点移动
+        this.clearFollowNodeAndLane()
         //绘制变形器
         this.drawTransformer();
         //点击舞台取消选中
         this.clickStageDeselect();
         //监听移动
         this.listenMove();
+        //跟随节点和泳道移动
+        this.followNodeAndLane();
+        //监听节点重绘
+        this.listenReDrawNodeEntry()
 
         //获取添加到节点的图层
         data.leftControlPoint && data.bindNode?.data.layer?.add(data.leftControlPoint)
@@ -128,7 +146,14 @@ export class ChronosNodeTransformerService implements ComponentService {
 
             //获取节点的偏移量
             leftControlPoint?.on('dragmove', () => {
-                coordinate && nodeGraphics?.transform(coordinate.xStart + (leftControlPoint.x() - leftX), coordinate.y, coordinate.xFinish)
+                if (coordinate && coordinate.xFinish && nodeGraphics) {
+                    const minCoordinateX = coordinate.xFinish - nodeGraphics.minWidth();
+                    if (leftControlPoint.x() < minCoordinateX) {
+                    } else {
+                        leftControlPoint.x(minCoordinateX)
+                    }
+                    nodeGraphics.transform(coordinate.xStart + (leftControlPoint.x() - leftX), coordinate.y, coordinate.xFinish)
+                }
             })
         }
 
@@ -143,8 +168,72 @@ export class ChronosNodeTransformerService implements ComponentService {
 
             //获取节点的偏移量
             rightControlPoint?.on('dragmove', () => {
-                coordinate && nodeGraphics?.transform(coordinate.xStart, coordinate.y, (coordinate.xFinish || 0) + (rightControlPoint.x() - rightX))
+                if (coordinate && nodeGraphics) {
+                    const maxCoordinateX = coordinate.xStart + nodeGraphics.minWidth();
+                    if (rightControlPoint.x() > maxCoordinateX) {
+                    } else {
+                        rightControlPoint.x(maxCoordinateX)
+                    }
+                    nodeGraphics?.transform(coordinate.xStart, coordinate.y, (coordinate.xFinish || 0) + (rightControlPoint.x() - rightX))
+                }
             })
         }
+    }
+
+    /**
+     * 跟随节点和泳道移动
+     */
+    followNodeAndLane() {
+        const data = this._data;
+        const bindNode = data.bindNode;
+
+        //左变形器绑定节点移动
+        bindNode?.service.follow(
+            "transformer",
+            () => data.leftControlPoint?.x(),
+            (x) => data.leftControlPoint?.x(x),
+            (y) => data.leftControlPoint?.y(y)
+        )
+
+        //右变形器绑定节点移动
+        bindNode?.service.follow(
+            "transformer",
+            () => data.rightControlPoint?.x(),
+            (x) => data.rightControlPoint?.x(x),
+            (y) => data.rightControlPoint?.y(y)
+        )
+
+        //左变形器绑定泳道移动
+        bindNode?.data.lane?.service.follow(
+            "transformer",
+            () => data.leftControlPoint?.y(),
+            (y) => data.leftControlPoint?.y(y)
+        )
+
+        //右变形器绑定泳道移动
+        bindNode?.data.lane?.service.follow(
+            "transformer",
+            () => data.rightControlPoint?.y(),
+            (y) => data.rightControlPoint?.y(y)
+        )
+    }
+
+    /**
+     * 清除跟随节点和泳道移动
+     */
+    clearFollowNodeAndLane() {
+        const bindNode = this._data.bindNode;
+        bindNode?.service.clearFollow('transformer')
+        bindNode?.data.lane?.service.clearFollow('transformer')
+    }
+
+    /**
+     * 监听节点重绘
+     */
+    listenReDrawNodeEntry() {
+        //监听泳道重绘
+        this._data.bindNode?.service.on(EVENT_TYPES.ReDraw, () => {
+            this.draw()
+        });
     }
 }
