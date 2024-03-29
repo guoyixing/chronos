@@ -4,7 +4,7 @@ import Konva from "konva";
 import {ChronosTimelineData} from "./data.timeline.component";
 import {TYPES} from "../../config/inversify.config";
 import {ChronosWindowComponent} from "../window/window.component";
-import {betweenMs, getDaysInMonth} from "../../core/utils/DateUtils";
+import {betweenMs, betweenMsAbs, getDaysInMonth} from "../../core/utils/DateUtils";
 
 /**
  * 1天所需要的毫秒
@@ -221,8 +221,7 @@ export class ChronosTimelineService implements ComponentService {
         do {
             let nextTime = getNextTime(time);
 
-            const toNextTimeMs = betweenMs(time, nextTime);
-
+            const toNextTimeMs = betweenMsAbs(time, nextTime);
             //计算出初始化时间的宽度
             const currentTimeWidth = toNextTimeMs * (data.dayWidth / oneDayMillisecond);
 
@@ -278,10 +277,9 @@ export class ChronosTimelineService implements ComponentService {
         //当前的日期
         const offsetDay = -(coordinate.x / data.dayWidth);
         const currentDay = new Date(data.initTime.getTime() - offsetDay * oneDayMillisecond);
-
         //计算当前时间相对于开始时间的距离
-        const x = betweenMs(currentDay, time) * (data.dayWidth / oneDayMillisecond);
-
+        const x = betweenMs(time,currentDay) * (data.dayWidth / oneDayMillisecond);
+        console.log(x)
         //x坐标
         return coordinate.x + data.startOffSet.x + data.headWidth + x;
     }

@@ -18,8 +18,8 @@ export class NodeConfig {
         const entryData = new ChronosNodeEntryData(context, '2', '节点2', 'star', new Date('2023-12-12 00:00:00'), '1', 2);
         entryData.moveRangeColor = 'rgba(255,0,0,0.3)';
 
-        const arrowEntryData = new ChronosNodeEntryData(context, '3', '节点3', 'arrow', new Date('2023-12-04 00:00:00'), '2', 2)
-        arrowEntryData.finishTime = new Date('2023-12-09 00:00:00');
+        const arrowEntryData = new ChronosNodeEntryData(context, '3', '节点3', 'arrow', new Date('2023-11-27 00:00:00'), '2', 2)
+        arrowEntryData.finishTime = new Date('2023-12-05 00:00:00');
 
         const arrowEntryData2 = new ChronosNodeEntryData(context, '4', '节点4', 'arrow', new Date('2023-12-27 00:00:00'), '3', 0)
         arrowEntryData2.finishTime = new Date('2024-01-06 00:00:00');

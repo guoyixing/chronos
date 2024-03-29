@@ -45,12 +45,14 @@ export class ChronosNodeTransformerService implements ComponentService {
         this.drawTransformer();
         //点击舞台取消选中
         this.clickStageDeselect();
-        //监听移动
+        //监听移动，节点跟随变形器移动
         this.listenMove();
         //跟随节点和泳道移动
         this.followNodeAndLane();
         //监听节点重绘
         this.listenReDrawNodeEntry()
+        //监听节点拖拽
+        this.listenDragNodeEntry()
 
         //获取添加到节点的图层
         data.leftControlPoint && data.bindNode?.data.layer?.add(data.leftControlPoint)
@@ -70,6 +72,8 @@ export class ChronosNodeTransformerService implements ComponentService {
             if (e.target === this._data.context.drawContext.stage) {
                 data.leftControlPoint?.destroy();
                 data.rightControlPoint?.destroy();
+                data.bindNodeId = undefined;
+                data.bindNode = undefined;
                 stage.off('click.deselect')
             }
         })
@@ -155,28 +159,56 @@ export class ChronosNodeTransformerService implements ComponentService {
                     nodeGraphics.transform(coordinate.xStart + (leftControlPoint.x() - leftX), coordinate.y, coordinate.xFinish)
                 }
             })
-        }
 
-        //绑定右节点的移动事件
-        const rightControlPoint = data.rightControlPoint;
-        if (rightControlPoint) {
-            let rightX: number;
-            rightControlPoint?.on('dragstart', () => {
-                coordinate = nodeGraphics?.coordinate();
-                rightX = rightControlPoint.x();
-            })
-
-            //获取节点的偏移量
-            rightControlPoint?.on('dragmove', () => {
-                if (coordinate && nodeGraphics) {
-                    const maxCoordinateX = coordinate.xStart + nodeGraphics.minWidth();
-                    if (rightControlPoint.x() > maxCoordinateX) {
-                    } else {
-                        rightControlPoint.x(maxCoordinateX)
-                    }
-                    nodeGraphics?.transform(coordinate.xStart, coordinate.y, (coordinate.xFinish || 0) + (rightControlPoint.x() - rightX))
+            leftControlPoint?.on('dragend', () => {
+                console.log(data.bindNode?.data)
+                //更新节点的坐标
+                const coordinate = data.bindNode?.data.coordinate;
+                //更新节点的坐标，这里并不是把同样的对象赋值给coordinate，coordinate会根据节点状态获取新的坐标
+                data.bindNode!.data.coordinate = {
+                    xStart: coordinate?.xStart,
+                    xFinish: coordinate?.xFinish,
+                    y: coordinate?.y
                 }
+                //更新时间
+                data.bindNode?.service.updateTime();
             })
+
+            //绑定右节点的移动事件
+            const rightControlPoint = data.rightControlPoint;
+            if (rightControlPoint) {
+                let rightX: number;
+                rightControlPoint?.on('dragstart', () => {
+                    coordinate = nodeGraphics?.coordinate();
+                    rightX = rightControlPoint.x();
+                })
+
+                //获取节点的偏移量
+                rightControlPoint?.on('dragmove', () => {
+                    if (coordinate && nodeGraphics) {
+                        const maxCoordinateX = coordinate.xStart + nodeGraphics.minWidth();
+                        if (rightControlPoint.x() > maxCoordinateX) {
+                        } else {
+                            rightControlPoint.x(maxCoordinateX)
+                        }
+                        nodeGraphics?.transform(coordinate.xStart, coordinate.y, (coordinate.xFinish || 0) + (rightControlPoint.x() - rightX))
+                    }
+                })
+
+                //更新节点的坐标
+                rightControlPoint?.on('dragend', () => {
+                    //更新节点的坐标
+                    const coordinate = data.bindNode?.data.coordinate;
+                    //更新节点的坐标，这里并不是把同样的对象赋值给coordinate，coordinate会根据节点状态获取新的坐标
+                    data.bindNode!.data.coordinate = {
+                        xStart: coordinate?.xStart,
+                        xFinish: coordinate?.xFinish,
+                        y: coordinate?.y
+                    }
+                    //更新时间
+                    data.bindNode?.service.updateTime();
+                })
+            }
         }
     }
 
@@ -231,8 +263,18 @@ export class ChronosNodeTransformerService implements ComponentService {
      * 监听节点重绘
      */
     listenReDrawNodeEntry() {
-        //监听泳道重绘
+        //监听节点重绘
         this._data.bindNode?.service.on(EVENT_TYPES.ReDraw, () => {
+            this.draw()
+        });
+    }
+
+    /**
+     * 监听节点拖拽
+     */
+    listenDragNodeEntry() {
+        //监听节点拖拽
+        this._data.bindNode?.service.on(EVENT_TYPES.Drag, () => {
             this.draw()
         });
     }

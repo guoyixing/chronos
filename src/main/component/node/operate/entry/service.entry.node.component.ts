@@ -147,6 +147,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
             this.updateLane()
             this.updateTime()
             this.followLane()
+            this.publish(EVENT_TYPES.Drag)
         });
     }
 

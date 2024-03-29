@@ -23,7 +23,6 @@ export class ChronosNodeGroupService implements ComponentService {
      * 绘制
      */
     draw() {
-
         this._data.nodeGroup.forEach((entry) => {
             entry.service.draw();
         })

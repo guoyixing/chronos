@@ -50,4 +50,6 @@ export const EVENT_TYPES = {
     GraphicsDestroy: Symbol.for("GraphicsDestroy"),
     //重绘事件
     ReDraw: Symbol.for("ReDraw"),
+    //拖拽事件
+    Drag: Symbol.for("Drag"),
 }

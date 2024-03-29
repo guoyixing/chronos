@@ -219,7 +219,73 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
             laneName.y(yBottom - data.textBottomMargin - laneName.height());
         }
 
+        this.dbClickLaneName(laneName);
+
         return laneName;
+    }
+
+    /**
+     * 监听双击泳道名
+     * @param laneName 泳道名
+     */
+    private dbClickLaneName(laneName: Konva.Text) {
+        const data = this._data;
+        //监听泳道名双击
+        laneName.on('dblclick', () => {
+            // 创建一个HTML的<input>元素
+            let textPosition = laneName.getAbsolutePosition();
+            let stageBox = data.context.drawContext.stage.container().getBoundingClientRect();
+            let areaPosition = {
+                x: stageBox.left + textPosition.x,
+                y: stageBox.top + textPosition.y,
+            };
+
+            let textarea = document.createElement('input');
+            document.body.appendChild(textarea);
+
+            // 设置<input>元素的位置和样式
+            textarea.style.position = 'absolute';
+            textarea.style.top = areaPosition.y + 'px';
+            textarea.style.left = areaPosition.x + 'px';
+            textarea.style.width = laneName.width() - laneName.padding() + 'px';
+            textarea.style.height = laneName.height() - laneName.padding() + 'px';
+            textarea.style.fontSize = laneName.fontSize() + 'px';
+            textarea.style.border = 'none';
+            textarea.style.padding = '0px';
+            textarea.style.margin = '0px';
+            textarea.style.overflow = 'hidden';
+            textarea.style.background = 'none';
+            textarea.style.outline = 'none';
+            textarea.style.resize = 'none';
+
+            // 设置<input>元素的值并聚焦
+            textarea.value = laneName.text();
+            textarea.focus();
+
+            laneName.text("")
+
+            textarea.addEventListener('keydown', (e) => {
+                // 当用户完成输入并离开<input>元素时，更新Konva.Text对象的文本并删除<input>元素
+                if (e.key === 'Enter') {
+                    if (textarea.value === '') {
+                        textarea.value = data.name;
+                    }
+                    laneName.text(textarea.value);
+                    data.name = textarea.value;
+                    document.body.removeChild(textarea);
+                }
+            });
+
+            textarea.addEventListener('blur', function () {
+                // 当文本框失去焦点时，更新Konva.Text对象的文本并删除<input>元素
+                if (textarea.value === '') {
+                    textarea.value = data.name;
+                }
+                laneName.text(textarea.value);
+                data.name = textarea.value;
+                document.body.removeChild(textarea);
+            });
+        });
     }
 
     /**
