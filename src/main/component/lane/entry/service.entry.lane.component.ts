@@ -118,6 +118,13 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      */
     moveX(x: number): void {
         this._data.graphics?.x(x)
+        //重绘名称
+        const data = this._data
+        const groupData = this._group.data
+        const height = data.rowNum * groupData.rowHeight;
+        const drawName = this.drawName(height);
+        this._data.graphics?.findOne('Text')?.destroy()
+        this._data.graphics?.add(drawName);
     }
 
     /**
