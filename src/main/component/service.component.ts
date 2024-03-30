@@ -1,7 +1,7 @@
 /**
  * 组件服务接口
  */
-export interface ComponentService{
+export interface ComponentService {
 
     /**
      * 绘制

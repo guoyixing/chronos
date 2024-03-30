@@ -16,8 +16,8 @@ export class NodeBarConfig {
     constructor(chronosContainer: Container, divElement: HTMLDivElement) {
 
         const data: ChronosNodeBarData = new ChronosNodeBarData(chronosContainer.get<Context>(TYPES.Context), 200);
-        data.candidateNode.set("star",StarNodeShape);
-        data.candidateTransformableNode.set("arrow",ArrowNodeShape);
+        data.candidateNode.set("star", StarNodeShape);
+        data.candidateTransformableNode.set("arrow", ArrowNodeShape);
 
         chronosContainer.bind<ChronosNodeBarData>(TYPES.ChronosNodeBarData).toConstantValue(data);
         chronosContainer.bind<ChronosNodeBarService>(TYPES.ChronosNodeBarService).to(ChronosNodeBarService);

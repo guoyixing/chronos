@@ -75,7 +75,7 @@ export class ChronosNodeBarService implements ComponentService {
 
         if (type) {
             const nodeShape = new type();
-            nodeShape.create(nodeData.coordinate?.xStart ?? 0, nodeData.coordinate?.y ?? 0, nodeData.coordinate?.xFinish);
+            nodeShape.create(nodeData);
             return nodeShape;
         }
 

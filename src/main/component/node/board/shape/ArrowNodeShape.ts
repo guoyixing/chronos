@@ -1,5 +1,6 @@
 import {NodeShape} from "./NodeShape";
 import Konva from "konva";
+import {ChronosNodeEntryData} from "../../operate/entry/data.entry.node.component";
 
 /**
  * 箭头形状
@@ -22,12 +23,11 @@ export class ArrowNodeShape implements NodeShape {
 
     /**
      * 创建图形
-     * @param xStart x起始坐标
-     * @param xFinish x结束坐标
-     * @param y y坐标
+     * @param nodeData 节点数据
      */
-    create(xStart: number, y: number, xFinish?: number | undefined): Konva.Group {
-        if (!xFinish) {
+    create(nodeData: ChronosNodeEntryData): Konva.Group {
+        const coordinate = nodeData.coordinate;
+        if (!coordinate.xStart || !coordinate.xFinish) {
             throw new Error("无法获取x结束坐标")
         }
 
@@ -46,23 +46,36 @@ export class ArrowNodeShape implements NodeShape {
             name: 'arrow',
             x: 0,
             y: 0,
-            points: [0, 0, xFinish - xStart, 0],
+            points: [0, 0, coordinate.xFinish - coordinate.xStart, 0],
             pointerLength: 10,
             pointerWidth: 10,
             fill: 'black',
             stroke: 'black',
             strokeWidth: 3,
         });
-
         const width = arrow.width() - arrow.pointerLength();
+
+        //添加节点名
+        const text = new Konva.Text({
+            name: 'text',
+            x: 0,
+            y: 8,
+            text: nodeData.name,
+            fontSize: 12,
+            fontFamily: 'Calibri',
+            fill: 'black',
+        });
+        text.x(width / 2 - text.width() / 2)
+
         this.shape = new Konva.Group({
             width: width,
-            x: xStart,
-            y: y,
+            x: coordinate.xStart,
+            y: coordinate.y,
             draggable: true
         })
             .add(arrow)
             .add(circle)
+            .add(text)
 
         return this.shape
     }
@@ -79,12 +92,15 @@ export class ArrowNodeShape implements NodeShape {
         }
         const shape = this.shape;
         const arrow = shape?.findOne<Konva.Arrow>('.arrow');
-
+        const text = shape?.findOne<Konva.Text>('.text');
         arrow?.points([0, 0, xFinish - xStart, 0])
         if (shape && arrow) {
             shape.x(xStart)
             shape.width(arrow.width() - arrow.pointerLength())
+            text?.x((arrow.width() - arrow.pointerLength()) / 2 - text.width() / 2)
         }
+
+
     }
 
     /**

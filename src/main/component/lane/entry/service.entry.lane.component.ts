@@ -59,6 +59,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
         //绘制边线
         const [drawBorderTop, drawBorderBottom] = this.drawBorder(width, height);
         const group = new Konva.Group({
+            x: data.startCoordinate.x,
             draggable: true,
             //只允许沿着y轴拖动
             dragBoundFunc: function (pos) {
@@ -110,6 +111,13 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
 
         //设置泳道数据
         data.height = height;
+    }
+
+    /**
+     * 移动x坐标
+     */
+    moveX(x: number): void {
+        this._data.graphics?.x(x)
     }
 
     /**
@@ -195,7 +203,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
         const yBottom = data.startCoordinate.y + height;
         //在左边框与分割线中间位置，绘制泳道名
         const laneName = new Konva.Text({
-            x: data.startCoordinate.x + data.textLeftMargin,
+            x: data.textLeftMargin,
             y: data.startCoordinate.y + data.textTopMargin,
             text: data.name,
             fontSize: data.fontSize,
@@ -295,13 +303,11 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      */
     drawLeft(height: number): Konva.Rect {
         const data = this._data;
-
-        const x = data.startCoordinate.x;
         const y = data.startCoordinate.y;
 
         //左侧泳道分割块绘制
         return new Konva.Rect({
-            x: x,
+            x: 0,
             y: y,
             width: this._group.data.laneLeftWidth,
             height: height,
@@ -319,21 +325,19 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
     drawBorder(width: number, height: number): Konva.Line[] {
         const data = this._data;
 
-        //泳道分割横线，xEnd坐标
-        const xEnd = data.startCoordinate.x + width;
         //底部泳道分割横线，y坐标
         const yBottom = data.startCoordinate.y + height;
 
         //顶部泳道分割横线绘制
         const laneTop = new Konva.Line({
-            points: [data.startCoordinate.x, data.startCoordinate.y, xEnd, data.startCoordinate.y],
+            points: [0, data.startCoordinate.y, width, data.startCoordinate.y],
             stroke: data.borderColor,
             strokeWidth: data.border
         });
 
         //底部泳道分割横线绘制
         const laneBottom = new Konva.Line({
-            points: [data.startCoordinate.x, yBottom, xEnd, yBottom],
+            points: [0, yBottom, width, yBottom],
             stroke: data.borderColor,
             strokeWidth: data.border
         });

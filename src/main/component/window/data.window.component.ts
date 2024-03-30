@@ -2,7 +2,6 @@ import "reflect-metadata";
 import {injectable} from "inversify";
 import {ComponentData} from "../data.component";
 import {Context} from "../../core/context/context";
-import Konva from "konva";
 
 /**
  * 窗体-组件数据

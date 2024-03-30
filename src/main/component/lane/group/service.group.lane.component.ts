@@ -56,6 +56,20 @@ export class ChronosLaneGroupService implements ComponentService {
     }
 
     /**
+     * 移动x轴
+     */
+    moveX() {
+        //计算泳道组起始坐标，y坐标是不变的，x坐标是根据舞台位置计算的
+        const fixedCoordinate = this._data.context.drawContext.getFixedCoordinate();
+        //泳道组起始坐标
+        const startX = fixedCoordinate.x + this._data.startOffSet.x;
+        console.log(fixedCoordinate.x, this._data.startOffSet.x)
+        this._data.laneGroup.forEach(lane => {
+            lane.service.moveX(startX)
+        })
+    }
+
+    /**
      * 重新绘制
      */
     reDraw() {

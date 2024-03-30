@@ -278,7 +278,7 @@ export class ChronosTimelineService implements ComponentService {
         const offsetDay = -(coordinate.x / data.dayWidth);
         const currentDay = new Date(data.initTime.getTime() - offsetDay * oneDayMillisecond);
         //计算当前时间相对于开始时间的距离
-        const x = betweenMs(time,currentDay) * (data.dayWidth / oneDayMillisecond);
+        const x = betweenMs(time, currentDay) * (data.dayWidth / oneDayMillisecond);
         console.log(x)
         //x坐标
         return coordinate.x + data.startOffSet.x + data.headWidth + x;
