@@ -9,6 +9,7 @@ import {NodeShape} from "../../board/shape/NodeShape";
 import {ChronosNodeGroupComponent} from "../group/group.node.component";
 import {EVENT_TYPES, EventPublisher} from "../../../../core/event/event";
 import {ChronosNodeTransformerComponent} from "../transformer/transformer.node.component";
+import {ChronosNodeDetailComponent} from "../detail/detail.node.component";
 
 /**
  * 节点条目-组件服务
@@ -55,6 +56,11 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
      */
     private _nodeTransformer: ChronosNodeTransformerComponent
 
+    /**
+     * 节点详情
+     */
+    private _nodeDetail: ChronosNodeDetailComponent
+
 
     constructor(data: ChronosNodeEntryData,
                 window: ChronosWindowComponent,
@@ -62,7 +68,8 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
                 laneGroup: ChronosLaneGroupComponent,
                 timeline: ChronosTimelineComponent,
                 nodeGroup: ChronosNodeGroupComponent,
-                nodeTransformer: ChronosNodeTransformerComponent) {
+                nodeTransformer: ChronosNodeTransformerComponent,
+                nodeDetail:ChronosNodeDetailComponent) {
         this._data = data;
         this._window = window;
         this._bar = bar;
@@ -70,6 +77,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         this._timeline = timeline;
         this._nodeGroup = nodeGroup;
         this._nodeTransformer = nodeTransformer;
+        this._nodeDetail = nodeDetail;
         this.id = "nodeEntry" + this._data.id
     }
 
@@ -89,6 +97,8 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         this.listenMove(nodeShape)
         //监听点击
         this.listenClick(nodeShape)
+        //监听悬浮
+        this.listenMouseOver(nodeShape)
 
         data.graphics = nodeShape
         node && data.layer?.add(node);
@@ -323,6 +333,23 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
                 setY(offSetY)
             }
         });
+    }
+
+    /**
+     * 鼠标悬浮显示详情
+     */
+    listenMouseOver(nodeShape: NodeShape) {
+        const data = this._data;
+        const node = nodeShape.shape;
+        if (node) {
+            node.on('mouseover', () => {
+                this._nodeDetail.data.bindNodeId = data.id;
+                this._nodeDetail.service.draw()
+            });
+            node.on('mouseout', () => {
+                this._nodeDetail.service.clear()
+            });
+        }
     }
 
     /**

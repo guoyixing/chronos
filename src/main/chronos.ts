@@ -11,6 +11,7 @@ import {TimelineConfig} from "./config/timeline.inversify.config";
 import {NodeBarConfig} from "./config/bar.node.inversify.config";
 import {NodeConfig} from "./config/node.inversify.config";
 import {NodeTransformerConfig} from "./config/transformer.node.inversify.config";
+import {NodeDetailConfig} from "./config/detail.node.inversifty.config";
 
 
 export class Chronos {
@@ -32,6 +33,7 @@ export class Chronos {
         new TimelineConfig(chronosContainer, rootHtml)
         new NodeBarConfig(chronosContainer, rootHtml)
         new NodeConfig(chronosContainer, rootHtml)
+        new NodeDetailConfig(chronosContainer, rootHtml)
 
         //事件监听
         new EventManager(chronosContainer)

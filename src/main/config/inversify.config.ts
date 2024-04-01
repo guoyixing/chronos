@@ -77,6 +77,11 @@ export const TYPES = {
     ChronosNodeTransformerData: Symbol.for("ChronosNodeTransformerData"),
     ChronosNodeTransformerService: Symbol.for("ChronosNodeTransformerService"),
     ChronosNodeTransformerComponent: Symbol.for("ChronosNodeTransformerComponent"),
+
+    //组件-节点详情
+    ChronosNodeDetailData: Symbol.for("ChronosNodeDetailData"),
+    ChronosNodeDetailService: Symbol.for("ChronosNodeDetailService"),
+    ChronosNodeDetailComponent: Symbol.for("ChronosNodeDetailComponent"),
 };
 
 /**

@@ -20,4 +20,10 @@ export class ChronosNodeTransformerComponent
         super(data, service);
     }
 
+    /**
+     * 初始化
+     */
+    init() {
+    }
+
 }
