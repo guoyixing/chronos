@@ -4,6 +4,7 @@ import {ChronosWindowComponent} from "../../window/window.component";
 import {ChronosLaneGroupComponent} from "../group/group.lane.component";
 import Konva from "konva";
 import {EventPublisher} from "../../../core/event/event";
+import {ChronosLaneEntryButton} from "./button.entry.lane.component";
 
 /**
  * 泳道条目-组件服务
@@ -15,7 +16,12 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
     /**
      * 数据
      */
-    private _data: ChronosLaneEntryData
+    data: ChronosLaneEntryData
+
+    /**
+     * 泳道组
+     */
+    group: ChronosLaneGroupComponent
 
     /**
      * 窗体
@@ -23,17 +29,18 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
     private _window: ChronosWindowComponent
 
     /**
-     * 泳道组
+     * 泳道条目按钮
      */
-    private _group: ChronosLaneGroupComponent
+    private _laneEntryButton: ChronosLaneEntryButton
 
     constructor(data: ChronosLaneEntryData,
                 window: ChronosWindowComponent,
                 group: ChronosLaneGroupComponent) {
-        this._data = data;
+        this.data = data;
         this._window = window;
-        this._group = group;
-        this.id = "laneEntry" + this._data.id
+        this.group = group;
+        this.id = "laneEntry" + this.data.id
+        this._laneEntryButton = new ChronosLaneEntryButton(this);
     }
 
     /**
@@ -41,9 +48,9 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      */
     draw(): void {
         //泳道条目数据
-        const data = this._data;
+        const data = this.data;
         //泳道组数据
-        const groupData = this._group.data;
+        const groupData = this.group.data;
 
         //泳道宽度
         const {width} = this._window.service.getVisualRange()
@@ -79,8 +86,16 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
 
             //绘制泳道名
             const drawName = this.drawName(height);
+
+            //绘制添加删除按钮
+            const laneEntryButton = this._laneEntryButton;
+            const addRowGroup = laneEntryButton.drawAddButton(height)
+            const deleteRowGroup = laneEntryButton.drawDeleteButton(height);
+
             group.add(drawLeft);
             group.add(drawName);
+            group.add(addRowGroup);
+            group.add(deleteRowGroup);
         }
 
         group.on('mouseover', function () {
@@ -103,10 +118,10 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
         //拖动结束
         group.on('dragend', () => {
             this.moveIndex();
-            this._group.service.reDraw()
+            this.group.service.reDraw()
         });
 
-        this._data.graphics = group
+        this.data.graphics = group
         groupData.layer?.add(group);
 
         //设置泳道数据
@@ -117,39 +132,39 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * 移动x坐标
      */
     moveX(x: number): void {
-        this._data.graphics?.x(x)
+        this.data.graphics?.x(x)
         //重绘名称
-        const data = this._data
-        const groupData = this._group.data
+        const data = this.data
+        const groupData = this.group.data
         const height = data.rowNum * groupData.rowHeight;
         const drawName = this.drawName(height);
-        this._data.graphics?.findOne('Text')?.destroy()
-        this._data.graphics?.add(drawName);
+        this.data.graphics?.findOne('.drawName')?.destroy()
+        this.data.graphics?.add(drawName);
     }
 
     /**
      * 根据行号获取泳道的y坐标
      */
-    getYByRow(row: number): number {
-        if (row < 0 || row >= this._data.rowNum) {
-            throw new Error('行号超出范围')
+    getYByRow(row: number): number | undefined {
+        if (row < 0 || row >= this.data.rowNum) {
+            return undefined
         }
-        return this._data.row[row];
+        return this.data.row[row];
     }
 
     /**
      * 根据y坐标获取泳道的行号
      */
     getRowByY(y: number): number {
-        if (y < this._data.startCoordinate.y || y > this._data.startCoordinate.y + this._data.rowNum * this._group.data.rowHeight) {
+        if (y < this.data.startCoordinate.y || y > this.data.startCoordinate.y + this.data.rowNum * this.group.data.rowHeight) {
             throw new Error('y坐标超出范围')
         }
         //在row中找到最接近的行
         let row = 0;
-        let min = Math.abs(y - this._data.row[0]);
-        for (let i = 1; i < this._data.row.length; i++) {
-            if (Math.abs(y - this._data.row[i]) < min) {
-                min = Math.abs(y - this._data.row[i]);
+        let min = Math.abs(y - this.data.row[0]);
+        for (let i = 1; i < this.data.row.length; i++) {
+            if (Math.abs(y - this.data.row[i]) < min) {
+                min = Math.abs(y - this.data.row[i]);
                 row = i;
             }
         }
@@ -162,8 +177,8 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * @private
      */
     moveIndex() {
-        const data = this._data;
-        const groupData = this._group.data;
+        const data = this.data;
+        const groupData = this.group.data;
 
         //调整移动泳道的顺序
         //获取当前鼠标的位置
@@ -201,8 +216,8 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * @private
      */
     drawName(height: number): Konva.Text {
-        const data = this._data;
-        const groupData = this._group.data;
+        const data = this.data;
+        const groupData = this.group.data;
 
         //固定坐标
         const fixedCoordinate = data.context.drawContext.getFixedCoordinate();
@@ -210,6 +225,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
         const yBottom = data.startCoordinate.y + height;
         //在左边框与分割线中间位置，绘制泳道名
         const laneName = new Konva.Text({
+            name: "drawName",
             x: data.textLeftMargin,
             y: data.startCoordinate.y + data.textTopMargin,
             text: data.name,
@@ -244,7 +260,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * @param laneName 泳道名
      */
     private dbClickLaneName(laneName: Konva.Text) {
-        const data = this._data;
+        const data = this.data;
         //监听泳道名双击
         laneName.on('dblclick', () => {
             // 创建一个HTML的<input>元素
@@ -309,14 +325,14 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * @private
      */
     drawLeft(height: number): Konva.Rect {
-        const data = this._data;
+        const data = this.data;
         const y = data.startCoordinate.y;
 
         //左侧泳道分割块绘制
         return new Konva.Rect({
             x: 0,
             y: y,
-            width: this._group.data.laneLeftWidth,
+            width: this.group.data.laneLeftWidth,
             height: height,
             fill: data.leftBackgroundColor,
             stroke: data.borderColor,
@@ -330,7 +346,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * @param height 泳道高度
      */
     drawBorder(width: number, height: number): Konva.Line[] {
-        const data = this._data;
+        const data = this.data;
 
         //底部泳道分割横线，y坐标
         const yBottom = data.startCoordinate.y + height;
@@ -356,7 +372,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * 跟随泳道移动
      */
     follow(id: String, getY: () => number | undefined, setY: (y: number) => void): void {
-        const data = this._data;
+        const data = this.data;
         //原始位置
         let originalPosition: number | undefined;
 
@@ -378,7 +394,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * 清除跟随泳道移动
      */
     clearFollow(id: String): void {
-        const data = this._data;
+        const data = this.data;
         data.graphics?.off('dragstart.followLane' + id);
         data.graphics?.off('dragmove.followLane' + id);
     }
@@ -390,7 +406,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * @param callback 回调
      */
     on(event: symbol, callback: (data?: any) => void): void {
-        const eventManager = this._data.context.eventManager;
+        const eventManager = this.data.context.eventManager;
         eventManager?.listen(this, event, callback)
     }
 
@@ -399,7 +415,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * @param event 事件名称
      */
     publish(event: symbol): void {
-        const eventManager = this._data.context.eventManager;
+        const eventManager = this.data.context.eventManager;
         eventManager?.publish(this, event)
     }
 }

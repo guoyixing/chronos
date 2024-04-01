@@ -77,6 +77,11 @@ export class ChronosNodeEntryData extends ComponentData {
      */
     moveRangeBorder: number = 0
 
+    /**
+     * 是否隐藏
+     */
+    hidden: boolean = false
+
     constructor(context: Context, id: string, name: string, type: string, startTime: Date, laneId: string, row: number) {
         super(context);
         this.id = id;

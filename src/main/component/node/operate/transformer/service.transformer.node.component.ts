@@ -161,7 +161,6 @@ export class ChronosNodeTransformerService implements ComponentService {
             })
 
             leftControlPoint?.on('dragend', () => {
-                console.log(data.bindNode?.data)
                 //更新节点的坐标
                 const coordinate = data.bindNode?.data.coordinate;
                 //更新节点的坐标，这里并不是把同样的对象赋值给coordinate，coordinate会根据节点状态获取新的坐标

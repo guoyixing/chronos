@@ -110,7 +110,6 @@ export class EventManager {
         while (this.events[eventId] && this.events[eventId].length > 0) {
             const callback = this.events[eventId].pop();
             callback && callbacks.push(callback);
-            console.log(callbacks.length)
         }
 
         while (callbacks.length > 0) {

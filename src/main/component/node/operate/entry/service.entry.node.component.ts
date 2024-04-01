@@ -78,6 +78,9 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
      */
     draw() {
         const data = this._data;
+        if (data.hidden){
+            return
+        }
         //获取bar
         const nodeShape = this._bar.service.getGraphicsByNode(data);
         const node = nodeShape.shape;
@@ -120,6 +123,9 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
                 throw new Error('泳道不存在')
             }
             const y = lane.service.getYByRow(lane.service.getRowByY(pos.y))
+            if (y === undefined) {
+                throw new Error('行不存在')
+            }
             return {
                 x: pos.x,
                 y: y + data.context.drawContext.stage.y() % laneGroup.data.rowHeight
@@ -200,7 +206,9 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         //获取y坐标
         const y = lane?.service.getYByRow(data.row)
         if (y === undefined) {
-            throw new Error('泳道不存在')
+            data.hidden = true
+            console.warn('节点'+data.id+'，无法获取到所在行')
+            return
         }
 
         //获取x开始坐标

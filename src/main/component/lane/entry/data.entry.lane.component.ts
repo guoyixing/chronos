@@ -98,7 +98,78 @@ export class ChronosLaneEntryData extends ComponentData {
     /**
      * 泳道文字下边距
      */
-    textBottomMargin: number = 10
+    textBottomMargin: number = 25
+
+    /**
+     * 按钮参数
+     */
+    button:{
+        /**
+         * 底边距
+         */
+        bottomMargin: number,
+        /**
+         * 左边距
+         */
+        leftMargin: number,
+        /**
+         * 宽度
+         */
+        width: number,
+        /**
+         * 高度
+         */
+        height: number,
+        /**
+         * 圆角
+         */
+        cornerRadius: number,
+        /**
+         * 背景颜色
+         */
+        backgroundColor: string,
+        /**
+         * 边框颜色
+         */
+        borderColor: string,
+        /**
+         * 边框大小
+         */
+        border: number,
+        /**
+         * 文字颜色
+         */
+        textColor: string,
+        /**
+         * 文字大小
+         */
+        fontSize: number,
+        /**
+         * 文字字体
+         */
+        fontFamily: string,
+        /**
+         * 提示文字颜色
+         */
+        hoverTextColor: string,
+        /**
+         * 提示文字大小
+         */
+        hoverFontSize: number,
+        /**
+         * 提示文字字体
+         */
+        hoverFontFamily: string
+        /**
+         * 悬浮背景颜色
+         */
+        hoverBackgroundColor: string
+    }={bottomMargin:20,leftMargin:5,width:15,height:15,cornerRadius:20
+        ,backgroundColor:"lightgray",borderColor:"black",border:0,
+        textColor:"#fff",fontSize:20,fontFamily:"Calibri",
+        hoverTextColor:"#000",hoverFontSize:12,hoverFontFamily:"Calibri",
+        hoverBackgroundColor:"blue"
+    }
 
 
     constructor(context: Context, id: string, name: string, rowNum: number) {
