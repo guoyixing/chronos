@@ -9,17 +9,18 @@
     "build:vite": "vite build"
   },
   "devDependencies": {
+    "@types/node": "^20.12.2",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "eslint": "^8.57.0",
-    "vite": "^5.1.5",
-    "vite-plugin-dts": "^3.7.3",
     "konva": "^9.3.5",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vite": "^5.1.5",
+    "vite-plugin-dts": "^3.7.3"
   },
   "dependencies": {
-    "konva": "^9.3.5",
     "inversify": "^6.0.2",
+    "konva": "^9.3.5",
     "reflect-metadata": "0.1.13"
   }
 }

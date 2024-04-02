@@ -12,6 +12,7 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "resolveJsonModule": true,
+    "types": ["node"],
     "lib": [
       "decorators",
       "dom",
