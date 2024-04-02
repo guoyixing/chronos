@@ -17,7 +17,12 @@ export class ChronosGridData extends ComponentData {
     /**
      * 网格间隙
      */
-    size: number = 20;
+    tbGapSize: number = 20;
+
+    /**
+     * 左右间隙
+     */
+    lrGapSize: number = 20;
 
     /**
      * 网格颜色

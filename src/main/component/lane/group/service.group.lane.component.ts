@@ -63,7 +63,6 @@ export class ChronosLaneGroupService implements ComponentService {
         const fixedCoordinate = this._data.context.drawContext.getFixedCoordinate();
         //泳道组起始坐标
         const startX = fixedCoordinate.x + this._data.startOffSet.x;
-        console.log(fixedCoordinate.x, this._data.startOffSet.x)
         this._data.laneGroup.forEach(lane => {
             lane.service.moveX(startX)
         })
@@ -105,6 +104,25 @@ export class ChronosLaneGroupService implements ComponentService {
             if (y >= laneEntry.data.startCoordinate.y) {
                 //获取鼠标移动到的泳道的索引
                 return laneEntry;
+            }
+        }
+    }
+
+    /**
+     * 移除泳道条目
+     * @param id 泳道id
+     */
+    removeLaneEntry(id: string) {
+        const data = this._data;
+        const lane = this.laneById(id);
+        if (!lane) {
+            return
+        }
+        for (let i = 0; i < data.laneGroup.length; i++) {
+            const laneEntry = data.laneGroup[i];
+            if (laneEntry.data.id === id) {
+                laneEntry.service.clear()
+                break
             }
         }
     }

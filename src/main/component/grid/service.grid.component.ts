@@ -41,36 +41,37 @@ export class ChronosGridService implements ComponentService {
         this._data.graphics = group;
 
         const {width, height} = this._window.service.getVisualRange()
-        const size = this._data.size;
+        const tbGapSize = this._data.tbGapSize;
+        const lrGapSize = this._data.lrGapSize;
         const rootLayer = this._data.context.drawContext.rootLayer;
 
         //获取当前左上角的坐标
         const coordinate = this._data.context.drawContext.getFixedCoordinate();
 
         //计算网格的x起始坐标
-        const x = coordinate.x - coordinate.x % size;
+        const x = coordinate.x - coordinate.x % lrGapSize;
 
         //计算网格的y起始坐标
-        const y = coordinate.y - coordinate.y % size;
+        const y = coordinate.y - coordinate.y % tbGapSize;
 
         //绘制纵线
-        for (let i = x; i < x + width + size; i += size) {
+        for (let i = x; i < x + width + lrGapSize; i += lrGapSize) {
             this._data.xLine.push(i);
             group.add(new Konva.Line({
                 //x开始，y开始，x结束，y结束
                 //y开始-网格大小，是为了移动的时候，上方不会出现空白
                 //y结束+高度+网格大小，是为了移动的时候，下方不会出现空白
-                points: [i, y - size, i, y + height + size],
+                points: [i, y - lrGapSize, i, y + height + lrGapSize],
                 stroke: this._data.color,
                 strokeWidth: this._data.width,
             }));
         }
 
         //绘制横线
-        for (let j = y; j < y + height + size; j += size) {
+        for (let j = y; j < y + height + tbGapSize; j += tbGapSize) {
             this._data.yLine.push(j);
             group.add(new Konva.Line({
-                points: [x - size, j, x + width + size, j],
+                points: [x - tbGapSize, j, x + width + tbGapSize, j],
                 stroke: this._data.color,
                 strokeWidth: this._data.width,
             }));

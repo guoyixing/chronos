@@ -164,11 +164,11 @@ export class ChronosLaneEntryData extends ComponentData {
          * 悬浮背景颜色
          */
         hoverBackgroundColor: string
-    }={bottomMargin:20,leftMargin:5,width:15,height:15,cornerRadius:20
-        ,backgroundColor:"lightgray",borderColor:"black",border:0,
+    }={bottomMargin:20,leftMargin:4,width:15,height:15,cornerRadius:20
+        ,backgroundColor:"#aaa",borderColor:"black",border:0,
         textColor:"#fff",fontSize:20,fontFamily:"Calibri",
         hoverTextColor:"#000",hoverFontSize:12,hoverFontFamily:"Calibri",
-        hoverBackgroundColor:"blue"
+        hoverBackgroundColor:"#555"
     }
 
 

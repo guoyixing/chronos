@@ -118,6 +118,17 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
     }
 
     /**
+     * 清除
+     */
+    clear() {
+        const data = this._data;
+        data.graphics?.shape?.destroy()
+        data.graphics = undefined
+        this._nodeGroup.service.removeNodeEntry(data.id)
+        this.publish(EVENT_TYPES.Delete)
+    }
+
+    /**
      * 监听移动
      * @param nodeShape 节点
      */
@@ -259,10 +270,14 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
     /**
      * 监听泳道重绘
      */
-    listenReDrawLane() {
+    listenLane() {
         //监听泳道重绘
         this._data.lane?.service.on(EVENT_TYPES.ReDraw, () => {
             this.reDraw()
+        });
+        //监听泳道删除
+        this._data.lane?.service.on(EVENT_TYPES.Delete, () => {
+            this.clear()
         });
     }
 

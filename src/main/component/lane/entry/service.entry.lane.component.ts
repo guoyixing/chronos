@@ -3,7 +3,7 @@ import {ChronosLaneEntryData} from "./data.entry.lane.component";
 import {ChronosWindowComponent} from "../../window/window.component";
 import {ChronosLaneGroupComponent} from "../group/group.lane.component";
 import Konva from "konva";
-import {EventPublisher} from "../../../core/event/event";
+import {EVENT_TYPES, EventPublisher} from "../../../core/event/event";
 import {ChronosLaneEntryButton} from "./button.entry.lane.component";
 
 /**
@@ -90,12 +90,14 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
             //绘制添加删除按钮
             const laneEntryButton = this._laneEntryButton;
             const addRowGroup = laneEntryButton.drawAddButton(height)
-            const deleteRowGroup = laneEntryButton.drawDeleteButton(height);
+            const reduceRowGroup = laneEntryButton.drawReduceButton(height);
+            const deleteLaneGroup = laneEntryButton.drawDeleteButton(height);
 
             group.add(drawLeft);
             group.add(drawName);
             group.add(addRowGroup);
-            group.add(deleteRowGroup);
+            group.add(reduceRowGroup);
+            group.add(deleteLaneGroup);
         }
 
         group.on('mouseover', function () {
@@ -399,6 +401,21 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
         data.graphics?.off('dragmove.followLane' + id);
     }
 
+    /**
+     * 清除
+     */
+    clear(): void {
+        this.data.graphics?.destroy()
+        for (let i = 0; i < this.group.data.originalLaneEntryData.length; i++) {
+            const laneEntry = this.group.data.originalLaneEntryData[i];
+            if (laneEntry.id === this.data.id) {
+                this.group.data.originalLaneEntryData.splice(i, 1);
+                this.group.data.laneGroup.splice(i, 1);
+                break
+            }
+        }
+        this.publish(EVENT_TYPES.Delete)
+    }
 
     /**
      * 事件绑定

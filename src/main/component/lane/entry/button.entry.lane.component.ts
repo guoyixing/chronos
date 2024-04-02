@@ -10,7 +10,7 @@ export class ChronosLaneEntryButton {
     }
 
     /**
-     * 绘制添加按钮
+     * 绘制增加按钮
      */
     drawAddButton(height: number): Konva.Group {
         const data = this._service.data;
@@ -21,10 +21,28 @@ export class ChronosLaneEntryButton {
         addRowGroup.add(addRow);
         addRowGroup.add(addRowText);
         //添加悬浮显示文字
-        this.mouseOver(addRowGroup, addRow, '添加行');
+        this.mouseOver(addRowGroup, addRow, '增加行');
         //点击增加行
         this.clickAddRow(addRowGroup);
         return addRowGroup;
+    }
+
+    /**
+     * 绘制减少按钮
+     */
+    drawReduceButton(height: number): Konva.Group {
+        const data = this._service.data;
+        //减少行按钮
+        const reduceRow = this.drawButtonRect(height, data.button.leftMargin * 2 + data.button.width);
+        const reduceRowText = this.drawButtonText(reduceRow, '-');
+        const reduceRowGroup = new Konva.Group();
+        reduceRowGroup.add(reduceRow);
+        reduceRowGroup.add(reduceRowText);
+        //添加悬浮显示文字
+        this.mouseOver(reduceRowGroup, reduceRow, '减少行');
+        //点击删除行
+        this.clickReduceRow(reduceRowGroup);
+        return reduceRowGroup;
     }
 
     /**
@@ -33,25 +51,25 @@ export class ChronosLaneEntryButton {
     drawDeleteButton(height: number): Konva.Group {
         const data = this._service.data;
         //删除行按钮
-        const deleteRow = this.drawButtonRect(height, data.button.leftMargin + data.button.width + data.button.leftMargin);
-        const deleteRowText = this.drawButtonText(deleteRow, '-');
-        const deleteRowGroup = new Konva.Group();
-        deleteRowGroup.add(deleteRow);
-        deleteRowGroup.add(deleteRowText);
+        const deleteLane = this.drawButtonRect(height, data.button.leftMargin * 3 + data.button.width * 2);
+        const deleteLaneText = this.drawButtonText(deleteLane, 'x');
+        const deleteLaneGroup = new Konva.Group();
+        deleteLaneGroup.add(deleteLane);
+        deleteLaneGroup.add(deleteLaneText);
         //添加悬浮显示文字
-        this.mouseOver(deleteRowGroup, deleteRow, '删除行');
+        this.mouseOver(deleteLaneGroup, deleteLane, '删除泳道');
         //点击删除行
-        this.clickDeleteRow(deleteRowGroup);
-        return deleteRowGroup;
+        this.clickDeleteLane(deleteLaneGroup);
+        return deleteLaneGroup;
     }
 
     /**
      * 点击增加行
-     * @param rowGroup
+     * @param buttonGroup 按钮组
      */
-    clickAddRow(rowGroup: Konva.Group) {
+    clickAddRow(buttonGroup: Konva.Group) {
         const data = this._service.data;
-        rowGroup.on('click', () => {
+        buttonGroup.on('click', () => {
             data.rowNum = data.rowNum + 1;
             //重新绘制泳道
             this._service.group.service.reDraw();
@@ -59,17 +77,30 @@ export class ChronosLaneEntryButton {
     }
 
     /**
-     * 点击删除行
+     * 点击减少行
      */
-    clickDeleteRow(rowGroup: Konva.Group) {
+    clickReduceRow(buttonGroup: Konva.Group) {
         const data = this._service.data;
-        rowGroup.on('click', () => {
+        buttonGroup.on('click', () => {
             if (data.rowNum <= 1) {
                 return
             }
             data.rowNum = data.rowNum - 1;
             //重新绘制泳道
             this._service.group.service.reDraw();
+        });
+    }
+
+    /**
+     * 点击删除用到
+     */
+    clickDeleteLane(buttonGroup: Konva.Group) {
+        const group = this._service.group;
+        buttonGroup.on('click', () => {
+            group.service.removeLaneEntry(this._service.data.id);
+            //
+            //重新绘制泳道
+            group.service.reDraw();
         });
     }
 
@@ -112,7 +143,6 @@ export class ChronosLaneEntryButton {
 
     /**
      * 添加悬浮显示文字
-     * @param data 泳道数据
      * @param button 按钮
      * @param buttonRect 按钮矩形
      * @param text 文字
@@ -133,7 +163,7 @@ export class ChronosLaneEntryButton {
             buttonRect.fill(data.button.hoverBackgroundColor)
         });
         button.on('mouseout', function () {
-            addRowHoverText.destroy()
+            addRowHoverText.remove()
             buttonRect.fill(data.button.backgroundColor)
         })
     }

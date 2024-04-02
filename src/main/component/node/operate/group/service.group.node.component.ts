@@ -41,4 +41,17 @@ export class ChronosNodeGroupService implements ComponentService {
         })
         return result;
     }
+
+    /**
+     * 移除节点条目
+     * @param id
+     */
+    removeNodeEntry(id: string) {
+        for (let i = 0; i < this._data.nodeGroup.length; i++) {
+            if (this._data.nodeGroup[i].data.id === id) {
+                this._data.nodeGroup.splice(i, 1);
+                break;
+            }
+        }
+    }
 }
