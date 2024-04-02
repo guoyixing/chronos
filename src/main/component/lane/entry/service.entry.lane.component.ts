@@ -51,6 +51,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
         const data = this.data;
         //泳道组数据
         const groupData = this.group.data;
+        const laneEntryButton = this._laneEntryButton;
 
         //泳道宽度
         const {width} = this._window.service.getVisualRange()
@@ -80,15 +81,16 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
         group.add(drawBorderBottom);
 
         let drawLeft: Konva.Rect
+
         if (!data.hideLeft) {
             //左侧泳道分割块绘制
             drawLeft = this.drawLeft(height);
 
             //绘制泳道名
             const drawName = this.drawName(height);
-
             //绘制添加删除按钮
-            const laneEntryButton = this._laneEntryButton;
+            const topAddLaneGroup = laneEntryButton.drawTopAddButton(height);
+            const bottomAddLaneGroup = laneEntryButton.drawBottomAddButton(height);
             const addRowGroup = laneEntryButton.drawAddButton(height)
             const reduceRowGroup = laneEntryButton.drawReduceButton(height);
             const deleteLaneGroup = laneEntryButton.drawDeleteButton(height);
@@ -98,14 +100,29 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
             group.add(addRowGroup);
             group.add(reduceRowGroup);
             group.add(deleteLaneGroup);
+            group.add(topAddLaneGroup);
+            group.add(bottomAddLaneGroup);
+
+            group.on('mouseover', function () {
+                document.body.style.cursor = 'pointer';
+                addRowGroup.visible(true);
+                reduceRowGroup.visible(true);
+                deleteLaneGroup.visible(true);
+                topAddLaneGroup.visible(true);
+                bottomAddLaneGroup.visible(true);
+            });
+            group.on('mouseout', function () {
+                document.body.style.cursor = 'default';
+                addRowGroup.visible(false);
+                reduceRowGroup.visible(false);
+                deleteLaneGroup.visible(false);
+                topAddLaneGroup.visible(false);
+                bottomAddLaneGroup.visible(false);
+            });
+
         }
 
-        group.on('mouseover', function () {
-            document.body.style.cursor = 'pointer';
-        });
-        group.on('mouseout', function () {
-            document.body.style.cursor = 'default';
-        });
+
 
         //拖动开始
         group.on('dragstart', () => {
@@ -405,15 +422,10 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * 清除
      */
     clear(): void {
-        this.data.graphics?.destroy()
-        for (let i = 0; i < this.group.data.originalLaneEntryData.length; i++) {
-            const laneEntry = this.group.data.originalLaneEntryData[i];
-            if (laneEntry.id === this.data.id) {
-                this.group.data.originalLaneEntryData.splice(i, 1);
-                this.group.data.laneGroup.splice(i, 1);
-                break
-            }
-        }
+        const data = this.data;
+        data.graphics?.destroy()
+        this.group.data.originalLaneEntryData.splice(data.index, 1);
+        this.group.data.laneGroup.splice(data.index, 1);
         this.publish(EVENT_TYPES.Delete)
     }
 

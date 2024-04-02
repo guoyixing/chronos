@@ -98,7 +98,7 @@ export class ChronosLaneEntryData extends ComponentData {
     /**
      * 泳道文字下边距
      */
-    textBottomMargin: number = 25
+    textBottomMargin: number = 10
 
     /**
      * 按钮参数
@@ -164,10 +164,10 @@ export class ChronosLaneEntryData extends ComponentData {
          * 悬浮背景颜色
          */
         hoverBackgroundColor: string
-    }={bottomMargin:20,leftMargin:4,width:15,height:15,cornerRadius:20
+    }={bottomMargin:20,leftMargin:4,width:15,height:15,cornerRadius:3
         ,backgroundColor:"#aaa",borderColor:"black",border:0,
         textColor:"#fff",fontSize:20,fontFamily:"Calibri",
-        hoverTextColor:"#000",hoverFontSize:12,hoverFontFamily:"Calibri",
+        hoverTextColor:"#fff",hoverFontSize:12,hoverFontFamily:"Calibri",
         hoverBackgroundColor:"#555"
     }
 

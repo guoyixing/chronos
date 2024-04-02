@@ -15,9 +15,9 @@ export class ChronosLaneEntryButton {
     drawAddButton(height: number): Konva.Group {
         const data = this._service.data;
         //增加行按钮
-        const addRow = this.drawButtonRect(height, data.button.leftMargin);
+        const addRow = this.drawButtonRect(height - data.button.bottomMargin * 2, data.button.leftMargin);
         const addRowText = this.drawButtonText(addRow, '+');
-        const addRowGroup = new Konva.Group();
+        const addRowGroup = new Konva.Group({name: 'addGroup', visible: false});
         addRowGroup.add(addRow);
         addRowGroup.add(addRowText);
         //添加悬浮显示文字
@@ -33,9 +33,9 @@ export class ChronosLaneEntryButton {
     drawReduceButton(height: number): Konva.Group {
         const data = this._service.data;
         //减少行按钮
-        const reduceRow = this.drawButtonRect(height, data.button.leftMargin * 2 + data.button.width);
+        const reduceRow = this.drawButtonRect(height - data.button.bottomMargin * 2, data.button.leftMargin * 2 + data.button.width);
         const reduceRowText = this.drawButtonText(reduceRow, '-');
-        const reduceRowGroup = new Konva.Group();
+        const reduceRowGroup = new Konva.Group({name: 'reduceGroup', visible: false});
         reduceRowGroup.add(reduceRow);
         reduceRowGroup.add(reduceRowText);
         //添加悬浮显示文字
@@ -51,9 +51,9 @@ export class ChronosLaneEntryButton {
     drawDeleteButton(height: number): Konva.Group {
         const data = this._service.data;
         //删除行按钮
-        const deleteLane = this.drawButtonRect(height, data.button.leftMargin * 3 + data.button.width * 2);
+        const deleteLane = this.drawButtonRect(height - data.button.bottomMargin * 2, data.button.leftMargin * 3 + data.button.width * 2);
         const deleteLaneText = this.drawButtonText(deleteLane, 'x');
-        const deleteLaneGroup = new Konva.Group();
+        const deleteLaneGroup = new Konva.Group({name: 'deleteGroup', visible: false});
         deleteLaneGroup.add(deleteLane);
         deleteLaneGroup.add(deleteLaneText);
         //添加悬浮显示文字
@@ -61,6 +61,40 @@ export class ChronosLaneEntryButton {
         //点击删除行
         this.clickDeleteLane(deleteLaneGroup);
         return deleteLaneGroup;
+    }
+
+    /**
+     * 绘制上方添加泳道按钮
+     */
+    drawTopAddButton(height: number): Konva.Group {
+        const data = this._service.data;
+        //删除行按钮
+        const topAddLane = this.drawButtonRect(height - data.button.bottomMargin, data.button.leftMargin, 26);
+        const topAddLaneText = this.drawButtonText(topAddLane, '∧+');
+        const topAddLaneGroup = new Konva.Group({name: 'topAddLaneGroup', visible: false});
+        topAddLaneGroup.add(topAddLane);
+        topAddLaneGroup.add(topAddLaneText);
+        //添加悬浮显示文字
+        this.mouseOver(topAddLaneGroup, topAddLane, '下方添加泳道');
+        this.clickTopAddLane(topAddLaneGroup);
+        return topAddLaneGroup;
+    }
+
+    /**
+     * 绘制下方添加泳道按钮
+     */
+    drawBottomAddButton(height: number): Konva.Group {
+        const data = this._service.data;
+        //删除行按钮
+        const bottomAddLane = this.drawButtonRect(height - data.button.bottomMargin, data.button.leftMargin + 27, 26);
+        const bottomAddLaneText = this.drawButtonText(bottomAddLane, '∨+');
+        const bottomAddLaneGroup = new Konva.Group({name: 'bottomAddLaneGroup', visible: false});
+        bottomAddLaneGroup.add(bottomAddLane);
+        bottomAddLaneGroup.add(bottomAddLaneText);
+        //添加悬浮显示文字
+        this.mouseOver(bottomAddLaneGroup, bottomAddLane, '下方添加泳道');
+        this.clickBottomAddLane(bottomAddLaneGroup);
+        return bottomAddLaneGroup;
     }
 
     /**
@@ -98,22 +132,39 @@ export class ChronosLaneEntryButton {
         const group = this._service.group;
         buttonGroup.on('click', () => {
             group.service.removeLaneEntry(this._service.data.id);
-            //
-            //重新绘制泳道
-            group.service.reDraw();
+        });
+    }
+
+    /**
+     * 点击上方添加泳道
+     */
+    clickTopAddLane(buttonGroup: Konva.Group) {
+        const group = this._service.group;
+        buttonGroup.on('click', () => {
+            group.service.addLaneEntry(this._service.data.id,0);
+        });
+    }
+
+    /**
+     * 点击下方添加泳道
+     */
+    clickBottomAddLane(buttonGroup: Konva.Group) {
+        const group = this._service.group;
+        buttonGroup.on('click', () => {
+            group.service.addLaneEntry(this._service.data.id,1);
         });
     }
 
     /**
      * 绘制按钮
      */
-    drawButtonRect(height: number, x: number): Konva.Rect {
+    drawButtonRect(height: number, x: number, width?: number): Konva.Rect {
         const data = this._service.data;
 
         return new Konva.Rect({
             x: x,
-            y: data.startCoordinate.y + height - data.button.bottomMargin,
-            width: data.button.width,
+            y: data.startCoordinate.y + height,
+            width: width || data.button.width,
             height: data.button.height,
             fill: data.button.backgroundColor,
             stroke: data.button.borderColor,
@@ -151,19 +202,35 @@ export class ChronosLaneEntryButton {
         const data = this._service.data;
         //添加悬浮显示文字
         const addRowHoverText = new Konva.Text({
-            x: buttonRect.x(),
-            y: buttonRect.y() - data.button.height,
+            x: 0,
+            y: 0,
             text: text,
             fontSize: data.button.hoverFontSize,
             fontFamily: data.button.fontFamily,
             fill: data.button.hoverTextColor,
         });
+
+        //文字背景
+        const textBackground = new Konva.Rect({
+            x: -1,
+            y: -2,
+            width: addRowHoverText.width()+2,
+            height: addRowHoverText.height()+3,
+            fill: data.button.hoverBackgroundColor,
+            cornerRadius: data.button.cornerRadius,
+        });
+        const buttonGroup = new Konva.Group();
+        buttonGroup.add(textBackground);
+        buttonGroup.add(addRowHoverText);
+        buttonGroup.x(buttonRect.x());
+        buttonGroup.y(buttonRect.y() - data.button.height);
+
         button.on('mouseover', function () {
-            button.add(addRowHoverText)
+            button.add(buttonGroup)
             buttonRect.fill(data.button.hoverBackgroundColor)
         });
         button.on('mouseout', function () {
-            addRowHoverText.remove()
+            buttonGroup.remove()
             buttonRect.fill(data.button.backgroundColor)
         })
     }

@@ -9,6 +9,9 @@ import {ChronosLaneEntryService} from "../entry/service.entry.lane.component";
 import {ChronosLaneEntryComponent} from "../entry/entry.lane.component";
 import {StageDragListener} from "../../../core/event/event";
 import {ChronosToolPlug, ToolbarPlugRegister} from "../../toolbar/plug.toolbar.component";
+import {ChronosLaneEntryData} from "../entry/data.entry.lane.component";
+import {Context} from "../../../core/context/context";
+import {l} from "vite/dist/node/types.d-AKzkD8vd";
 
 /**
  * 泳道组-组件

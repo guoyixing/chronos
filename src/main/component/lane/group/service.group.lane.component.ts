@@ -5,6 +5,10 @@ import {ChronosWindowComponent} from "../../window/window.component";
 import {TYPES} from "../../../config/inversify.config";
 import {ChronosLaneEntryComponent} from "../entry/entry.lane.component";
 import {EVENT_TYPES} from "../../../core/event/event";
+import {ChronosLaneEntryService} from "../entry/service.entry.lane.component";
+import {ChronosLaneGroupComponent} from "./group.lane.component";
+import {Context} from "../../../core/context/context";
+import {ChronosLaneEntryData} from "../entry/data.entry.lane.component";
 
 /**
  * 泳道组-组件服务
@@ -125,5 +129,28 @@ export class ChronosLaneGroupService implements ComponentService {
                 break
             }
         }
+        this.reDraw();
+    }
+
+    /**
+     * 在指定泳道上方添加泳道
+     * @param id 泳道id
+     * @param indexOffSet 索引偏移
+     */
+    addLaneEntry(id: string, indexOffSet: number) {
+        const data = this._data;
+        const lane = this.laneById(id);
+        const window = data.context.ioc.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
+        const laneGroup = data.context.ioc.get<ChronosLaneGroupComponent>(TYPES.ChronosLaneGroupComponent);
+        const context = data.context.ioc.get<Context>(TYPES.Context);
+        if (!lane) {
+            return
+        }
+        const laneIndex = lane.data.index + indexOffSet;
+        const entryData = new ChronosLaneEntryData(context, 'new' + data.laneGroup.length, '泳道' + data.laneGroup.length, 3);
+        const service = new ChronosLaneEntryService(entryData, window, laneGroup);
+        const component = new ChronosLaneEntryComponent(entryData, service);
+        data.laneGroup.splice(laneIndex, 0, component);
+        this.reDraw();
     }
 }

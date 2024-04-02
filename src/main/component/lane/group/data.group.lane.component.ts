@@ -3,6 +3,7 @@ import {injectable} from "inversify";
 import {ChronosLaneEntryComponent} from "../entry/entry.lane.component";
 import {Context} from "../../../core/context/context";
 import {ChronosLaneEntryData} from "../entry/data.entry.lane.component";
+import {ChronosLaneEntryService} from "../entry/service.entry.lane.component";
 
 /**
  * 泳道组-组件数据
