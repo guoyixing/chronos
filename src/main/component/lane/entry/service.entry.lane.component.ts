@@ -123,7 +123,6 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
         }
 
 
-
         //拖动开始
         group.on('dragstart', () => {
             //浮动到最上层

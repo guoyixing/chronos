@@ -58,7 +58,7 @@ export class ChronosNodeGroupComponent extends BaseComponent<ChronosNodeGroupDat
         this.data.originalNodeEntryData.forEach((entryData) => {
             entryData.layer = this.data.layer;
             const service = new ChronosNodeEntryService(
-                entryData, window, bar, laneGroup, timeline, nodeGroup, nodeTransformer,nodeDetail,scale);
+                entryData, window, bar, laneGroup, timeline, nodeGroup, nodeTransformer, nodeDetail, scale);
             const component = new ChronosNodeEntryComponent(entryData, service);
             service.listenScale()
             this.data.nodeGroup.push(component);

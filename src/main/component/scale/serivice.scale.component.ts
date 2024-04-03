@@ -11,7 +11,7 @@ import {EVENT_TYPES, EventPublisher} from "../../core/event/event";
 @injectable()
 export class ChronosScaleService implements ComponentService, EventPublisher {
 
-    id:string = "scale"
+    id: string = "scale"
 
     /**
      * 数据

@@ -116,7 +116,6 @@ export class ChronosScaleData extends ComponentData {
     fontSize: number = 16
 
 
-
     constructor(context: Context, startOffSet: { x: number; y: number }) {
         super(context);
         this.startOffSet = startOffSet;

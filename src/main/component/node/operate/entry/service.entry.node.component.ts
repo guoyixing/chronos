@@ -75,7 +75,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
                 timeline: ChronosTimelineComponent,
                 nodeGroup: ChronosNodeGroupComponent,
                 nodeTransformer: ChronosNodeTransformerComponent,
-                nodeDetail:ChronosNodeDetailComponent,
+                nodeDetail: ChronosNodeDetailComponent,
                 scale: ChronosScaleComponent) {
         this._data = data;
         this._window = window;
@@ -94,7 +94,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
      */
     draw() {
         const data = this._data;
-        if (data.hidden){
+        if (data.hidden) {
             return
         }
         //获取bar
@@ -236,7 +236,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         const y = lane?.service.getYByRow(data.row)
         if (y === undefined) {
             data.hidden = true
-            console.warn('节点'+data.id+'，无法获取到所在行')
+            console.warn('节点' + data.id + '，无法获取到所在行')
             return
         }
 

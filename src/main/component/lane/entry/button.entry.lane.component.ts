@@ -141,7 +141,7 @@ export class ChronosLaneEntryButton {
     clickTopAddLane(buttonGroup: Konva.Group) {
         const group = this._service.group;
         buttonGroup.on('click', () => {
-            group.service.addLaneEntry(this._service.data.id,0);
+            group.service.addLaneEntry(this._service.data.id, 0);
         });
     }
 
@@ -151,7 +151,7 @@ export class ChronosLaneEntryButton {
     clickBottomAddLane(buttonGroup: Konva.Group) {
         const group = this._service.group;
         buttonGroup.on('click', () => {
-            group.service.addLaneEntry(this._service.data.id,1);
+            group.service.addLaneEntry(this._service.data.id, 1);
         });
     }
 
@@ -214,8 +214,8 @@ export class ChronosLaneEntryButton {
         const textBackground = new Konva.Rect({
             x: -1,
             y: -2,
-            width: addRowHoverText.width()+2,
-            height: addRowHoverText.height()+3,
+            width: addRowHoverText.width() + 2,
+            height: addRowHoverText.height() + 3,
             fill: data.button.hoverBackgroundColor,
             cornerRadius: data.button.cornerRadius,
         });

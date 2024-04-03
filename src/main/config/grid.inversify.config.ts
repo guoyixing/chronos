@@ -16,7 +16,7 @@ export class GridConfig {
         const data: ChronosGridData = new ChronosGridData(
             chronosContainer.get<Context>(TYPES.Context),
             {x: 100, y: 0},
-            );
+        );
         // data.hidePoint = false;
 
         chronosContainer.bind<ChronosGridData>(TYPES.ChronosGridData).toConstantValue(data);

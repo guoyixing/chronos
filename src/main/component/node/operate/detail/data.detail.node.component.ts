@@ -110,7 +110,6 @@ export class ChronosNodeDetailData extends ComponentData {
     mouseOffset: { x: number, y: number } = {x: 25, y: 25}
 
 
-
     constructor(context: Context) {
         super(context);
     }

@@ -103,7 +103,7 @@ export class ChronosLaneEntryData extends ComponentData {
     /**
      * 按钮参数
      */
-    button:{
+    button: {
         /**
          * 底边距
          */
@@ -164,11 +164,12 @@ export class ChronosLaneEntryData extends ComponentData {
          * 悬浮背景颜色
          */
         hoverBackgroundColor: string
-    }={bottomMargin:20,leftMargin:4,width:15,height:15,cornerRadius:3
-        ,backgroundColor:"#aaa",borderColor:"black",border:0,
-        textColor:"#fff",fontSize:20,fontFamily:"Calibri",
-        hoverTextColor:"#fff",hoverFontSize:12,hoverFontFamily:"Calibri",
-        hoverBackgroundColor:"#555"
+    } = {
+        bottomMargin: 20, leftMargin: 4, width: 15, height: 15, cornerRadius: 3
+        , backgroundColor: "#aaa", borderColor: "black", border: 0,
+        textColor: "#fff", fontSize: 20, fontFamily: "Calibri",
+        hoverTextColor: "#fff", hoverFontSize: 12, hoverFontFamily: "Calibri",
+        hoverBackgroundColor: "#555"
     }
 
 

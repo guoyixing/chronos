@@ -81,7 +81,7 @@ export class ChronosNodeDetailService implements ComponentService {
      */
     private drawText(node: ChronosNodeEntryComponent) {
         const data = this._data;
-        let text  = '名称：' + node.data.name + '\n' +
+        let text = '名称：' + node.data.name + '\n' +
             '开始时间：' + node.data.startTime.toLocaleString()
         if (node.data.finishTime) {
             text += '\n结束时间：' + node.data.finishTime.toLocaleString()
