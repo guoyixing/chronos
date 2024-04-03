@@ -82,6 +82,11 @@ export const TYPES = {
     ChronosNodeDetailData: Symbol.for("ChronosNodeDetailData"),
     ChronosNodeDetailService: Symbol.for("ChronosNodeDetailService"),
     ChronosNodeDetailComponent: Symbol.for("ChronosNodeDetailComponent"),
+
+    //组件-比例尺
+    ChronosScaleData: Symbol.for("ChronosScaleData"),
+    ChronosScaleService: Symbol.for("ChronosScaleService"),
+    ChronosScaleComponent: Symbol.for("ChronosScaleComponent"),
 };
 
 /**

@@ -23,6 +23,11 @@ export class ChronosTimelineComponent extends BaseComponent<ChronosTimelineData,
         super(data, service);
     }
 
+    init() {
+        super.init();
+        this.service.listenScale()
+    }
+
     stageDragListen(): void {
         this.data.layer?.destroyChildren()
         this.service.draw()

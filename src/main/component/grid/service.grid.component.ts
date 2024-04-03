@@ -4,6 +4,8 @@ import Konva from "konva";
 import {ChronosGridData} from "./data.grid.component";
 import {TYPES} from "../../config/inversify.config";
 import {ChronosWindowComponent} from "../window/window.component";
+import {ChronosScaleComponent} from "../scale/scale.component";
+import {EVENT_TYPES} from "../../core/event/event";
 
 /**
  * 网格-组件服务
@@ -20,10 +22,17 @@ export class ChronosGridService implements ComponentService {
      */
     private _window: ChronosWindowComponent
 
+    /**
+     * 比例尺
+     */
+    private _scale: ChronosScaleComponent
+
     constructor(@inject(TYPES.ChronosGridData) data: ChronosGridData,
-                @inject(TYPES.ChronosWindowComponent) window: ChronosWindowComponent) {
+                @inject(TYPES.ChronosWindowComponent) window: ChronosWindowComponent,
+                @inject(TYPES.ChronosScaleComponent) scale: ChronosScaleComponent) {
         this._data = data
         this._window = window
+        this._scale = scale
     }
 
     /**
@@ -37,7 +46,9 @@ export class ChronosGridService implements ComponentService {
         this._data.xLine = [];
         this._data.yLine = [];
 
-        const group = new Konva.Group();
+        const startOffSet = this._data.startOffSet;
+
+        const group = new Konva.Group({x: startOffSet.x, y: startOffSet.y});
         this._data.graphics = group;
 
         const {width, height} = this._window.service.getVisualRange()
@@ -122,4 +133,18 @@ export class ChronosGridService implements ComponentService {
         this._data.layer?.add(this._data.point);
     }
 
+    /**
+     * 监听比例尺
+     */
+    listenScale() {
+        const lrGapSize = this._data.lrGapSize;
+        this._scale.service.on(EVENT_TYPES.ScaleUpdate, () => {
+            this._data.lrGapSize = this._scale.data.scaleX * lrGapSize;
+        })
+
+        this._scale.service.on(EVENT_TYPES.ScaleReDraw, () => {
+            this._data.graphics?.destroy()
+            this.draw()
+        })
+    }
 }

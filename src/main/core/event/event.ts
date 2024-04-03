@@ -54,4 +54,8 @@ export const EVENT_TYPES = {
     Delete: Symbol.for("Delete"),
     //拖拽事件
     Drag: Symbol.for("Drag"),
+    //比例尺更新
+    ScaleUpdate: Symbol.for("ScaleUpdate"),
+    //比例尺重绘
+    ScaleReDraw: Symbol.for("ScaleReDraw"),
 }

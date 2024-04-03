@@ -44,6 +44,7 @@ export class ChronosGridComponent extends BaseComponent<ChronosGridData, Chronos
      */
     init() {
         this.data.layer = this.data.context.drawContext.rootLayer
+        this.service.listenScale()
     }
 
     /**

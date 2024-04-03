@@ -15,6 +15,11 @@ export class ChronosGridData extends ComponentData {
     graphics: Konva.Group | undefined
 
     /**
+     * 渲染起始坐标
+     */
+    startOffSet: { x: number, y: number }
+
+    /**
      * 网格间隙
      */
     tbGapSize: number = 20;
@@ -70,8 +75,9 @@ export class ChronosGridData extends ComponentData {
      */
     hidePoint: boolean = true;
 
-    constructor(context: Context) {
+    constructor(context: Context, startOffSet: { x: number, y: number }) {
         super(context);
+        this.startOffSet = startOffSet;
     }
 
 }

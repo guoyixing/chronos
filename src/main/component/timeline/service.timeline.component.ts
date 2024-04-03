@@ -5,6 +5,8 @@ import {ChronosTimelineData} from "./data.timeline.component";
 import {TYPES} from "../../config/inversify.config";
 import {ChronosWindowComponent} from "../window/window.component";
 import {betweenMs, betweenMsAbs, getDaysInMonth} from "../../core/utils/DateUtils";
+import {EVENT_TYPES} from "../../core/event/event";
+import {ChronosScaleComponent} from "../scale/scale.component";
 
 /**
  * 1天所需要的毫秒
@@ -27,10 +29,17 @@ export class ChronosTimelineService implements ComponentService {
      */
     private _window: ChronosWindowComponent
 
+    /**
+     * 比例尺
+     */
+    private _scale: ChronosScaleComponent
+
     constructor(@inject(TYPES.ChronosTimelineData) data: ChronosTimelineData,
-                @inject(TYPES.ChronosWindowComponent) window: ChronosWindowComponent) {
+                @inject(TYPES.ChronosWindowComponent) window: ChronosWindowComponent,
+                @inject(TYPES.ChronosScaleComponent) scale: ChronosScaleComponent) {
         this._data = data;
         this._window = window;
+        this._scale = scale;
     }
 
     draw(): void {
@@ -301,5 +310,20 @@ export class ChronosTimelineService implements ComponentService {
         //当前的时间（时间轴最左侧的时间）+时间偏移量
         return new Date(currentDay.getTime() + time);
 
+    }
+
+    /**
+     * 监听比例尺
+     */
+    listenScale() {
+        const dayWidth = this._data.dayWidth;
+        this._scale.service.on(EVENT_TYPES.ScaleUpdate, () => {
+            this._data.dayWidth = this._scale.data.scaleX * dayWidth;
+        })
+
+        this._scale.service.on(EVENT_TYPES.ScaleReDraw, () => {
+            this._data.layer?.destroyChildren()
+            this.draw()
+        })
     }
 }

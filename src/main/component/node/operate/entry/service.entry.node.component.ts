@@ -10,6 +10,7 @@ import {ChronosNodeGroupComponent} from "../group/group.node.component";
 import {EVENT_TYPES, EventPublisher} from "../../../../core/event/event";
 import {ChronosNodeTransformerComponent} from "../transformer/transformer.node.component";
 import {ChronosNodeDetailComponent} from "../detail/detail.node.component";
+import {ChronosScaleComponent} from "../../../scale/scale.component";
 
 /**
  * 节点条目-组件服务
@@ -61,6 +62,11 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
      */
     private _nodeDetail: ChronosNodeDetailComponent
 
+    /**
+     * 比例尺
+     */
+    private _scale: ChronosScaleComponent
+
 
     constructor(data: ChronosNodeEntryData,
                 window: ChronosWindowComponent,
@@ -69,7 +75,8 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
                 timeline: ChronosTimelineComponent,
                 nodeGroup: ChronosNodeGroupComponent,
                 nodeTransformer: ChronosNodeTransformerComponent,
-                nodeDetail:ChronosNodeDetailComponent) {
+                nodeDetail:ChronosNodeDetailComponent,
+                scale: ChronosScaleComponent) {
         this._data = data;
         this._window = window;
         this._bar = bar;
@@ -78,6 +85,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         this._nodeGroup = nodeGroup;
         this._nodeTransformer = nodeTransformer;
         this._nodeDetail = nodeDetail;
+        this._scale = scale;
         this.id = "nodeEntry" + this._data.id
     }
 
@@ -395,5 +403,14 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
     publish(event: symbol): void {
         const eventManager = this._data.context.eventManager;
         eventManager?.publishAndPop(this, event)
+    }
+
+    /**
+     * 监听比例尺
+     */
+    listenScale() {
+        this._scale.service.on(EVENT_TYPES.ScaleReDraw, () => {
+            this.reDraw()
+        })
     }
 }

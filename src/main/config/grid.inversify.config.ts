@@ -13,7 +13,10 @@ import {ToolbarPlugRegister} from "../component/toolbar/plug.toolbar.component";
 export class GridConfig {
     constructor(chronosContainer: Container, divElement: HTMLDivElement) {
 
-        const data: ChronosGridData = new ChronosGridData(chronosContainer.get<Context>(TYPES.Context));
+        const data: ChronosGridData = new ChronosGridData(
+            chronosContainer.get<Context>(TYPES.Context),
+            {x: 100, y: 0},
+            );
         // data.hidePoint = false;
 
         chronosContainer.bind<ChronosGridData>(TYPES.ChronosGridData).toConstantValue(data);

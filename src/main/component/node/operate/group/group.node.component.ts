@@ -12,6 +12,7 @@ import {ChronosNodeEntryComponent} from "../entry/entry.node.component";
 import {ChronosTimelineComponent} from "../../../timeline/timeline.component";
 import {ChronosNodeTransformerComponent} from "../transformer/transformer.node.component";
 import {ChronosNodeDetailComponent} from "../detail/detail.node.component";
+import {ChronosScaleComponent} from "../../../scale/scale.component";
 
 /**
  * 节点组-组件
@@ -49,14 +50,17 @@ export class ChronosNodeGroupComponent extends BaseComponent<ChronosNodeGroupDat
         const nodeTransformer = this.data.context.ioc.get<ChronosNodeTransformerComponent>(TYPES.ChronosNodeTransformerComponent);
         //节点详情
         const nodeDetail = this.data.context.ioc.get<ChronosNodeDetailComponent>(TYPES.ChronosNodeDetailComponent);
+        //比例尺
+        const scale = this.data.context.ioc.get<ChronosScaleComponent>(TYPES.ChronosScaleComponent);
 
 
         //初始化泳道组
         this.data.originalNodeEntryData.forEach((entryData) => {
             entryData.layer = this.data.layer;
             const service = new ChronosNodeEntryService(
-                entryData, window, bar, laneGroup, timeline, nodeGroup, nodeTransformer,nodeDetail);
+                entryData, window, bar, laneGroup, timeline, nodeGroup, nodeTransformer,nodeDetail,scale);
             const component = new ChronosNodeEntryComponent(entryData, service);
+            service.listenScale()
             this.data.nodeGroup.push(component);
         })
     }
