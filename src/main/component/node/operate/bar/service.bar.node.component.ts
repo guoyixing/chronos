@@ -104,7 +104,7 @@ export class ChronosNodeBarService implements ComponentService {
      */
     private drawNode(node: Map<String, new () => NodeShape>, xStart: number, xFinish: number | undefined, y: number, group: Konva.Group) {
         let index: number = 1;
-        node.forEach((value, key) => {
+        node.forEach((value) => {
             const node = new value();
             const originalY = y * index;
             const candidateNode = node.create({xStart: xStart, xFinish: xFinish, y: originalY}, node.code);

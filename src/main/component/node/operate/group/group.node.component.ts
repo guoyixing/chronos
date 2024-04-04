@@ -36,8 +36,6 @@ export class ChronosNodeGroupComponent extends BaseComponent<ChronosNodeGroupDat
      */
     init() {
         this.data.layer = this.data.context.drawContext.rootLayer
-        //获取窗体组件
-        const window = this.data.context.ioc.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
         //获取泳道组
         const laneGroup = this.data.context.ioc.get<ChronosLaneGroupComponent>(TYPES.ChronosLaneGroupComponent);
         //获取节点导航窗

@@ -1,7 +1,5 @@
 import {Chronos} from "../main/chronos";
 
-import mock from './mock.json';
-
 const divElement: HTMLElement | null = document.getElementById('root');
 
 if (!(divElement instanceof HTMLDivElement)) {
@@ -9,7 +7,7 @@ if (!(divElement instanceof HTMLDivElement)) {
 }
 
 try {
-    new Chronos(divElement as HTMLDivElement,{});
+    new Chronos(divElement as HTMLDivElement, {});
 } catch (e) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     console.log(e)
