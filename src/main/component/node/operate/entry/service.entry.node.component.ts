@@ -1,7 +1,5 @@
 import {ComponentService} from "../../../service.component";
-import Konva from "konva";
 import {ChronosNodeEntryData} from "./data.entry.node.component";
-import {ChronosWindowComponent} from "../../../window/window.component";
 import {ChronosNodeBarComponent} from "../bar/bar.node.component";
 import {ChronosLaneGroupComponent} from "../../../lane/group/group.lane.component";
 import {ChronosTimelineComponent} from "../../../timeline/timeline.component";
@@ -26,11 +24,6 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
      * 数据
      */
     private _data: ChronosNodeEntryData
-
-    /**
-     * 窗口
-     */
-    private _window: ChronosWindowComponent
 
     /**
      * 节点导航窗
@@ -69,7 +62,6 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
 
 
     constructor(data: ChronosNodeEntryData,
-                window: ChronosWindowComponent,
                 bar: ChronosNodeBarComponent,
                 laneGroup: ChronosLaneGroupComponent,
                 timeline: ChronosTimelineComponent,
@@ -78,7 +70,6 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
                 nodeDetail: ChronosNodeDetailComponent,
                 scale: ChronosScaleComponent) {
         this._data = data;
-        this._window = window;
         this._bar = bar;
         this._laneGroup = laneGroup;
         this._timeline = timeline;
@@ -141,43 +132,11 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
      * @param nodeShape 节点
      */
     listenMove(nodeShape: NodeShape) {
-        const data = this._data;
+        this._nodeGroup.service.listenMove(nodeShape)
+
         const node = nodeShape.shape;
-        const laneGroup = this._laneGroup;
-
-        //移动时候y轴绑定到泳道的行，只允许在奇数行移动
-        node?.dragBoundFunc((pos) => {
-            const lane = laneGroup.service.laneByY(pos.y);
-            if (lane === undefined) {
-                throw new Error('泳道不存在')
-            }
-            const y = lane.service.getYByRow(lane.service.getRowByY(pos.y))
-            if (y === undefined) {
-                throw new Error('行不存在')
-            }
-            return {
-                x: pos.x,
-                y: y + data.context.drawContext.stage.y() % laneGroup.data.rowHeight
-            };
-        });
-
-        //监听移动开始
-        let moveRange: Konva.Rect;
-        node?.on('dragstart', () => {
-            moveRange = this.drawMoveRange(nodeShape);
-        });
-
-        //监听移动
-        node?.on('dragmove', () => {
-            //可移动范围切换到泳道的行
-            const moveRangeY = node?.y() - laneGroup.data.rowHeight / 2;
-            moveRange.y(moveRangeY);
-        });
-
         //监听移动结束
         node?.on('dragend', () => {
-            //移动结束后，移除移动范围
-            moveRange && moveRange.destroy();
             this.clearFollowLane()
             this.updateLane()
             this.updateTime()
@@ -187,7 +146,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
     }
 
     /**
-     * 监听移动
+     * 监听点击
      * @param nodeShape 节点
      */
     listenClick(nodeShape: NodeShape) {
@@ -201,25 +160,6 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         }
     }
 
-    /**
-     * 绘制移动范围
-     * @param node 节点
-     */
-    drawMoveRange(node: NodeShape) {
-        const data = this._data;
-        //画一个矩形作为移动范围的边界
-        const moveRange = new Konva.Rect({
-            x: data.context.drawContext.getFixedCoordinate().x,
-            y: node.coordinate().y - this._laneGroup.data.rowHeight / 2,
-            width: this._window.data.width,
-            height: this._laneGroup.data.rowHeight,
-            fill: data.moveRangeColor,
-            stroke: data.moveRangeBorderColor,
-            strokeWidth: data.moveRangeBorder
-        });
-        data.context.drawContext.rootLayer.add(moveRange);
-        return moveRange;
-    }
 
     /**
      * 更新坐标

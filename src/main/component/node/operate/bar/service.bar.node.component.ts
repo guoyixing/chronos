@@ -6,6 +6,7 @@ import {TYPES} from "../../../../config/inversify.config";
 import {ChronosNodeBarData} from "./data.bar.node.component";
 import {ChronosNodeEntryData} from "../entry/data.entry.node.component";
 import {NodeShape} from "../../board/shape/NodeShape";
+import {ChronosNodeGroupComponent} from "../group/group.node.component";
 
 /**
  * 节点导航窗-组件服务
@@ -23,10 +24,17 @@ export class ChronosNodeBarService implements ComponentService {
      */
     private _window: ChronosWindowComponent
 
+    /**
+     * 节点组
+     */
+    private _nodeGroup: ChronosNodeGroupComponent;
+
     constructor(@inject(TYPES.ChronosNodeBarData) data: ChronosNodeBarData,
-                @inject(TYPES.ChronosWindowComponent) window: ChronosWindowComponent) {
+                @inject(TYPES.ChronosWindowComponent) window: ChronosWindowComponent,
+                @inject(TYPES.ChronosNodeGroupComponent) nodeGroup: ChronosNodeGroupComponent) {
         this._data = data;
         this._window = window;
+        this._nodeGroup = nodeGroup;
     }
 
     /**
@@ -46,10 +54,15 @@ export class ChronosNodeBarService implements ComponentService {
         const height = data.height ?? 0;
         data.startOffSet = data.startOffSet ?? {x: 0, y: 0}
 
-        //绘制背景
-        const background = new Konva.Rect({
+        const group = new Konva.Group({
             x: data.startOffSet.x + fixedCoordinate.x,
             y: data.startOffSet.y + fixedCoordinate.y,
+        });
+
+        //绘制背景
+        const background = new Konva.Rect({
+            x: 0,
+            y: 0,
             width: width,
             height: height,
             fill: data.backgroundColor,
@@ -57,10 +70,53 @@ export class ChronosNodeBarService implements ComponentService {
             strokeWidth: data.border,
         });
 
-        const group = new Konva.Group();
+        //绘制中间分线
+        const middleLine = new Konva.Line({
+            points: [width / 2, height / 12, width / 2, height / 12 * 11],
+            stroke: data.middleLineColor,
+            strokeWidth: data.middleLineWidth,
+        });
         group.add(background);
+        group.add(middleLine);
+
+        //绘制候选节点
+        const candidateNodeX = width / 4;
+        const y = height / 12;
+        this.drawNode(data.candidateNode, candidateNodeX, undefined, y, group);
+
+        //绘制候选变形节点
+        const xStart = width / 8 * 5;
+        const xFinish = width / 8 * 7;
+        this.drawNode(data.candidateTransformableNode, xStart, xFinish, y, group);
+
+
         this._data.graphics = group;
         this._data.layer?.add(group);
+    }
+
+    /**
+     * 绘制节点
+     * @param node 节点
+     * @param xStart x开始坐标
+     * @param xFinish x结束坐标
+     * @param y y坐标
+     * @param group 组
+     */
+    private drawNode(node: Map<String, new () => NodeShape>, xStart: number, xFinish: number | undefined, y: number, group: Konva.Group) {
+        let index: number = 1;
+        node.forEach((value, key) => {
+            const node = new value();
+            const originalY = y * index;
+            const candidateNode = node.create({xStart: xStart, xFinish: xFinish, y: originalY}, node.code);
+            candidateNode.on('dragend', () => {
+                candidateNode.y(originalY)
+                candidateNode.x(xStart)
+            })
+            this._nodeGroup.service.listenMove(node);
+            group.add(candidateNode);
+            index++;
+        });
+        return index;
     }
 
     /**
@@ -75,7 +131,7 @@ export class ChronosNodeBarService implements ComponentService {
 
         if (type) {
             const nodeShape = new type();
-            nodeShape.create(nodeData);
+            nodeShape.create(nodeData.coordinate, nodeData.name);
             return nodeShape;
         }
 

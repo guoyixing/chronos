@@ -63,21 +63,6 @@ export class ChronosNodeEntryData extends ComponentData {
     private _coordinate: { xStart?: number, xFinish?: number | undefined, y?: number } = {}
 
     /**
-     * 移动范围的颜色
-     */
-    moveRangeColor: string = 'rgba(0,255,0,0.3)'
-
-    /**
-     * 移动范围的边框颜色
-     */
-    moveRangeBorderColor: string = 'rgba(0,0,0,0)'
-
-    /**
-     * 移动范围的边框大小
-     */
-    moveRangeBorder: number = 0
-
-    /**
      * 是否隐藏
      */
     hidden: boolean = false

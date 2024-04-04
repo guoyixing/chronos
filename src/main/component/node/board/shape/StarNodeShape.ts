@@ -1,6 +1,5 @@
 import {NodeShape} from "./NodeShape";
 import Konva from "konva";
-import {ChronosNodeEntryData} from "../../operate/entry/data.entry.node.component";
 
 /**
  * 星形节点
@@ -24,10 +23,10 @@ export class StarNodeShape implements NodeShape {
 
     /**
      * 创建图形
-     * @param nodeData 节点数据
+     * @param coordinate 节点位置
+     * @param name 节点名
      */
-    create(nodeData: ChronosNodeEntryData): Konva.Group {
-        const coordinate = nodeData.coordinate;
+    create(coordinate: { xStart?: number; xFinish?: number | undefined; y?: number }, name: string): Konva.Group {
         const star = new Konva.Star({
             name: 'star',
             x: 0,
@@ -43,7 +42,7 @@ export class StarNodeShape implements NodeShape {
         const text = new Konva.Text({
             x: 0,
             y: 8,
-            text: nodeData.name,
+            text: name,
             fontSize: 12,
             fontFamily: 'Calibri',
             fill: 'black',

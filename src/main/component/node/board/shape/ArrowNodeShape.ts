@@ -1,6 +1,5 @@
 import {NodeShape} from "./NodeShape";
 import Konva from "konva";
-import {ChronosNodeEntryData} from "../../operate/entry/data.entry.node.component";
 
 /**
  * 箭头形状
@@ -23,10 +22,10 @@ export class ArrowNodeShape implements NodeShape {
 
     /**
      * 创建图形
-     * @param nodeData 节点数据
+     * @param coordinate 节点位置
+     * @param name 节点名
      */
-    create(nodeData: ChronosNodeEntryData): Konva.Group {
-        const coordinate = nodeData.coordinate;
+    create(coordinate: { xStart?: number; xFinish?: number | undefined; y?: number }, name: string): Konva.Group {
         if (!coordinate.xStart || !coordinate.xFinish) {
             throw new Error("无法获取x结束坐标")
         }
@@ -60,7 +59,7 @@ export class ArrowNodeShape implements NodeShape {
             name: 'text',
             x: 0,
             y: 8,
-            text: nodeData.name,
+            text: name,
             fontSize: 12,
             fontFamily: 'Calibri',
             fill: 'black',
@@ -99,8 +98,6 @@ export class ArrowNodeShape implements NodeShape {
             shape.width(arrow.width() - arrow.pointerLength())
             text?.x((arrow.width() - arrow.pointerLength()) / 2 - text.width() / 2)
         }
-
-
     }
 
     /**

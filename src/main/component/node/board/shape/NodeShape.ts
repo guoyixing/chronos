@@ -1,5 +1,4 @@
 import Konva from "konva";
-import {ChronosNodeEntryData} from "../../operate/entry/data.entry.node.component";
 
 /**
  * 节点形状的接口
@@ -23,9 +22,10 @@ export interface NodeShape {
 
     /**
      * 创建图形
-     * @param nodeData 节点数据
+     * @param coordinate 节点位置
+     * @param name 节点名
      */
-    create(nodeData: ChronosNodeEntryData): Konva.Group;
+    create(coordinate: { xStart?: number; xFinish?: number | undefined; y?: number }, name: string): Konva.Group;
 
     /**
      * 图形变形

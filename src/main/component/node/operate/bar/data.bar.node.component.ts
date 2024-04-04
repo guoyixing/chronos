@@ -52,6 +52,16 @@ export class ChronosNodeBarData extends ComponentData {
     border: number = 1
 
     /**
+     * 分线颜色
+     */
+    middleLineColor: string = '#ddd'
+
+    /**
+     * 分线大小
+     */
+    middleLineWidth: number = 1
+
+    /**
      * 候选的变形节点
      */
     candidateTransformableNode: Map<String, new () => NodeShape>;
