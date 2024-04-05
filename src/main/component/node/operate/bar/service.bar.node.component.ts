@@ -7,6 +7,9 @@ import {ChronosNodeBarData} from "./data.bar.node.component";
 import {ChronosNodeEntryData} from "../entry/data.entry.node.component";
 import {NodeShape} from "../../board/shape/NodeShape";
 import {ChronosNodeGroupComponent} from "../group/group.node.component";
+import {ChronosLaneGroupComponent} from "../../../lane/group/group.lane.component";
+import {ChronosTimelineComponent} from "../../../timeline/timeline.component";
+import {afterDay} from "../../../../core/utils/DateUtils";
 
 /**
  * 节点导航窗-组件服务
@@ -29,34 +32,44 @@ export class ChronosNodeBarService implements ComponentService {
      */
     private _nodeGroup: ChronosNodeGroupComponent;
 
+    /**
+     * 泳道组
+     */
+    private _laneGroup: ChronosLaneGroupComponent
+
+    /**
+     * 时间轴
+     */
+    private _timeline: ChronosTimelineComponent
+
     constructor(@inject(TYPES.ChronosNodeBarData) data: ChronosNodeBarData,
                 @inject(TYPES.ChronosWindowComponent) window: ChronosWindowComponent,
-                @inject(TYPES.ChronosNodeGroupComponent) nodeGroup: ChronosNodeGroupComponent) {
+                @inject(TYPES.ChronosNodeGroupComponent) nodeGroup: ChronosNodeGroupComponent,
+                @inject(TYPES.ChronosLaneGroupComponent) laneGroup: ChronosLaneGroupComponent,
+                @inject(TYPES.ChronosTimelineComponent) timeline: ChronosTimelineComponent) {
         this._data = data;
         this._window = window;
         this._nodeGroup = nodeGroup;
+        this._laneGroup = laneGroup;
+        this._timeline = timeline;
     }
 
     /**
      * 绘制
      */
     draw(): void {
-        this.drawBackground()
-    }
-
-    /**
-     * 绘制背景
-     */
-    drawBackground() {
         const data = this._data;
         const fixedCoordinate = this._data.context.drawContext.getFixedCoordinate();
         const width = data.width ?? 0;
         const height = data.height ?? 0;
-        data.startOffSet = data.startOffSet ?? {x: 0, y: 0}
+        const startOffSet = data.startOffSet;
+        if (startOffSet === undefined) {
+            return
+        }
 
         const group = new Konva.Group({
-            x: data.startOffSet.x + fixedCoordinate.x,
-            y: data.startOffSet.y + fixedCoordinate.y,
+            x: startOffSet.x + fixedCoordinate.x,
+            y: startOffSet.y + fixedCoordinate.y,
         });
 
         //绘制背景
@@ -111,12 +124,41 @@ export class ChronosNodeBarService implements ComponentService {
             candidateNode.on('dragend', () => {
                 candidateNode.y(originalY)
                 candidateNode.x(xStart)
+                this.addNodeEntry(node);
             })
             this._nodeGroup.service.listenMove(node);
             group.add(candidateNode);
             index++;
         });
         return index;
+    }
+
+    /**
+     * 添加节点条目
+     * @param node 节点
+     */
+    addNodeEntry(node: NodeShape) {
+        //获取鼠标位置
+        const pointerPosition = this._data.context.drawContext.stage.getPointerPosition();
+        if (!pointerPosition) {
+            return;
+        }
+        const fixedCoordinate = this._data.context.drawContext.getFixedCoordinate();
+        const mouseX = pointerPosition.x + fixedCoordinate.x;
+        const mouseY = pointerPosition.y + fixedCoordinate.y;
+        //获取时间
+        const time = this._timeline.service.getTimeByX(mouseX);
+        const lane = this._laneGroup.service.laneByY(mouseY);
+        if (!lane) {
+            return;
+        }
+        const laneRow = lane.service.getRowByY(mouseY);
+        const entryData = new ChronosNodeEntryData(this._data.context, node.code, node.code, node.code, time, lane.data.id, laneRow);
+        if (node.transformable) {
+            entryData.finishTime = afterDay(entryData.startTime, 3)
+        }
+
+        this._nodeGroup.service.addNodeEntry(entryData);
     }
 
     /**

@@ -252,7 +252,7 @@ export class ChronosTimelineService implements ComponentService {
             //加入图层
             data.layer?.add(timeRect);
 
-            if (width>data.textMinWidth){
+            if (width > data.textMinWidth) {
                 //绘制时间的字
                 const timeText = new Konva.Text({
                     x: x,

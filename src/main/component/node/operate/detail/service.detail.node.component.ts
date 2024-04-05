@@ -88,6 +88,7 @@ export class ChronosNodeDetailService implements ComponentService {
         }
 
         return new Konva.Text({
+            name: "textDetail",
             x: data.textLeftMargin,
             y: data.titleHeight + data.textTopMargin,
             text: text,

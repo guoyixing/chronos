@@ -7,6 +7,14 @@ import {NodeShape} from "../../board/shape/NodeShape";
 import Konva from "konva";
 import {ChronosLaneGroupComponent} from "../../../lane/group/group.lane.component";
 import {ChronosWindowComponent} from "../../../window/window.component";
+import {ChronosNodeBarComponent} from "../bar/bar.node.component";
+import {ChronosTimelineComponent} from "../../../timeline/timeline.component";
+import {ChronosNodeTransformerComponent} from "../transformer/transformer.node.component";
+import {ChronosNodeDetailComponent} from "../detail/detail.node.component";
+import {ChronosScaleComponent} from "../../../scale/scale.component";
+import {ChronosNodeEntryService} from "../entry/service.entry.node.component";
+import {ChronosNodeGroupComponent} from "./group.node.component";
+import {ChronosNodeEntryData} from "../entry/data.entry.node.component";
 
 /**
  * 节点组-组件服务
@@ -31,7 +39,7 @@ export class ChronosNodeGroupService implements ComponentService {
 
     constructor(@inject(TYPES.ChronosNodeGroupData) data: ChronosNodeGroupData,
                 @inject(TYPES.ChronosLaneGroupComponent) laneGroup: ChronosLaneGroupComponent,
-                @inject(TYPES.ChronosWindowComponent) window: ChronosWindowComponent) {
+                @inject(TYPES.ChronosWindowComponent) window: ChronosWindowComponent,) {
         this._data = data;
         this._laneGroup = laneGroup;
         this._window = window;
@@ -106,11 +114,17 @@ export class ChronosNodeGroupService implements ComponentService {
         node?.dragBoundFunc((pos) => {
             const lane = laneGroup.service.laneByY(pos.y);
             if (lane === undefined) {
-                throw new Error('泳道不存在')
+                return {
+                    x: pos.x,
+                    y: pos.y
+                };
             }
             const y = lane.service.getYByRow(lane.service.getRowByY(pos.y))
             if (y === undefined) {
-                throw new Error('行不存在')
+                return {
+                    x: pos.x,
+                    y: pos.y
+                };
             }
             return {
                 x: pos.x,
@@ -136,5 +150,38 @@ export class ChronosNodeGroupService implements ComponentService {
             //移动结束后，移除移动范围
             moveRange && moveRange.destroy();
         });
+    }
+
+    /**
+     * 添加节点条目
+     */
+    addNodeEntry(entryData: ChronosNodeEntryData) {
+        const data = this._data;
+        //获取泳道组
+        const laneGroup = data.context.ioc.get<ChronosLaneGroupComponent>(TYPES.ChronosLaneGroupComponent);
+        //获取节点导航窗
+        const bar = data.context.ioc.get<ChronosNodeBarComponent>(TYPES.ChronosNodeBarComponent);
+        //获取时间轴
+        const timeline = data.context.ioc.get<ChronosTimelineComponent>(TYPES.ChronosTimelineComponent);
+        //获取节点组
+        const nodeGroup = data.context.ioc.get<ChronosNodeGroupComponent>(TYPES.ChronosNodeGroupComponent);
+        //获取节点变形器
+        const nodeTransformer = data.context.ioc.get<ChronosNodeTransformerComponent>(TYPES.ChronosNodeTransformerComponent);
+        //节点详情
+        const nodeDetail = data.context.ioc.get<ChronosNodeDetailComponent>(TYPES.ChronosNodeDetailComponent);
+        //比例尺
+        const scale = data.context.ioc.get<ChronosScaleComponent>(TYPES.ChronosScaleComponent);
+
+
+        //初始化泳道组
+        entryData.layer = data.layer;
+        const service = new ChronosNodeEntryService(entryData, bar, laneGroup, timeline, nodeGroup, nodeTransformer, nodeDetail, scale);
+        const component = new ChronosNodeEntryComponent(entryData, service);
+        service.listenScale()
+        data.nodeGroup.push(component);
+        service.initCoordinate();
+        service.followLane()
+        service.listenLane()
+        service.draw();
     }
 }

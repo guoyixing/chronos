@@ -44,3 +44,10 @@ export function getDaysInMonth(date: Date): number {
     let month = date.getMonth();
     return new Date(year, month + 1, 0).getDate()
 }
+
+/**
+ * 获取给定时间之后的多少天
+ */
+export function afterDay(date: Date, num: number) {
+    return new Date(date.getTime() + num * 24 * 60 * 60 * 1000)
+}

@@ -4,7 +4,6 @@ import {ChronosNodeGroupService} from "./service.group.node.component";
 import {Lifecycle} from "../../../../core/lifecycle/lifecycle";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../../../../config/inversify.config";
-import {ChronosWindowComponent} from "../../../window/window.component";
 import {ChronosLaneGroupComponent} from "../../../lane/group/group.lane.component";
 import {ChronosNodeBarComponent} from "../bar/bar.node.component";
 import {ChronosNodeEntryService} from "../entry/service.entry.node.component";
