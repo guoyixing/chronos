@@ -249,23 +249,24 @@ export class ChronosTimelineService implements ComponentService {
                 fill: data.backgroundColor[getText(time) % data.backgroundColor.length],
                 stroke: data.borderColor,
             });
-
-            //绘制时间的字
-            const timeText = new Konva.Text({
-                x: x,
-                y: y + (data.rowHeight - data.fontSize) / 2,
-                fontSize: data.fontSize,
-                fontFamily: data.fontFamily,
-                fill: data.textColor,
-                text: getText(time) + textUnit,
-                align: "center",
-            });
-
-            updateTextX(timeText, width, flag)
-
             //加入图层
             data.layer?.add(timeRect);
-            data.layer?.add(timeText)
+
+            if (width>data.textMinWidth){
+                //绘制时间的字
+                const timeText = new Konva.Text({
+                    x: x,
+                    y: y + (data.rowHeight - data.fontSize) / 2,
+                    fontSize: data.fontSize,
+                    fontFamily: data.fontFamily,
+                    fill: data.textColor,
+                    text: getText(time) + textUnit,
+                    align: "center",
+                });
+
+                updateTextX(timeText, width, flag)
+                data.layer?.add(timeText)
+            }
 
             //剩余宽度
             surplusWidth -= currentTimeWidth;

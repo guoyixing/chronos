@@ -38,3 +38,13 @@ Chronos类似于甘特图（横道图），但是Chronos更加灵活，可以自
 - 通过插件化的方式，实现功能的扩展
 
 ![Chronos演示](https://gitee.com/sleipnir-team/chronos/raw/master/doc/images/chronos%E6%BC%94%E7%A4%BA.gif)
+
+### 泳道操作
+编辑泳道名、添加泳道行、删除泳道行、下方添加泳道、上方添加泳道、移动泳道、删除泳道
+
+![Chronos演示](https://gitee.com/sleipnir-team/chronos/raw/master/doc/images/chronos%E6%B3%B3%E9%81%93%E6%BC%94%E7%A4%BA.gif)
+
+### 比例操作
+放大、缩小
+
+![Chronos演示](https://gitee.com/sleipnir-team/chronos/raw/master/doc/images/chronos%E6%AF%94%E4%BE%8B%E6%BC%94%E7%A4%BA.gif)

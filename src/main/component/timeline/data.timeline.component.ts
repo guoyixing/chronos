@@ -24,6 +24,11 @@ export class ChronosTimelineData extends ComponentData {
     dayWidth: number = 20;
 
     /**
+     * 文字显示最小宽度
+     */
+    textMinWidth: number = 15;
+
+    /**
      * 每行的高度
      */
     rowHeight: number = 20;

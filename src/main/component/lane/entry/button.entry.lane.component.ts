@@ -75,7 +75,7 @@ export class ChronosLaneEntryButton {
         topAddLaneGroup.add(topAddLane);
         topAddLaneGroup.add(topAddLaneText);
         //添加悬浮显示文字
-        this.mouseOver(topAddLaneGroup, topAddLane, '下方添加泳道');
+        this.mouseOver(topAddLaneGroup, topAddLane, '上方添加泳道');
         this.clickTopAddLane(topAddLaneGroup);
         return topAddLaneGroup;
     }

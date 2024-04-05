@@ -25,16 +25,27 @@ export class Chronos {
 
         const chronosContainer = new Container()
         //TODO 感觉这里写的不对
+        //上下文
         new ContextConfig(chronosContainer, rootHtml)
+        //窗口外框
         new WindowConfig(chronosContainer, rootHtml)
+        //网格
         new GridConfig(chronosContainer, rootHtml)
+        //泳道
         new LaneConfig(chronosContainer, rootHtml)
+        //工具栏
         new ToolbarConfig(chronosContainer, rootHtml)
+        //比例尺
         new ScaleConfig(chronosContainer, rootHtml)
+        //节点变形器
         new NodeTransformerConfig(chronosContainer, rootHtml)
+        //时间轴
         new TimelineConfig(chronosContainer, rootHtml)
+        //节点导航栏
         new NodeBarConfig(chronosContainer, rootHtml)
+        //节点
         new NodeConfig(chronosContainer, rootHtml)
+        //节点详情
         new NodeDetailConfig(chronosContainer, rootHtml)
 
         //事件监听
