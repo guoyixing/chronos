@@ -14,9 +14,13 @@ import {NodeTransformerConfig} from "./config/transformer.node.inversify.config"
 import {NodeDetailConfig} from "./config/detail.node.inversifty.config";
 import {ScaleConfig} from "./config/scale.inversify.config";
 import {DataType} from "./config/data.type";
+import {Context} from "./core/context/context";
+import {TYPES} from "./config/inversify.config";
 
 
 export class Chronos {
+
+    chronosContainer = new Container()
 
     constructor(rootHtml: HTMLDivElement, data: DataType) {
         if (!rootHtml) {
@@ -24,41 +28,47 @@ export class Chronos {
         }
         rootHtml.style.overflow = 'hidden'
 
-        const chronosContainer = new Container()
+        this.chronosContainer = new Container()
         //TODO 感觉这里写的不对
         //上下文
-        new ContextConfig(chronosContainer, rootHtml)
+        new ContextConfig(this.chronosContainer, rootHtml)
         //窗口外框
-        new WindowConfig(chronosContainer, rootHtml, data)
+        new WindowConfig(this.chronosContainer, rootHtml, data)
         //网格
-        new GridConfig(chronosContainer, rootHtml, data)
+        new GridConfig(this.chronosContainer, rootHtml, data)
         //泳道
-        new LaneConfig(chronosContainer, rootHtml, data)
+        new LaneConfig(this.chronosContainer, rootHtml, data)
         //工具栏
-        new ToolbarConfig(chronosContainer, rootHtml)
+        new ToolbarConfig(this.chronosContainer, rootHtml)
         //比例尺
-        new ScaleConfig(chronosContainer, rootHtml)
+        new ScaleConfig(this.chronosContainer, rootHtml)
         //节点变形器
-        new NodeTransformerConfig(chronosContainer, rootHtml)
+        new NodeTransformerConfig(this.chronosContainer, rootHtml)
         //时间轴
-        new TimelineConfig(chronosContainer, rootHtml)
+        new TimelineConfig(this.chronosContainer, rootHtml)
         //节点导航栏
-        new NodeBarConfig(chronosContainer, rootHtml)
+        new NodeBarConfig(this.chronosContainer, rootHtml)
         //节点
-        new NodeConfig(chronosContainer, rootHtml)
+        new NodeConfig(this.chronosContainer, rootHtml)
         //节点详情
-        new NodeDetailConfig(chronosContainer, rootHtml)
+        new NodeDetailConfig(this.chronosContainer, rootHtml)
 
         //事件监听
-        new EventManager(chronosContainer)
+        new EventManager(this.chronosContainer)
 
         //生命周期管理器
-        const lifecycleManager = new LifecycleManager(chronosContainer);
+        const lifecycleManager = new LifecycleManager(this.chronosContainer);
         lifecycleManager.init()
         lifecycleManager.start()
         lifecycleManager.destroy()
+    }
 
-
+    /**
+     * 销毁
+     */
+    destroy() {
+        const context = this.chronosContainer.get<Context>(TYPES.Context);
+        context.drawContext.stage.destroy()
     }
 
 }
