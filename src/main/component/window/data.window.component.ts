@@ -27,13 +27,24 @@ export class ChronosWindowData extends ComponentData {
     /**
      * 边框颜色
      */
-    borderColor: string = "black"
+    borderColor: string
 
 
-    constructor(context: Context, width: number, height: number, border: number) {
+    constructor(context: Context, data: ChronosWindowDataType) {
         super(context);
-        this.width = width;
-        this.height = height;
-        this.border = border;
+        this.width = data.width ?? 0;
+        this.height = data.height ?? 0;
+        this.border = data.border ?? 1;
+        this.borderColor = data.borderColor ?? "black";
     }
+}
+
+/**
+ * 窗体-组件数据类型
+ */
+export type ChronosWindowDataType = {
+    width?: number,
+    height?: number,
+    border?: number,
+    borderColor?: string
 }

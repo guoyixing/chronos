@@ -6,20 +6,16 @@ import {ChronosGridService} from "../component/grid/service.grid.component";
 import {ChronosGridComponent} from "../component/grid/grid.component";
 import {ChronosGridData} from "../component/grid/data.grid.component";
 import {ToolbarPlugRegister} from "../component/toolbar/plug.toolbar.component";
+import {DataType} from "./data.type";
 
 /**
  * 网格配置
  */
 export class GridConfig {
-    constructor(chronosContainer: Container, divElement: HTMLDivElement) {
+    constructor(chronosContainer: Container, divElement: HTMLDivElement, data: DataType) {
+        const grid = data.grid;
 
-        const data: ChronosGridData = new ChronosGridData(
-            chronosContainer.get<Context>(TYPES.Context),
-            {x: 100, y: 0},
-        );
-        // data.hidePoint = false;
-
-        chronosContainer.bind<ChronosGridData>(TYPES.ChronosGridData).toConstantValue(data);
+        chronosContainer.bind<ChronosGridData>(TYPES.ChronosGridData).toConstantValue(new ChronosGridData(chronosContainer.get<Context>(TYPES.Context), grid));
         chronosContainer.bind<ChronosGridService>(TYPES.ChronosGridService).to(ChronosGridService);
         chronosContainer.bind<ChronosGridComponent>(TYPES.ChronosGridComponent).to(ChronosGridComponent);
 

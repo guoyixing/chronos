@@ -147,7 +147,10 @@ export class ChronosLaneGroupService implements ComponentService {
             return
         }
         const laneIndex = lane.data.index + indexOffSet;
-        const entryData = new ChronosLaneEntryData(context, 'new' + data.laneGroup.length, '泳道' + data.laneGroup.length, 3);
+        const entryData = new ChronosLaneEntryData(context, {
+            id: 'new' + data.laneGroup.length,
+            name: '泳道' + data.laneGroup.length
+        });
         const service = new ChronosLaneEntryService(entryData, window, laneGroup);
         const component = new ChronosLaneEntryComponent(entryData, service);
         data.laneGroup.splice(laneIndex, 0, component);

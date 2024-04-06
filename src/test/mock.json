@@ -1,3 +1,98 @@
 {
-  "years": [2024,2025]
+  "window": {
+    "border": 1,
+    "borderColor": "black"
+  },
+  "grid": {
+    "startOffSet": {
+      "x": 100,
+      "y": 0
+    },
+    "tbGapSize": 20,
+    "lrGapSize": 20,
+    "color": "#ddd",
+    "width": 1,
+    "hide": false
+  },
+  "lane": {
+    "startOffSet": {
+      "x": 40,
+      "y": 60
+    },
+    "rowHeight": 40,
+    "laneLeftWidth": 60,
+    "entry": [
+      {
+        "id": "1",
+        "name": "泳道1",
+        "rowNum": 3,
+        "leftBackgroundColor": "#f0f0f0",
+        "borderColor": "black",
+        "border": 1,
+        "textColor": "#555",
+        "fontSize": 16,
+        "fontFamily": "Calibri",
+        "textLeftMargin": 10,
+        "textTopMargin": 10,
+        "textBottomMargin": 10,
+        "button": {
+          "bottomMargin": 20,
+          "leftMargin": 4,
+          "width": 15,
+          "height": 15,
+          "cornerRadius": 3,
+          "backgroundColor": "#aaa",
+          "borderColor": "black",
+          "border": 0,
+          "textColor": "#fff",
+          "fontSize": 20,
+          "fontFamily": "Calibri",
+          "hoverTextColor": "#fff",
+          "hoverFontSize": 12,
+          "hoverFontFamily": "Calibri",
+          "hoverBackgroundColor": "#555"
+        }
+      },
+      {
+        "id": "2",
+        "name": "泳道2",
+        "rowNum": 3
+      },
+      {
+        "id": "3",
+        "name": "泳道3",
+        "rowNum": 3
+      },
+      {
+        "id": "4",
+        "name": "泳道4",
+        "rowNum": 3
+      },
+      {
+        "id": "5",
+        "name": "泳道5",
+        "rowNum": 3
+      },
+      {
+        "id": "6",
+        "name": "泳道6",
+        "rowNum": 3
+      },
+      {
+        "id": "7",
+        "name": "泳道7",
+        "rowNum": 3
+      },
+      {
+        "id": "8",
+        "name": "泳道8",
+        "rowNum": 3
+      },
+      {
+        "id": "9",
+        "name": "泳道9",
+        "rowNum": 3
+      }
+    ]
+  }
 }

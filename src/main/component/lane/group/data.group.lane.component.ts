@@ -2,7 +2,7 @@ import {ComponentData} from "../../data.component";
 import {injectable} from "inversify";
 import {ChronosLaneEntryComponent} from "../entry/entry.lane.component";
 import {Context} from "../../../core/context/context";
-import {ChronosLaneEntryData} from "../entry/data.entry.lane.component";
+import {ChronosLaneEntryData, ChronosLaneEntryDataType} from "../entry/data.entry.lane.component";
 
 /**
  * 泳道组-组件数据
@@ -21,35 +21,43 @@ export class ChronosLaneGroupData extends ComponentData {
     originalLaneEntryData: Array<ChronosLaneEntryData> = []
 
     /**
+     * 高度
+     */
+    height: number = 0
+
+    /**
      * 元素行高
      */
-    rowHeight: number = 40
+    rowHeight: number
 
     /**
      * 泳道左侧宽度
      */
-    laneLeftWidth: number = 80
+    laneLeftWidth: number
 
     /**
      * 渲染起始坐标
      */
     startOffSet: { x: number, y: number }
 
-    /**
-     * 高度
-     */
-    height: number = 0
 
-
-    constructor(context: Context, originalLaneEntryData: Array<ChronosLaneEntryData>,
-                rowHeight: number, laneLeftWidth: number, startOffSet: {
-            x: number;
-            y: number
-        }) {
+    constructor(context: Context, data: ChronosLaneGroupDataType) {
         super(context);
-        this.originalLaneEntryData = originalLaneEntryData;
-        this.rowHeight = rowHeight;
-        this.laneLeftWidth = laneLeftWidth;
-        this.startOffSet = startOffSet;
+        data.entry?.forEach((entry) => {
+            this.originalLaneEntryData.push(new ChronosLaneEntryData(context, entry));
+        })
+        this.rowHeight = data.rowHeight ?? 40;
+        this.laneLeftWidth = data.laneLeftWidth ?? 60;
+        this.startOffSet = data.startOffSet;
     }
+}
+
+/**
+ * 泳道组-组件数据类型
+ */
+export type ChronosLaneGroupDataType = {
+    startOffSet: { x: number, y: number }
+    entry?: ChronosLaneEntryDataType[]
+    rowHeight?: number
+    laneLeftWidth?: number
 }

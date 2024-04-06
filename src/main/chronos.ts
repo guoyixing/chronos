@@ -13,11 +13,12 @@ import {NodeConfig} from "./config/node.inversify.config";
 import {NodeTransformerConfig} from "./config/transformer.node.inversify.config";
 import {NodeDetailConfig} from "./config/detail.node.inversifty.config";
 import {ScaleConfig} from "./config/scale.inversify.config";
+import {DataType} from "./config/data.type";
 
 
 export class Chronos {
 
-    constructor(rootHtml: HTMLDivElement, data: {}) {
+    constructor(rootHtml: HTMLDivElement, data: DataType) {
         if (!rootHtml) {
             throw Error("div 还没有被渲染")
         }
@@ -28,11 +29,11 @@ export class Chronos {
         //上下文
         new ContextConfig(chronosContainer, rootHtml)
         //窗口外框
-        new WindowConfig(chronosContainer, rootHtml)
+        new WindowConfig(chronosContainer, rootHtml, data)
         //网格
-        new GridConfig(chronosContainer, rootHtml)
+        new GridConfig(chronosContainer, rootHtml, data)
         //泳道
-        new LaneConfig(chronosContainer, rootHtml)
+        new LaneConfig(chronosContainer, rootHtml, data)
         //工具栏
         new ToolbarConfig(chronosContainer, rootHtml)
         //比例尺

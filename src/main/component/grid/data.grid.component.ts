@@ -22,22 +22,22 @@ export class ChronosGridData extends ComponentData {
     /**
      * 网格间隙
      */
-    tbGapSize: number = 20;
+    tbGapSize: number;
 
     /**
      * 左右间隙
      */
-    lrGapSize: number = 20;
+    lrGapSize: number;
 
     /**
      * 网格颜色
      */
-    color: string = '#ddd';
+    color: string;
 
     /**
      * 网格宽度，粗细
      */
-    width: number = 1;
+    width: number;
 
     /**
      * 网格横线坐标
@@ -52,7 +52,7 @@ export class ChronosGridData extends ComponentData {
     /**
      * 是否隐藏
      */
-    hide: boolean = false
+    hide: boolean
 
     /**
      * 点
@@ -75,9 +75,49 @@ export class ChronosGridData extends ComponentData {
      */
     hidePoint: boolean = true;
 
-    constructor(context: Context, startOffSet: { x: number, y: number }) {
+    constructor(context: Context, data: ChronosGridDataType) {
         super(context);
-        this.startOffSet = startOffSet;
+        this.startOffSet = data.startOffSet;
+        this.tbGapSize = data.tbGapSize ?? 20;
+        this.lrGapSize = data.lrGapSize ?? 20;
+        this.color = data.color ?? '#ddd';
+        this.width = data.width ?? 1;
+        this.hide = data.hide ?? false;
     }
 
+}
+
+/**
+ * 网格-组件数据类型
+ */
+export type ChronosGridDataType = {
+    /**
+     * 渲染起始坐标
+     */
+    startOffSet: { x: number, y: number }
+
+    /**
+     * 网格间隙
+     */
+    tbGapSize?: number;
+
+    /**
+     * 左右间隙
+     */
+    lrGapSize?: number;
+
+    /**
+     * 网格颜色
+     */
+    color?: string;
+
+    /**
+     * 网格宽度，粗细
+     */
+    width?: number;
+
+    /**
+     * 是否隐藏
+     */
+    hide?: boolean
 }
