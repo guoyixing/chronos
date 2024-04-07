@@ -28,54 +28,76 @@ export class ChronosToolbarData extends ComponentData {
     /**
      * 宽度
      */
-    width: number = 39
+    width: number
 
     /**
      * 背景颜色
      */
-    backgroundColor: string = "lightgray"
+    backgroundColor: string
 
     /**
      * 背景边框宽度
      */
-    backgroundBorder: number = 1
+    backgroundBorder: number
 
     /**
      * 背景边框颜色
      */
-    backgroundBorderColor: string = "black"
+    backgroundBorderColor: string
 
     /**
      * 文字大小
      */
-    fontSize: number = 16
+    fontSize: number
 
     /**
      * 文字颜色
      */
-    textColor: string = "black"
+    textColor: string
 
     /**
      * 鼠标悬浮文字颜色
      */
-    hoverTextColor: string = "#359EE8"
+    hoverTextColor: string
 
     /**
      * 文字走向
      */
-    textDirection: string = "M0 0 L0 200"
+    textDirection: string
 
     /**
      * 间隔距离
      */
-    plugMargin: number = 10
+    plugMargin: number
 
 
-    constructor(context: Context, startOffSet: {
-        x: number;
-        y: number
-    }) {
+    constructor(context: Context, data: ChronosToolbarDataType) {
         super(context);
-        this.startOffSet = startOffSet;
+        this.startOffSet = data.startOffSet
+        this.width = data.width ?? 39
+        this.backgroundColor = data.backgroundColor ?? "lightgray"
+        this.backgroundBorder = data.backgroundBorder ?? 1
+        this.backgroundBorderColor = data.backgroundBorderColor ?? "black"
+        this.fontSize = data.fontSize ?? 16
+        this.textColor = data.textColor ?? "black"
+        this.hoverTextColor = data.hoverTextColor ?? "#359EE8"
+        this.textDirection = data.textDirection ?? "M0 0 L0 200"
+        this.plugMargin = data.plugMargin ?? 10
     }
+}
+
+/**
+ * 工具栏-组件数据类型
+ */
+export type ChronosToolbarDataType = {
+    startOffSet: { x: number, y: number }
+    width?: number
+    backgroundColor?: string
+    backgroundBorder?: number
+    backgroundBorderColor?: string
+    fontSize?: number
+    textColor?: string
+    hoverTextColor?: string
+    textDirection?: string
+    plugMargin?: number
 }

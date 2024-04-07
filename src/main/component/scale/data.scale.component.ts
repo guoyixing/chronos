@@ -30,11 +30,6 @@ export class ChronosScaleData extends ComponentData {
     scaleJump: number = 0.1
 
     /**
-     * 是否隐藏X轴
-     */
-    hideScaleX: boolean = false
-
-    /**
      * 宽度
      */
     width: number = 90
@@ -58,21 +53,6 @@ export class ChronosScaleData extends ComponentData {
      * 背景边框颜色
      */
     borderColor: string = "black"
-
-    /**
-     * 按钮背景颜色
-     */
-    buttonBackgroundColor: string = "#f0f0f0"
-
-    /**
-     * 按钮边框大小
-     */
-    buttonBorder: number = 1
-
-    /**
-     * 按钮边框颜色
-     */
-    buttonBorderColor: string = "black"
 
     /**
      * 按钮文字颜色
@@ -116,8 +96,45 @@ export class ChronosScaleData extends ComponentData {
     fontSize: number = 16
 
 
-    constructor(context: Context, startOffSet: { x: number; y: number }) {
+    constructor(context: Context, data: ChronosScaleDataType) {
         super(context);
-        this.startOffSet = startOffSet;
+        this.startOffSet = data.startOffSet ?? {x: 0, y: 0}
+        this.scaleX = data.scaleX ?? 1
+        this.scaleJump = data.scaleJump ?? 0.1
+        this.width = data.width ?? 90
+        this.height = data.height ?? 20
+        this.backgroundColor = data.backgroundColor ?? "#f0f0f0"
+        this.border = data.border ?? 1
+        this.borderColor = data.borderColor ?? "black"
+        this.buttonTextColor = data.buttonTextColor ?? "black"
+        this.buttonHoverTextColor = data.buttonHoverTextColor ?? "#359EE8"
+        this.buttonFontSize = data.buttonFontSize ?? 25
+        this.buttonFontFamily = data.buttonFontFamily ?? "Calibre"
+        this.buttonLeftMargin = data.buttonLeftMargin ?? 5
+        this.buttonRightMargin = data.buttonRightMargin ?? 5
+        this.textColor = data.textColor ?? "black"
+        this.fontSize = data.fontSize ?? 16
     }
+}
+
+/**
+ * 比例尺-组件数据类型
+ */
+export type ChronosScaleDataType = {
+    startOffSet?: { x: number, y: number }
+    scaleX?: number
+    scaleJump?: number
+    width?: number
+    height?: number
+    backgroundColor?: string
+    border?: number
+    borderColor?: string
+    buttonTextColor?: string
+    buttonHoverTextColor?: string
+    buttonFontSize?: number
+    buttonFontFamily?: string
+    buttonLeftMargin?: number
+    buttonRightMargin?: number
+    textColor?: string
+    fontSize?: number
 }

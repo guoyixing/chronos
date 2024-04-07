@@ -32,24 +32,38 @@ export class ChronosNodeTransformerData extends ComponentData {
     /**
      * 控制点半径
      */
-    pointRadius: number = 5
+    pointRadius: number
 
     /**
      * 控制点颜色
      */
-    pointColor: string = "#ddd"
+    pointColor: string
 
     /**
      * 控制点边框大小
      */
-    pointBorder: number = 1
+    pointBorder: number
 
     /**
      * 控制点边框颜色
      */
-    pointBorderColor: string = "black"
+    pointBorderColor: string
 
-    constructor(context: Context) {
+    constructor(context: Context, data: ChronosNodeTransformerDataType) {
         super(context);
+        this.pointRadius = data.pointRadius ?? 5
+        this.pointColor = data.pointColor ?? "#ddd"
+        this.pointBorder = data.pointBorder ?? 1
+        this.pointBorderColor = data.pointBorderColor ?? "black"
     }
+}
+
+/**
+ * 节点变形器-组件数据类型
+ */
+export type ChronosNodeTransformerDataType = {
+    pointRadius?: number
+    pointColor?: string
+    pointBorder?: number
+    pointBorderColor?: string
 }

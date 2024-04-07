@@ -94,5 +94,136 @@
         "rowNum": 3
       }
     ]
+  },
+  "toolbar": {
+    "startOffSet": {
+      "x": 1,
+      "y": 1
+    },
+    "width": 39,
+    "backgroundColor": "lightgray",
+    "backgroundBorder": 1,
+    "backgroundBorderColor": "black",
+    "fontSize": 16,
+    "textColor": "black",
+    "hoverTextColor": "#359EE8",
+    "textDirection": "M0 0 L0 200",
+    "plugMargin": 10
+  },
+  "scale": {
+    "scaleX": 1,
+    "scaleJump": 0.1,
+    "width": 90,
+    "height": 20,
+    "backgroundColor": "#f0f0f0",
+    "border": 1,
+    "borderColor": "black",
+    "buttonTextColor": "black",
+    "buttonHoverTextColor": "#359EE8",
+    "buttonFontSize": 25,
+    "buttonFontFamily": "Calibre",
+    "buttonLeftMargin": 5,
+    "buttonRightMargin": 5,
+    "textColor": "black",
+    "fontSize": 16
+  },
+  "transformer": {
+    "pointRadius": 5,
+    "pointColor": "#ddd",
+    "pointBorder": 1,
+    "pointBorderColor": "black"
+  },
+  "timeline": {
+    "initTime": "2023-12-01 00:00:00",
+    "startOffSet": {
+      "x": 40,
+      "y": 1
+    },
+    "dayWidth": 20,
+    "textMinWidth": 15,
+    "rowHeight": 20,
+    "headWidth": 60,
+    "border": 1,
+    "borderColor": "black",
+    "backgroundColor": [
+      "#f0f0f0",
+      "#e0e0e0"
+    ],
+    "textColor": "black",
+    "fontSize": 12,
+    "textMargin": 10,
+    "fontFamily": "Calibre"
+  },
+  "bar": {
+    "width": 200,
+    "hide": true,
+    "backgroundColor": "white",
+    "borderColor": "black",
+    "border": 1,
+    "middleLineColor": "#ddd",
+    "middleLineWidth": 1
+  },
+  "node": {
+    "entry": [
+      {
+        "id": "1",
+        "name": "节点1",
+        "type": "star",
+        "startTime": "2023-12-03 00:00:00",
+        "laneId": "1",
+        "row": 2
+      },
+      {
+        "id": "2",
+        "name": "节点2",
+        "type": "star",
+        "startTime": "2023-12-12 00:00:00",
+        "laneId": "1",
+        "row": 2
+      },
+      {
+        "id": "3",
+        "name": "节点3",
+        "type": "arrow",
+        "startTime": "2023-11-27 00:00:00",
+        "finishTime": "2023-12-05 00:00:00",
+        "laneId": "2",
+        "row": 2
+      },
+      {
+        "id": "4",
+        "name": "节点4",
+        "type": "arrow",
+        "startTime": "2023-12-27 00:00:00",
+        "finishTime": "2024-01-06 00:00:00",
+        "laneId": "3",
+        "row": 2
+      }
+    ],
+    "moveRangeColor": "rgba(0,255,0,0.3)",
+    "moveRangeBorderColor": "rgba(0,0,0,0)",
+    "moveRangeBorder": 0
+  },
+  "detail": {
+    "width": 250,
+    "backgroundColor": "white",
+    "borderColor": "black",
+    "border": 1,
+    "titleHeight": 25,
+    "titleBackgroundColor": "#f0f0f0",
+    "titleText": "详细信息",
+    "titleFontColor": "black",
+    "titleFontSize": 15,
+    "titleFontFamily": "Calibri",
+    "textLeftMargin": 10,
+    "textTopMargin": 10,
+    "textFontColor": "black",
+    "textFontSize": 15,
+    "textFontFamily": "Calibri",
+    "textLineHeight": 1.5,
+    "mouseOffset": {
+      "x": 25,
+      "y": 25
+    }
   }
 }

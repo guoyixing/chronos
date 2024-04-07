@@ -153,7 +153,16 @@ export class ChronosNodeBarService implements ComponentService {
             return;
         }
         const laneRow = lane.service.getRowByY(mouseY);
-        const entryData = new ChronosNodeEntryData(this._data.context, node.code, node.code, node.code, time, lane.data.id, laneRow);
+
+        const entryData = new ChronosNodeEntryData(this._data.context,
+            {
+                id: node.code,
+                name: node.code,
+                type: node.code,
+                startTime: time.toLocaleString(),
+                laneId: lane.data.id,
+                row: laneRow
+            });
         if (node.transformable) {
             entryData.finishTime = afterDay(entryData.startTime, 3)
         }

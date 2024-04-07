@@ -1,5 +1,5 @@
 import {ComponentData} from "../../../data.component";
-import {ChronosNodeEntryData} from "../entry/data.entry.node.component";
+import {ChronosNodeEntryData, ChronosNodeEntryDataType} from "../entry/data.entry.node.component";
 import {ChronosNodeEntryComponent} from "../entry/entry.node.component";
 import {Context} from "../../../../core/context/context";
 import {injectable} from "inversify";
@@ -22,21 +22,33 @@ export class ChronosNodeGroupData extends ComponentData {
     /**
      * 移动范围的颜色
      */
-    moveRangeColor: string = 'rgba(0,255,0,0.3)'
+    moveRangeColor: string
 
     /**
      * 移动范围的边框颜色
      */
-    moveRangeBorderColor: string = 'rgba(0,0,0,0)'
+    moveRangeBorderColor: string
 
     /**
      * 移动范围的边框大小
      */
-    moveRangeBorder: number = 0
+    moveRangeBorder: number
 
 
-    constructor(context: Context, originalNodeEntryData: Array<ChronosNodeEntryData>) {
+    constructor(context: Context, data: ChronosNodeGroupDataType) {
         super(context);
-        this.originalNodeEntryData = originalNodeEntryData;
+        data.entry.forEach((entry) => {
+            this.originalNodeEntryData.push(new ChronosNodeEntryData(context, entry))
+        })
+        this.moveRangeColor = data.moveRangeColor ?? 'rgba(0,255,0,0.3)'
+        this.moveRangeBorderColor = data.moveRangeBorderColor ?? 'rgba(0,0,0,0)'
+        this.moveRangeBorder = data.moveRangeBorder ?? 0
     }
+}
+
+export type ChronosNodeGroupDataType = {
+    entry: ChronosNodeEntryDataType[]
+    moveRangeColor?: string
+    moveRangeBorderColor?: string
+    moveRangeBorder?: number
 }

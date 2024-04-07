@@ -65,16 +65,20 @@ export class ChronosNodeEntryData extends ComponentData {
     /**
      * 是否隐藏
      */
-    hidden: boolean = false
+    hidden: boolean
 
-    constructor(context: Context, id: string, name: string, type: string, startTime: Date, laneId: string, row: number) {
+    constructor(context: Context, data: ChronosNodeEntryDataType) {
         super(context);
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.startTime = startTime;
-        this.laneId = laneId;
-        this.row = row;
+        this.id = data.id;
+        this.name = data.name;
+        this.type = data.type;
+        this.startTime = new Date(data.startTime);
+        if (data.finishTime) {
+            this.finishTime = new Date(data.finishTime);
+        }
+        this.laneId = data.laneId;
+        this.row = data.row;
+        this.hidden = data.hidden ?? false;
     }
 
     get coordinate(): { xStart?: number; xFinish?: number | undefined; y?: number } {
@@ -87,3 +91,16 @@ export class ChronosNodeEntryData extends ComponentData {
     }
 }
 
+/**
+ * 节点条目-组件数据类型
+ */
+export type ChronosNodeEntryDataType = {
+    id: string
+    name: string
+    type: string
+    startTime: string
+    laneId: string
+    row: number
+    finishTime?: string
+    hidden?: boolean
+}

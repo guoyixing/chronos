@@ -6,20 +6,22 @@ import {ChronosScaleData} from "../component/scale/data.scale.component";
 import {ChronosScaleService} from "../component/scale/serivice.scale.component";
 import {ChronosScaleComponent} from "../component/scale/scale.component";
 import {ChronosWindowComponent} from "../component/window/window.component";
+import {DataType} from "./data.type";
 
 /**
  * 比例尺配置
  */
 export class ScaleConfig {
-    constructor(chronosContainer: Container, divElement: HTMLDivElement) {
-        const window = chronosContainer.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
+    constructor(chronosContainer: Container, divElement: HTMLDivElement, data: DataType) {
+        const scale = data.scale;
 
-        const data: ChronosScaleData = new ChronosScaleData(
-            chronosContainer.get<Context>(TYPES.Context),
-            {y: window.data.height - 30, x: 110}
-        );
+        if (!scale.startOffSet) {
+            const window = chronosContainer.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
+            scale.startOffSet = {y: window.data.height - 30, x: 110}
+        }
 
-        chronosContainer.bind<ChronosScaleData>(TYPES.ChronosScaleData).toConstantValue(data);
+        chronosContainer.bind<ChronosScaleData>(TYPES.ChronosScaleData).toConstantValue(
+            new ChronosScaleData(chronosContainer.get<Context>(TYPES.Context), scale));
         chronosContainer.bind<ChronosScaleService>(TYPES.ChronosScaleService).to(ChronosScaleService);
         chronosContainer.bind<ChronosScaleComponent>(TYPES.ChronosScaleComponent).to(ChronosScaleComponent);
 

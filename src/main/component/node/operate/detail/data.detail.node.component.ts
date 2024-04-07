@@ -27,90 +27,133 @@ export class ChronosNodeDetailData extends ComponentData {
     /**
      * 宽度
      */
-    width: number = 250
+    width: number
 
     /**
      * 背景颜色
      */
-    backgroundColor: string = "white"
+    backgroundColor: string
 
     /**
      * 边框颜色
      */
-    borderColor: string = "black"
+    borderColor: string
 
     /**
      * 边框大小
      */
-    border: number = 1
+    border: number
 
     /**
      * 标题高度
      */
-    titleHeight: number = 25
+    titleHeight: number
 
     /**
      * 标题背景色
      */
-    titleBackgroundColor: string = "#f0f0f0"
+    titleBackgroundColor: string
 
     /**
      * 标题文字内容
      */
-    titleText: string = "详细信息"
+    titleText: string
 
     /**
      * 标题字体颜色
      */
-    titleFontColor: string = "black"
+    titleFontColor: string
 
     /**
      * 标题字体大小
      */
-    titleFontSize: number = 15
+    titleFontSize: number
 
     /**
      * 标题字体
      */
-    titleFontFamily: string = "Calibri"
+    titleFontFamily: string
 
     /**
      * 文字左边距
      */
-    textLeftMargin: number = 10
+    textLeftMargin: number
 
     /**
      * 文字上边距
      */
-    textTopMargin: number = 10
+    textTopMargin: number
 
     /**
      * 文字字体颜色
      */
-    textFontColor: string = "black"
+    textFontColor: string
 
     /**
      * 文字字体大小
      */
-    textFontSize: number = 15
+    textFontSize: number
 
     /**
      * 文字字体
      */
-    textFontFamily: string = "Calibri"
+    textFontFamily: string
 
     /**
      * 文字行号
      */
-    textLineHeight: number = 1.5
+    textLineHeight: number
 
     /**
      * 距离鼠标的偏移量
      */
-    mouseOffset: { x: number, y: number } = {x: 25, y: 25}
+    mouseOffset: { x: number, y: number }
 
 
-    constructor(context: Context) {
+    constructor(context: Context, data: ChronosNodeDetailDataType) {
         super(context);
+        this.width = data.width ?? 250
+        this.backgroundColor = data.backgroundColor ?? "white"
+        this.borderColor = data.borderColor ?? "black"
+        this.border = data.border ?? 1
+        this.titleHeight = data.titleHeight ?? 25
+        this.titleBackgroundColor = data.titleBackgroundColor ?? "#f0f0f0"
+        this.titleText = data.titleText ?? "详细信息"
+        this.titleFontColor = data.titleFontColor ?? "black"
+        this.titleFontSize = data.titleFontSize ?? 15
+        this.titleFontFamily = data.titleFontFamily ?? "Calibri"
+        this.textLeftMargin = data.textLeftMargin ?? 10
+        this.textTopMargin = data.textTopMargin ?? 10
+        this.textFontColor = data.textFontColor ?? "black"
+        this.textFontSize = data.textFontSize ?? 15
+        this.textFontFamily = data.textFontFamily ?? "Calibri"
+        this.textLineHeight = data.textLineHeight ?? 1.5
+        this.mouseOffset = {
+            x: data.mouseOffset?.x ?? 25,
+            y: data.mouseOffset?.y ?? 25
+        }
     }
+}
+
+/**
+ * 节点详情-组件数据类型
+ */
+export type ChronosNodeDetailDataType = {
+    width?: number
+    backgroundColor?: string
+    borderColor?: string
+    border?: number
+    titleHeight?: number
+    titleBackgroundColor?: string
+    titleText?: string
+    titleFontColor?: string
+    titleFontSize?: number
+    titleFontFamily?: string
+    textLeftMargin?: number
+    textTopMargin?: number
+    textFontColor?: string
+    textFontSize?: number
+    textFontFamily?: string
+    textLineHeight?: number
+    mouseOffset?: { x?: number, y?: number }
 }

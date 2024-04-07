@@ -5,23 +5,22 @@ import {ChronosTimelineData} from "../component/timeline/data.timeline.component
 import {ChronosTimelineComponent} from "../component/timeline/timeline.component";
 import {StageDragListener} from "../core/event/event";
 import {ChronosTimelineService} from "../component/timeline/service.timeline.component";
+import {DataType} from "./data.type";
 
 /**
  * 时间轴配置
  */
 export class TimelineConfig {
-    constructor(chronosContainer: Container, divElement: HTMLDivElement) {
+    constructor(chronosContainer: Container, divElement: HTMLDivElement, data: DataType) {
 
+        const timeline = data.timeline;
         const context = chronosContainer.get<Context>(TYPES.Context);
+        // new Date("2023-12-01 00:00:00"),
+        // {x: 40, y: 1},
 
 
-        const data = new ChronosTimelineData(
-            context,
-            new Date("2023-12-01 00:00:00"),
-            {x: 40, y: 1},
-        )
-
-        chronosContainer.bind<ChronosTimelineData>(TYPES.ChronosTimelineData).toConstantValue(data);
+        chronosContainer.bind<ChronosTimelineData>(TYPES.ChronosTimelineData).toConstantValue(
+            new ChronosTimelineData(context, timeline));
         chronosContainer.bind<ChronosTimelineService>(TYPES.ChronosTimelineService).to(ChronosTimelineService);
         chronosContainer.bind<ChronosTimelineComponent>(TYPES.ChronosTimelineComponent).to(ChronosTimelineComponent);
 

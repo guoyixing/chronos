@@ -21,62 +21,92 @@ export class ChronosTimelineData extends ComponentData {
     /**
      * 天的宽度
      */
-    dayWidth: number = 20;
+    dayWidth: number
 
     /**
      * 文字显示最小宽度
      */
-    textMinWidth: number = 15;
+    textMinWidth: number
 
     /**
      * 每行的高度
      */
-    rowHeight: number = 20;
+    rowHeight: number
 
     /**
      * 头部宽度
      */
-    headWidth: number = 60;
+    headWidth: number
 
     /**
      * 边框大小
      */
-    border: number = 1;
+    border: number
 
     /**
      * 边框颜色
      */
-    borderColor: string = "black";
+    borderColor: string
 
     /**
      * 背景颜色
      */
-    backgroundColor: string[] = ["#f0f0f0", "#e0e0e0"];
+    backgroundColor: string[]
 
     /**
      * 字体颜色
      */
-    textColor: string = "black";
+    textColor: string
 
     /**
      * 字体大小
      */
-    fontSize: number = 12;
+    fontSize: number
 
     /**
      * 字的边距
      */
-    textMargin: number = 10
+    textMargin: number
 
     /**
      * 字体
      */
-    fontFamily: string = "Calibre";
+    fontFamily: string
 
 
-    constructor(context: Context, initTime: Date, startOffSet: { x: number; y: number }) {
+    constructor(context: Context, data: ChronosTimelineDataType) {
         super(context);
-        this.initTime = initTime;
-        this.startOffSet = startOffSet;
+        this.initTime = new Date(data.initTime);
+        this.startOffSet = data.startOffSet;
+        this.dayWidth = data.dayWidth ?? 20
+        this.textMinWidth = data.textMinWidth ?? 15
+        this.rowHeight = data.rowHeight ?? 20
+        this.headWidth = data.headWidth ?? 60
+        this.border = data.border ?? 1
+        this.borderColor = data.borderColor ?? "black"
+        this.backgroundColor = data.backgroundColor ?? ["#f0f0f0", "#e0e0e0"]
+        this.textColor = data.textColor ?? "black"
+        this.fontSize = data.fontSize ?? 12
+        this.textMargin = data.textMargin ?? 10
+        this.fontFamily = data.fontFamily ?? "Calibre"
     }
+}
+
+/**
+ * 时间轴-组件数据类型
+ */
+export type ChronosTimelineDataType = {
+    initTime: string;
+    startOffSet: { x: number, y: number }
+    dayWidth?: number
+    textMinWidth?: number
+    rowHeight?: number
+    headWidth?: number
+    border?: number
+    borderColor?: string
+    backgroundColor?: string[]
+    textColor?: string
+    fontSize?: number
+    textMargin?: number
+    fontFamily?: string
 }

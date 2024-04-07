@@ -39,19 +39,19 @@ export class Chronos {
         //泳道
         new LaneConfig(this.chronosContainer, rootHtml, data)
         //工具栏
-        new ToolbarConfig(this.chronosContainer, rootHtml)
+        new ToolbarConfig(this.chronosContainer, rootHtml, data)
         //比例尺
-        new ScaleConfig(this.chronosContainer, rootHtml)
+        new ScaleConfig(this.chronosContainer, rootHtml, data)
         //节点变形器
-        new NodeTransformerConfig(this.chronosContainer, rootHtml)
+        new NodeTransformerConfig(this.chronosContainer, rootHtml, data)
         //时间轴
-        new TimelineConfig(this.chronosContainer, rootHtml)
+        new TimelineConfig(this.chronosContainer, rootHtml, data)
         //节点导航栏
-        new NodeBarConfig(this.chronosContainer, rootHtml)
+        new NodeBarConfig(this.chronosContainer, rootHtml, data)
         //节点
-        new NodeConfig(this.chronosContainer, rootHtml)
+        new NodeConfig(this.chronosContainer, rootHtml, data)
         //节点详情
-        new NodeDetailConfig(this.chronosContainer, rootHtml)
+        new NodeDetailConfig(this.chronosContainer, rootHtml, data)
 
         //事件监听
         new EventManager(this.chronosContainer)

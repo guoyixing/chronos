@@ -8,18 +8,20 @@ import {ChronosNodeBarService} from "../component/node/operate/bar/service.bar.n
 import {Context} from "../core/context/context";
 import {StarNodeShape} from "../component/node/board/shape/StarNodeShape";
 import {ArrowNodeShape} from "../component/node/board/shape/ArrowNodeShape";
+import {DataType} from "./data.type";
 
 /**
  * 节点导航窗配置
  */
 export class NodeBarConfig {
-    constructor(chronosContainer: Container, divElement: HTMLDivElement) {
+    constructor(chronosContainer: Container, divElement: HTMLDivElement, data: DataType) {
+        const bar = data.bar;
 
-        const data: ChronosNodeBarData = new ChronosNodeBarData(chronosContainer.get<Context>(TYPES.Context), 200);
-        data.candidateNode.set("star", StarNodeShape);
-        data.candidateTransformableNode.set("arrow", ArrowNodeShape);
+        const barData: ChronosNodeBarData = new ChronosNodeBarData(chronosContainer.get<Context>(TYPES.Context), bar);
+        barData.candidateNode.set("star", StarNodeShape);
+        barData.candidateTransformableNode.set("arrow", ArrowNodeShape);
 
-        chronosContainer.bind<ChronosNodeBarData>(TYPES.ChronosNodeBarData).toConstantValue(data);
+        chronosContainer.bind<ChronosNodeBarData>(TYPES.ChronosNodeBarData).toConstantValue(barData);
         chronosContainer.bind<ChronosNodeBarService>(TYPES.ChronosNodeBarService).to(ChronosNodeBarService);
         chronosContainer.bind<ChronosNodeBarComponent>(TYPES.ChronosNodeBarComponent).to(ChronosNodeBarComponent);
 
