@@ -111,21 +111,36 @@
     "plugMargin": 10
   },
   "scale": {
+    "startOffSetPct": {
+      "xPct": 0.11,
+      "yPct": 0.91
+    },
     "scaleX": 1,
     "scaleJump": 0.1,
-    "width": 90,
-    "height": 20,
-    "backgroundColor": "#f0f0f0",
+    "width": 160,
+    "height": 35,
+    "backgroundColor": "#ECECF4",
+    "radius": 10,
     "border": 1,
-    "borderColor": "black",
-    "buttonTextColor": "black",
-    "buttonHoverTextColor": "#359EE8",
-    "buttonFontSize": 25,
-    "buttonFontFamily": "Calibre",
-    "buttonLeftMargin": 5,
-    "buttonRightMargin": 5,
-    "textColor": "black",
-    "fontSize": 16
+    "borderColor": "#ECECF4",
+    "textColor": "#4F4F54",
+    "fontSize": 16,
+    "button": {
+      "stroke": {
+        "length": 10,
+        "width": 2,
+        "color": "#4F4F54",
+        "hoverColor": "#359EE8",
+        "margin": {
+          "left": 15,
+          "right": 15
+        }
+      },
+      "background": {
+        "color": "#ECECF4",
+        "hoverColor": "#F1F0FF"
+      }
+    }
   },
   "transformer": {
     "pointRadius": 5,

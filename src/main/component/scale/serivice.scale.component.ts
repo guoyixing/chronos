@@ -68,22 +68,47 @@ export class ChronosScaleService implements ComponentService, EventPublisher {
      */
     drawMinus(background: Konva.Rect) {
         const data = this._data;
-        const minus = new Konva.Text({
+        const button = data.button;
+        //线条长度
+        const line = button.stroke.length;
+        const path = `M0 0h${line}`
+
+        //绘制减号
+        const minusText = new Konva.Path({
             x: 0,
             y: 0,
-            text: "-",
-            fontSize: data.buttonFontSize,
-            fill: data.buttonTextColor,
-            fontFamily: data.buttonFontFamily
+            data: path,
+            stroke: button.stroke.color,
+            strokeWidth: button.stroke.width,
+            lineCap: 'round',
+            lineJoin: 'round'
         })
-        minus.x(background.width() - minus.width() - data.buttonRightMargin)
-        minus.y(background.height() / 2 - minus.height() / 2)
+        minusText.x(background.width() - line - button.stroke.margin.right)
+        minusText.y(background.height() / 2 - minusText.height() / 2)
+
+        //绘制减号背景
+        const minusBackground = new Konva.Rect({
+            x: data.width/4*3,
+            y: 0,
+            width: data.width/4,
+            height: data.height,
+            fill: button.background.color,
+            cornerRadius: [0,data.radius,data.radius,0],
+            stroke: data.borderColor,
+            strokeWidth: data.border,
+        })
+
+        const minus = new Konva.Group();
+        minus.add(minusBackground)
+        minus.add(minusText)
 
         minus.on('mousemove', () => {
-            minus.fill(data.buttonHoverTextColor)
+            minusText.stroke(button.stroke.hoverColor)
+            minusBackground.fill(button.background.hoverColor)
         })
         minus.on('mouseout', () => {
-            minus.fill(data.buttonTextColor)
+            minusText.stroke(button.stroke.color)
+            minusBackground.fill(button.background.color)
         })
         minus.on('click', () => {
             if (data.scaleX > data.scaleJump) {
@@ -123,23 +148,50 @@ export class ChronosScaleService implements ComponentService, EventPublisher {
      */
     drawPlus(background: Konva.Rect) {
         const data = this._data;
+        const button = data.button;
+        //线条长度
+        const line = button.stroke.length;
+        //计算竖线开始的位置
+        const vY = -line / 2;
+        const vX = line / 2;
+        const path = `M${vX} ${vY}v${line}M0 0h${line}`
+
         //绘制加号
-        const plus = new Konva.Text({
+        const plusText = new Konva.Path({
             x: 0,
             y: 0,
-            text: "+",
-            fontSize: data.buttonFontSize,
-            fill: data.buttonTextColor,
-            fontFamily: data.buttonFontFamily
+            data: path,
+            stroke: button.stroke.color,
+            strokeWidth: button.stroke.width,
+            lineCap: 'round',
+            lineJoin: 'round'
         })
-        plus.x(data.buttonLeftMargin)
-        plus.y(background.height() / 2 - plus.height() / 2)
+        plusText.x(button.stroke.margin.left)
+        plusText.y(background.height() / 2 - plusText.height() / 2)
+
+        //绘制加号背景
+        const plusBackground = new Konva.Rect({
+            x: 0,
+            y: 0,
+            width: data.width/4,
+            height: data.height,
+            fill: button.background.color,
+            cornerRadius: [data.radius,0,0,data.radius],
+            stroke: data.borderColor,
+            strokeWidth: data.border,
+        })
+
+        const plus = new Konva.Group();
+        plus.add(plusBackground)
+        plus.add(plusText)
 
         plus.on('mousemove', () => {
-            plus.fill(data.buttonHoverTextColor)
+            plusText.stroke(button.stroke.hoverColor)
+            plusBackground.fill(button.background.hoverColor)
         })
         plus.on('mouseout', () => {
-            plus.fill(data.buttonTextColor)
+            plusText.stroke(button.stroke.color)
+            plusBackground.fill(button.background.color)
         })
         plus.on('click', () => {
             //解决精度问题
@@ -164,7 +216,8 @@ export class ChronosScaleService implements ComponentService, EventPublisher {
             height: data.height,
             fill: data.backgroundColor,
             stroke: data.borderColor,
-            strokeWidth: data.border
+            strokeWidth: data.border,
+            cornerRadius: data.radius
         })
     }
 

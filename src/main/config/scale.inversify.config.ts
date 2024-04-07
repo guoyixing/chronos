@@ -15,10 +15,6 @@ export class ScaleConfig {
     constructor(chronosContainer: Container, divElement: HTMLDivElement, data: DataType) {
         const scale = data.scale;
 
-        if (!scale.startOffSet) {
-            const window = chronosContainer.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
-            scale.startOffSet = {y: window.data.height - 30, x: 110}
-        }
 
         chronosContainer.bind<ChronosScaleData>(TYPES.ChronosScaleData).toConstantValue(
             new ChronosScaleData(chronosContainer.get<Context>(TYPES.Context), scale));

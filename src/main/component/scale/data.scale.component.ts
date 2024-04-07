@@ -2,6 +2,8 @@ import {ComponentData} from "../data.component";
 import {injectable} from "inversify";
 import {Context} from "../../core/context/context";
 import Konva from "konva";
+import {ChronosWindowComponent} from "../window/window.component";
+import {TYPES} from "../../config/inversify.config";
 
 /**
  * 比例尺-组件数据
@@ -22,98 +24,113 @@ export class ChronosScaleData extends ComponentData {
     /**
      * 比例尺百分比
      */
-    scaleX: number = 1
+    scaleX: number
 
     /**
      * 比例尺跳跃值
      */
-    scaleJump: number = 0.1
+    scaleJump: number
 
     /**
      * 宽度
      */
-    width: number = 90
+    width: number
 
     /**
      * 高度
      */
-    height: number = 20
+    height: number
 
     /**
      * 背景颜色
      */
-    backgroundColor: string = "#f0f0f0"
+    backgroundColor: string
+
+    /**
+     * 背景圆角
+     */
+    radius: number
 
     /**
      * 背景边框大小
      */
-    border: number = 1
+    border: number
 
     /**
      * 背景边框颜色
      */
-    borderColor: string = "black"
-
-    /**
-     * 按钮文字颜色
-     */
-    buttonTextColor: string = "black"
-
-    /**
-     * 按钮悬浮文字颜色
-     */
-    buttonHoverTextColor: string = "#359EE8"
-
-    /**
-     * 按钮文字大小
-     */
-    buttonFontSize: number = 25
-
-    /**
-     * 按钮字体
-     */
-    buttonFontFamily: string = "Calibre"
-
-    /**
-     * 按钮左边距
-     */
-    buttonLeftMargin: number = 5
-
-    /**
-     * 按钮右边距
-     */
-    buttonRightMargin: number = 5
-
+    borderColor: string
 
     /**
      * 字体颜色
      */
-    textColor: string = "black"
+    textColor: string
 
     /**
      * 字体大小
      */
-    fontSize: number = 16
+    fontSize: number
 
+    /**
+     * 按钮
+     */
+    button: {
+        stroke: {
+            length: number
+            width: number
+            color: string
+            hoverColor: string
+            margin: {
+                left: number
+                right: number
+            }
+        },
+        background: {
+            color: string
+            hoverColor: string
+        }
+    }
 
     constructor(context: Context, data: ChronosScaleDataType) {
         super(context);
-        this.startOffSet = data.startOffSet ?? {x: 0, y: 0}
         this.scaleX = data.scaleX ?? 1
         this.scaleJump = data.scaleJump ?? 0.1
-        this.width = data.width ?? 90
-        this.height = data.height ?? 20
-        this.backgroundColor = data.backgroundColor ?? "#f0f0f0"
+        this.width = data.width ?? 160
+        this.height = data.height ?? 40
+        this.backgroundColor = data.backgroundColor ?? "#ECECF4"
+        this.radius = data.radius ?? 10
         this.border = data.border ?? 1
-        this.borderColor = data.borderColor ?? "black"
-        this.buttonTextColor = data.buttonTextColor ?? "black"
-        this.buttonHoverTextColor = data.buttonHoverTextColor ?? "#359EE8"
-        this.buttonFontSize = data.buttonFontSize ?? 25
-        this.buttonFontFamily = data.buttonFontFamily ?? "Calibre"
-        this.buttonLeftMargin = data.buttonLeftMargin ?? 5
-        this.buttonRightMargin = data.buttonRightMargin ?? 5
-        this.textColor = data.textColor ?? "black"
+        this.borderColor = data.borderColor ?? "#ECECF4"
+        this.textColor = data.textColor ?? "#4F4F54"
         this.fontSize = data.fontSize ?? 16
+        this.button = {
+            stroke: {
+                length: data.button?.stroke?.length ?? 10,
+                width: data.button?.stroke?.width ?? 2,
+                color: data.button?.stroke?.color ?? "#4F4F54",
+                hoverColor: data.button?.stroke?.hoverColor ?? "#359EE8",
+                margin: {
+                    left: data.button?.stroke?.margin?.left ?? 15,
+                    right: data.button?.stroke?.margin?.right ?? 15
+                }
+            },
+            background: {
+                color: data.button?.background?.color ?? "#ECECF4",
+                hoverColor: data.button?.background?.hoverColor ?? "#F1F0FF",
+            }
+        }
+        const window = context.ioc.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
+        if (data.startOffSetPct) {
+            this.startOffSet = {
+                x: window.data.width * data.startOffSetPct.xPct,
+                y: window.data.height * data.startOffSetPct.yPct
+            }
+        } else {
+            this.startOffSet = {
+                x: window.data.width * 0.11,
+                y: window.data.height * 0.9
+            }
+        }
     }
 }
 
@@ -121,20 +138,35 @@ export class ChronosScaleData extends ComponentData {
  * 比例尺-组件数据类型
  */
 export type ChronosScaleDataType = {
-    startOffSet?: { x: number, y: number }
+    /**
+     * 百分比定位
+     */
+    startOffSetPct?: { xPct: number, yPct: number }
     scaleX?: number
     scaleJump?: number
     width?: number
     height?: number
+    bottomMargin?: number
     backgroundColor?: string
+    radius?: number
     border?: number
     borderColor?: string
-    buttonTextColor?: string
-    buttonHoverTextColor?: string
-    buttonFontSize?: number
-    buttonFontFamily?: string
-    buttonLeftMargin?: number
-    buttonRightMargin?: number
     textColor?: string
     fontSize?: number
+    button?: {
+        stroke?: {
+            length?: number
+            width?: number
+            color?: string
+            hoverColor?: string
+            margin?: {
+                left?: number
+                right?: number
+            }
+        },
+        background?: {
+            color?: string
+            hoverColor?: string
+        }
+    }
 }
