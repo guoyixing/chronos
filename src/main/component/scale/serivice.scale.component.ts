@@ -88,12 +88,12 @@ export class ChronosScaleService implements ComponentService, EventPublisher {
 
         //绘制减号背景
         const minusBackground = new Konva.Rect({
-            x: data.width/4*3,
+            x: data.width / 4 * 3,
             y: 0,
-            width: data.width/4,
+            width: data.width / 4,
             height: data.height,
             fill: button.background.color,
-            cornerRadius: [0,data.radius,data.radius,0],
+            cornerRadius: [0, data.radius, data.radius, 0],
             stroke: data.borderColor,
             strokeWidth: data.border,
         })
@@ -173,10 +173,10 @@ export class ChronosScaleService implements ComponentService, EventPublisher {
         const plusBackground = new Konva.Rect({
             x: 0,
             y: 0,
-            width: data.width/4,
+            width: data.width / 4,
             height: data.height,
             fill: button.background.color,
-            cornerRadius: [data.radius,0,0,data.radius],
+            cornerRadius: [data.radius, 0, 0, data.radius],
             stroke: data.borderColor,
             strokeWidth: data.border,
         })

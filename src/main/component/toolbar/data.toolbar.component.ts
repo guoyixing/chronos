@@ -85,19 +85,19 @@ export class ChronosToolbarData extends ComponentData {
             },
             background: {
                 color: data.button?.background?.color ?? "#ECECF4",
-                hoverColor: data.button?.background?.hoverColor ?? "#F1F0FF",
+                hoverColor: data.button?.background?.hoverColor ?? "#E0DFFF",
             }
         }
         const window = context.ioc.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
         if (data.startOffSetPct) {
             this.startOffSet = {
-                x: window.data.width * data.startOffSetPct.xPct,
-                y: window.data.height * data.startOffSetPct.yPct
+                x: window.data.width * data.startOffSetPct.xPct - this.width / 2,
+                y: window.data.height * data.startOffSetPct.yPct - this.height / 2
             }
         } else {
             this.startOffSet = {
-                x: window.data.width * 0.30,
-                y: window.data.height * 0.91
+                x: window.data.width * 0.5 - this.width / 2,
+                y: window.data.height * 0.95 - this.height / 2
             }
         }
     }

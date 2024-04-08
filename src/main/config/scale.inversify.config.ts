@@ -5,7 +5,6 @@ import {StageDragListener} from "../core/event/event";
 import {ChronosScaleData} from "../component/scale/data.scale.component";
 import {ChronosScaleService} from "../component/scale/serivice.scale.component";
 import {ChronosScaleComponent} from "../component/scale/scale.component";
-import {ChronosWindowComponent} from "../component/window/window.component";
 import {DataType} from "./data.type";
 
 /**

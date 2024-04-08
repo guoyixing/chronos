@@ -90,6 +90,9 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         }
         //获取bar
         const nodeShape = this._bar.service.getGraphicsByNode(data);
+        if (!nodeShape) {
+            return
+        }
         const node = nodeShape.shape;
 
         //监听移动
@@ -132,7 +135,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
      * @param nodeShape 节点
      */
     listenMove(nodeShape: NodeShape) {
-        this._nodeGroup.service.listenMove(nodeShape)
+        this._nodeGroup.service.listenMove(nodeShape, true)
 
         const node = nodeShape.shape;
         //监听移动结束

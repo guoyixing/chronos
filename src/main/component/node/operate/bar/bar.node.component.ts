@@ -49,10 +49,10 @@ export class ChronosNodeBarComponent extends BaseComponent<ChronosNodeBarData, C
             const y4 = line / 12
 
             const path = `
-            M${x1} ${y1}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength-1} 
-            M${x2} ${y2}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength-1}
-            M${x3} ${y3}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength-1}
-            M${x4} ${y4}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength-1}
+            M${x1} ${y1}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength - 1} 
+            M${x2} ${y2}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength - 1}
+            M${x3} ${y3}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength - 1}
+            M${x4} ${y4}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength - 1}
             `
             return new Konva.Path({
                 x: 0,
@@ -84,7 +84,6 @@ export class ChronosNodeBarComponent extends BaseComponent<ChronosNodeBarData, C
      */
     init() {
         this.data.layer = this.service.setLayer()
-        this.service.setStartOffSet()
     }
 
     /**

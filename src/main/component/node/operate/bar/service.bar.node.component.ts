@@ -81,6 +81,11 @@ export class ChronosNodeBarService implements ComponentService {
             fill: data.backgroundColor,
             stroke: data.borderColor,
             strokeWidth: data.border,
+            cornerRadius: data.radius,
+            shadowColor: 'black',
+            shadowBlur: 10,
+            shadowOffset: {x: 0, y: 0},
+            shadowOpacity: 0.2,
         });
 
         //绘制中间分线
@@ -126,7 +131,7 @@ export class ChronosNodeBarService implements ComponentService {
                 candidateNode.x(xStart)
                 this.addNodeEntry(node);
             })
-            this._nodeGroup.service.listenMove(node);
+            this._nodeGroup.service.listenMove(node, false);
             group.add(candidateNode);
             index++;
         });
@@ -173,7 +178,7 @@ export class ChronosNodeBarService implements ComponentService {
     /**
      * 根据节点获取一个图形
      */
-    getGraphicsByNode(nodeData: ChronosNodeEntryData): NodeShape {
+    getGraphicsByNode(nodeData: ChronosNodeEntryData): NodeShape | undefined {
         let type = this._data.candidateNode.get(nodeData.type);
 
         if (!type) {
@@ -185,23 +190,8 @@ export class ChronosNodeBarService implements ComponentService {
             nodeShape.create(nodeData.coordinate, nodeData.name);
             return nodeShape;
         }
-
-        throw new Error('未知的节点类型')
-    }
-
-    /**
-     * 设置起始坐标
-     */
-    setStartOffSet() {
-        const x = this._window.data.width - this._window.data.border - this._data.width;
-        let y;
-        if (this._data.height == undefined || this._data.height <= 0) {
-            y = this._window.data.border;
-            this._data.height = this._window.data.height - this._window.data.border * 2;
-        } else {
-            y = this._window.data.height - this._window.data.border - this._data.height;
-        }
-        this._data.startOffSet = {x: x, y: y}
+        console.warn('未知的节点类型', nodeData)
+        return undefined
     }
 
     /**

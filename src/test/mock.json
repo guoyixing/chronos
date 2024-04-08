@@ -97,8 +97,8 @@
   },
   "toolbar": {
     "startOffSetPct": {
-      "xPct": 0.30,
-      "yPct": 0.91
+      "xPct": 0.5,
+      "yPct": 0.95
     },
     "width": 300,
     "height": 35,
@@ -119,14 +119,14 @@
       },
       "background": {
         "color": "#ECECF4",
-        "hoverColor": "#F1F0FF"
+        "hoverColor": "#E0DFFF"
       }
     }
   },
   "scale": {
     "startOffSetPct": {
-      "xPct": 0.11,
-      "yPct": 0.91
+      "xPct": 0.91,
+      "yPct": 0.95
     },
     "scaleX": 1,
     "scaleJump": 0.1,
@@ -151,7 +151,7 @@
       },
       "background": {
         "color": "#ECECF4",
-        "hoverColor": "#F1F0FF"
+        "hoverColor": "#E0DFFF"
       }
     }
   },
@@ -183,13 +183,6 @@
     "fontFamily": "Calibre"
   },
   "bar": {
-    "width": 200,
-    "hide": true,
-    "backgroundColor": "white",
-    "borderColor": "black",
-    "border": 1,
-    "middleLineColor": "#ddd",
-    "middleLineWidth": 1
   },
   "node": {
     "entry": [

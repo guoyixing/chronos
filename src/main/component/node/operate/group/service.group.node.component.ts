@@ -104,8 +104,9 @@ export class ChronosNodeGroupService implements ComponentService {
     /**
      * 监听移动
      * @param nodeShape 节点
+     * @param showMoveRange 是否显示移动范围
      */
-    listenMove(nodeShape: NodeShape) {
+    listenMove(nodeShape: NodeShape, showMoveRange: boolean) {
         const data = this._data;
         const node = nodeShape.shape;
         const laneGroup = this._laneGroup;
@@ -131,25 +132,26 @@ export class ChronosNodeGroupService implements ComponentService {
                 y: y + data.context.drawContext.stage.y() % laneGroup.data.rowHeight
             };
         });
+        if (showMoveRange) {
+            //监听移动开始
+            let moveRange: Konva.Rect;
+            node?.on('dragstart', () => {
+                moveRange = this.drawMoveRange(nodeShape);
+            });
 
-        //监听移动开始
-        let moveRange: Konva.Rect;
-        node?.on('dragstart', () => {
-            moveRange = this.drawMoveRange(nodeShape);
-        });
+            //监听移动
+            node?.on('dragmove', () => {
+                //可移动范围切换到泳道的行
+                const moveRangeY = node?.y() - laneGroup.data.rowHeight / 2;
+                moveRange.y(moveRangeY);
+            });
 
-        //监听移动
-        node?.on('dragmove', () => {
-            //可移动范围切换到泳道的行
-            const moveRangeY = node?.y() - laneGroup.data.rowHeight / 2;
-            moveRange.y(moveRangeY);
-        });
-
-        //监听移动结束
-        node?.on('dragend', () => {
-            //移动结束后，移除移动范围
-            moveRange && moveRange.destroy();
-        });
+            //监听移动结束
+            node?.on('dragend', () => {
+                //移动结束后，移除移动范围
+                moveRange && moveRange.destroy();
+            });
+        }
     }
 
     /**
