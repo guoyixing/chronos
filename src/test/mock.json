@@ -226,6 +226,15 @@
         "finishTime": "2024-01-06 00:00:00",
         "laneId": "3",
         "row": 2
+      },
+      {
+        "id": "5",
+        "name": "节点5",
+        "type": "rect",
+        "startTime": "2023-12-27 00:00:00",
+        "finishTime": "2024-01-06 00:00:00",
+        "laneId": "3",
+        "row": 2
       }
     ],
     "moveRangeColor": "rgba(0,255,0,0.3)",
