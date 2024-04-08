@@ -31,7 +31,13 @@ export class ChronosToolbarService implements ComponentService {
      * 绘制
      */
     draw(): void {
-        const group = new Konva.Group();
+        const data = this._data;
+        const coordinate = this._data.context.drawContext.getFixedCoordinate();
+        //x坐标
+        let x = coordinate.x + data.startOffSet.x;
+        //y坐标
+        let y = coordinate.y + data.startOffSet.y
+        const group = new Konva.Group({x: x, y: y});
         //绘制背景
         this.drawBackground(group);
         //绘制工具组
@@ -46,37 +52,47 @@ export class ChronosToolbarService implements ComponentService {
      */
     drawToolbarGroup(group: Konva.Group) {
         const data = this._data;
-
-        const fixedCoordinate = data.context.drawContext.getFixedCoordinate();
         //下一个元素的y坐标
-        let nextY = 0;
+        let nextX = 0;
 
         //绘制工具
-        data.toolPlugs.forEach((tool) => {
-            const text = new Konva.TextPath({
-                x: data.startOffSet.x + fixedCoordinate.x + data.width / 2,
-                y: data.startOffSet.y + fixedCoordinate.y + nextY + data.plugMargin,
-                text: tool.name,
-                fontSize: data.fontSize,
-                fill: data.textColor,
-                data: data.textDirection
-            });
-            text.on('click', () => {
-                tool.callback();
+        data.toolPlugs.forEach((tool, index) => {
+            const background = new Konva.Rect({
+                x: 0,
+                y: 0,
+                width: data.button.stroke.margin.left + data.button.stroke.margin.right + data.button.stroke.length,
+                height: data.height,
+                fill: data.button.background.color,
+                stroke: data.borderColor,
+                strokeWidth: data.border,
+                cornerRadius: data.radius
             });
 
-            text.on('mouseover', () => {
+            const graphics = tool.graphics(data.button);
+            graphics.x(background.width() / 2 - data.button.stroke.length / 2)
+            graphics.y(background.height() / 2)
+
+            const button = new Konva.Group({x: nextX, y: 0})
+            button.add(background)
+            button.add(graphics)
+
+
+            button.on('click', () => {
+                tool.callback(graphics, data.button);
+            });
+
+            button.on('mouseover', () => {
                 document.body.style.cursor = 'pointer';
-                text.fill(data.hoverTextColor);
+                background.fill(data.button.background.hoverColor)
             });
 
-            text.on('mouseout', () => {
+            button.on('mouseout', () => {
                 document.body.style.cursor = 'default';
-                text.fill(data.textColor);
+                background.fill(data.button.background.color)
             });
 
-            group.add(text);
-            nextY += text.text().length * data.fontSize + data.plugMargin;
+            group.add(button);
+            nextX += background.width();
         });
     }
 
@@ -85,18 +101,18 @@ export class ChronosToolbarService implements ComponentService {
      */
     private drawBackground(group: Konva.Group) {
         const data = this._data;
-
         //获取固定坐标
         const fixedCoordinate = data.context.drawContext.getFixedCoordinate();
         //绘制工具栏底色
         const rect = new Konva.Rect({
-            x: data.startOffSet.x + fixedCoordinate.x,
-            y: data.startOffSet.y + fixedCoordinate.y,
+            x: 0,
+            y: 0,
             width: data.width,
-            height: this._window.data.height - this._window.data.border * 2,
+            height: data.height,
             fill: data.backgroundColor,
-            stroke: data.backgroundBorderColor,
-            strokeWidth: data.backgroundBorder
+            stroke: data.borderColor,
+            strokeWidth: data.border,
+            cornerRadius: data.radius
         });
         group.add(rect);
     }

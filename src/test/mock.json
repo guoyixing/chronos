@@ -5,7 +5,7 @@
   },
   "grid": {
     "startOffSet": {
-      "x": 100,
+      "x": 60,
       "y": 0
     },
     "tbGapSize": 20,
@@ -16,7 +16,7 @@
   },
   "lane": {
     "startOffSet": {
-      "x": 40,
+      "x": 0,
       "y": 60
     },
     "rowHeight": 40,
@@ -96,19 +96,32 @@
     ]
   },
   "toolbar": {
-    "startOffSet": {
-      "x": 1,
-      "y": 1
+    "startOffSetPct": {
+      "xPct": 0.30,
+      "yPct": 0.91
     },
-    "width": 39,
-    "backgroundColor": "lightgray",
-    "backgroundBorder": 1,
-    "backgroundBorderColor": "black",
-    "fontSize": 16,
-    "textColor": "black",
-    "hoverTextColor": "#359EE8",
-    "textDirection": "M0 0 L0 200",
-    "plugMargin": 10
+    "width": 300,
+    "height": 35,
+    "backgroundColor": "#ECECF4",
+    "border": 1,
+    "borderColor": "#ECECF4",
+    "radius": 10,
+    "button": {
+      "stroke": {
+        "length": 10,
+        "width": 2,
+        "color": "#4F4F54",
+        "hoverColor": "#359EE8",
+        "margin": {
+          "left": 15,
+          "right": 15
+        }
+      },
+      "background": {
+        "color": "#ECECF4",
+        "hoverColor": "#F1F0FF"
+      }
+    }
   },
   "scale": {
     "startOffSetPct": {
@@ -151,7 +164,7 @@
   "timeline": {
     "initTime": "2023-12-01 00:00:00",
     "startOffSet": {
-      "x": 40,
+      "x": 0,
       "y": 1
     },
     "dayWidth": 20,

@@ -3,6 +3,9 @@ import {Context} from "../../core/context/context";
 import {ChronosToolPlug} from "./plug.toolbar.component";
 import {injectable} from "inversify";
 import Konva from "konva";
+import {ChronosWindowComponent} from "../window/window.component";
+import {TYPES} from "../../config/inversify.config";
+import {ButtonConfigType, ButtonType} from "../../common/type/button.type";
 
 /**
  * 工具栏-组件数据
@@ -31,58 +34,72 @@ export class ChronosToolbarData extends ComponentData {
     width: number
 
     /**
+     * 高度
+     */
+    height: number
+
+    /**
      * 背景颜色
      */
     backgroundColor: string
 
     /**
-     * 背景边框宽度
+     * 边框宽度
      */
-    backgroundBorder: number
+    border: number
 
     /**
-     * 背景边框颜色
+     * 边框颜色
      */
-    backgroundBorderColor: string
+    borderColor: string
 
     /**
-     * 文字大小
+     * 圆角
      */
-    fontSize: number
+    radius: number
 
     /**
-     * 文字颜色
+     * 按钮
      */
-    textColor: string
-
-    /**
-     * 鼠标悬浮文字颜色
-     */
-    hoverTextColor: string
-
-    /**
-     * 文字走向
-     */
-    textDirection: string
-
-    /**
-     * 间隔距离
-     */
-    plugMargin: number
+    button: ButtonType
 
 
     constructor(context: Context, data: ChronosToolbarDataType) {
         super(context);
-        this.startOffSet = data.startOffSet
-        this.width = data.width ?? 39
-        this.backgroundColor = data.backgroundColor ?? "lightgray"
-        this.backgroundBorder = data.backgroundBorder ?? 1
-        this.backgroundBorderColor = data.backgroundBorderColor ?? "black"
-        this.fontSize = data.fontSize ?? 16
-        this.textColor = data.textColor ?? "black"
-        this.hoverTextColor = data.hoverTextColor ?? "#359EE8"
-        this.textDirection = data.textDirection ?? "M0 0 L0 200"
-        this.plugMargin = data.plugMargin ?? 10
+        this.width = data.width ?? 300
+        this.height = data.height ?? 35
+        this.backgroundColor = data.backgroundColor ?? "#ECECF4"
+        this.border = data.border ?? 1
+        this.borderColor = data.borderColor ?? "#ECECF4"
+        this.radius = data.radius ?? 10
+        this.button = {
+            stroke: {
+                length: data.button?.stroke?.length ?? 10,
+                width: data.button?.stroke?.width ?? 2,
+                color: data.button?.stroke?.color ?? "#4F4F54",
+                hoverColor: data.button?.stroke?.hoverColor ?? "#359EE8",
+                margin: {
+                    left: data.button?.stroke?.margin?.left ?? 10,
+                    right: data.button?.stroke?.margin?.right ?? 10
+                }
+            },
+            background: {
+                color: data.button?.background?.color ?? "#ECECF4",
+                hoverColor: data.button?.background?.hoverColor ?? "#F1F0FF",
+            }
+        }
+        const window = context.ioc.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
+        if (data.startOffSetPct) {
+            this.startOffSet = {
+                x: window.data.width * data.startOffSetPct.xPct,
+                y: window.data.height * data.startOffSetPct.yPct
+            }
+        } else {
+            this.startOffSet = {
+                x: window.data.width * 0.30,
+                y: window.data.height * 0.91
+            }
+        }
     }
 }
 
@@ -90,14 +107,12 @@ export class ChronosToolbarData extends ComponentData {
  * 工具栏-组件数据类型
  */
 export type ChronosToolbarDataType = {
-    startOffSet: { x: number, y: number }
+    startOffSetPct: { xPct: number, yPct: number }
     width?: number
+    height?: number
     backgroundColor?: string
-    backgroundBorder?: number
-    backgroundBorderColor?: string
-    fontSize?: number
-    textColor?: string
-    hoverTextColor?: string
-    textDirection?: string
-    plugMargin?: number
+    border?: number
+    borderColor?: string
+    radius?: number
+    button?: ButtonConfigType
 }

@@ -196,7 +196,7 @@ export class ChronosLaneEntryData extends ComponentData {
             hoverTextColor: data.button?.hoverTextColor ?? "#fff",
             hoverFontSize: data.button?.hoverFontSize ?? 12,
             hoverFontFamily: data.button?.hoverFontFamily ?? "Calibri",
-            hoverBackgroundColor: data.button?.hoverTextColor ?? "#555"
+            hoverBackgroundColor: data.button?.hoverBackgroundColor ?? "#555"
         }
     }
 }
