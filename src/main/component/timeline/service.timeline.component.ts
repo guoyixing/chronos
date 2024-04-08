@@ -61,6 +61,19 @@ export class ChronosTimelineService implements ComponentService {
         //y坐标
         let y = coordinate.y + data.startOffSet.y
 
+        //绘制背景
+        const background = new Konva.Rect({
+            x: x,
+            y: y,
+            width: data.headWidth,
+            height: data.rowHeight * 3,
+            fill: 'white',
+            shadowColor: 'black',
+            shadowBlur: 10,
+            shadowOffset: {x: 0, y: 0},
+            shadowOpacity: 0.2,
+        });
+        data.layer?.add(background)
         const text = ['年', '月', '日']
 
         text.forEach((text, index) => {
@@ -87,6 +100,7 @@ export class ChronosTimelineService implements ComponentService {
 
             y += data.rowHeight
         })
+
 
     }
 

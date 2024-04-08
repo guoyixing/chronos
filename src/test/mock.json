@@ -146,12 +146,12 @@
     "rowHeight": 20,
     "headWidth": 60,
     "border": 1,
-    "borderColor": "black",
+    "borderColor": "#DADADA",
     "backgroundColor": [
-      "#f0f0f0",
-      "#e0e0e0"
+      "#FFF",
+      "#ECECF4"
     ],
-    "textColor": "black",
+    "textColor": "#4F4F54",
     "fontSize": 12,
     "textMargin": 10,
     "fontFamily": "Calibre"
