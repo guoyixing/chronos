@@ -1,6 +1,7 @@
 import {ComponentData} from "../../data.component";
 import {Context} from "../../../core/context/context";
 import Konva from "konva";
+import {ShadowConfigType, ShadowType} from "../../../common/type/shadow.type";
 
 /**
  * 泳道条目-组件数据
@@ -61,6 +62,11 @@ export class ChronosLaneEntryData extends ComponentData {
     leftBackgroundColor: string
 
     /**
+     * 泳道左侧悬浮背景颜色
+     */
+    hoverLeftBackgroundColor: string
+
+    /**
      * 泳道边框颜色
      */
     borderColor: string
@@ -99,6 +105,16 @@ export class ChronosLaneEntryData extends ComponentData {
      * 泳道文字下边距
      */
     textBottomMargin: number
+
+    /**
+     * 圆角
+     */
+    radius: number[] | number
+
+    /**
+     * 阴影
+     */
+    shadow: ShadowType
 
     /**
      * 按钮参数
@@ -172,22 +188,33 @@ export class ChronosLaneEntryData extends ComponentData {
         this.id = data.id;
         this.name = data.name;
         this.rowNum = data.rowNum ?? 1;
-        this.leftBackgroundColor = data.leftBackgroundColor ?? "#f0f0f0";
-        this.borderColor = data.borderColor ?? "black";
-        this.border = data.border ?? 1;
-        this.textColor = data.textColor ?? "#555";
-        this.fontSize = data.fontSize ?? 16;
+        this.leftBackgroundColor = data.leftBackgroundColor ?? "#ECECF4";
+        this.hoverLeftBackgroundColor = data.hoverLeftBackgroundColor ?? "#E0DFFF";
+        this.borderColor = data.borderColor ?? "#E0DFFF";
+        this.border = data.border ?? 1.5;
+        this.textColor = data.textColor ?? "#4F4F54";
+        this.fontSize = data.fontSize ?? 14;
         this.fontFamily = data.fontFamily ?? "Calibri";
         this.textLeftMargin = data.textLeftMargin ?? 10;
         this.textTopMargin = data.textTopMargin ?? 10;
         this.textBottomMargin = data.textBottomMargin ?? 10;
+        this.radius = data.radius ?? [0, 5, 5, 0];
+        this.shadow = {
+            color: data.shadow?.color ?? 'black',
+            blur: data.shadow?.blur ?? 10,
+            offset: {
+                x: data.shadow?.offset?.x ?? 0,
+                y: data.shadow?.offset?.y ?? -5
+            },
+            opacity: data.shadow?.opacity ?? 0.2
+        }
         this.button = {
             bottomMargin: data.button?.bottomMargin ?? 20,
             leftMargin: data.button?.leftMargin ?? 4,
             width: data.button?.width ?? 15,
             height: data.button?.height ?? 15,
             cornerRadius: data.button?.cornerRadius ?? 3,
-            backgroundColor: data.button?.backgroundColor ?? "#aaa",
+            backgroundColor: data.button?.backgroundColor ?? "#D0CEEE",
             borderColor: data.button?.borderColor ?? "black",
             border: data.button?.border ?? 0,
             textColor: data.button?.textColor ?? "#fff",
@@ -196,7 +223,7 @@ export class ChronosLaneEntryData extends ComponentData {
             hoverTextColor: data.button?.hoverTextColor ?? "#fff",
             hoverFontSize: data.button?.hoverFontSize ?? 12,
             hoverFontFamily: data.button?.hoverFontFamily ?? "Calibri",
-            hoverBackgroundColor: data.button?.hoverBackgroundColor ?? "#555"
+            hoverBackgroundColor: data.button?.hoverBackgroundColor ?? "#359EE8"
         }
     }
 }
@@ -209,6 +236,7 @@ export type ChronosLaneEntryDataType = {
     name: string
     rowNum?: number
     leftBackgroundColor?: string
+    hoverLeftBackgroundColor?: string
     borderColor?: string
     border?: number
     textColor?: string
@@ -217,6 +245,8 @@ export type ChronosLaneEntryDataType = {
     textLeftMargin?: number
     textTopMargin?: number
     textBottomMargin?: number
+    radius?: number[] | number
+    shadow: ShadowConfigType
     button?: {
         bottomMargin?: number,
         leftMargin?: number,

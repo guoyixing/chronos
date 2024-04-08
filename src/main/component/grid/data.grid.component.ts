@@ -80,7 +80,7 @@ export class ChronosGridData extends ComponentData {
         this.startOffSet = data.startOffSet;
         this.tbGapSize = data.tbGapSize ?? 20;
         this.lrGapSize = data.lrGapSize ?? 20;
-        this.color = data.color ?? '#ddd';
+        this.color = data.color ?? '#EFEFEF';
         this.width = data.width ?? 1;
         this.hide = data.hide ?? false;
     }

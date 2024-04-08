@@ -82,10 +82,10 @@ export class ChronosNodeBarService implements ComponentService {
             stroke: data.borderColor,
             strokeWidth: data.border,
             cornerRadius: data.radius,
-            shadowColor: 'black',
-            shadowBlur: 10,
-            shadowOffset: {x: 0, y: 0},
-            shadowOpacity: 0.2,
+            shadowColor: data.shadow.color,
+            shadowBlur: data.shadow.blur,
+            shadowOffset: data.shadow.offset,
+            shadowOpacity: data.shadow.opacity,
         });
 
         //绘制中间分线

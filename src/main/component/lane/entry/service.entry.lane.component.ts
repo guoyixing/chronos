@@ -129,7 +129,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
             group.moveToTop();
             //添加选中效果
             if (drawLeft) {
-                drawLeft.fill('#e0e0e0');
+                drawLeft.fill(data.hoverLeftBackgroundColor);
             }
         });
 
@@ -353,8 +353,13 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
             width: this.group.data.laneLeftWidth,
             height: height,
             fill: data.leftBackgroundColor,
+            cornerRadius: data.radius,
             stroke: data.borderColor,
-            strokeWidth: data.border,
+            strokeWidth: 0,
+            shadowColor: data.shadow.color,
+            shadowBlur: data.shadow.blur,
+            shadowOffset: data.shadow.offset,
+            shadowOpacity: data.shadow.opacity,
         });
     }
 

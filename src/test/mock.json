@@ -1,7 +1,7 @@
 {
   "window": {
     "border": 1,
-    "borderColor": "black"
+    "borderColor": "#E0DFFF"
   },
   "grid": {
     "startOffSet": {
@@ -10,7 +10,7 @@
     },
     "tbGapSize": 20,
     "lrGapSize": 20,
-    "color": "#ddd",
+    "color": "#EFEFEF",
     "width": 1,
     "hide": false
   },
@@ -25,33 +25,7 @@
       {
         "id": "1",
         "name": "泳道1",
-        "rowNum": 3,
-        "leftBackgroundColor": "#f0f0f0",
-        "borderColor": "black",
-        "border": 1,
-        "textColor": "#555",
-        "fontSize": 16,
-        "fontFamily": "Calibri",
-        "textLeftMargin": 10,
-        "textTopMargin": 10,
-        "textBottomMargin": 10,
-        "button": {
-          "bottomMargin": 20,
-          "leftMargin": 4,
-          "width": 15,
-          "height": 15,
-          "cornerRadius": 3,
-          "backgroundColor": "#aaa",
-          "borderColor": "black",
-          "border": 0,
-          "textColor": "#fff",
-          "fontSize": 20,
-          "fontFamily": "Calibri",
-          "hoverTextColor": "#fff",
-          "hoverFontSize": 12,
-          "hoverFontFamily": "Calibri",
-          "hoverBackgroundColor": "#555"
-        }
+        "rowNum": 3
       },
       {
         "id": "2",
@@ -183,6 +157,28 @@
     "fontFamily": "Calibre"
   },
   "bar": {
+    "startOffSetPct": {
+      "xPct": 0.8,
+      "yPct": 0.2
+    },
+    "width": 200,
+    "height": 400,
+    "hide": false,
+    "backgroundColor": "white",
+    "borderColor": "#EBEBEB",
+    "radius": 10,
+    "border": 1,
+    "middleLineColor": "#F1F0FF",
+    "middleLineWidth": 1,
+    "shadow": {
+      "color": "black",
+      "blur": 10,
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "opacity": 0.2
+    }
   },
   "node": {
     "entry": [

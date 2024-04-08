@@ -35,7 +35,7 @@ export class ChronosWindowData extends ComponentData {
         this.width = data.width ?? 0;
         this.height = data.height ?? 0;
         this.border = data.border ?? 1;
-        this.borderColor = data.borderColor ?? "black";
+        this.borderColor = data.borderColor ?? "#E0DFFF";
     }
 }
 
