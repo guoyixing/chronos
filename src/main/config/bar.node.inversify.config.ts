@@ -21,7 +21,7 @@ export class NodeBarConfig {
         const barData: ChronosNodeBarData = new ChronosNodeBarData(chronosContainer.get<Context>(TYPES.Context), bar);
         barData.candidateNode.set("star", StarNodeShape);
         barData.candidateTransformableNode.set("arrow", ArrowNodeShape);
-        barData.candidateTransformableNode.set("rect", RectNodeShape);
+        // barData.candidateTransformableNode.set("rect", RectNodeShape);
 
         chronosContainer.bind<ChronosNodeBarData>(TYPES.ChronosNodeBarData).toConstantValue(barData);
         chronosContainer.bind<ChronosNodeBarService>(TYPES.ChronosNodeBarService).to(ChronosNodeBarService);
