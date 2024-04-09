@@ -104,6 +104,10 @@ export class ChronosNodeTransformerService implements ComponentService {
             stroke: data.pointBorderColor,
             strokeWidth: data.pointBorder,
             draggable: true,
+            shadowColor: data.shadow.color,
+            shadowBlur: data.shadow.blur,
+            shadowOffset: data.shadow.offset,
+            shadowOpacity: data.shadow.opacity,
             dragBoundFunc: function (pos) {
                 return {
                     x: pos.x,
@@ -121,6 +125,10 @@ export class ChronosNodeTransformerService implements ComponentService {
             stroke: data.pointBorderColor,
             strokeWidth: data.pointBorder,
             draggable: true,
+            shadowColor: data.shadow.color,
+            shadowBlur: data.shadow.blur,
+            shadowOffset: data.shadow.offset,
+            shadowOpacity: data.shadow.opacity,
             dragBoundFunc: function (pos) {
                 return {
                     x: pos.x,

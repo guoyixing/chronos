@@ -131,9 +131,18 @@
   },
   "transformer": {
     "pointRadius": 5,
-    "pointColor": "#ddd",
-    "pointBorder": 1,
-    "pointBorderColor": "black"
+    "pointColor": "#FFF",
+    "pointBorder": 2,
+    "pointBorderColor": "#359EE8",
+    "shadow": {
+      "color": "#359EE8",
+      "blur": 5,
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "opacity": 0.7
+    }
   },
   "timeline": {
     "initTime": "2023-12-01 00:00:00",

@@ -3,6 +3,7 @@ import {injectable} from "inversify";
 import {Context} from "../../../../core/context/context";
 import {ChronosNodeEntryComponent} from "../entry/entry.node.component";
 import Konva from "konva";
+import {ShadowConfigType, ShadowType} from "../../../../common/type/shadow.type";
 
 /**
  * 节点变形器-组件数据
@@ -49,12 +50,26 @@ export class ChronosNodeTransformerData extends ComponentData {
      */
     pointBorderColor: string
 
+    /**
+     * 阴影
+     */
+    shadow: ShadowType
+
     constructor(context: Context, data: ChronosNodeTransformerDataType) {
         super(context);
         this.pointRadius = data.pointRadius ?? 5
-        this.pointColor = data.pointColor ?? "#ddd"
-        this.pointBorder = data.pointBorder ?? 1
-        this.pointBorderColor = data.pointBorderColor ?? "black"
+        this.pointColor = data.pointColor ?? "#FFF"
+        this.pointBorder = data.pointBorder ?? 2
+        this.pointBorderColor = data.pointBorderColor ?? "#359EE8"
+        this.shadow = {
+            color: data.shadow?.color ?? '#359EE8',
+            blur: data.shadow?.blur ?? 5,
+            offset: {
+                x: data.shadow?.offset?.x ?? 0,
+                y: data.shadow?.offset?.y ?? 0
+            },
+            opacity: data.shadow?.opacity ?? 0.7
+        }
     }
 }
 
@@ -66,4 +81,5 @@ export type ChronosNodeTransformerDataType = {
     pointColor?: string
     pointBorder?: number
     pointBorderColor?: string
+    shadow?: ShadowConfigType
 }
