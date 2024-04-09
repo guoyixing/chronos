@@ -34,8 +34,8 @@ export class StarNodeShape implements NodeShape {
             numPoints: 5,
             innerRadius: 5,
             outerRadius: 10,
-            fill: 'yellow',
-            stroke: 'black',
+            fill: '#FFFF00',
+            stroke: '#F08C00',
             strokeWidth: 1,
         });
         //添加节点名

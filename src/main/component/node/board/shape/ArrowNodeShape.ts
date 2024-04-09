@@ -36,8 +36,8 @@ export class ArrowNodeShape implements NodeShape {
             x: 0,
             y: 0,
             radius: 5,
-            fill: 'black',
-            stroke: 'black',
+            fill: '#2F9E44',
+            stroke: '#2F9E44',
             strokeWidth: 1,
         });
 
@@ -48,8 +48,8 @@ export class ArrowNodeShape implements NodeShape {
             points: [0, 0, coordinate.xFinish - coordinate.xStart, 0],
             pointerLength: 10,
             pointerWidth: 10,
-            fill: 'black',
-            stroke: 'black',
+            fill: '#2F9E44',
+            stroke: '#2F9E44',
             strokeWidth: 3,
         });
         const width = arrow.width() - arrow.pointerLength();
