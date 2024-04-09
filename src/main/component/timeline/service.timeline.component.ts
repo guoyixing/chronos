@@ -314,7 +314,7 @@ export class ChronosTimelineService implements ComponentService {
         //计算当前时间相对于开始时间的距离
         const x = betweenMs(time, currentDay) * (data.dayWidth / oneDayMillisecond);
         //x坐标
-        return coordinate.x + data.startOffSet.x + data.headWidth + x;
+        return coordinate.x + data.startOffSet.x + data.headWidth + x - data.border * 2;
     }
 
     /**
@@ -330,7 +330,7 @@ export class ChronosTimelineService implements ComponentService {
         const currentDay = new Date(data.initTime.getTime() - offsetDay * oneDayMillisecond);
 
         //计算时间偏移量  （x坐标 - 起始x坐标 - 头部宽度）* （每个像素点代表的时间宽度）
-        const time = (x - coordinate.x - data.startOffSet.x - data.headWidth) * (oneDayMillisecond / data.dayWidth);
+        const time = (x - coordinate.x - data.startOffSet.x - data.headWidth - data.border * 2) * (oneDayMillisecond / data.dayWidth);
 
         //当前的时间（时间轴最左侧的时间）+时间偏移量
         return new Date(currentDay.getTime() + time);
