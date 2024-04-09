@@ -129,7 +129,24 @@ export class ChronosNodeBarService implements ComponentService {
             candidateNode.on('dragend', () => {
                 candidateNode.y(originalY)
                 candidateNode.x(xStart)
-                this.addNodeEntry(node);
+
+                //鼠标没有停留在导航窗的时候添加节点
+                const data = this._data;
+                const width = data.width ?? 0;
+                const height = data.height ?? 0;
+                const x = data.startOffSet.x
+                const y = data.startOffSet.y
+                //鼠标位置
+                //获取鼠标位置
+                const pointerPosition = data.context.drawContext.stage.getPointerPosition();
+                if (!pointerPosition) {
+                    return;
+                }
+                const mouseX = pointerPosition.x;
+                const mouseY = pointerPosition.y;
+                if (mouseX<x || mouseX>x+width || mouseY<y || mouseY>y+height) {
+                    this.addNodeEntry(node);
+                }
             })
             this._nodeGroup.service.listenMove(node, false);
             group.add(candidateNode);

@@ -1,6 +1,7 @@
 import {ComponentData} from "../data.component";
 import {Context} from "../../core/context/context";
 import {injectable} from "inversify";
+import {ShadowConfigType, ShadowType} from "../../common/type/shadow.type";
 
 /**
  * 时间轴-组件数据
@@ -54,6 +55,11 @@ export class ChronosTimelineData extends ComponentData {
     backgroundColor: string[]
 
     /**
+     * 圆角
+     */
+    radius: number
+
+    /**
      * 字体颜色
      */
     textColor: string
@@ -73,22 +79,37 @@ export class ChronosTimelineData extends ComponentData {
      */
     fontFamily: string
 
+    /**
+     * 阴影
+     */
+    shadow: ShadowType
+
 
     constructor(context: Context, data: ChronosTimelineDataType) {
         super(context);
         this.initTime = new Date(data.initTime);
         this.startOffSet = data.startOffSet;
-        this.dayWidth = data.dayWidth ?? 20
+        this.dayWidth = data.dayWidth ?? 40
         this.textMinWidth = data.textMinWidth ?? 15
         this.rowHeight = data.rowHeight ?? 20
         this.headWidth = data.headWidth ?? 60
         this.border = data.border ?? 1
-        this.borderColor = data.borderColor ?? "black"
-        this.backgroundColor = data.backgroundColor ?? ["#f0f0f0", "#e0e0e0"]
-        this.textColor = data.textColor ?? "black"
+        this.borderColor = data.borderColor ?? "#DADADA"
+        this.backgroundColor = data.backgroundColor ?? ["#FFF", "#ECECF4"]
+        this.radius = data.radius ?? 5
+        this.textColor = data.textColor ?? "#4F4F54"
         this.fontSize = data.fontSize ?? 12
         this.textMargin = data.textMargin ?? 10
         this.fontFamily = data.fontFamily ?? "Calibre"
+        this.shadow = {
+            color: data.shadow?.color ?? 'black',
+            blur: data.shadow?.blur ?? 10,
+            offset: {
+                x: data.shadow?.offset?.x ?? 0,
+                y: data.shadow?.offset?.y ?? 0
+            },
+            opacity: data.shadow?.opacity ?? 0.2
+        }
     }
 }
 
@@ -105,8 +126,10 @@ export type ChronosTimelineDataType = {
     border?: number
     borderColor?: string
     backgroundColor?: string[]
+    radius?: number
     textColor?: string
     fontSize?: number
     textMargin?: number
     fontFamily?: string
+    shadow: ShadowConfigType
 }

@@ -132,8 +132,9 @@ export class ChronosNodeDetailService implements ComponentService {
             width: data.width,
             height: data.titleHeight,
             fill: data.titleBackgroundColor,
-            stroke: data.borderColor,
+            stroke: data.titleBackgroundColor,
             strokeWidth: data.border,
+            cornerRadius: [data.radius, data.radius, 0, 0]
         });
     }
 
@@ -151,6 +152,11 @@ export class ChronosNodeDetailService implements ComponentService {
             fill: data.backgroundColor,
             stroke: data.borderColor,
             strokeWidth: data.border,
+            shadowColor: data.shadow.color,
+            shadowBlur: data.shadow.blur,
+            shadowOffset: data.shadow.offset,
+            shadowOpacity: data.shadow.opacity,
+            cornerRadius: data.radius
         });
     }
 

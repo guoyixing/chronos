@@ -43,6 +43,7 @@ export class ChronosTimelineService implements ComponentService {
     }
 
     draw(): void {
+        this.drawShadow()
         this.drawYear()
         this.drawMonth()
         this.drawDay()
@@ -68,15 +69,23 @@ export class ChronosTimelineService implements ComponentService {
             width: data.headWidth,
             height: data.rowHeight * 3,
             fill: 'white',
-            shadowColor: 'black',
-            shadowBlur: 10,
-            shadowOffset: {x: 0, y: 0},
-            shadowOpacity: 0.2,
+            shadowColor: data.shadow.color,
+            shadowBlur: data.shadow.blur,
+            shadowOffset: data.shadow.offset,
+            shadowOpacity: data.shadow.opacity,
+            cornerRadius: data.radius
         });
         data.layer?.add(background)
-        const text = ['年', '月', '日']
+        const texts = ['年', '月', '日']
 
-        text.forEach((text, index) => {
+        texts.forEach((text, index) => {
+            let radius: number[] = [0, 0, 0, 0]
+            if (index === 0) {
+                radius = [0, data.radius, 0, 0]
+            } else if (index === texts.length - 1) {
+                radius = [0, 0, data.radius, 0]
+            }
+
             //绘制年的矩形
             const headRect = new Konva.Rect({
                 x: x,
@@ -86,6 +95,7 @@ export class ChronosTimelineService implements ComponentService {
                 strokeWidth: data.border,
                 fill: data.backgroundColor[(index + 1) % data.backgroundColor.length],
                 stroke: data.borderColor,
+                cornerRadius: radius
             });
             const headText = new Konva.Text({
                 x: x + (data.headWidth - data.fontSize) / 2,
@@ -234,7 +244,7 @@ export class ChronosTimelineService implements ComponentService {
         const currentDay = new Date(data.initTime.getTime() - offsetDay * oneDayMillisecond);
 
         //剩余的宽度
-        let surplusWidth = this._window.service.getVisualRange().width + this._window.data.border - data.startOffSet.x - data.headWidth;
+        let surplusWidth = this._window.service.getVisualRange().width + this._window.data.border - data.startOffSet.x - data.headWidth + data.border * 2;
         //x坐标
         let x = coordinate.x + data.startOffSet.x + data.headWidth;
         //y坐标
@@ -255,7 +265,7 @@ export class ChronosTimelineService implements ComponentService {
 
             //绘制时间的矩形
             const timeRect = new Konva.Rect({
-                x: x,
+                x: x - data.border * 2,
                 y: y,
                 width: width,
                 height: data.rowHeight,
@@ -340,5 +350,27 @@ export class ChronosTimelineService implements ComponentService {
             this._data.layer?.destroyChildren()
             this.draw()
         })
+    }
+
+    drawShadow() {
+        const data = this._data;
+        const coordinate = this._data.context.drawContext.getFixedCoordinate();
+        //x坐标
+        let x = coordinate.x + data.startOffSet.x + data.headWidth - data.border * 2;
+        //y坐标
+        const y = coordinate.y + data.startOffSet.y
+        //绘制背景
+        const background = new Konva.Rect({
+            x: x,
+            y: y,
+            width: this._window.service.getVisualRange().width + this._window.data.border + data.border * 2,
+            height: data.rowHeight * 3,
+            fill: 'white',
+            shadowColor: data.shadow.color,
+            shadowBlur: data.shadow.blur,
+            shadowOffset: data.shadow.offset,
+            shadowOpacity: data.shadow.opacity,
+        });
+        data.layer?.add(background)
     }
 }

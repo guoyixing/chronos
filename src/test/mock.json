@@ -5,11 +5,11 @@
   },
   "grid": {
     "startOffSet": {
-      "x": 60,
+      "x": 58,
       "y": 0
     },
     "tbGapSize": 20,
-    "lrGapSize": 20,
+    "lrGapSize": 40,
     "color": "#EFEFEF",
     "width": 1,
     "hide": false
@@ -141,7 +141,7 @@
       "x": 0,
       "y": 1
     },
-    "dayWidth": 20,
+    "dayWidth": 40,
     "textMinWidth": 15,
     "rowHeight": 20,
     "headWidth": 60,
@@ -233,23 +233,33 @@
   "detail": {
     "width": 250,
     "backgroundColor": "white",
-    "borderColor": "black",
+    "borderColor": "#F1F0FF",
     "border": 1,
+    "radius": 5,
     "titleHeight": 25,
-    "titleBackgroundColor": "#f0f0f0",
+    "titleBackgroundColor": "#ECECF4",
     "titleText": "详细信息",
-    "titleFontColor": "black",
+    "titleFontColor": "#4F4F54",
     "titleFontSize": 15,
     "titleFontFamily": "Calibri",
     "textLeftMargin": 10,
     "textTopMargin": 10,
-    "textFontColor": "black",
+    "textFontColor": "#4F4F54",
     "textFontSize": 15,
     "textFontFamily": "Calibri",
     "textLineHeight": 1.5,
     "mouseOffset": {
       "x": 25,
       "y": 25
+    },
+    "shadow": {
+      "color": "black",
+      "blur": 10,
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "opacity": 0.5
     }
   }
 }
