@@ -246,7 +246,7 @@ export type ChronosLaneEntryDataType = {
     textTopMargin?: number
     textBottomMargin?: number
     radius?: number[] | number
-    shadow: ShadowConfigType
+    shadow?: ShadowConfigType
     button?: {
         bottomMargin?: number,
         leftMargin?: number,

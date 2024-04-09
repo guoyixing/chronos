@@ -131,5 +131,5 @@ export type ChronosTimelineDataType = {
     fontSize?: number
     textMargin?: number
     fontFamily?: string
-    shadow: ShadowConfigType
+    shadow?: ShadowConfigType
 }
