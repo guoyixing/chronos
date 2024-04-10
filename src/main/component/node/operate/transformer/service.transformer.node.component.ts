@@ -148,7 +148,7 @@ export class ChronosNodeTransformerService implements ComponentService {
             y: 0,
             text: date?.toLocaleString() ?? '',
             width: data.time.background.width,
-            height: data.time.background.height+data.time.background.border*2,
+            height: data.time.background.height + data.time.background.border * 2,
             fontSize: data.time.text.fontSize,
             fill: data.time.text.fill,
             align: 'center',
@@ -185,11 +185,14 @@ export class ChronosNodeTransformerService implements ComponentService {
 
         //绑定左节点的移动事件
         const leftControlPoint = data.leftControlPoint;
+        //绑定右节点的移动事件
+        const rightControlPoint = data.rightControlPoint;
         if (leftControlPoint) {
             let leftX: number;
             leftControlPoint?.on('dragstart', () => {
                 coordinate = nodeGraphics?.coordinate();
                 leftX = leftControlPoint.x();
+                leftControlPoint.moveUp()
             })
 
             //获取节点的偏移量
@@ -215,13 +218,12 @@ export class ChronosNodeTransformerService implements ComponentService {
                 leftControlPoint.findOne<Konva.Text>('Text')?.text(data.bindNode?.data.startTime?.toLocaleString() ?? '')
             })
 
-            //绑定右节点的移动事件
-            const rightControlPoint = data.rightControlPoint;
             if (rightControlPoint) {
                 let rightX: number;
                 rightControlPoint?.on('dragstart', () => {
                     coordinate = nodeGraphics?.coordinate();
                     rightX = rightControlPoint.x();
+                    rightControlPoint.moveUp()
                 })
 
                 //获取节点的偏移量
