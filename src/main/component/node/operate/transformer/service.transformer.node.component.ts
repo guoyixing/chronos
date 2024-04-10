@@ -96,39 +96,71 @@ export class ChronosNodeTransformerService implements ComponentService {
             return
         }
         //绘制左控制器
-        data.leftControlPoint = new Konva.Circle({
-            x: coordinate.xStart - transformerOffset?.left || 0,
-            y: coordinate.y,
-            radius: data.pointRadius,
-            fill: data.pointColor,
-            stroke: data.pointBorderColor,
-            strokeWidth: data.pointBorder,
-            draggable: true,
-            shadowColor: data.shadow.color,
-            shadowBlur: data.shadow.blur,
-            shadowOffset: data.shadow.offset,
-            shadowOpacity: data.shadow.opacity,
-            dragBoundFunc: function (pos) {
-                return {
-                    x: pos.x,
-                    y: this.getAbsolutePosition().y
-                };
-            }
-        });
+        data.leftControlPoint = this.drawControlPoint(coordinate.xStart - transformerOffset.left, data.bindNode?.data.startTime);
+
 
         //绘制右控制器
-        data.rightControlPoint = new Konva.Circle({
-            x: coordinate.xFinish + transformerOffset?.right || 0,
-            y: coordinate.y,
+        data.rightControlPoint = this.drawControlPoint(coordinate.xFinish + transformerOffset.right, data.bindNode?.data.finishTime);
+    }
+
+    drawControlPoint(transformerOffset: number, date: Date | undefined): Konva.Group | undefined {
+        const data = this._data;
+        //获取节点的图像
+        const nodeGraphics = data.bindNode?.data.graphics;
+        const coordinate = nodeGraphics?.coordinate();
+
+
+        if (coordinate === undefined || coordinate.xFinish === undefined) {
+            //如果没有获取到坐标则直接返回
+            return
+        }
+        const point = new Konva.Circle({
+            x: 0,
+            y: 0,
             radius: data.pointRadius,
             fill: data.pointColor,
             stroke: data.pointBorderColor,
             strokeWidth: data.pointBorder,
-            draggable: true,
             shadowColor: data.shadow.color,
             shadowBlur: data.shadow.blur,
             shadowOffset: data.shadow.offset,
             shadowOpacity: data.shadow.opacity,
+
+        });
+
+        //绘制时间背景
+        const background = new Konva.Rect({
+            x: 0,
+            y: 0,
+            width: data.time.background.width,
+            height: data.time.background.height,
+            fill: data.time.background.color,
+            stroke: data.time.background.borderColor,
+            cornerRadius: data.time.background.radius,
+            strokeWidth: data.time.background.border,
+        });
+        background.x(-data.time.background.width / 2 + data.time.offset.x)
+        background.y(data.time.offset.y)
+
+        //绘制时间
+        const time = new Konva.Text({
+            x: 0,
+            y: 0,
+            text: date?.toLocaleString() ?? '',
+            width: data.time.background.width,
+            height: data.time.background.height+data.time.background.border*2,
+            fontSize: data.time.text.fontSize,
+            fill: data.time.text.fill,
+            align: 'center',
+            verticalAlign: 'middle',
+        });
+        time.x(-time.width() / 2 + data.time.offset.x)
+        time.y(data.time.offset.y)
+
+        const group = new Konva.Group({
+            x: transformerOffset || 0,
+            y: coordinate.y,
+            draggable: true,
             dragBoundFunc: function (pos) {
                 return {
                     x: pos.x,
@@ -136,6 +168,10 @@ export class ChronosNodeTransformerService implements ComponentService {
                 };
             }
         });
+        group.add(background)
+            .add(time)
+            .add(point)
+        return group;
     }
 
     /**
@@ -166,19 +202,17 @@ export class ChronosNodeTransformerService implements ComponentService {
                     }
                     nodeGraphics.transform(coordinate.xStart + (leftControlPoint.x() - leftX), coordinate.y, coordinate.xFinish)
                 }
-            })
-
-            leftControlPoint?.on('dragend', () => {
                 //更新节点的坐标
-                const coordinate = data.bindNode?.data.coordinate;
+                const nodeCoordinate = data.bindNode?.data.coordinate;
                 //更新节点的坐标，这里并不是把同样的对象赋值给coordinate，coordinate会根据节点状态获取新的坐标
                 data.bindNode!.data.coordinate = {
-                    xStart: coordinate?.xStart,
-                    xFinish: coordinate?.xFinish,
-                    y: coordinate?.y
+                    xStart: nodeCoordinate?.xStart,
+                    xFinish: nodeCoordinate?.xFinish,
+                    y: nodeCoordinate?.y
                 }
                 //更新时间
                 data.bindNode?.service.updateTime();
+                leftControlPoint.findOne<Konva.Text>('Text')?.text(data.bindNode?.data.startTime?.toLocaleString() ?? '')
             })
 
             //绑定右节点的移动事件
@@ -200,20 +234,17 @@ export class ChronosNodeTransformerService implements ComponentService {
                         }
                         nodeGraphics?.transform(coordinate.xStart, coordinate.y, (coordinate.xFinish || 0) + (rightControlPoint.x() - rightX))
                     }
-                })
-
-                //更新节点的坐标
-                rightControlPoint?.on('dragend', () => {
                     //更新节点的坐标
-                    const coordinate = data.bindNode?.data.coordinate;
+                    const nodeCoordinate = data.bindNode?.data.coordinate;
                     //更新节点的坐标，这里并不是把同样的对象赋值给coordinate，coordinate会根据节点状态获取新的坐标
                     data.bindNode!.data.coordinate = {
-                        xStart: coordinate?.xStart,
-                        xFinish: coordinate?.xFinish,
-                        y: coordinate?.y
+                        xStart: nodeCoordinate?.xStart,
+                        xFinish: nodeCoordinate?.xFinish,
+                        y: nodeCoordinate?.y
                     }
                     //更新时间
                     data.bindNode?.service.updateTime();
+                    rightControlPoint.findOne<Konva.Text>('Text')?.text(data.bindNode?.data.finishTime?.toLocaleString() ?? '')
                 })
             }
         }
