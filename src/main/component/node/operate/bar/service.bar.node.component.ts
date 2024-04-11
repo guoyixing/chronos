@@ -144,7 +144,7 @@ export class ChronosNodeBarService implements ComponentService {
                 }
                 const mouseX = pointerPosition.x;
                 const mouseY = pointerPosition.y;
-                if (mouseX<x || mouseX>x+width || mouseY<y || mouseY>y+height) {
+                if (mouseX < x || mouseX > x + width || mouseY < y || mouseY > y + height) {
                     this.addNodeEntry(node);
                 }
             })

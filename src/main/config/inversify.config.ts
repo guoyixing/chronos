@@ -3,6 +3,7 @@ import {Container, interfaces} from "inversify";
 import {BaseComponent, Component} from "../component/component";
 import {ChronosLaneEntryData} from "../component/lane/entry/data.entry.lane.component";
 import {ToolbarPlugRegister} from "../component/toolbar/plug.toolbar.component";
+import {ChronosNodeReviseData} from "../component/node/operate/revise/data.revise.node.component";
 import Newable = interfaces.Newable;
 
 export const TYPES = {
@@ -12,6 +13,9 @@ export const TYPES = {
     //上下文
     Context: Symbol.for("Context"),
     DrawContext: Symbol.for("DrawContext"),
+
+    //回调
+    Callback: Symbol.for("Callback"),
 
     //生命周期
     Lifecycle: Symbol.for("Lifecycle"),
@@ -87,6 +91,11 @@ export const TYPES = {
     ChronosScaleData: Symbol.for("ChronosScaleData"),
     ChronosScaleService: Symbol.for("ChronosScaleService"),
     ChronosScaleComponent: Symbol.for("ChronosScaleComponent"),
+
+    //组件-节点修订窗
+    ChronosNodeReviseData: Symbol.for("ChronosNodeReviseData"),
+    ChronosNodeReviseService: Symbol.for("ChronosNodeReviseService"),
+    ChronosNodeReviseComponent: Symbol.for("ChronosNodeReviseComponent"),
 };
 
 /**

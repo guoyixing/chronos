@@ -8,6 +8,7 @@ import {ChronosTimelineDataType} from "../component/timeline/data.timeline.compo
 import {ChronosNodeBarDataType} from "../component/node/operate/bar/data.bar.node.component";
 import {ChronosNodeGroupDataType} from "../component/node/operate/group/data.group.node.component";
 import {ChronosNodeDetailDataType} from "../component/node/operate/detail/data.detail.node.component";
+import {ChronosNodeReviseDataType} from "../component/node/operate/revise/data.revise.node.component";
 
 export type DataType = {
     "window": ChronosWindowDataType,
@@ -19,5 +20,6 @@ export type DataType = {
     "timeline": ChronosTimelineDataType,
     "bar": ChronosNodeBarDataType,
     "node": ChronosNodeGroupDataType,
-    "detail": ChronosNodeDetailDataType
+    "detail": ChronosNodeDetailDataType,
+    "revise": ChronosNodeReviseDataType
 }

@@ -9,6 +9,8 @@ import {EVENT_TYPES, EventPublisher} from "../../../../core/event/event";
 import {ChronosNodeTransformerComponent} from "../transformer/transformer.node.component";
 import {ChronosNodeDetailComponent} from "../detail/detail.node.component";
 import {ChronosScaleComponent} from "../../../scale/scale.component";
+import {ChronosNodeReviseComponent} from "../revise/revise.node.component";
+import {Callback} from "../../../../core/event/callback/callback";
 
 /**
  * 节点条目-组件服务
@@ -24,6 +26,11 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
      * 数据
      */
     private _data: ChronosNodeEntryData
+
+    /**
+     * 回调
+     */
+    private _callback: Callback
 
     /**
      * 节点导航窗
@@ -60,22 +67,31 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
      */
     private _scale: ChronosScaleComponent
 
+    /**
+     * 修订窗
+     */
+    private _nodeRevise: ChronosNodeReviseComponent
+
 
     constructor(data: ChronosNodeEntryData,
+                callback: Callback,
                 bar: ChronosNodeBarComponent,
                 laneGroup: ChronosLaneGroupComponent,
                 timeline: ChronosTimelineComponent,
                 nodeGroup: ChronosNodeGroupComponent,
                 nodeTransformer: ChronosNodeTransformerComponent,
                 nodeDetail: ChronosNodeDetailComponent,
+                nodeRevise: ChronosNodeReviseComponent,
                 scale: ChronosScaleComponent) {
         this._data = data;
+        this._callback = callback;
         this._bar = bar;
         this._laneGroup = laneGroup;
         this._timeline = timeline;
         this._nodeGroup = nodeGroup;
         this._nodeTransformer = nodeTransformer;
         this._nodeDetail = nodeDetail;
+        this._nodeRevise = nodeRevise;
         this._scale = scale;
         this.id = "nodeEntry" + this._data.id
     }
@@ -99,6 +115,8 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         this.listenMove(nodeShape)
         //监听点击
         this.listenClick(nodeShape)
+        //监听双击
+        this.listenDblClick(nodeShape)
         //监听悬浮
         this.listenMouseOver(nodeShape)
 
@@ -161,6 +179,21 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
                 this._nodeTransformer.service.draw()
             })
         }
+    }
+
+    /**
+     * 监听双击
+     * @param nodeShape 节点
+     */
+    listenDblClick(nodeShape: NodeShape) {
+        const data = this._data;
+        const node = nodeShape.shape;
+        node?.on('dblclick', () => {
+            this._nodeRevise.service.close()
+            this._nodeRevise.data.bindNodeId = data.id;
+            this._nodeRevise.service.open()
+            this._callback.nodeDoubleClick && this._callback.nodeDoubleClick(data, this._nodeGroup)
+        })
     }
 
 

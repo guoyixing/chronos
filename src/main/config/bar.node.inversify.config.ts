@@ -9,7 +9,6 @@ import {Context} from "../core/context/context";
 import {StarNodeShape} from "../component/node/board/shape/StarNodeShape";
 import {ArrowNodeShape} from "../component/node/board/shape/ArrowNodeShape";
 import {DataType} from "./data.type";
-import {RectNodeShape} from "../component/node/board/shape/RectNodeShape";
 
 /**
  * 节点导航窗配置

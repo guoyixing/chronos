@@ -16,11 +16,16 @@ import {ScaleConfig} from "./config/scale.inversify.config";
 import {DataType} from "./config/data.type";
 import {Context} from "./core/context/context";
 import {TYPES} from "./config/inversify.config";
+import {NodeReviseConfig} from "./config/revise.node.inversify.config";
+import {CallbackConfig} from "./config/callback.inversify.config";
+import {Callback} from "./core/event/callback/callback";
 
 
 export class Chronos {
 
     chronosContainer = new Container()
+
+    callback: Callback
 
     constructor(rootHtml: HTMLDivElement, data: DataType) {
         if (!rootHtml) {
@@ -32,6 +37,8 @@ export class Chronos {
         //TODO 感觉这里写的不对
         //上下文
         new ContextConfig(this.chronosContainer, rootHtml)
+        //回调
+        this.callback = new CallbackConfig(this.chronosContainer).callback
         //窗口外框
         new WindowConfig(this.chronosContainer, rootHtml, data)
         //网格
@@ -52,6 +59,8 @@ export class Chronos {
         new NodeConfig(this.chronosContainer, rootHtml, data)
         //节点详情
         new NodeDetailConfig(this.chronosContainer, rootHtml, data)
+        //节点修订
+        new NodeReviseConfig(this.chronosContainer, rootHtml, data)
 
         //事件监听
         new EventManager(this.chronosContainer)

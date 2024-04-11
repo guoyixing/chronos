@@ -12,6 +12,8 @@ import {ChronosTimelineComponent} from "../../../timeline/timeline.component";
 import {ChronosNodeTransformerComponent} from "../transformer/transformer.node.component";
 import {ChronosNodeDetailComponent} from "../detail/detail.node.component";
 import {ChronosScaleComponent} from "../../../scale/scale.component";
+import {ChronosNodeReviseComponent} from "../revise/revise.node.component";
+import {Callback} from "../../../../core/event/callback/callback";
 
 /**
  * 节点组-组件
@@ -35,6 +37,8 @@ export class ChronosNodeGroupComponent extends BaseComponent<ChronosNodeGroupDat
      */
     init() {
         this.data.layer = this.data.context.drawContext.rootLayer
+        //回调
+        const callback = this.data.context.ioc.get<Callback>(TYPES.Callback)
         //获取泳道组
         const laneGroup = this.data.context.ioc.get<ChronosLaneGroupComponent>(TYPES.ChronosLaneGroupComponent);
         //获取节点导航窗
@@ -49,13 +53,14 @@ export class ChronosNodeGroupComponent extends BaseComponent<ChronosNodeGroupDat
         const nodeDetail = this.data.context.ioc.get<ChronosNodeDetailComponent>(TYPES.ChronosNodeDetailComponent);
         //比例尺
         const scale = this.data.context.ioc.get<ChronosScaleComponent>(TYPES.ChronosScaleComponent);
-
+        //修订窗
+        const revise = this.data.context.ioc.get<ChronosNodeReviseComponent>(TYPES.ChronosNodeReviseComponent);
 
         //初始化泳道组
         this.data.originalNodeEntryData.forEach((entryData) => {
             entryData.layer = this.data.layer;
             const service = new ChronosNodeEntryService(
-                entryData, bar, laneGroup, timeline, nodeGroup, nodeTransformer, nodeDetail, scale);
+                entryData, callback, bar, laneGroup, timeline, nodeGroup, nodeTransformer, nodeDetail, revise, scale);
             const component = new ChronosNodeEntryComponent(entryData, service);
             service.listenScale()
             this.data.nodeGroup.push(component);

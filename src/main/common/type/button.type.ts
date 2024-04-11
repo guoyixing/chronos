@@ -52,7 +52,7 @@ export type ButtonLaneType = {
         hoverColor: string
         stroke: number
         strokeColor: string
-        radius: number|number[]
+        radius: number | number[]
     },
     text: {
         color: string
@@ -81,11 +81,61 @@ export type ButtonLaneConfigType = {
         hoverColor?: string
         stroke?: number
         strokeColor?: string
-        radius?: number|number[]
+        radius?: number | number[]
     },
     text?: {
         color?: string
         fontSize?: number
         fontFamily?: string
+    }
+}
+
+/**
+ * 文字按钮
+ */
+export type ButtonTextType = {
+    margin: {
+        right: number,
+        bottom: number
+    }
+    text: {
+        color: string,
+        hoverColor: string,
+        fontSize: number,
+        fontFamily: string
+    },
+    background: {
+        color: string,
+        hoverColor: string,
+        height: number,
+        width: number,
+        stroke: number,
+        strokeColor: string,
+        radius: number | number[]
+    },
+}
+
+/**
+ * 文字按钮配置
+ */
+export type ButtonTextConfigType = {
+    margin: {
+        right?: number,
+        bottom?: number
+    }
+    text: {
+        color?: string,
+        hoverColor?: string,
+        fontSize?: number,
+        fontFamily?: string
+    },
+    background: {
+        color?: string,
+        hoverColor?: string,
+        height?: number,
+        width?: number,
+        stroke?: number,
+        strokeColor?: string,
+        radius?: number | number[]
     }
 }

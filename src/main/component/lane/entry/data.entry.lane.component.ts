@@ -150,9 +150,9 @@ export class ChronosLaneEntryData extends ComponentData {
         }
         this.button = {
             stroke: {
-                length :data.button?.stroke?.length ?? 10,
-                width :data.button?.stroke?.width ?? 2,
-                color :data.button?.stroke?.color ?? "#FFF",
+                length: data.button?.stroke?.length ?? 10,
+                width: data.button?.stroke?.width ?? 2,
+                color: data.button?.stroke?.color ?? "#FFF",
                 margin: {
                     left: data.button?.stroke?.margin?.left ?? 4,
                     bottom: data.button?.stroke?.margin?.bottom ?? 20

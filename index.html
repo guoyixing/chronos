@@ -4,11 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <title>测试页面</title>
+    <style>
+        /*body{*/
+        /*    margin: 0;*/
+        /*}*/
+        label {
+            display: flex;
+            justify-content: space-between;
+            width: 300px;
+        }
+
+        span {
+            width: 100px;
+            display: flex;
+            justify-content: flex-end;
+            font-size: 14px;
+            color: #4F4F54;
+        }
+
+        input {
+            width: 200px;
+            outline: none;
+            border: 2px solid #ECECF4;
+        }
+
+        input:focus {
+            outline: none;
+            border: 2px solid #359EE8;
+        }
+    </style>
 </head>
 
 <body id="test">
 <div id="root" style="width: 1100px;height: 600px;"></div>
-<br/>
+<div id="form" style="display:none">
+    <label>
+        <span>名称：</span>
+        <input type="text" id="nodeName">
+    </label>
+    <br/>
+    <label>
+        <span>开始时间：</span>
+        <input type="datetime-local" id="starTime">
+    </label>
+    <br/>
+    <label>
+        <span>结束时间：</span>
+        <input type="datetime-local" id="endTime">
+    </label>
+</div>
 <script type="module" src="src/test/renderer.test.ts"></script>
 </body>
 </html>
