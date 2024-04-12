@@ -47,6 +47,11 @@ Chronos类似于甘特图（横道图），但是Chronos更加灵活，可以自
 
 ![Chronos演示](https://gitee.com/sleipnir-team/chronos/raw/master/doc/images/chronos%E6%B3%B3%E9%81%93%E6%BC%94%E7%A4%BA.gif)
 
+### 节点操作
+添加节点、删除节点、编辑节点、移动节点
+
+![Chronos演示](https://gitee.com/sleipnir-team/chronos/raw/master/doc/images/chronos%E8%8A%82%E7%82%B9%E6%BC%94%E7%A4%BA.gif)
+
 ### 比例操作
 放大、缩小
 
