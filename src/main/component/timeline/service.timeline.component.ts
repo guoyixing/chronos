@@ -279,7 +279,7 @@ export class ChronosTimelineService implements ComponentService {
             if (width > data.textMinWidth) {
                 //绘制时间的字
                 const timeText = new Konva.Text({
-                    x: x,
+                    x: x - data.border * 2,
                     y: y + (data.rowHeight - data.fontSize) / 2,
                     fontSize: data.fontSize,
                     fontFamily: data.fontFamily,
@@ -330,8 +330,7 @@ export class ChronosTimelineService implements ComponentService {
         const currentDay = new Date(data.initTime.getTime() - offsetDay * oneDayMillisecond);
 
         //计算时间偏移量  （x坐标 - 起始x坐标 - 头部宽度）* （每个像素点代表的时间宽度）
-        const time = (x - coordinate.x - data.startOffSet.x - data.headWidth - data.border * 2) * (oneDayMillisecond / data.dayWidth);
-
+        const time = (x - coordinate.x - data.startOffSet.x - data.headWidth + data.border * 2) * (oneDayMillisecond / data.dayWidth);
         //当前的时间（时间轴最左侧的时间）+时间偏移量
         return new Date(currentDay.getTime() + time);
 
