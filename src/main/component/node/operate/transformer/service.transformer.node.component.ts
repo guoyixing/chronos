@@ -208,11 +208,8 @@ export class ChronosNodeTransformerService implements ComponentService {
             //获取节点的偏移量
             leftControlPoint?.on('dragmove', () => {
                 if (coordinate && coordinate.xFinish && nodeGraphics) {
-                    const minCoordinateX = coordinate.xFinish - nodeGraphics.minWidth();
-                    if (leftControlPoint.x() < minCoordinateX) {
-                    } else {
-                        leftControlPoint.x(minCoordinateX)
-                    }
+                    const minCoordinateX = coordinate.xFinish - nodeGraphics.minWidth() - nodeGraphics.transformerOffset().left;
+                    leftControlPoint.x() >= minCoordinateX && leftControlPoint.x(minCoordinateX)
                     nodeGraphics.transform(coordinate.xStart + (leftControlPoint.x() - leftX), coordinate.y, coordinate.xFinish)
                 }
                 //更新节点的坐标
@@ -248,11 +245,8 @@ export class ChronosNodeTransformerService implements ComponentService {
             //获取节点的偏移量
             rightControlPoint?.on('dragmove', () => {
                 if (coordinate && nodeGraphics) {
-                    const maxCoordinateX = coordinate.xStart + nodeGraphics.minWidth();
-                    if (rightControlPoint.x() > maxCoordinateX) {
-                    } else {
-                        rightControlPoint.x(maxCoordinateX)
-                    }
+                    const maxCoordinateX = coordinate.xStart + nodeGraphics.minWidth() + nodeGraphics.transformerOffset().right;
+                    rightControlPoint.x() <= maxCoordinateX && rightControlPoint.x(maxCoordinateX)
                     nodeGraphics?.transform(coordinate.xStart, coordinate.y, (coordinate.xFinish || 0) + (rightControlPoint.x() - rightX))
                 }
                 //更新节点的坐标
