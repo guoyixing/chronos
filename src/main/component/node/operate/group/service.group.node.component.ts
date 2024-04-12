@@ -30,6 +30,11 @@ export class ChronosNodeGroupService implements ComponentService {
     private _data: ChronosNodeGroupData
 
     /**
+     * 回调
+     */
+    private _callback: Callback
+
+    /**
      * 泳道组
      */
     private _laneGroup: ChronosLaneGroupComponent
@@ -40,9 +45,11 @@ export class ChronosNodeGroupService implements ComponentService {
     private _window: ChronosWindowComponent
 
     constructor(@inject(TYPES.ChronosNodeGroupData) data: ChronosNodeGroupData,
+                @inject(TYPES.Callback) callback: Callback,
                 @inject(TYPES.ChronosLaneGroupComponent) laneGroup: ChronosLaneGroupComponent,
                 @inject(TYPES.ChronosWindowComponent) window: ChronosWindowComponent,) {
         this._data = data;
+        this._callback = callback;
         this._laneGroup = laneGroup;
         this._window = window;
     }
@@ -192,5 +199,6 @@ export class ChronosNodeGroupService implements ComponentService {
         service.followLane()
         service.listenLane()
         service.draw();
+        this._callback.nodeAdd && this._callback.nodeAdd(entryData, data.context.ioc.get<ChronosNodeGroupComponent>(TYPES.ChronosNodeGroupComponent))
     }
 }

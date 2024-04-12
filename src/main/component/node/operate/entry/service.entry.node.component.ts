@@ -146,6 +146,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         data.graphics = undefined
         this._nodeGroup.service.removeNodeEntry(data.id)
         this.publish(EVENT_TYPES.Delete)
+        this._callback.nodeDelete && this._callback.nodeDelete(data, this._nodeGroup)
     }
 
     /**
@@ -163,6 +164,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
             this.updateTime()
             this.followLane()
             this.publish(EVENT_TYPES.Drag)
+            this._callback.nodeDrag && this._callback.nodeDrag(this._data, this._nodeGroup)
         });
     }
 

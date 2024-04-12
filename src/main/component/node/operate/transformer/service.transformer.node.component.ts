@@ -5,6 +5,7 @@ import {TYPES} from "../../../../config/inversify.config";
 import Konva from "konva";
 import {ChronosNodeGroupComponent} from "../group/group.node.component";
 import {EVENT_TYPES} from "../../../../core/event/event";
+import {Callback} from "../../../../core/event/callback/callback";
 
 /**
  * 节点变形器-组件服务
@@ -18,13 +19,20 @@ export class ChronosNodeTransformerService implements ComponentService {
     private _data: ChronosNodeTransformerData
 
     /**
+     * 回调
+     */
+    private _callback: Callback
+
+    /**
      * 节点组
      */
     private _nodeGroup: ChronosNodeGroupComponent
 
     constructor(@inject(TYPES.ChronosNodeTransformerData) data: ChronosNodeTransformerData,
+                @inject(TYPES.Callback) callback: Callback,
                 @inject(TYPES.ChronosNodeGroupComponent) nodeGroup: ChronosNodeGroupComponent) {
         this._data = data;
+        this._callback = callback;
         this._nodeGroup = nodeGroup;
     }
 
@@ -53,6 +61,8 @@ export class ChronosNodeTransformerService implements ComponentService {
         this.listenReDrawNodeEntry()
         //监听节点拖拽
         this.listenDragNodeEntry()
+        //监听节点删除
+        this.listenDeleteNodeEntry()
 
         //获取添加到节点的图层
         data.leftControlPoint && data.bindNode?.data.layer?.add(data.leftControlPoint)
@@ -218,37 +228,52 @@ export class ChronosNodeTransformerService implements ComponentService {
                 leftControlPoint.findOne<Konva.Text>('Text')?.text(data.bindNode?.data.startTime?.toLocaleString() ?? '')
             })
 
-            if (rightControlPoint) {
-                let rightX: number;
-                rightControlPoint?.on('dragstart', () => {
-                    coordinate = nodeGraphics?.coordinate();
-                    rightX = rightControlPoint.x();
-                    rightControlPoint.moveUp()
-                })
+            leftControlPoint?.on('dragend', () => {
+                if (!data.bindNode) {
+                    throw Error("绑定的节点不存在")
+                }
+                this._callback.nodeTransform && this._callback.nodeTransform(data.bindNode.data, this._nodeGroup)
+            })
+        }
 
-                //获取节点的偏移量
-                rightControlPoint?.on('dragmove', () => {
-                    if (coordinate && nodeGraphics) {
-                        const maxCoordinateX = coordinate.xStart + nodeGraphics.minWidth();
-                        if (rightControlPoint.x() > maxCoordinateX) {
-                        } else {
-                            rightControlPoint.x(maxCoordinateX)
-                        }
-                        nodeGraphics?.transform(coordinate.xStart, coordinate.y, (coordinate.xFinish || 0) + (rightControlPoint.x() - rightX))
+
+        if (rightControlPoint) {
+            let rightX: number;
+            rightControlPoint?.on('dragstart', () => {
+                coordinate = nodeGraphics?.coordinate();
+                rightX = rightControlPoint.x();
+                rightControlPoint.moveUp()
+            })
+
+            //获取节点的偏移量
+            rightControlPoint?.on('dragmove', () => {
+                if (coordinate && nodeGraphics) {
+                    const maxCoordinateX = coordinate.xStart + nodeGraphics.minWidth();
+                    if (rightControlPoint.x() > maxCoordinateX) {
+                    } else {
+                        rightControlPoint.x(maxCoordinateX)
                     }
-                    //更新节点的坐标
-                    const nodeCoordinate = data.bindNode?.data.coordinate;
-                    //更新节点的坐标，这里并不是把同样的对象赋值给coordinate，coordinate会根据节点状态获取新的坐标
-                    data.bindNode!.data.coordinate = {
-                        xStart: nodeCoordinate?.xStart,
-                        xFinish: nodeCoordinate?.xFinish,
-                        y: nodeCoordinate?.y
-                    }
-                    //更新时间
-                    data.bindNode?.service.updateTime();
-                    rightControlPoint.findOne<Konva.Text>('Text')?.text(data.bindNode?.data.finishTime?.toLocaleString() ?? '')
-                })
-            }
+                    nodeGraphics?.transform(coordinate.xStart, coordinate.y, (coordinate.xFinish || 0) + (rightControlPoint.x() - rightX))
+                }
+                //更新节点的坐标
+                const nodeCoordinate = data.bindNode?.data.coordinate;
+                //更新节点的坐标，这里并不是把同样的对象赋值给coordinate，coordinate会根据节点状态获取新的坐标
+                data.bindNode!.data.coordinate = {
+                    xStart: nodeCoordinate?.xStart,
+                    xFinish: nodeCoordinate?.xFinish,
+                    y: nodeCoordinate?.y
+                }
+                //更新时间
+                data.bindNode?.service.updateTime();
+                rightControlPoint.findOne<Konva.Text>('Text')?.text(data.bindNode?.data.finishTime?.toLocaleString() ?? '')
+            })
+
+            rightControlPoint?.on('dragend', () => {
+                if (!data.bindNode) {
+                    throw Error("绑定的节点不存在")
+                }
+                this._callback.nodeTransform && this._callback.nodeTransform(data.bindNode.data, this._nodeGroup)
+            })
         }
     }
 
@@ -315,6 +340,16 @@ export class ChronosNodeTransformerService implements ComponentService {
     listenDragNodeEntry() {
         //监听节点拖拽
         this._data.bindNode?.service.on(EVENT_TYPES.Drag, () => {
+            this.draw()
+        });
+    }
+
+    /**
+     * 监听节点删除
+     */
+    listenDeleteNodeEntry() {
+        //监听节点拖拽
+        this._data.bindNode?.service.on(EVENT_TYPES.Delete, () => {
             this.draw()
         });
     }

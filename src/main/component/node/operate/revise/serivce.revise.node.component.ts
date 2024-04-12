@@ -65,6 +65,16 @@ export class ChronosNodeReviseService implements ComponentService {
         cancelButton.on('click', () => {
             this.close();
         })
+        //绘制删除按钮
+        const deleteButton = this.drawButton("删除", confirmButton.width() + cancelButton.width() + this._data.button.margin.right * 2);
+        //删除按钮绑定事件
+        deleteButton.on('click', () => {
+            if (!this._data.bindNode) {
+                throw Error("绑定的节点不存在")
+            }
+            this._data.bindNode?.service.clear()
+            this.close();
+        })
 
         const data = this._data;
         const fixedCoordinate = this._data.context.drawContext.getFixedCoordinate();
@@ -77,6 +87,7 @@ export class ChronosNodeReviseService implements ComponentService {
         group.add(background)
         group.add(confirmButton)
         group.add(cancelButton)
+        group.add(deleteButton)
 
         //绘制表单
         this.drawForm();

@@ -1,12 +1,17 @@
 import Konva from "konva";
 import {ChronosLaneEntryService} from "./service.entry.lane.component";
+import {Callback} from "../../../core/event/callback/callback";
+import {TYPES} from "../../../config/inversify.config";
 
 export class ChronosLaneEntryButton {
 
     private _service: ChronosLaneEntryService;
 
+    private _callback: Callback
+
     constructor(service: ChronosLaneEntryService) {
         this._service = service;
+        this._callback = service.data.context.ioc.get<Callback>(TYPES.Callback);
     }
 
     /**
@@ -146,6 +151,7 @@ export class ChronosLaneEntryButton {
             data.rowNum = data.rowNum + 1;
             //重新绘制泳道
             this._service.group.service.reDraw();
+            this._callback.laneAddRow && this._callback.laneAddRow(data, this._service.group);
         });
     }
 
@@ -161,16 +167,18 @@ export class ChronosLaneEntryButton {
             data.rowNum = data.rowNum - 1;
             //重新绘制泳道
             this._service.group.service.reDraw();
+            this._callback.laneReduceRow && this._callback.laneReduceRow(data, this._service.group);
         });
     }
 
     /**
-     * 点击删除用到
+     * 点击删除泳道
      */
     clickDeleteLane(buttonGroup: Konva.Group) {
         const group = this._service.group;
         buttonGroup.on('click', () => {
             group.service.removeLaneEntry(this._service.data.id);
+            this._callback.laneDelete && this._callback.laneDelete(this._service.data, group);
         });
     }
 
@@ -180,7 +188,10 @@ export class ChronosLaneEntryButton {
     clickTopAddLane(buttonGroup: Konva.Group) {
         const group = this._service.group;
         buttonGroup.on('click', () => {
-            group.service.addLaneEntry(this._service.data.id, 0);
+            const component = group.service.addLaneEntry(this._service.data.id, 0);
+            if (component) {
+                this._callback.laneAdd && this._callback.laneAdd(component.data, group);
+            }
         });
     }
 
@@ -190,7 +201,10 @@ export class ChronosLaneEntryButton {
     clickBottomAddLane(buttonGroup: Konva.Group) {
         const group = this._service.group;
         buttonGroup.on('click', () => {
-            group.service.addLaneEntry(this._service.data.id, 1);
+            const component = group.service.addLaneEntry(this._service.data.id, 1);
+            if (component) {
+                this._callback.laneAdd && this._callback.laneAdd(component.data, group);
+            }
         });
     }
 

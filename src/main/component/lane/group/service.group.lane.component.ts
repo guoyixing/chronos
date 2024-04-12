@@ -137,7 +137,7 @@ export class ChronosLaneGroupService implements ComponentService {
      * @param id 泳道id
      * @param indexOffSet 索引偏移
      */
-    addLaneEntry(id: string, indexOffSet: number) {
+    addLaneEntry(id: string, indexOffSet: number): ChronosLaneEntryComponent | undefined {
         const data = this._data;
         const lane = this.laneById(id);
         const window = data.context.ioc.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
@@ -155,5 +155,6 @@ export class ChronosLaneGroupService implements ComponentService {
         const component = new ChronosLaneEntryComponent(entryData, service);
         data.laneGroup.splice(laneIndex, 0, component);
         this.reDraw();
+        return component;
     }
 }
