@@ -34,6 +34,7 @@ Chronos类似于甘特图（横道图），但是Chronos更加灵活，可以自
 
 ## 文档
 - [中文文档](https://gitee.com/sleipnir-team/chronos/wikis/pages)
+- [English Document](https://github.com/guoyixing/chronos/wiki)
 
 ## 特点
 - 可视化的计划管理/资源

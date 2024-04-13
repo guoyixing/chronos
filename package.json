@@ -1,7 +1,22 @@
 {
-  "name": "name",
-  "private": true,
-  "version": "0.0.0",
+  "name": "other-chronos",
+  "version": "0.0.1",
+  "main": "dist/chronos.js",
+  "description": "Chronos is a front-end plug-in for project management and resource management.",
+  "author": "KeyboardDog",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
+  "keywords": [
+    "chronos",
+    "gantt",
+    "project management",
+    "resource management"
+  ],
+  "license": "Apache-2.0",
   "type": "module",
   "scripts": {
     "dev": "vite dev",
@@ -22,5 +37,10 @@
     "inversify": "^6.0.2",
     "konva": "^9.3.5",
     "reflect-metadata": "0.1.13"
+  },
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/guoyixing/chronos.git"
   }
 }
