@@ -178,7 +178,6 @@ export class ChronosLaneEntryButton {
         const group = this._service.group;
         buttonGroup.on('click', () => {
             group.service.removeLaneEntry(this._service.data.id);
-            this._callback.laneDelete && this._callback.laneDelete(this._service.data, group);
         });
     }
 

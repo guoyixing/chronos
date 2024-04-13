@@ -3,7 +3,7 @@ import {DataType} from "./data.type";
 import {ChronosNodeReviseData} from "../component/revise/node/data.node.revise.component";
 import {bindComponent, bindLifecycle, TYPES} from "./inversify.config";
 import {Context} from "../core/context/context";
-import {ChronosNodeReviseService} from "../component/revise/node/serivce.node.revise.component";
+import {ChronosNodeReviseService} from "../component/revise/node/service.node.revise.component";
 import {ChronosNodeReviseComponent} from "../component/revise/node/node.revise.component";
 import {StageDragListener} from "../core/event/event";
 

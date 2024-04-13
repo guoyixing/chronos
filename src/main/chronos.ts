@@ -19,6 +19,7 @@ import {TYPES} from "./config/inversify.config";
 import {NodeReviseConfig} from "./config/node.revise.inversify.config";
 import {CallbackConfig} from "./config/callback.inversify.config";
 import {Callback} from "./core/event/callback/callback";
+import {LaneReviseConfig} from "./config/lane.revise.inversify.config";
 
 
 export class Chronos {
@@ -61,6 +62,8 @@ export class Chronos {
         new NodeDetailConfig(this.chronosContainer, rootHtml, data)
         //节点修订
         new NodeReviseConfig(this.chronosContainer, rootHtml, data)
+        //泳道修订
+        new LaneReviseConfig(this.chronosContainer, rootHtml, data)
 
         //事件监听
         new EventManager(this.chronosContainer)

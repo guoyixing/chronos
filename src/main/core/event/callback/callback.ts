@@ -4,6 +4,7 @@ import {injectable} from "inversify";
 import {ChronosNodeEntryComponent} from "../../../component/node/operate/entry/entry.node.component";
 import {ChronosLaneEntryData} from "../../../component/lane/entry/data.entry.lane.component";
 import {ChronosLaneGroupComponent} from "../../../component/lane/group/group.lane.component";
+import {ChronosLaneEntryComponent} from "../../../component/lane/entry/entry.lane.component";
 
 /**
  * 回调事件
@@ -36,6 +37,11 @@ export class Callback {
     nodeDelete: ((node: ChronosNodeEntryData, nodeGroup: ChronosNodeGroupComponent) => void) | undefined
 
     /**
+     * 泳道双击回调
+     */
+    laneDoubleClick: ((lane: ChronosLaneEntryData, laneGroup: ChronosLaneGroupComponent) => void) | undefined
+
+    /**
      * 泳道新增行
      */
     laneAddRow: ((lane: ChronosLaneEntryData, laneGroup: ChronosLaneGroupComponent) => void) | undefined
@@ -56,8 +62,13 @@ export class Callback {
     laneDelete: ((lane: ChronosLaneEntryData, laneGroup: ChronosLaneGroupComponent) => void) | undefined
 
     /**
-     * 修订窗确定回调
+     * 节点修订窗确定回调
      */
-    reviseConfirm: ((node: ChronosNodeEntryData, nodeGroup: ChronosNodeEntryComponent) => void) | undefined
+    nodeReviseConfirm: ((node: ChronosNodeEntryData, nodeGroup: ChronosNodeEntryComponent) => void) | undefined
+
+    /**
+     * 泳道修订窗确定回调
+     */
+    laneReviseConfirm: ((lane: ChronosLaneEntryData, laneGroup: ChronosLaneEntryComponent) => void) | undefined
 
 }

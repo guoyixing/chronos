@@ -5,6 +5,8 @@ import {ChronosLaneGroupComponent} from "../group/group.lane.component";
 import Konva from "konva";
 import {EVENT_TYPES, EventPublisher} from "../../../core/event/event";
 import {ChronosLaneEntryButton} from "./button.entry.lane.component";
+import {Callback} from "../../../core/event/callback/callback";
+import {ChronosLaneReviseComponent} from "../../revise/lane/lane.revise.component";
 
 /**
  * 泳道条目-组件服务
@@ -17,6 +19,11 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * 数据
      */
     data: ChronosLaneEntryData
+
+    /**
+     * 回调
+     */
+    private _callback: Callback
 
     /**
      * 泳道组
@@ -33,12 +40,21 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      */
     private _laneEntryButton: ChronosLaneEntryButton
 
+    /**
+     * 修订窗
+     */
+    private _laneRevise: ChronosLaneReviseComponent
+
     constructor(data: ChronosLaneEntryData,
+                callback: Callback,
                 window: ChronosWindowComponent,
-                group: ChronosLaneGroupComponent) {
+                group: ChronosLaneGroupComponent,
+                laneRevise: ChronosLaneReviseComponent) {
         this.data = data;
+        this._callback = callback;
         this._window = window;
         this.group = group;
+        this._laneRevise = laneRevise
         this.id = "laneEntry" + this.data.id
         this._laneEntryButton = new ChronosLaneEntryButton(this);
     }
@@ -85,6 +101,8 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
         if (!data.hideLeft) {
             //左侧泳道分割块绘制
             drawLeft = this.drawLeft(height);
+            //监听双击
+            this.listenDblClick(drawLeft)
 
             //绘制泳道名
             const drawName = this.drawName(height);
@@ -268,73 +286,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
             laneName.y(yBottom - data.textBottomMargin - laneName.height());
         }
 
-        this.dbClickLaneName(laneName);
-
         return laneName;
-    }
-
-    /**
-     * 监听双击泳道名
-     * @param laneName 泳道名
-     */
-    private dbClickLaneName(laneName: Konva.Text) {
-        const data = this.data;
-        //监听泳道名双击
-        laneName.on('dblclick', () => {
-            // 创建一个HTML的<input>元素
-            let textPosition = laneName.getAbsolutePosition();
-            let stageBox = data.context.drawContext.stage.container().getBoundingClientRect();
-            let areaPosition = {
-                x: stageBox.left + textPosition.x,
-                y: stageBox.top + textPosition.y,
-            };
-
-            let textarea = document.createElement('input');
-            document.body.appendChild(textarea);
-
-            // 设置<input>元素的位置和样式
-            textarea.style.position = 'absolute';
-            textarea.style.top = areaPosition.y + 'px';
-            textarea.style.left = areaPosition.x + 'px';
-            textarea.style.width = laneName.width() - laneName.padding() + 'px';
-            textarea.style.height = laneName.height() - laneName.padding() + 'px';
-            textarea.style.fontSize = laneName.fontSize() + 'px';
-            textarea.style.border = 'none';
-            textarea.style.padding = '0px';
-            textarea.style.margin = '0px';
-            textarea.style.overflow = 'hidden';
-            textarea.style.background = 'none';
-            textarea.style.outline = 'none';
-            textarea.style.resize = 'none';
-
-            // 设置<input>元素的值并聚焦
-            textarea.value = laneName.text();
-            textarea.focus();
-
-            laneName.text("")
-
-            textarea.addEventListener('keydown', (e) => {
-                // 当用户完成输入并离开<input>元素时，更新Konva.Text对象的文本并删除<input>元素
-                if (e.key === 'Enter') {
-                    if (textarea.value === '') {
-                        textarea.value = data.name;
-                    }
-                    laneName.text(textarea.value);
-                    data.name = textarea.value;
-                    document.body.removeChild(textarea);
-                }
-            });
-
-            textarea.addEventListener('blur', function () {
-                // 当文本框失去焦点时，更新Konva.Text对象的文本并删除<input>元素
-                if (textarea.value === '') {
-                    textarea.value = data.name;
-                }
-                laneName.text(textarea.value);
-                data.name = textarea.value;
-                document.body.removeChild(textarea);
-            });
-        });
     }
 
     /**
@@ -431,6 +383,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
         this.group.data.originalLaneEntryData.splice(data.index, 1);
         this.group.data.laneGroup.splice(data.index, 1);
         this.publish(EVENT_TYPES.Delete)
+        this._callback.laneDelete && this._callback.laneDelete(data, this.group);
     }
 
     /**
@@ -450,5 +403,18 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
     publish(event: symbol): void {
         const eventManager = this.data.context.eventManager;
         eventManager?.publish(this, event)
+    }
+
+    /**
+     * 监听双击
+     * @param drawLeft 左侧泳道分割块
+     */
+    listenDblClick(drawLeft: Konva.Rect) {
+        drawLeft?.on('dblclick', () => {
+            this._laneRevise.service.close()
+            this._laneRevise.data.bindId = this.data.id;
+            this._laneRevise.service.open()
+            this._callback.laneDoubleClick && this._callback.laneDoubleClick(this.data, this.group)
+        })
     }
 }

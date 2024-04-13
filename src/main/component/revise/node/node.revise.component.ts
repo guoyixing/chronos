@@ -1,5 +1,5 @@
 import {ChronosNodeReviseData} from "./data.node.revise.component";
-import {ChronosNodeReviseService} from "./serivce.node.revise.component";
+import {ChronosNodeReviseService} from "./service.node.revise.component";
 import {inject, injectable} from "inversify";
 import {Lifecycle} from "../../../core/lifecycle/lifecycle";
 import {StageDragListener} from "../../../core/event/event";

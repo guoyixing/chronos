@@ -437,6 +437,9 @@
     }
   },
   "nodeRevise": {
-    "formId": "form"
+    "formId": "nodeForm"
+  },
+  "laneRevise": {
+    "formId": "laneForm"
   }
 }

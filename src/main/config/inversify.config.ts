@@ -96,6 +96,11 @@ export const TYPES = {
     ChronosNodeReviseData: Symbol.for("ChronosNodeReviseData"),
     ChronosNodeReviseService: Symbol.for("ChronosNodeReviseService"),
     ChronosNodeReviseComponent: Symbol.for("ChronosNodeReviseComponent"),
+
+    //组件-泳道修订窗
+    ChronosLaneReviseData: Symbol.for("ChronosLaneReviseData"),
+    ChronosLaneReviseService: Symbol.for("ChronosLaneReviseService"),
+    ChronosLaneReviseComponent: Symbol.for("ChronosLaneReviseComponent"),
 };
 
 /**

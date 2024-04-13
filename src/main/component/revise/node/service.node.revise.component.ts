@@ -13,6 +13,8 @@ import {ChronosNodeEntryComponent} from "../../node/operate/entry/entry.node.com
 @injectable()
 export class ChronosNodeReviseService extends ChronosReviseService<ChronosNodeEntryComponent> implements ComponentService {
 
+    formName = "node-revise"
+
     /**
      * 回调
      */
@@ -48,7 +50,7 @@ export class ChronosNodeReviseService extends ChronosReviseService<ChronosNodeEn
         if (!this._data.bind) {
             throw Error("绑定的节点不存在")
         }
-        this._callback.reviseConfirm && this._callback.reviseConfirm(this._data.bind.data, this._data.bind)
+        this._callback.nodeReviseConfirm && this._callback.nodeReviseConfirm(this._data.bind.data, this._data.bind)
         this._data.bind?.service.reDraw()
         this.close();
     }

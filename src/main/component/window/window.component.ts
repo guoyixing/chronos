@@ -31,7 +31,7 @@ export class ChronosWindowComponent extends BaseComponent<ChronosWindowData, Chr
      * 舞台拖拽监听
      */
     stageDragListen() {
-        this.data.layer?.destroyChildren()
+        this.data.graphics?.destroy()
         this.service.limitStageMove()
         this.service.draw()
     }

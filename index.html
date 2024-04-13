@@ -32,12 +32,23 @@
             outline: none;
             border: 2px solid #359EE8;
         }
+
+        textarea {
+            width: 200px;
+            outline: none;
+            border: 2px solid #ECECF4;
+        }
+
+        textarea:focus {
+            outline: none;
+            border: 2px solid #359EE8;
+        }
     </style>
 </head>
 
 <body id="test">
 <div id="root" style="width: 1100px;height: 600px;"></div>
-<div id="form" style="display:none">
+<div id="nodeForm" style="display:none">
     <label>
         <span>名称：</span>
         <input type="text" id="nodeName">
@@ -51,6 +62,12 @@
     <label>
         <span>结束时间：</span>
         <input type="datetime-local" id="endTime">
+    </label>
+</div>
+<div id="laneForm" style="display:none">
+    <label>
+        <span>名称：</span>
+        <textarea id="laneName" rows="7"></textarea>
     </label>
 </div>
 <script type="module" src="src/test/renderer.test.ts"></script>

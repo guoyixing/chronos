@@ -8,6 +8,8 @@ import {ChronosWindowComponent} from "../../window/window.component";
 import {ChronosLaneEntryService} from "../entry/service.entry.lane.component";
 import {ChronosLaneEntryComponent} from "../entry/entry.lane.component";
 import {StageDragListener} from "../../../core/event/event";
+import {Callback} from "../../../core/event/callback/callback";
+import {ChronosLaneReviseComponent} from "../../revise/lane/lane.revise.component";
 
 /**
  * 泳道组-组件
@@ -47,10 +49,14 @@ export class ChronosLaneGroupComponent extends BaseComponent<ChronosLaneGroupDat
         super.init()
         //获取窗体组件
         const window = this.data.context.ioc.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
+        //回调
+        const callback = this.data.context.ioc.get<Callback>(TYPES.Callback);
+        //修订窗
+        const revise = this.data.context.ioc.get<ChronosLaneReviseComponent>(TYPES.ChronosLaneReviseComponent);
 
         //初始化泳道组
         this.data.originalLaneEntryData.forEach((laneEntryData) => {
-            const service = new ChronosLaneEntryService(laneEntryData, window, this);
+            const service = new ChronosLaneEntryService(laneEntryData, callback, window, this, revise);
             const component = new ChronosLaneEntryComponent(laneEntryData, service);
             this.data.laneGroup.push(component);
         })

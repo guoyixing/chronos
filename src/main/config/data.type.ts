@@ -21,5 +21,6 @@ export type DataType = {
     "bar": ChronosNodeBarDataType,
     "node": ChronosNodeGroupDataType,
     "detail": ChronosNodeDetailDataType,
-    "nodeRevise": ChronosReviseDataType
+    "nodeRevise": ChronosReviseDataType,
+    "laneRevise": ChronosReviseDataType
 }

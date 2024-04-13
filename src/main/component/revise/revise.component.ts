@@ -4,7 +4,12 @@ import {Lifecycle} from "../../core/lifecycle/lifecycle";
 import {StageDragListener} from "../../core/event/event";
 import {ChronosReviseData} from "./data.revise.component";
 import {ChronosReviseService} from "./serivce.revise.component";
+import {TYPES} from "../../config/inversify.config";
+import {ChronosWindowComponent} from "../window/window.component";
 
+/**
+ * 修订窗-组件
+ */
 @injectable()
 export abstract class ChronosReviseComponent<T extends BaseComponent<any, any>, D extends ChronosReviseData<T>, S extends ChronosReviseService<T>> extends BaseComponent<D, S>
     implements Lifecycle, StageDragListener {
@@ -24,6 +29,14 @@ export abstract class ChronosReviseComponent<T extends BaseComponent<any, any>, 
             data.graphics?.x(data.startOffSet.x + fixedCoordinate.x)
             data.graphics?.y(data.startOffSet.y + fixedCoordinate.y)
         }
+    }
+
+    /**
+     * 初始化
+     */
+    init() {
+        const window = this.data.context.ioc.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
+        this.data.layer = window.data.layer
     }
 
     /**

@@ -9,6 +9,8 @@ import {ChronosLaneEntryService} from "../entry/service.entry.lane.component";
 import {ChronosLaneGroupComponent} from "./group.lane.component";
 import {Context} from "../../../core/context/context";
 import {ChronosLaneEntryData} from "../entry/data.entry.lane.component";
+import {ChronosLaneReviseComponent} from "../../revise/lane/lane.revise.component";
+import {Callback} from "../../../core/event/callback/callback";
 
 /**
  * 泳道组-组件服务
@@ -142,6 +144,8 @@ export class ChronosLaneGroupService implements ComponentService {
         const lane = this.laneById(id);
         const window = data.context.ioc.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
         const laneGroup = data.context.ioc.get<ChronosLaneGroupComponent>(TYPES.ChronosLaneGroupComponent);
+        const callback = data.context.ioc.get<Callback>(TYPES.Callback);
+        const revise = data.context.ioc.get<ChronosLaneReviseComponent>(TYPES.ChronosLaneReviseComponent);
         const context = data.context.ioc.get<Context>(TYPES.Context);
         if (!lane) {
             return
@@ -151,7 +155,7 @@ export class ChronosLaneGroupService implements ComponentService {
             id: 'new' + data.laneGroup.length,
             name: '泳道' + data.laneGroup.length
         });
-        const service = new ChronosLaneEntryService(entryData, window, laneGroup);
+        const service = new ChronosLaneEntryService(entryData, callback, window, laneGroup, revise);
         const component = new ChronosLaneEntryComponent(entryData, service);
         data.laneGroup.splice(laneIndex, 0, component);
         this.reDraw();

@@ -3,7 +3,11 @@ import {ComponentService} from "../service.component";
 import Konva from "konva";
 import {ChronosReviseData} from "./data.revise.component";
 import {BaseComponent} from "../component";
+import {ReviseManager} from "./revise.manager";
 
+/**
+ * 修订窗-组件服务
+ */
 @injectable()
 export abstract class ChronosReviseService<T extends BaseComponent<any, any>> implements ComponentService {
     /**
@@ -14,8 +18,7 @@ export abstract class ChronosReviseService<T extends BaseComponent<any, any>> im
     /**
      * form名称
      */
-    private formName: string = 'reviseForm'
-
+    abstract formName: string;
 
     constructor(data: ChronosReviseData<T>) {
         this._data = data;
@@ -204,10 +207,12 @@ export abstract class ChronosReviseService<T extends BaseComponent<any, any>> im
      * 开启图层
      */
     open() {
+        ReviseManager.getInstance().open(this);
         this._data.hide = false;
         if (this._data.form) {
             this._data.form.style.display = 'block';
         }
         this.draw();
+
     }
 }

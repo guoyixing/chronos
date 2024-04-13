@@ -88,11 +88,14 @@ export class ChronosWindowService implements ComponentService {
             strokeWidth: border
         });
 
+        const group = new Konva.Group();
+        group.add(topLine);
+        group.add(bottomLine);
+        group.add(leftLine);
+        group.add(rightLine);
+
+        this._data.graphics = group
         //加入图层
-        const layer = this._data.layer;
-        layer?.add(topLine);
-        layer?.add(bottomLine);
-        layer?.add(leftLine);
-        layer?.add(rightLine);
+        this._data.layer?.add(group)
     }
 }

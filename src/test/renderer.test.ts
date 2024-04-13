@@ -1,6 +1,7 @@
 import {Chronos} from "../main/chronos";
 import * as data from './mock.json';
 import {ChronosNodeEntryData} from "../main/component/node/operate/entry/data.entry.node.component";
+import {ChronosLaneEntryData} from "../main/component/lane/entry/data.entry.lane.component";
 
 const divElement: HTMLElement | null = document.getElementById('root');
 
@@ -13,7 +14,9 @@ try {
 
     let chronos = new Chronos(divElement as HTMLDivElement, data);
     chronos.callback.nodeDoubleClick = nodeDoubleClick
-    chronos.callback.reviseConfirm = reviseConfirm
+    chronos.callback.nodeReviseConfirm = nodeReviseConfirm
+    chronos.callback.laneDoubleClick = laneDoubleClick
+    chronos.callback.laneReviseConfirm = laneReviseConfirm
 
 } catch (e) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -31,11 +34,15 @@ function nodeDoubleClick(node: ChronosNodeEntryData) {
     let startTime = document.getElementById('starTime') as HTMLInputElement;
     let finishTime = document.getElementById('endTime') as HTMLInputElement;
     name.value = node.name;
-    console.log(node.startTime.toISOString())
     startTime.value = formatLocalDate(node.startTime)
     if (node.finishTime) {
         finishTime.value = formatLocalDate(node.finishTime)
     }
+}
+
+function laneDoubleClick(node: ChronosLaneEntryData) {
+    let name = document.getElementById('laneName') as HTMLInputElement;
+    name.value = node.name;
 }
 
 function formatLocalDate(date: Date) {
@@ -49,13 +56,18 @@ function formatLocalDate(date: Date) {
     return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
 
-function reviseConfirm(node: ChronosNodeEntryData) {
+function nodeReviseConfirm(node: ChronosNodeEntryData) {
     let name = document.getElementById('nodeName') as HTMLInputElement;
     let startTime = document.getElementById('starTime') as HTMLInputElement;
     let finishTime = document.getElementById('endTime') as HTMLInputElement;
     node.name = name.value;
     node.startTime = new Date(startTime.value);
     node.finishTime = new Date(finishTime.value);
+}
+
+function laneReviseConfirm(node: ChronosLaneEntryData) {
+    let name = document.getElementById('laneName') as HTMLInputElement;
+    node.name = name.value;
 }
 
 

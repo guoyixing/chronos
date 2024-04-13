@@ -42,6 +42,7 @@ export class ChronosToolbarService implements ComponentService {
         this.drawBackground(group);
         //绘制工具组
         this.drawToolbarGroup(group);
+        this._data.graphics = group;
         this._data.layer?.add(group);
     }
 
