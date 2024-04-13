@@ -1,49 +1,48 @@
-import {ComponentService} from "../../../service.component";
-import {inject, injectable} from "inversify";
+import {injectable} from "inversify";
+import {ComponentService} from "../service.component";
 import Konva from "konva";
-import {ChronosNodeReviseData} from "./data.revise.node.component";
-import {TYPES} from "../../../../config/inversify.config";
-import {Callback} from "../../../../core/event/callback/callback";
-import {ChronosNodeGroupComponent} from "../group/group.node.component";
-import Group = Konva.Group;
+import {ChronosReviseData} from "./data.revise.component";
+import {BaseComponent} from "../component";
 
-/**
- * 节点修订窗-组件服务
- */
 @injectable()
-export class ChronosNodeReviseService implements ComponentService {
-
+export abstract class ChronosReviseService<T extends BaseComponent<any, any>> implements ComponentService {
     /**
      * 数据
      */
-    private _data: ChronosNodeReviseData
+    _data: ChronosReviseData<T>
 
     /**
-     * 回调
+     * form名称
      */
-    private _callback: Callback
-
-    /**
-     * 节点组
-     */
-    private _nodeGroup: ChronosNodeGroupComponent;
+    private formName: string = 'reviseForm'
 
 
-    constructor(@inject(TYPES.ChronosNodeReviseData) data: ChronosNodeReviseData,
-                @inject(TYPES.Callback) callback: Callback,
-                @inject(TYPES.ChronosNodeGroupComponent) nodeGroup: ChronosNodeGroupComponent) {
+    constructor(data: ChronosReviseData<T>) {
         this._data = data;
-        this._callback = callback;
-        this._nodeGroup = nodeGroup;
     }
+
+    /**
+     * 获取绑定的组件
+     */
+    abstract getBind(): T | undefined;
+
+    /**
+     * 确认按钮事件
+     */
+    abstract reviseConfirm(): void;
+
+    /**
+     * 删除按钮事件
+     */
+    abstract reviseDelete(): void;
 
     /**
      * 绘制
      */
     draw(): void {
         //获取节点
-        if (this._data.bindNodeId) {
-            this._data.bindNode = this._nodeGroup.service.getNodeEntryByNodeId(this._data.bindNodeId);
+        if (this._data.bindId) {
+            this._data.bind = this.getBind();
         }
 
         //绘制背景
@@ -52,12 +51,7 @@ export class ChronosNodeReviseService implements ComponentService {
         const confirmButton = this.drawButton("确定");
         //确定按钮绑定事件
         confirmButton.on('click', () => {
-            if (!this._data.bindNode) {
-                throw Error("绑定的节点不存在")
-            }
-            this._callback.reviseConfirm && this._callback.reviseConfirm(this._data.bindNode.data, this._data.bindNode)
-            this._data.bindNode?.service.reDraw()
-            this.close();
+            this.reviseConfirm()
         })
         //绘制取消按钮
         const cancelButton = this.drawButton("取消", confirmButton.width() + this._data.button.margin.right);
@@ -69,16 +63,12 @@ export class ChronosNodeReviseService implements ComponentService {
         const deleteButton = this.drawButton("删除", confirmButton.width() + cancelButton.width() + this._data.button.margin.right * 2);
         //删除按钮绑定事件
         deleteButton.on('click', () => {
-            if (!this._data.bindNode) {
-                throw Error("绑定的节点不存在")
-            }
-            this._data.bindNode?.service.clear()
-            this.close();
+            this.reviseDelete()
         })
 
         const data = this._data;
         const fixedCoordinate = this._data.context.drawContext.getFixedCoordinate();
-        const group = new Group({
+        const group = new Konva.Group({
             x: data.startOffSet.x + fixedCoordinate.x,
             y: data.startOffSet.y + fixedCoordinate.y,
             width: data.width,
@@ -152,7 +142,7 @@ export class ChronosNodeReviseService implements ComponentService {
         if (!offSetX) {
             offSetX = 0
         }
-        const group = new Group({
+        const group = new Konva.Group({
             x: data.width - button.background.width - button.margin.right - offSetX,
             y: data.height - button.background.height - button.margin.bottom,
             width: button.background.width,
@@ -182,7 +172,7 @@ export class ChronosNodeReviseService implements ComponentService {
         const stagePosition = data.context.drawContext.stage.container().getBoundingClientRect();
         // 创建一个div元素作为容器
         let div = document.createElement('div');
-        div.id = 'konva-container';
+        div.id = this.formName;
         div.style.position = 'absolute';
         div.style.left = data.startOffSet.x + stagePosition.x + 'px';
         div.style.top = data.startOffSet.y + stagePosition.y + 'px';
@@ -206,7 +196,7 @@ export class ChronosNodeReviseService implements ComponentService {
         if (this._data.form) {
             this._data.form.style.display = 'none';
         }
-        document.getElementById('konva-container')?.remove();
+        document.getElementById(this.formName)?.remove();
         this._data.graphics?.destroy();
     }
 
@@ -220,5 +210,4 @@ export class ChronosNodeReviseService implements ComponentService {
         }
         this.draw();
     }
-
 }

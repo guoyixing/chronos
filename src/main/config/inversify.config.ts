@@ -3,7 +3,7 @@ import {Container, interfaces} from "inversify";
 import {BaseComponent, Component} from "../component/component";
 import {ChronosLaneEntryData} from "../component/lane/entry/data.entry.lane.component";
 import {ToolbarPlugRegister} from "../component/toolbar/plug.toolbar.component";
-import {ChronosNodeReviseData} from "../component/node/operate/revise/data.revise.node.component";
+import {ChronosNodeReviseData} from "../component/revise/node/data.node.revise.component";
 import Newable = interfaces.Newable;
 
 export const TYPES = {

@@ -1,32 +1,32 @@
-import {ComponentData} from "../../../data.component";
 import {injectable} from "inversify";
+import {ComponentData} from "../data.component";
+import {Context} from "../../core/context/context";
+import {ChronosWindowComponent} from "../window/window.component";
+import {TYPES} from "../../config/inversify.config";
+import {ShadowConfigType, ShadowType} from "../../common/type/shadow.type";
+import {ButtonTextConfigType, ButtonTextType} from "../../common/type/button.type";
 import Konva from "konva";
-import {ChronosNodeEntryComponent} from "../entry/entry.node.component";
-import {ShadowConfigType, ShadowType} from "../../../../common/type/shadow.type";
-import {Context} from "../../../../core/context/context";
-import {ChronosWindowComponent} from "../../../window/window.component";
-import {TYPES} from "../../../../config/inversify.config";
-import {ButtonTextConfigType, ButtonTextType} from "../../../../common/type/button.type";
+import {BaseComponent} from "../component";
 
 /**
- * 节点修订窗-组件数据
+ * 修订窗-组件数据
  */
 @injectable()
-export class ChronosNodeReviseData extends ComponentData {
+export abstract class ChronosReviseData<T extends BaseComponent<any, any>> extends ComponentData {
     /**
      * 图形
      */
     graphics: Konva.Group | undefined
 
     /**
-     * 绑定的节点
+     * 绑定的组件
      */
-    bindNodeId: string | undefined
+    bind: T | undefined
 
     /**
      * 绑定的节点
      */
-    bindNode: ChronosNodeEntryComponent | undefined
+    bindId: string | undefined
 
     /**
      * 表单ID
@@ -88,7 +88,8 @@ export class ChronosNodeReviseData extends ComponentData {
      */
     button: ButtonTextType
 
-    constructor(context: Context, data?: ChronosNodeReviseDataType) {
+
+    constructor(context: Context, data?: ChronosReviseDataType) {
         super(context);
         this.formId = data?.formId;
         this.form = this.formId ? document.getElementById(this.formId) as HTMLDivElement : undefined;
@@ -145,9 +146,9 @@ export class ChronosNodeReviseData extends ComponentData {
 }
 
 /**
- * 节点修订窗-组件数据
+ * 修订窗-组件数据
  */
-export type ChronosNodeReviseDataType = {
+export type ChronosReviseDataType = {
     startOffSetPct?: { xPct: number, yPct: number },
     formId?: string,
     width?: number,

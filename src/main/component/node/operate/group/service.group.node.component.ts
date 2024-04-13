@@ -15,7 +15,7 @@ import {ChronosScaleComponent} from "../../../scale/scale.component";
 import {ChronosNodeEntryService} from "../entry/service.entry.node.component";
 import {ChronosNodeGroupComponent} from "./group.node.component";
 import {ChronosNodeEntryData} from "../entry/data.entry.node.component";
-import {ChronosNodeReviseComponent} from "../revise/revise.node.component";
+import {ChronosNodeReviseComponent} from "../../../revise/node/node.revise.component";
 import {Callback} from "../../../../core/event/callback/callback";
 
 /**

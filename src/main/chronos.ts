@@ -16,7 +16,7 @@ import {ScaleConfig} from "./config/scale.inversify.config";
 import {DataType} from "./config/data.type";
 import {Context} from "./core/context/context";
 import {TYPES} from "./config/inversify.config";
-import {NodeReviseConfig} from "./config/revise.node.inversify.config";
+import {NodeReviseConfig} from "./config/node.revise.inversify.config";
 import {CallbackConfig} from "./config/callback.inversify.config";
 import {Callback} from "./core/event/callback/callback";
 

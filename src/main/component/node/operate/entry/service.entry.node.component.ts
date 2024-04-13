@@ -9,7 +9,7 @@ import {EVENT_TYPES, EventPublisher} from "../../../../core/event/event";
 import {ChronosNodeTransformerComponent} from "../transformer/transformer.node.component";
 import {ChronosNodeDetailComponent} from "../detail/detail.node.component";
 import {ChronosScaleComponent} from "../../../scale/scale.component";
-import {ChronosNodeReviseComponent} from "../revise/revise.node.component";
+import {ChronosNodeReviseComponent} from "../../../revise/node/node.revise.component";
 import {Callback} from "../../../../core/event/callback/callback";
 
 /**
@@ -192,7 +192,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         const node = nodeShape.shape;
         node?.on('dblclick', () => {
             this._nodeRevise.service.close()
-            this._nodeRevise.data.bindNodeId = data.id;
+            this._nodeRevise.data.bindId = data.id;
             this._nodeRevise.service.open()
             this._callback.nodeDoubleClick && this._callback.nodeDoubleClick(data, this._nodeGroup)
         })

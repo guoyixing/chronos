@@ -12,7 +12,7 @@ import {ChronosTimelineComponent} from "../../../timeline/timeline.component";
 import {ChronosNodeTransformerComponent} from "../transformer/transformer.node.component";
 import {ChronosNodeDetailComponent} from "../detail/detail.node.component";
 import {ChronosScaleComponent} from "../../../scale/scale.component";
-import {ChronosNodeReviseComponent} from "../revise/revise.node.component";
+import {ChronosNodeReviseComponent} from "../../../revise/node/node.revise.component";
 import {Callback} from "../../../../core/event/callback/callback";
 
 /**

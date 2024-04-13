@@ -1,10 +1,10 @@
 import {Container} from "inversify";
 import {DataType} from "./data.type";
-import {ChronosNodeReviseData} from "../component/node/operate/revise/data.revise.node.component";
+import {ChronosNodeReviseData} from "../component/revise/node/data.node.revise.component";
 import {bindComponent, bindLifecycle, TYPES} from "./inversify.config";
 import {Context} from "../core/context/context";
-import {ChronosNodeReviseService} from "../component/node/operate/revise/serivce.revise.node.component";
-import {ChronosNodeReviseComponent} from "../component/node/operate/revise/revise.node.component";
+import {ChronosNodeReviseService} from "../component/revise/node/serivce.node.revise.component";
+import {ChronosNodeReviseComponent} from "../component/revise/node/node.revise.component";
 import {StageDragListener} from "../core/event/event";
 
 /**
@@ -12,7 +12,7 @@ import {StageDragListener} from "../core/event/event";
  */
 export class NodeReviseConfig {
     constructor(chronosContainer: Container, divElement: HTMLDivElement, data: DataType) {
-        const revise = data.revise;
+        const revise = data.nodeRevise;
 
         chronosContainer.bind<ChronosNodeReviseData>(TYPES.ChronosNodeReviseData).toConstantValue(
             new ChronosNodeReviseData(chronosContainer.get<Context>(TYPES.Context), revise)

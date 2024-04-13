@@ -436,7 +436,7 @@
       "opacity": 0.5
     }
   },
-  "revise": {
+  "nodeRevise": {
     "formId": "form"
   }
 }
