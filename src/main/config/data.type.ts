@@ -9,6 +9,7 @@ import {ChronosNodeBarDataType} from "../component/node/operate/bar/data.bar.nod
 import {ChronosNodeGroupDataType} from "../component/node/operate/group/data.group.node.component";
 import {ChronosNodeDetailDataType} from "../component/node/operate/detail/data.detail.node.component";
 import {ChronosReviseDataType} from "../component/revise/data.revise.component";
+import {ChronosLaneDisplayDataType} from "../component/lane/display/data.display.lane.component";
 
 export type DataType = {
     "window": ChronosWindowDataType,
@@ -22,5 +23,6 @@ export type DataType = {
     "node": ChronosNodeGroupDataType,
     "detail": ChronosNodeDetailDataType,
     "nodeRevise": ChronosReviseDataType,
-    "laneRevise": ChronosReviseDataType
+    "laneRevise": ChronosReviseDataType,
+    "laneDisplay": ChronosLaneDisplayDataType
 }

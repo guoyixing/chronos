@@ -172,7 +172,7 @@
     },
     "width": 200,
     "height": 400,
-    "hide": false,
+    "hide": true,
     "backgroundColor": "white",
     "borderColor": "#EBEBEB",
     "radius": 10,
@@ -437,9 +437,122 @@
     }
   },
   "nodeRevise": {
-    "formId": "nodeForm"
+    "formId": "nodeForm",
+    "startOffSetPct": {
+      "xPct": 0.5,
+      "yPct": 0.5
+    },
+    "width": 400,
+    "height": 200,
+    "hide": true,
+    "backgroundColor": "white",
+    "borderColor": "#EBEBEB",
+    "radius": 10,
+    "border": 1,
+    "shadow": {
+      "color": "black",
+      "blur": 10,
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "opacity": 0.2
+    },
+    "button": {
+      "margin": {
+        "right": 10,
+        "bottom": 10
+      },
+      "text": {
+        "color": "#359EE8",
+        "hoverColor": "#359EE8",
+        "fontSize": 14,
+        "fontFamily": "Calibri"
+      },
+      "background": {
+        "height": 30,
+        "width": 60,
+        "color": "#ECECF4",
+        "hoverColor": "#E0DFFF",
+        "stroke": 1,
+        "strokeColor": "#ECECF4",
+        "radius": 5
+      }
+    }
   },
   "laneRevise": {
-    "formId": "laneForm"
+    "formId": "laneForm",
+    "startOffSetPct": {
+      "xPct": 0.5,
+      "yPct": 0.5
+    },
+    "width": 400,
+    "height": 200,
+    "hide": true,
+    "backgroundColor": "white",
+    "borderColor": "#EBEBEB",
+    "radius": 10,
+    "border": 1,
+    "shadow": {
+      "color": "black",
+      "blur": 10,
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "opacity": 0.2
+    },
+    "button": {
+      "margin": {
+        "right": 10,
+        "bottom": 10
+      },
+      "text": {
+        "color": "#359EE8",
+        "hoverColor": "#359EE8",
+        "fontSize": 14,
+        "fontFamily": "Calibri"
+      },
+      "background": {
+        "height": 30,
+        "width": 60,
+        "color": "#ECECF4",
+        "hoverColor": "#E0DFFF",
+        "stroke": 1,
+        "strokeColor": "#ECECF4",
+        "radius": 5
+      }
+    }
+  },
+  "laneDisplay": {
+    "startOffSetPct": {
+      "xPct": 0.8,
+      "yPct": 0.2
+    },
+    "width": 200,
+    "height": 400,
+    "hide": false,
+    "backgroundColor": "white",
+    "borderColor": "#EBEBEB",
+    "radius": 10,
+    "border": 1,
+    "margin": 30,
+    "shadow": {
+      "color": "black",
+      "blur": 10,
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "opacity": 0.2
+    },
+    "text": {
+      "fontSize": 18,
+      "fontFamily": "Calibri",
+      "color": "#4F4F54",
+      "hoverColor": "#359EE8",
+      "marginBottom": 10,
+      "offSetY": 0
+    }
   }
 }

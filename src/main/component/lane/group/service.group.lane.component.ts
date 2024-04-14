@@ -51,9 +51,14 @@ export class ChronosLaneGroupService implements ComponentService {
         for (let i = 0; i < this._data.laneGroup.length; i++) {
             const lane = this._data.laneGroup[i];
             lane.data.index = i;
-            lane.data.startCoordinate = {x: startX, y: this._data.height}
-            lane.service.draw()
-            this._data.height += lane.data.height;
+            if (lane.data.hide) {
+                lane.data.startCoordinate = {x: startX, y: -99999}
+            } else {
+                lane.data.startCoordinate = {x: startX, y: this._data.height}
+                lane.service.draw()
+                this._data.height += lane.data.height;
+            }
+
         }
 
         //修改舞台移动限制

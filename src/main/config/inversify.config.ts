@@ -101,6 +101,11 @@ export const TYPES = {
     ChronosLaneReviseData: Symbol.for("ChronosLaneReviseData"),
     ChronosLaneReviseService: Symbol.for("ChronosLaneReviseService"),
     ChronosLaneReviseComponent: Symbol.for("ChronosLaneReviseComponent"),
+
+    //组件-泳道显示管理器
+    ChronosLaneDisplayData: Symbol.for("ChronosLaneDisplayData"),
+    ChronosLaneDisplayService: Symbol.for("ChronosLaneDisplayService"),
+    ChronosLaneDisplayComponent: Symbol.for("ChronosLaneDisplayComponent"),
 };
 
 /**

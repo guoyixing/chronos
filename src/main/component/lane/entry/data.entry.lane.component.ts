@@ -122,6 +122,11 @@ export class ChronosLaneEntryData extends ComponentData {
      */
     button: ButtonLaneType
 
+    /**
+     * 隐藏
+     */
+    hide: boolean = false
+
 
     constructor(context: Context, data: ChronosLaneEntryDataType) {
         super(context);
@@ -139,6 +144,7 @@ export class ChronosLaneEntryData extends ComponentData {
         this.textTopMargin = data.textTopMargin ?? 10;
         this.textBottomMargin = data.textBottomMargin ?? 10;
         this.radius = data.radius ?? [0, 5, 5, 0];
+        this.hide = data.hide ?? false;
         this.shadow = {
             color: data.shadow?.color ?? 'black',
             blur: data.shadow?.blur ?? 10,
@@ -194,6 +200,7 @@ export type ChronosLaneEntryDataType = {
     textTopMargin?: number
     textBottomMargin?: number
     radius?: number[] | number
+    hide?: boolean
     shadow?: ShadowConfigType
     button?: ButtonLaneConfigType
 }

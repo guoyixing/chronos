@@ -209,7 +209,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
 
         //获取泳道
         const lane = laneGroup.service.laneById(data.laneId);
-
+        data.hidden = lane?.data.hide ?? true
         //获取y坐标
         const y = lane?.service.getYByRow(data.row)
         if (y === undefined) {
