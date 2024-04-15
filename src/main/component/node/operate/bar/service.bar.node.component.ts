@@ -120,20 +120,22 @@ export class ChronosNodeBarService implements ComponentService {
      * @param y y坐标
      * @param group 组
      */
-    private drawNode(node: Map<String, new () => NodeShape>, xStart: number, xFinish: number | undefined, y: number, group: Konva.Group) {
+    private drawNode(node: Map<string, new () => NodeShape>, xStart: number, xFinish: number | undefined, y: number, group: Konva.Group) {
+        const data = this._data;
         let index: number = 1;
-        const edit = this._data.context.drawContext.isEdit;
+        const edit = data.context.drawContext.isEdit;
         node.forEach((value) => {
             const node = new value();
             const originalY = y * index;
-            const candidateNode = node.create({xStart: xStart, xFinish: xFinish, y: originalY}, node.code);
+            const nodeName = data.candidateNodeName.get(node.code);
+            const candidateNode = node.create({xStart: xStart, xFinish: xFinish, y: originalY}, nodeName ?? node.code);
             candidateNode.draggable(edit)
             candidateNode.on('dragend', () => {
                 candidateNode.y(originalY)
                 candidateNode.x(xStart)
 
                 //鼠标没有停留在导航窗的时候添加节点
-                const data = this._data;
+
                 const width = data.width ?? 0;
                 const height = data.height ?? 0;
                 const x = data.startOffSet.x
@@ -177,11 +179,11 @@ export class ChronosNodeBarService implements ComponentService {
             return;
         }
         const laneRow = lane.service.getRowByY(mouseY);
-
+        const nodeName = this._data.candidateNodeName.get(node.code);
         const entryData = new ChronosNodeEntryData(this._data.context,
             {
-                id: node.code,
-                name: node.code,
+                id: node.code + this._nodeGroup.data.nodeGroup.length,
+                name: (nodeName ?? node.code) + this._nodeGroup.data.nodeGroup.length,
                 type: node.code,
                 startTime: time.toLocaleString(),
                 laneId: lane.data.id,

@@ -348,7 +348,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
     /**
      * 跟随泳道移动
      */
-    follow(id: String, getY: () => number | undefined, setY: (y: number) => void): void {
+    follow(id: string, getY: () => number | undefined, setY: (y: number) => void): void {
         const data = this.data;
         //原始位置
         let originalPosition: number | undefined;
@@ -370,7 +370,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
     /**
      * 清除跟随泳道移动
      */
-    clearFollow(id: String): void {
+    clearFollow(id: string): void {
         const data = this.data;
         data.graphics?.off('dragstart.followLane' + id);
         data.graphics?.off('dragmove.followLane' + id);

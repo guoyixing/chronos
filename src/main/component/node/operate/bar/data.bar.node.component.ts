@@ -28,12 +28,17 @@ export class ChronosNodeBarData extends ComponentData {
     /**
      * 候选的变形节点
      */
-    candidateTransformableNode: Map<String, new () => NodeShape> = new Map<string, new () => any>();
+    candidateTransformableNode: Map<string, new () => NodeShape> = new Map<string, new () => any>();
 
     /**
      * 候选的节点
      */
-    candidateNode: Map<String, new () => NodeShape> = new Map<string, new () => any>();
+    candidateNode: Map<string, new () => NodeShape> = new Map<string, new () => any>();
+
+    /**
+     * 后续节点的名称
+     */
+    candidateNodeName: Map<string,string>
 
     /**
      * 宽度
@@ -96,6 +101,12 @@ export class ChronosNodeBarData extends ComponentData {
         this.border = data.border ?? 1;
         this.middleLineColor = data.middleLineColor ?? '#F1F0FF';
         this.middleLineWidth = data.middleLineWidth ?? 1;
+        this.candidateNodeName = new Map<string,string>();
+        if (data.candidateNodeName){
+            for (let key in data.candidateNodeName){
+                this.candidateNodeName.set(key,data.candidateNodeName[key])
+            }
+        }
         this.shadow = {
             color: data.shadow?.color ?? 'black',
             blur: data.shadow?.blur ?? 10,
@@ -135,4 +146,5 @@ export type ChronosNodeBarDataType = {
     middleLineColor?: string
     middleLineWidth?: number
     shadow?: ShadowConfigType
+    candidateNodeName?: Record<string, string>
 }

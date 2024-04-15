@@ -305,7 +305,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
     /**
      * 跟随节点移动
      */
-    follow(id: String,
+    follow(id: string,
            getX: () => number | undefined,
            setX: (y: number) => void,
            setY: (y: number) => void): void {
@@ -356,7 +356,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
     /**
      * 清除跟随节点移动
      */
-    clearFollow(id: String): void {
+    clearFollow(id: string): void {
         const data = this._data;
         data.graphics?.shape?.off('dragstart.followNodeEntryX' + id);
         data.graphics?.shape?.off('dragmove.followNodeEntryX' + id);

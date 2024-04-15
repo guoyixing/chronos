@@ -1,5 +1,5 @@
 {
-  "isEdit": false,
+  "isEdit": true,
   "window": {
     "border": 1,
     "borderColor": "#E0DFFF"
@@ -188,6 +188,10 @@
         "y": 0
       },
       "opacity": 0.2
+    },
+    "candidateNodeName": {
+      "star": "里程碑",
+      "arrow": "任务"
     }
   },
   "node": {
