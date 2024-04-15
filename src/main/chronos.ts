@@ -38,7 +38,7 @@ export class Chronos {
         this.chronosContainer = new Container()
         //TODO 感觉这里写的不对
         //上下文
-        new ContextConfig(this.chronosContainer, rootHtml)
+        new ContextConfig(this.chronosContainer, rootHtml, data)
         //回调
         this.callback = new CallbackConfig(this.chronosContainer).callback
         //窗口外框

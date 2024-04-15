@@ -20,6 +20,11 @@ export class DrawContext {
     readonly rootElement: HTMLDivElement
 
     /**
+     * 是否允许编辑
+     */
+    isEdit: boolean = true
+
+    /**
      * 舞台限制移动的范围，y轴移动范围是泳道组的高度
      */
     stageMoveLimit: { yTop: number, yBottom: number } = {yTop: 0, yBottom: 0};

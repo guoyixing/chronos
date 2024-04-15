@@ -66,8 +66,7 @@ export class ChronosLaneDisplayComponent extends BaseComponent<ChronosLaneDispla
      * 舞台拖拽监听
      */
     stageDragListen(): void {
-        this.data.graphics?.destroy()
-        !this.data.hide && this.service.draw()
+        !this.data.hide && this.service.keepPos()
     }
 
     /**

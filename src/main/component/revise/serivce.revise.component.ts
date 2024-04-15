@@ -50,24 +50,25 @@ export abstract class ChronosReviseService<T extends BaseComponent<any, any>> im
 
         //绘制背景
         const background = this.drawBackground();
-        //绘制确定按钮
-        const confirmButton = this.drawButton("确定");
-        //确定按钮绑定事件
-        confirmButton.on('click', () => {
-            this.reviseConfirm()
-        })
         //绘制取消按钮
-        const cancelButton = this.drawButton("取消", confirmButton.width() + this._data.button.margin.right);
+        const cancelButton = this.drawButton("取消");
         //取消按钮绑定事件
         cancelButton.on('click', () => {
             this.close();
         })
         //绘制删除按钮
-        const deleteButton = this.drawButton("删除", confirmButton.width() + cancelButton.width() + this._data.button.margin.right * 2);
+        const deleteButton = this.drawButton("删除", cancelButton.width() + this._data.button.margin.right);
         //删除按钮绑定事件
         deleteButton.on('click', () => {
             this.reviseDelete()
         })
+        //绘制确定按钮
+        const confirmButton = this.drawButton("确定", cancelButton.width() + deleteButton.width() + this._data.button.margin.right * 2);
+        //确定按钮绑定事件
+        confirmButton.on('click', () => {
+            this.reviseConfirm()
+        })
+
 
         const data = this._data;
         const fixedCoordinate = this._data.context.drawContext.getFixedCoordinate();
@@ -78,9 +79,11 @@ export abstract class ChronosReviseService<T extends BaseComponent<any, any>> im
             height: data.height,
         });
         group.add(background)
-        group.add(confirmButton)
         group.add(cancelButton)
-        group.add(deleteButton)
+        if (data.context.drawContext.isEdit){
+            group.add(confirmButton)
+            group.add(deleteButton)
+        }
 
         //绘制表单
         this.drawForm();

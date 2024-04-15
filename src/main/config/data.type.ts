@@ -12,6 +12,7 @@ import {ChronosReviseDataType} from "../component/revise/data.revise.component";
 import {ChronosLaneDisplayDataType} from "../component/lane/display/data.display.lane.component";
 
 export type DataType = {
+    "isEdit"?: boolean,
     "window": ChronosWindowDataType,
     "grid": ChronosGridDataType,
     "lane": ChronosLaneGroupDataType,

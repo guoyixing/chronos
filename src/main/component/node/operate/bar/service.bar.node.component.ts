@@ -122,10 +122,12 @@ export class ChronosNodeBarService implements ComponentService {
      */
     private drawNode(node: Map<String, new () => NodeShape>, xStart: number, xFinish: number | undefined, y: number, group: Konva.Group) {
         let index: number = 1;
+        const edit = this._data.context.drawContext.isEdit;
         node.forEach((value) => {
             const node = new value();
             const originalY = y * index;
             const candidateNode = node.create({xStart: xStart, xFinish: xFinish, y: originalY}, node.code);
+            candidateNode.draggable(edit)
             candidateNode.on('dragend', () => {
                 candidateNode.y(originalY)
                 candidateNode.x(xStart)
@@ -205,6 +207,7 @@ export class ChronosNodeBarService implements ComponentService {
         if (type) {
             const nodeShape = new type();
             nodeShape.create(nodeData.coordinate, nodeData.name);
+            nodeShape.shape?.draggable(this._data.context.drawContext.isEdit)
             return nodeShape;
         }
         console.warn('未知的节点类型', nodeData)
@@ -234,5 +237,13 @@ export class ChronosNodeBarService implements ComponentService {
         return this._window.data.layer;
     }
 
-
+    /**
+     * 保持定位
+     */
+    keepPos() {
+        const data = this._data;
+        const fixedCoordinate = this._data.context.drawContext.getFixedCoordinate();
+        data.graphics?.x(data.startOffSet.x + fixedCoordinate.x)
+        data.graphics?.y(data.startOffSet.y + fixedCoordinate.y)
+    }
 }

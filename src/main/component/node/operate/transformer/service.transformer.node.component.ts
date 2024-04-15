@@ -44,6 +44,9 @@ export class ChronosNodeTransformerService implements ComponentService {
         //删除控制点
         data.leftControlPoint?.destroy();
         data.rightControlPoint?.destroy();
+        if (!data.context.drawContext.isEdit){
+            return
+        }
         if (data.bindNodeId) {
             data.bindNode = this._nodeGroup.service.getNodeEntryByNodeId(data.bindNodeId)
         }

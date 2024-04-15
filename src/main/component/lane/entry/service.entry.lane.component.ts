@@ -65,6 +65,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
     draw(): void {
         //泳道条目数据
         const data = this.data;
+        const edit = data.context.drawContext.isEdit;
         //泳道组数据
         const groupData = this.group.data;
         const laneEntryButton = this._laneEntryButton;
@@ -84,7 +85,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
         const [drawBorderTop, drawBorderBottom] = this.drawBorder(width, height);
         const group = new Konva.Group({
             x: data.startCoordinate.x,
-            draggable: true,
+            draggable: edit,
             //只允许沿着y轴拖动
             dragBoundFunc: function (pos) {
                 return {
@@ -106,38 +107,39 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
 
             //绘制泳道名
             const drawName = this.drawName(height);
-            //绘制添加删除按钮
-            const topAddLaneGroup = laneEntryButton.drawTopAddButton(height);
-            const bottomAddLaneGroup = laneEntryButton.drawBottomAddButton(height);
-            const addRowGroup = laneEntryButton.drawAddButton(height)
-            const reduceRowGroup = laneEntryButton.drawReduceButton(height);
-            const deleteLaneGroup = laneEntryButton.drawDeleteButton(height);
-
             group.add(drawLeft);
             group.add(drawName);
-            group.add(addRowGroup);
-            group.add(reduceRowGroup);
-            group.add(deleteLaneGroup);
-            group.add(topAddLaneGroup);
-            group.add(bottomAddLaneGroup);
+            if (edit) {
+                //绘制添加删除按钮
+                const topAddLaneGroup = laneEntryButton.drawTopAddButton(height);
+                const bottomAddLaneGroup = laneEntryButton.drawBottomAddButton(height);
+                const addRowGroup = laneEntryButton.drawAddButton(height)
+                const reduceRowGroup = laneEntryButton.drawReduceButton(height);
+                const deleteLaneGroup = laneEntryButton.drawDeleteButton(height);
 
-            group.on('mouseover', function () {
-                document.body.style.cursor = 'pointer';
-                addRowGroup.visible(true);
-                reduceRowGroup.visible(true);
-                deleteLaneGroup.visible(true);
-                topAddLaneGroup.visible(true);
-                bottomAddLaneGroup.visible(true);
-            });
-            group.on('mouseout', function () {
-                document.body.style.cursor = 'default';
-                addRowGroup.visible(false);
-                reduceRowGroup.visible(false);
-                deleteLaneGroup.visible(false);
-                topAddLaneGroup.visible(false);
-                bottomAddLaneGroup.visible(false);
-            });
+                group.add(addRowGroup);
+                group.add(reduceRowGroup);
+                group.add(deleteLaneGroup);
+                group.add(topAddLaneGroup);
+                group.add(bottomAddLaneGroup);
 
+                group.on('mouseover', function () {
+                    document.body.style.cursor = 'pointer';
+                    addRowGroup.visible(true);
+                    reduceRowGroup.visible(true);
+                    deleteLaneGroup.visible(true);
+                    topAddLaneGroup.visible(true);
+                    bottomAddLaneGroup.visible(true);
+                });
+                group.on('mouseout', function () {
+                    document.body.style.cursor = 'default';
+                    addRowGroup.visible(false);
+                    reduceRowGroup.visible(false);
+                    deleteLaneGroup.visible(false);
+                    topAddLaneGroup.visible(false);
+                    bottomAddLaneGroup.visible(false);
+                });
+            }
         }
 
 

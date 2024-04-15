@@ -58,7 +58,7 @@ export class ChronosLaneDisplayService implements ComponentService {
         maskGroup.add(textGroup);
         //创建遮罩
         maskGroup.clipFunc((ctx) => {
-            ctx.rect(0, 0, width, height - data.margin * 2);
+            ctx.rect(-1, -1, width, height - data.margin * 2);
         });
 
         const group = new Konva.Group({
@@ -174,6 +174,16 @@ export class ChronosLaneDisplayService implements ComponentService {
      */
     setLayer() {
         return this._window.data.layer;
+    }
+
+    /**
+     * 保持定位
+     */
+    keepPos(){
+        const data = this._data;
+        const fixedCoordinate = this._data.context.drawContext.getFixedCoordinate();
+        data.graphics?.x(data.startOffSet.x + fixedCoordinate.x)
+        data.graphics?.y(data.startOffSet.y + fixedCoordinate.y)
     }
 
 }
