@@ -38,6 +38,9 @@ export class ChronosJumpTimelineService implements ComponentService {
 
     draw() {
         const data = this._data;
+        if (data.hide) {
+            return
+        }
         const coordinate = this._data.context.drawContext.getFixedCoordinate();
         //绘制背景
         const background = new Konva.Rect({
