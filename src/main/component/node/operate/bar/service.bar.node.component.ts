@@ -99,7 +99,7 @@ export class ChronosNodeBarService implements ComponentService {
 
         //绘制候选节点
         const candidateNodeX = width / 4;
-        const y = height / 12;
+        const y = height / 8;
         this.drawNode(data.candidateNode, candidateNodeX, undefined, y, group);
 
         //绘制候选变形节点

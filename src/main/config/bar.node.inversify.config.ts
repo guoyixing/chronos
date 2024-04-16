@@ -9,6 +9,7 @@ import {Context} from "../core/context/context";
 import {StarNodeShape} from "../component/node/board/shape/StarNodeShape";
 import {ArrowNodeShape} from "../component/node/board/shape/ArrowNodeShape";
 import {DataType} from "./data.type";
+import {RectNodeShape} from "../component/node/board/shape/RectNodeShape";
 
 /**
  * 节点导航窗配置
@@ -20,7 +21,7 @@ export class NodeBarConfig {
         const barData: ChronosNodeBarData = new ChronosNodeBarData(chronosContainer.get<Context>(TYPES.Context), bar);
         barData.candidateNode.set("star", StarNodeShape);
         barData.candidateTransformableNode.set("arrow", ArrowNodeShape);
-        // barData.candidateTransformableNode.set("rect", RectNodeShape);
+        barData.candidateTransformableNode.set("rect", RectNodeShape);
 
         chronosContainer.bind<ChronosNodeBarData>(TYPES.ChronosNodeBarData).toConstantValue(barData);
         chronosContainer.bind<ChronosNodeBarService>(TYPES.ChronosNodeBarService).to(ChronosNodeBarService);

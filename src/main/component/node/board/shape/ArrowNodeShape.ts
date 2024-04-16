@@ -33,7 +33,7 @@ export class ArrowNodeShape implements NodeShape {
         //创建一个圆形
         const circle = new Konva.Circle({
             name: 'circle',
-            x: 0,
+            x: 5,
             y: 0,
             radius: 5,
             fill: '#2F9E44',

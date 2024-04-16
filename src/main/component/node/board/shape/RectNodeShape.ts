@@ -27,7 +27,7 @@ export class RectNodeShape implements NodeShape {
     coordinate(): { xStart: number; xFinish: number | undefined; y: number } {
         const shape = this.shape;
         if (shape) {
-            return {xStart: shape.x(), xFinish: undefined, y: shape.y()}
+            return {xStart: shape.x(), xFinish: shape.x() + shape.width(), y: shape.y()}
         }
         throw new Error('未找到节点')
     }
@@ -36,25 +36,28 @@ export class RectNodeShape implements NodeShape {
         if (!coordinate.xStart || !coordinate.xFinish) {
             throw new Error("无法获取x结束坐标")
         }
+        const width = coordinate.xFinish - coordinate.xStart;
         //创建矩形
         const rect = new Konva.Rect({
             name: 'rect',
             x: 0,
-            y: 0,
-            width: 100,
-            height: 50,
-            fill: 'green',
+            y: -5,
+            width: width,
+            height: 10,
+            fill: '#4E72B8',
+            cornerRadius: 5
         });
         //节点名称
         const text = new Konva.Text({
             name: 'text',
-            x: 50,
-            y: 58,
+            x: 0,
+            y: 8,
             text: name,
             fontSize: 12,
             fontFamily: 'Calibri',
             fill: 'black',
         });
+        text.x(width / 2 - text.width() / 2)
 
         this.shape = new Konva.Group({
             width: rect.width(),
@@ -68,7 +71,7 @@ export class RectNodeShape implements NodeShape {
     }
 
     minWidth(): number {
-        return 100;
+        return 1
     }
 
     /**
@@ -81,9 +84,16 @@ export class RectNodeShape implements NodeShape {
         if (!xFinish) {
             throw new Error("无法获取x结束坐标")
         }
-        console.log(xStart)
-        console.log(y)
-        console.log(xFinish)
+        const shape = this.shape;
+        const rect = shape?.findOne<Konva.Arrow>('.rect');
+        const text = shape?.findOne<Konva.Text>('.text');
+        console.log(rect, text)
+        rect?.width(xFinish - xStart)
+        if (shape && rect) {
+            shape.x(xStart)
+            shape.width(xFinish - xStart)
+            text?.x(rect.width() / 2 - text.width() / 2)
+        }
 
     }
 
