@@ -51,10 +51,10 @@ export class ChronosJumpTimelineComponent extends BaseComponent<ChronosJumpTimel
             const line = button.stroke.length * 1.5;
 
             const path = `
-            M-${line/8} -${line/2}h${line}v${line}h-${line}z
-            M-${line/8} -${line/2-line/4}h${line}
-            M${line/8} 0h${line/2}
-            M${line/8} ${line/2-line/4}h${line/2}
+            M-${line / 8} -${line / 2}h${line}v${line}h-${line}z
+            M-${line / 8} -${line / 2 - line / 4}h${line}
+            M${line / 8} 0h${line / 2}
+            M${line / 8} ${line / 2 - line / 4}h${line / 2}
             `
 
             return new Konva.Path({
@@ -67,7 +67,7 @@ export class ChronosJumpTimelineComponent extends BaseComponent<ChronosJumpTimel
             })
         }
 
-        const callback = (graphics: Konva.Path, button: ButtonType,toolbar: ChronosToolbarData) => {
+        const callback = (graphics: Konva.Path, button: ButtonType, toolbar: ChronosToolbarData) => {
             this.data.hide ? graphics.stroke(button.stroke.hoverColor) : graphics.stroke(button.stroke.color)
             this.data.hide ? this.service.open() : this.service.close()
         }

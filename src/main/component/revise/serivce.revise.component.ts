@@ -80,7 +80,7 @@ export abstract class ChronosReviseService<T extends BaseComponent<any, any>> im
         });
         group.add(background)
         group.add(cancelButton)
-        if (data.context.drawContext.isEdit){
+        if (data.context.drawContext.isEdit) {
             group.add(confirmButton)
             group.add(deleteButton)
         }

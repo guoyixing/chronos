@@ -38,7 +38,7 @@ export class ChronosNodeBarData extends ComponentData {
     /**
      * 后续节点的名称
      */
-    candidateNodeName: Map<string,string>
+    candidateNodeName: Map<string, string>
 
     /**
      * 宽度
@@ -101,10 +101,10 @@ export class ChronosNodeBarData extends ComponentData {
         this.border = data.border ?? 1;
         this.middleLineColor = data.middleLineColor ?? '#F1F0FF';
         this.middleLineWidth = data.middleLineWidth ?? 1;
-        this.candidateNodeName = new Map<string,string>();
-        if (data.candidateNodeName){
-            for (let key in data.candidateNodeName){
-                this.candidateNodeName.set(key,data.candidateNodeName[key])
+        this.candidateNodeName = new Map<string, string>();
+        if (data.candidateNodeName) {
+            for (let key in data.candidateNodeName) {
+                this.candidateNodeName.set(key, data.candidateNodeName[key])
             }
         }
         this.shadow = {

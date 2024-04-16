@@ -70,14 +70,14 @@ export class ChronosNodeEntryData extends ComponentData {
     /**
      * 扩展字段
      */
-    extendField:{}
+    extendField: {}
 
     constructor(context: Context, data: ChronosNodeEntryDataType) {
         super(context);
         this.id = data.id;
         this.name = data.name;
         this.type = data.type;
-        this.extendField = data.extendField??{};
+        this.extendField = data.extendField ?? {};
         this.startTime = new Date(data.startTime);
         if (data.finishTime) {
             this.finishTime = new Date(data.finishTime);
@@ -109,6 +109,6 @@ export type ChronosNodeEntryDataType = {
     row: number
     finishTime?: string
     hidden?: boolean
-    extendField?:{}
+    extendField?: {}
 
 }

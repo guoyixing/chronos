@@ -130,7 +130,7 @@ export class ChronosLaneEntryData extends ComponentData {
     /**
      * 扩展字段
      */
-    extendField:{}
+    extendField: {}
 
 
     constructor(context: Context, data: ChronosLaneEntryDataType) {

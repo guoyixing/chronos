@@ -180,7 +180,7 @@ export class ChronosLaneDisplayService implements ComponentService {
     /**
      * 保持定位
      */
-    keepPos(){
+    keepPos() {
         const data = this._data;
         const fixedCoordinate = this._data.context.drawContext.getFixedCoordinate();
         data.graphics?.x(data.startOffSet.x + fixedCoordinate.x)

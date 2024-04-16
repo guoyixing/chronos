@@ -117,7 +117,7 @@ export class ChronosJumpTimelineService implements ComponentService {
     /**
      * 跳转到指定时间
      */
-    jumpTime(date:Date){
+    jumpTime(date: Date) {
         const data = this._data;
         const timeline = this._timeline;
         const x = timeline.service.getXByTime(date) - timeline.data.headWidth + timeline.data.border * 2;
