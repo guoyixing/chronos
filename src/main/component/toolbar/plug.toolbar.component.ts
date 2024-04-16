@@ -1,5 +1,6 @@
 import Konva from "konva";
 import {ButtonType} from "../../common/type/button.type";
+import {ChronosToolbarData} from "./data.toolbar.component";
 
 /**
  * 工具栏注册接口
@@ -31,9 +32,11 @@ export class ChronosToolPlug {
     /**
      * 鼠标点时候的回调方法
      */
-    callback: (graphics: Konva.Path, button: ButtonType) => void
+    callback: (graphics: Konva.Path, button: ButtonType, toolbar: ChronosToolbarData) => void
 
-    constructor(name: string, graphics: (button: ButtonType) => Konva.Path, callback: (graphics: Konva.Path, button: ButtonType) => void) {
+    constructor(name: string,
+                graphics: (button: ButtonType) => Konva.Path,
+                callback: (graphics: Konva.Path, button: ButtonType, toolbar: ChronosToolbarData) => void) {
         this.name = name;
         this.graphics = graphics;
         this.callback = callback;

@@ -173,7 +173,7 @@
     },
     "width": 200,
     "height": 400,
-    "hide": true,
+    "hide": false,
     "backgroundColor": "white",
     "borderColor": "#EBEBEB",
     "radius": 10,
@@ -203,7 +203,10 @@
         "type": "star",
         "startTime": "2023-12-03 00:00:00",
         "laneId": "1",
-        "row": 0
+        "row": 0,
+        "extendField": {
+          "leader": "小明"
+        }
       },
       {
         "id": "2",
@@ -537,7 +540,7 @@
     },
     "width": 200,
     "height": 400,
-    "hide": false,
+    "hide": true,
     "backgroundColor": "white",
     "borderColor": "#EBEBEB",
     "radius": 10,
@@ -560,5 +563,15 @@
       "marginBottom": 10,
       "offSetY": 0
     }
+  },
+  "jumpTimeline": {
+    "hide": true,
+    "width": 240,
+    "height": 30,
+    "bottomMargin": 10,
+    "backgroundColor": "#ECECF4",
+    "border": 1,
+    "borderColor": "#ECECF4",
+    "radius": 10
   }
 }

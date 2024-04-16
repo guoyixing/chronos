@@ -10,6 +10,7 @@ import {ChronosNodeGroupDataType} from "../component/node/operate/group/data.gro
 import {ChronosNodeDetailDataType} from "../component/node/operate/detail/data.detail.node.component";
 import {ChronosReviseDataType} from "../component/revise/data.revise.component";
 import {ChronosLaneDisplayDataType} from "../component/lane/display/data.display.lane.component";
+import {ChronosJumpTimelineDataType} from "../component/timeline/jump/data.jump.timeline.component";
 
 export type DataType = {
     "isEdit"?: boolean,
@@ -20,6 +21,7 @@ export type DataType = {
     "scale": ChronosScaleDataType,
     "transformer": ChronosNodeTransformerDataType,
     "timeline": ChronosTimelineDataType,
+    "jumpTimeline": ChronosJumpTimelineDataType,
     "bar": ChronosNodeBarDataType,
     "node": ChronosNodeGroupDataType,
     "detail": ChronosNodeDetailDataType,

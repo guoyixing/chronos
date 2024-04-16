@@ -9,6 +9,14 @@ import {NodeShape} from "../../board/shape/NodeShape";
 export class ChronosNodeEntryData extends ComponentData {
 
     /**
+     * 坐标
+     * xStart: 开始x坐标
+     * xFinish: 结束x坐标，如果没有结束时间，则为undefined
+     * y: y坐标
+     */
+    private _coordinate: { xStart?: number, xFinish?: number | undefined, y?: number } = {}
+
+    /**
      * 节点id
      */
     id: string
@@ -55,23 +63,21 @@ export class ChronosNodeEntryData extends ComponentData {
     graphics: NodeShape | undefined
 
     /**
-     * 坐标
-     * xStart: 开始x坐标
-     * xFinish: 结束x坐标，如果没有结束时间，则为undefined
-     * y: y坐标
-     */
-    private _coordinate: { xStart?: number, xFinish?: number | undefined, y?: number } = {}
-
-    /**
      * 是否隐藏
      */
     hidden: boolean
+
+    /**
+     * 扩展字段
+     */
+    extendField:{}
 
     constructor(context: Context, data: ChronosNodeEntryDataType) {
         super(context);
         this.id = data.id;
         this.name = data.name;
         this.type = data.type;
+        this.extendField = data.extendField??{};
         this.startTime = new Date(data.startTime);
         if (data.finishTime) {
             this.finishTime = new Date(data.finishTime);
@@ -103,4 +109,6 @@ export type ChronosNodeEntryDataType = {
     row: number
     finishTime?: string
     hidden?: boolean
+    extendField?:{}
+
 }

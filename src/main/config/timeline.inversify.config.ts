@@ -6,6 +6,8 @@ import {ChronosTimelineComponent} from "../component/timeline/timeline.component
 import {StageDragListener} from "../core/event/event";
 import {ChronosTimelineService} from "../component/timeline/service.timeline.component";
 import {DataType} from "./data.type";
+import {ToolbarPlugRegister} from "../component/toolbar/plug.toolbar.component";
+import {ChronosNodeBarComponent} from "../component/node/operate/bar/bar.node.component";
 
 /**
  * 时间轴配置

@@ -17,7 +17,7 @@ export class EventManager {
     /**
      * 舞台拖拽事件发布者
      */
-    private stageEventPublisher: (event: string, func: (e: any) => void) => void;
+    stageEventPublisher: (event: string, func: (e: any) => void) => void;
 
     /**
      * 事件
@@ -30,14 +30,14 @@ export class EventManager {
         const context = chronosContainer.get<Context>(TYPES.Context);
         context.eventManager = this
         this.stageEventPublisher = context.drawContext.stage.on.bind(context.drawContext.stage)
-        this.publishStageDragEvent()
-        this.publishMouseMoveEvent()
+        this.listenStageDragEvent()
+        this.listenMouseMoveEvent()
     }
 
     /**
-     * 发布舞台拖拽事件
+     * 监听舞台拖拽事件
      */
-    publishStageDragEvent() {
+    listenStageDragEvent() {
         const listeners = this.ioc.getAll<StageDragListener>(TYPES.StageDragListener);
         this.stageEventPublisher('dragmove', (e) => {
             if (e.target instanceof Konva.Stage) {
@@ -54,9 +54,9 @@ export class EventManager {
     }
 
     /**
-     * 发布鼠标移动事件
+     * 监听鼠标移动事件
      */
-    publishMouseMoveEvent() {
+    listenMouseMoveEvent() {
         const listeners = this.ioc.getAll<MouseMoveListener>(TYPES.MouseMoveListener);
         this.stageEventPublisher('mousemove', (e) => {
             if (e.target instanceof Konva.Stage) {

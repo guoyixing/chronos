@@ -337,6 +337,15 @@ export class ChronosTimelineService implements ComponentService {
     }
 
     /**
+     * 获取当前的时间
+     */
+    getCurrentTime(): Date {
+        const data = this._data;
+        const coordinate = this._data.context.drawContext.getFixedCoordinate();
+        return this.getTimeByX(coordinate.x + data.startOffSet.x + data.headWidth - data.border * 2)
+    }
+
+    /**
      * 监听比例尺
      */
     listenScale() {

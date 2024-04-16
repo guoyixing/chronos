@@ -33,26 +33,26 @@ export class ChronosNodeBarComponent extends BaseComponent<ChronosNodeBarData, C
 
         const graphics = (button: ButtonType) => {
             //线条长度
-            const line = button.stroke.length;
+            const line = button.stroke.length * 1.5;
             const edgeLength = line / 12 * 5;
             //计算第一个方框开始的位置
-            const x1 = -line / 12;
-            const y1 = -line / 12 * 8;
+            const x1 = -line / 8;
+            const y1 = -line / 2;
             //计算第二个方框开始的位置
-            const x2 = line / 12 * 8;
-            const y2 = -line / 12 * 8;
+            const x2 = line / 2;
+            const y2 = -line / 2;
             //计算第三个方框开始的位置
-            const x3 = -line / 12;
+            const x3 = -line / 8;
             const y3 = line / 12;
             //计算第四个方框开始的位置
-            const x4 = line / 12 * 8;
+            const x4 = line / 2;
             const y4 = line / 12
 
             const path = `
-            M${x1} ${y1}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength - 1} 
-            M${x2} ${y2}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength - 1}
-            M${x3} ${y3}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength - 1}
-            M${x4} ${y4}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength - 1}
+            M${x1} ${y1}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength}z
+            M${x2} ${y2}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength}z
+            M${x3} ${y3}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength}z
+            M${x4} ${y4}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength}z
             `
             return new Konva.Path({
                 x: 0,

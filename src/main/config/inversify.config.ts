@@ -106,6 +106,11 @@ export const TYPES = {
     ChronosLaneDisplayData: Symbol.for("ChronosLaneDisplayData"),
     ChronosLaneDisplayService: Symbol.for("ChronosLaneDisplayService"),
     ChronosLaneDisplayComponent: Symbol.for("ChronosLaneDisplayComponent"),
+
+    //组件-时间轴跳转
+    ChronosJumpTimelineData: Symbol.for("ChronosJumpTimelineData"),
+    ChronosJumpTimelineService: Symbol.for("ChronosJumpTimelineService"),
+    ChronosJumpTimelineComponent: Symbol.for("ChronosJumpTimelineComponent"),
 };
 
 /**

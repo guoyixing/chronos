@@ -51,3 +51,18 @@ export function getDaysInMonth(date: Date): number {
 export function afterDay(date: Date, num: number) {
     return new Date(date.getTime() + num * 24 * 60 * 60 * 1000)
 }
+
+/**
+ * 时间转成datetime-local格式
+ * @param date
+ */
+export function formatLocalDate(date: Date) {
+    let year = date.getFullYear();
+    let month = (date.getMonth() + 1).toString().padStart(2, '0');
+    let day = date.getDate().toString().padStart(2, '0');
+    let hours = date.getHours().toString().padStart(2, '0');
+    let minutes = date.getMinutes().toString().padStart(2, '0');
+    let seconds = date.getSeconds().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+}

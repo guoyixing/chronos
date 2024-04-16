@@ -79,7 +79,7 @@ export class ChronosToolbarService implements ComponentService {
 
 
             button.on('click', () => {
-                tool.callback(graphics, data.button);
+                tool.callback(graphics, data.button, data);
             });
 
             button.on('mouseover', () => {

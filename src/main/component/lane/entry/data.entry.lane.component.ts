@@ -127,6 +127,11 @@ export class ChronosLaneEntryData extends ComponentData {
      */
     hide: boolean = false
 
+    /**
+     * 扩展字段
+     */
+    extendField:{}
+
 
     constructor(context: Context, data: ChronosLaneEntryDataType) {
         super(context);
@@ -145,6 +150,7 @@ export class ChronosLaneEntryData extends ComponentData {
         this.textBottomMargin = data.textBottomMargin ?? 10;
         this.radius = data.radius ?? [0, 5, 5, 0];
         this.hide = data.hide ?? false;
+        this.extendField = data.extendField ?? {};
         this.shadow = {
             color: data.shadow?.color ?? 'black',
             blur: data.shadow?.blur ?? 10,
@@ -203,4 +209,5 @@ export type ChronosLaneEntryDataType = {
     hide?: boolean
     shadow?: ShadowConfigType
     button?: ButtonLaneConfigType
+    extendField?: {}
 }
