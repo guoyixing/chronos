@@ -84,13 +84,13 @@ export class ChronosLaneGroupData extends ComponentData {
         this.leftBackgroundColor = data?.leftBackgroundColor ?? "#ECECF4";
         this.hoverLeftBackgroundColor = data?.hoverLeftBackgroundColor ?? "#E0DFFF";
         this.borderColor = data?.borderColor ?? "#E0DFFF";
-        this.radius = data?.radius ?? [0, 5, 5, 0];
+        this.radius = data?.radius ?? 0;
         this.shadow = {
             color: data?.shadow?.color ?? 'black',
-            blur: data?.shadow?.blur ?? 10,
+            blur: data?.shadow?.blur ?? 0,
             offset: {
                 x: data?.shadow?.offset?.x ?? 0,
-                y: data?.shadow?.offset?.y ?? -5
+                y: data?.shadow?.offset?.y ?? 0
             },
             opacity: data?.shadow?.opacity ?? 0.2
         }

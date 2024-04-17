@@ -55,6 +55,9 @@ export class ChronosLaneGroupService implements ComponentService {
         const data = this._data;
         //绘制泳道
         data.height = data.startOffSet.y;
+        if (this._data.height < height - this._data.startOffSet.y) {
+            this.drawAddButton();
+        }
         for (let i = 0; i < this._data.laneGroup.length; i++) {
             const lane = this._data.laneGroup[i];
             lane.data.index = i;
@@ -66,9 +69,6 @@ export class ChronosLaneGroupService implements ComponentService {
                 this._data.height += lane.data.height;
             }
         }
-        if (height - data.height > data.rowHeight) {
-            this.drawAddButton(height);
-        }
 
         //修改舞台移动限制
         this._data.context.drawContext.stageMoveLimit.yTop = -(this._data.height - height);
@@ -77,16 +77,15 @@ export class ChronosLaneGroupService implements ComponentService {
 
     /**
      * 绘制添加按钮
-     * @param height 已存在泳道的高度
      */
-    drawAddButton(height: number) {
+    drawAddButton() {
         const data = this._data;
         //画一个矩形
         const rect = new Konva.Rect({
             x: 0,
             y: 0,
             width: data.laneLeftWidth,
-            height: height - data.height,
+            height: this._window.data.height - data.startOffSet.y,
             fill: data.leftBackgroundColor,
             cornerRadius: data.radius,
             stroke: data.borderColor,
@@ -96,38 +95,41 @@ export class ChronosLaneGroupService implements ComponentService {
             shadowOffset: data.shadow.offset,
             shadowOpacity: data.shadow.opacity,
         });
-        //画一个+号
-        const plus = new Konva.Text({
-            x: 0,
-            y: 0,
-            text: '+',
-            fontSize: 80,
-            fontFamily: 'Calibri',
-            fill: 'white',
-        });
-        plus.x((rect.width() - plus.width()) / 2)
-        plus.y((rect.height() - plus.height()) / 2)
+
+        const fixedCoordinate = this._data.context.drawContext.getFixedCoordinate();
         const group = new Konva.Group({
-            x: data.startOffSet.x,
-            y: data.height,
+            x: fixedCoordinate.x + data.startOffSet.x,
+            y: fixedCoordinate.y + data.height,
         });
         group.add(rect)
-        group.add(plus)
 
-        group.on('click', () => {
-            const component = this.addLaneEntry();
-            if (component) {
-                const laneGroup = data.context.ioc.get<ChronosLaneGroupComponent>(TYPES.ChronosLaneGroupComponent);
-                this._callback.laneAdd && this._callback.laneAdd(component.data, laneGroup);
-            }
-        })
-        group.on('mouseover', () => {
-            rect.fill(data.hoverLeftBackgroundColor)
-        })
-        group.on('mouseout', () => {
-            rect.fill(data.leftBackgroundColor)
-        })
-
+        if (data.context.drawContext.isEdit && data.laneGroup.length < 1) {
+            //画一个+号
+            const plus = new Konva.Text({
+                x: 0,
+                y: 0,
+                text: '+',
+                fontSize: 80,
+                fontFamily: 'Calibri',
+                fill: 'white',
+            });
+            plus.x((rect.width() - plus.width()) / 2)
+            plus.y((rect.height() - plus.height()) / 2)
+            group.add(plus)
+            group.on('click', () => {
+                const component = this.addLaneEntry();
+                if (component) {
+                    const laneGroup = data.context.ioc.get<ChronosLaneGroupComponent>(TYPES.ChronosLaneGroupComponent);
+                    this._callback.laneAdd && this._callback.laneAdd(component.data, laneGroup);
+                }
+            })
+            group.on('mouseover', () => {
+                rect.fill(data.hoverLeftBackgroundColor)
+            })
+            group.on('mouseout', () => {
+                rect.fill(data.leftBackgroundColor)
+            })
+        }
         data.graphics = group
         data.layer?.add(group)
     }
@@ -135,7 +137,7 @@ export class ChronosLaneGroupService implements ComponentService {
     /**
      * 移动x轴
      */
-    moveX() {
+    keepPos() {
         //计算泳道组起始坐标，y坐标是不变的，x坐标是根据舞台位置计算的
         const fixedCoordinate = this._data.context.drawContext.getFixedCoordinate();
         //泳道组起始坐标
@@ -144,6 +146,7 @@ export class ChronosLaneGroupService implements ComponentService {
             lane.service.moveX(startX)
         })
         this._data.graphics?.x(startX)
+        this._data.graphics?.y(fixedCoordinate.y + this._data.height)
     }
 
     /**

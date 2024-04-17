@@ -66,6 +66,6 @@ export class ChronosLaneGroupComponent extends BaseComponent<ChronosLaneGroupDat
      * 舞台拖拽监听
      */
     stageDragListen(): void {
-        this.service.moveX()
+        this.service.keepPos()
     }
 }
