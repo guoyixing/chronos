@@ -121,37 +121,37 @@ export class ChronosNodeDetailData extends ComponentData {
     shadow: ShadowType
 
 
-    constructor(context: Context, data: ChronosNodeDetailDataType) {
+    constructor(context: Context, data?: ChronosNodeDetailDataType) {
         super(context);
-        this.width = data.width ?? 250
-        this.backgroundColor = data.backgroundColor ?? "white"
-        this.borderColor = data.borderColor ?? "#F1F0FF"
-        this.border = data.border ?? 1
-        this.radius = data.radius ?? 5
-        this.titleHeight = data.titleHeight ?? 25
-        this.titleBackgroundColor = data.titleBackgroundColor ?? "#ECECF4"
-        this.titleText = data.titleText ?? "详细信息"
-        this.titleFontColor = data.titleFontColor ?? "#4F4F54"
-        this.titleFontSize = data.titleFontSize ?? 15
-        this.titleFontFamily = data.titleFontFamily ?? "Calibri"
-        this.textLeftMargin = data.textLeftMargin ?? 10
-        this.textTopMargin = data.textTopMargin ?? 10
-        this.textFontColor = data.textFontColor ?? "#4F4F54"
-        this.textFontSize = data.textFontSize ?? 15
-        this.textFontFamily = data.textFontFamily ?? "Calibri"
-        this.textLineHeight = data.textLineHeight ?? 1.5
+        this.width = data?.width ?? 250
+        this.backgroundColor = data?.backgroundColor ?? "white"
+        this.borderColor = data?.borderColor ?? "#F1F0FF"
+        this.border = data?.border ?? 1
+        this.radius = data?.radius ?? 5
+        this.titleHeight = data?.titleHeight ?? 25
+        this.titleBackgroundColor = data?.titleBackgroundColor ?? "#ECECF4"
+        this.titleText = data?.titleText ?? "详细信息"
+        this.titleFontColor = data?.titleFontColor ?? "#4F4F54"
+        this.titleFontSize = data?.titleFontSize ?? 15
+        this.titleFontFamily = data?.titleFontFamily ?? "Calibri"
+        this.textLeftMargin = data?.textLeftMargin ?? 10
+        this.textTopMargin = data?.textTopMargin ?? 10
+        this.textFontColor = data?.textFontColor ?? "#4F4F54"
+        this.textFontSize = data?.textFontSize ?? 15
+        this.textFontFamily = data?.textFontFamily ?? "Calibri"
+        this.textLineHeight = data?.textLineHeight ?? 1.5
         this.mouseOffset = {
-            x: data.mouseOffset?.x ?? 25,
-            y: data.mouseOffset?.y ?? 25
+            x: data?.mouseOffset?.x ?? 25,
+            y: data?.mouseOffset?.y ?? 25
         }
         this.shadow = {
-            color: data.shadow?.color ?? 'black',
-            blur: data.shadow?.blur ?? 10,
+            color: data?.shadow?.color ?? 'black',
+            blur: data?.shadow?.blur ?? 10,
             offset: {
-                x: data.shadow?.offset?.x ?? 0,
-                y: data.shadow?.offset?.y ?? 0
+                x: data?.shadow?.offset?.x ?? 0,
+                y: data?.shadow?.offset?.y ?? 0
             },
-            opacity: data.shadow?.opacity ?? 0.5
+            opacity: data?.shadow?.opacity ?? 0.5
         }
     }
 }

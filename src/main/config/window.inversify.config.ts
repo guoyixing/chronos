@@ -1,7 +1,7 @@
 import {Container} from "inversify";
 import "reflect-metadata";
 
-import {ChronosWindowData} from "../component/window/data.window.component";
+import {ChronosWindowData, ChronosWindowDataType} from "../component/window/data.window.component";
 import {ChronosWindowService} from "../component/window/service.window.component";
 import {bindComponent, bindLifecycle, TYPES} from "./inversify.config";
 import {Context} from "../core/context/context";
@@ -16,7 +16,7 @@ export class WindowConfig {
 
     constructor(chronosContainer: Container, divElement: HTMLDivElement, data: DataType) {
         const size = divElement.getBoundingClientRect();
-        const chronosWindowData = data.window;
+        const chronosWindowData = data.window ?? {} as ChronosWindowDataType;
         chronosWindowData.width = size.width;
         chronosWindowData.height = size.height;
 

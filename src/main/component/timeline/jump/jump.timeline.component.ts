@@ -21,7 +21,7 @@ export class ChronosJumpTimelineComponent extends BaseComponent<ChronosJumpTimel
     /**
      * 组件名称
      */
-    name = () => "timeline"
+    name = () => "jumpTimeline"
 
     constructor(@inject(TYPES.ChronosJumpTimelineData) data: ChronosJumpTimelineData,
                 @inject(TYPES.ChronosJumpTimelineService) service: ChronosJumpTimelineService) {

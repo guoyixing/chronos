@@ -79,40 +79,40 @@ export class ChronosNodeTransformerData extends ComponentData {
      */
     shadow: ShadowType
 
-    constructor(context: Context, data: ChronosNodeTransformerDataType) {
+    constructor(context: Context, data?: ChronosNodeTransformerDataType) {
         super(context);
-        this.pointRadius = data.pointRadius ?? 5
-        this.pointColor = data.pointColor ?? "#FFF"
-        this.pointBorder = data.pointBorder ?? 2
-        this.pointBorderColor = data.pointBorderColor ?? "#359EE8"
+        this.pointRadius = data?.pointRadius ?? 5
+        this.pointColor = data?.pointColor ?? "#FFF"
+        this.pointBorder = data?.pointBorder ?? 2
+        this.pointBorderColor = data?.pointBorderColor ?? "#359EE8"
         this.time = {
             background: {
-                color: data.time?.background?.color ?? '#359EE8',
-                opacity: data.time?.background?.opacity ?? 1,
-                radius: data.time?.background?.radius ?? 5,
-                width: data.time?.background?.width ?? 150,
-                height: data.time?.background?.height ?? 20,
-                borderColor: data.time?.background?.borderColor ?? '#EBEBEB',
-                border: data.time?.background?.border ?? 1,
+                color: data?.time?.background?.color ?? '#359EE8',
+                opacity: data?.time?.background?.opacity ?? 1,
+                radius: data?.time?.background?.radius ?? 5,
+                width: data?.time?.background?.width ?? 150,
+                height: data?.time?.background?.height ?? 20,
+                borderColor: data?.time?.background?.borderColor ?? '#EBEBEB',
+                border: data?.time?.background?.border ?? 1,
             },
             text: {
-                fontSize: data.time?.text?.fontSize ?? 14,
-                fontFamily: data.time?.text?.fontFamily ?? 'Calibri',
-                fill: data.time?.text?.fill ?? '#FFF'
+                fontSize: data?.time?.text?.fontSize ?? 14,
+                fontFamily: data?.time?.text?.fontFamily ?? 'Calibri',
+                fill: data?.time?.text?.fill ?? '#FFF'
             },
             offset: {
-                x: data.time?.offset?.x ?? 0,
-                y: data.time?.offset?.y ?? 10
+                x: data?.time?.offset?.x ?? 0,
+                y: data?.time?.offset?.y ?? 10
             }
         }
         this.shadow = {
-            color: data.shadow?.color ?? '#359EE8',
-            blur: data.shadow?.blur ?? 5,
+            color: data?.shadow?.color ?? '#359EE8',
+            blur: data?.shadow?.blur ?? 5,
             offset: {
-                x: data.shadow?.offset?.x ?? 0,
-                y: data.shadow?.offset?.y ?? 0
+                x: data?.shadow?.offset?.x ?? 0,
+                y: data?.shadow?.offset?.y ?? 0
             },
-            opacity: data.shadow?.opacity ?? 0.7
+            opacity: data?.shadow?.opacity ?? 0.7
         }
     }
 }

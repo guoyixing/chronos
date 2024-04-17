@@ -14,18 +14,18 @@ import {ChronosJumpTimelineDataType} from "../component/timeline/jump/data.jump.
 
 export type DataType = {
     "isEdit"?: boolean,
-    "window": ChronosWindowDataType,
-    "grid": ChronosGridDataType,
-    "lane": ChronosLaneGroupDataType,
-    "toolbar": ChronosToolbarDataType,
-    "scale": ChronosScaleDataType,
-    "transformer": ChronosNodeTransformerDataType,
+    "window"?: ChronosWindowDataType,
+    "grid"?: ChronosGridDataType,
+    "lane"?: ChronosLaneGroupDataType,
+    "toolbar"?: ChronosToolbarDataType,
+    "scale"?: ChronosScaleDataType,
+    "transformer"?: ChronosNodeTransformerDataType,
     "timeline": ChronosTimelineDataType,
-    "jumpTimeline": ChronosJumpTimelineDataType,
-    "bar": ChronosNodeBarDataType,
-    "node": ChronosNodeGroupDataType,
-    "detail": ChronosNodeDetailDataType,
-    "nodeRevise": ChronosReviseDataType,
-    "laneRevise": ChronosReviseDataType,
-    "laneDisplay": ChronosLaneDisplayDataType
+    "jumpTimeline"?: ChronosJumpTimelineDataType,
+    "bar"?: ChronosNodeBarDataType,
+    "node"?: ChronosNodeGroupDataType,
+    "detail"?: ChronosNodeDetailDataType,
+    "nodeRevise"?: ChronosReviseDataType,
+    "laneRevise"?: ChronosReviseDataType,
+    "laneDisplay"?: ChronosLaneDisplayDataType
 }

@@ -88,7 +88,7 @@ export class ChronosTimelineData extends ComponentData {
     constructor(context: Context, data: ChronosTimelineDataType) {
         super(context);
         this.initTime = new Date(data.initTime);
-        this.startOffSet = data.startOffSet;
+        this.startOffSet = data.startOffSet ?? {x: 0, y: 1}
         this.dayWidth = data.dayWidth ?? 40
         this.textMinWidth = data.textMinWidth ?? 15
         this.rowHeight = data.rowHeight ?? 20
@@ -118,7 +118,7 @@ export class ChronosTimelineData extends ComponentData {
  */
 export type ChronosTimelineDataType = {
     initTime: string;
-    startOffSet: { x: number, y: number }
+    startOffSet?: { x: number, y: number }
     dayWidth?: number
     textMinWidth?: number
     rowHeight?: number

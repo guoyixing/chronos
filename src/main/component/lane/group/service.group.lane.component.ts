@@ -7,10 +7,10 @@ import {ChronosLaneEntryComponent} from "../entry/entry.lane.component";
 import {EVENT_TYPES} from "../../../core/event/event";
 import {ChronosLaneEntryService} from "../entry/service.entry.lane.component";
 import {ChronosLaneGroupComponent} from "./group.lane.component";
-import {Context} from "../../../core/context/context";
 import {ChronosLaneEntryData} from "../entry/data.entry.lane.component";
 import {ChronosLaneReviseComponent} from "../../revise/lane/lane.revise.component";
 import {Callback} from "../../../core/event/callback/callback";
+import Konva from "konva";
 
 /**
  * 泳道组-组件服务
@@ -24,13 +24,20 @@ export class ChronosLaneGroupService implements ComponentService {
     private _data: ChronosLaneGroupData
 
     /**
+     * 回调
+     */
+    private _callback: Callback
+
+    /**
      * 窗体
      */
     private _window: ChronosWindowComponent
 
     constructor(@inject(TYPES.ChronosLaneGroupData) data: ChronosLaneGroupData,
+                @inject(TYPES.Callback) callback: Callback,
                 @inject(TYPES.ChronosWindowComponent) window: ChronosWindowComponent) {
         this._data = data;
+        this._callback = callback;
         this._window = window;
     }
 
@@ -45,9 +52,9 @@ export class ChronosLaneGroupService implements ComponentService {
 
         //泳道组起始坐标
         const startX = fixedCoordinate.x + this._data.startOffSet.x;
-
+        const data = this._data;
         //绘制泳道
-        this._data.height = this._data.startOffSet.y;
+        data.height = data.startOffSet.y;
         for (let i = 0; i < this._data.laneGroup.length; i++) {
             const lane = this._data.laneGroup[i];
             lane.data.index = i;
@@ -58,12 +65,71 @@ export class ChronosLaneGroupService implements ComponentService {
                 lane.service.draw()
                 this._data.height += lane.data.height;
             }
-
+        }
+        if (height - data.height > data.rowHeight) {
+            this.drawAddButton(height);
         }
 
         //修改舞台移动限制
         this._data.context.drawContext.stageMoveLimit.yTop = -(this._data.height - height);
         this._data.context.drawContext.stageMoveLimit.yBottom = 0;
+    }
+
+    /**
+     * 绘制添加按钮
+     * @param height 已存在泳道的高度
+     */
+    drawAddButton(height: number) {
+        const data = this._data;
+        //画一个矩形
+        const rect = new Konva.Rect({
+            x: 0,
+            y: 0,
+            width: data.laneLeftWidth,
+            height: height - data.height,
+            fill: data.leftBackgroundColor,
+            cornerRadius: data.radius,
+            stroke: data.borderColor,
+            strokeWidth: 0,
+            shadowColor: data.shadow.color,
+            shadowBlur: data.shadow.blur,
+            shadowOffset: data.shadow.offset,
+            shadowOpacity: data.shadow.opacity,
+        });
+        //画一个+号
+        const plus = new Konva.Text({
+            x: 0,
+            y: 0,
+            text: '+',
+            fontSize: 80,
+            fontFamily: 'Calibri',
+            fill: 'white',
+        });
+        plus.x((rect.width() - plus.width()) / 2)
+        plus.y((rect.height() - plus.height()) / 2)
+        const group = new Konva.Group({
+            x: data.startOffSet.x,
+            y: data.height,
+        });
+        group.add(rect)
+        group.add(plus)
+
+        group.on('click', () => {
+            const component = this.addLaneEntry();
+            if (component) {
+                const laneGroup = data.context.ioc.get<ChronosLaneGroupComponent>(TYPES.ChronosLaneGroupComponent);
+                this._callback.laneAdd && this._callback.laneAdd(component.data, laneGroup);
+            }
+        })
+        group.on('mouseover', () => {
+            rect.fill(data.hoverLeftBackgroundColor)
+        })
+        group.on('mouseout', () => {
+            rect.fill(data.leftBackgroundColor)
+        })
+
+        data.graphics = group
+        data.layer?.add(group)
     }
 
     /**
@@ -77,6 +143,7 @@ export class ChronosLaneGroupService implements ComponentService {
         this._data.laneGroup.forEach(lane => {
             lane.service.moveX(startX)
         })
+        this._data.graphics?.x(startX)
     }
 
     /**
@@ -144,25 +211,27 @@ export class ChronosLaneGroupService implements ComponentService {
      * @param id 泳道id
      * @param indexOffSet 索引偏移
      */
-    addLaneEntry(id: string, indexOffSet: number): ChronosLaneEntryComponent | undefined {
+    addLaneEntry(id?: string, indexOffSet?: number): ChronosLaneEntryComponent | undefined {
         const data = this._data;
-        const lane = this.laneById(id);
-        const window = data.context.ioc.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
+
+        const window = this._window;
         const laneGroup = data.context.ioc.get<ChronosLaneGroupComponent>(TYPES.ChronosLaneGroupComponent);
-        const callback = data.context.ioc.get<Callback>(TYPES.Callback);
+        const callback = this._callback;
         const revise = data.context.ioc.get<ChronosLaneReviseComponent>(TYPES.ChronosLaneReviseComponent);
-        const context = data.context.ioc.get<Context>(TYPES.Context);
-        if (!lane) {
-            return
-        }
-        const laneIndex = lane.data.index + indexOffSet;
+        const context = data.context;
         const entryData = new ChronosLaneEntryData(context, {
-            id: 'new' + data.laneGroup.length,
+            id: 'lane' + data.laneGroup.length,
             name: '泳道' + data.laneGroup.length
         });
         const service = new ChronosLaneEntryService(entryData, callback, window, laneGroup, revise);
         const component = new ChronosLaneEntryComponent(entryData, service);
-        data.laneGroup.splice(laneIndex, 0, component);
+        if (id && indexOffSet) {
+            const lane = this.laneById(id);
+            lane && data.laneGroup.splice(lane.data.index + indexOffSet, 0, component);
+        } else {
+            data.laneGroup.push(component);
+        }
+
         this.reDraw();
         return component;
     }

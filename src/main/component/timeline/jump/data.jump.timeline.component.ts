@@ -61,7 +61,7 @@ export class ChronosJumpTimelineData extends ComponentData {
 
     constructor(context: Context, data?: ChronosJumpTimelineDataType) {
         super(context);
-        this.hide = data?.hide ?? false
+        this.hide = data?.hide ?? true
         this.startOffSet = data?.startOffSet
         this.width = data?.width ?? 240
         this.height = data?.height ?? 30

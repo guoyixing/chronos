@@ -15,7 +15,7 @@ export class ChronosNodeReviseData extends ChronosReviseData<ChronosNodeEntryCom
     name = () => "node-revise";
 
 
-    constructor(context: Context, data: ChronosReviseDataType) {
+    constructor(context: Context, data?: ChronosReviseDataType) {
         super(context, data);
     }
 }

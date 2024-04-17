@@ -35,19 +35,19 @@ export class ChronosNodeGroupData extends ComponentData {
     moveRangeBorder: number
 
 
-    constructor(context: Context, data: ChronosNodeGroupDataType) {
+    constructor(context: Context, data?: ChronosNodeGroupDataType) {
         super(context);
-        data.entry.forEach((entry) => {
+        data?.entry?.forEach((entry) => {
             this.originalNodeEntryData.push(new ChronosNodeEntryData(context, entry))
         })
-        this.moveRangeColor = data.moveRangeColor ?? 'rgba(0,255,0,0.3)'
-        this.moveRangeBorderColor = data.moveRangeBorderColor ?? 'rgba(0,0,0,0)'
-        this.moveRangeBorder = data.moveRangeBorder ?? 0
+        this.moveRangeColor = data?.moveRangeColor ?? 'rgba(0,255,0,0.3)'
+        this.moveRangeBorderColor = data?.moveRangeBorderColor ?? 'rgba(0,0,0,0)'
+        this.moveRangeBorder = data?.moveRangeBorder ?? 0
     }
 }
 
 export type ChronosNodeGroupDataType = {
-    entry: ChronosNodeEntryDataType[]
+    entry?: ChronosNodeEntryDataType[]
     moveRangeColor?: string
     moveRangeBorderColor?: string
     moveRangeBorder?: number

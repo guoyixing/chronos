@@ -36,12 +36,12 @@ export class ChronosWindowData extends ComponentData {
     borderColor: string
 
 
-    constructor(context: Context, data: ChronosWindowDataType) {
+    constructor(context: Context, data?: ChronosWindowDataType) {
         super(context);
-        this.width = data.width ?? 0;
-        this.height = data.height ?? 0;
-        this.border = data.border ?? 1;
-        this.borderColor = data.borderColor ?? "#E0DFFF";
+        this.width = data?.width ?? 0;
+        this.height = data?.height ?? 0;
+        this.border = data?.border ?? 1;
+        this.borderColor = data?.borderColor ?? "#E0DFFF";
     }
 }
 

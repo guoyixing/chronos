@@ -12,7 +12,7 @@ export class ChronosLaneReviseData extends ChronosReviseData<ChronosLaneEntryCom
     name = () => "lane-revise";
 
 
-    constructor(context: Context, data: ChronosReviseDataType) {
+    constructor(context: Context, data?: ChronosReviseDataType) {
         super(context, data);
     }
 }

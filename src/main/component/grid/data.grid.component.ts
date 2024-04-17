@@ -75,14 +75,14 @@ export class ChronosGridData extends ComponentData {
      */
     hidePoint: boolean = true;
 
-    constructor(context: Context, data: ChronosGridDataType) {
+    constructor(context: Context, data?: ChronosGridDataType) {
         super(context);
-        this.startOffSet = data.startOffSet;
-        this.tbGapSize = data.tbGapSize ?? 20;
-        this.lrGapSize = data.lrGapSize ?? 40;
-        this.color = data.color ?? '#EFEFEF';
-        this.width = data.width ?? 1;
-        this.hide = data.hide ?? false;
+        this.startOffSet = data?.startOffSet ?? {x: 58, y: 0};
+        this.tbGapSize = data?.tbGapSize ?? 20;
+        this.lrGapSize = data?.lrGapSize ?? 40;
+        this.color = data?.color ?? '#EFEFEF';
+        this.width = data?.width ?? 1;
+        this.hide = data?.hide ?? false;
     }
 
 }
@@ -94,7 +94,7 @@ export type ChronosGridDataType = {
     /**
      * 渲染起始坐标
      */
-    startOffSet: { x: number, y: number }
+    startOffSet?: { x: number, y: number }
 
     /**
      * 网格间隙

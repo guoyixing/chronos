@@ -3,6 +3,8 @@ import {injectable} from "inversify";
 import {ChronosLaneEntryComponent} from "../entry/entry.lane.component";
 import {Context} from "../../../core/context/context";
 import {ChronosLaneEntryData, ChronosLaneEntryDataType} from "../entry/data.entry.lane.component";
+import {ShadowType} from "../../../common/type/shadow.type";
+import Konva from "konva";
 
 /**
  * 泳道组-组件数据
@@ -19,6 +21,11 @@ export class ChronosLaneGroupData extends ComponentData {
      * 原始泳道条目数据
      */
     originalLaneEntryData: Array<ChronosLaneEntryData> = []
+
+    /**
+     * 图形
+     */
+    graphics: Konva.Group | undefined
 
     /**
      * 高度
@@ -40,15 +47,53 @@ export class ChronosLaneGroupData extends ComponentData {
      */
     startOffSet: { x: number, y: number }
 
+    /**
+     * 泳道左侧背景颜色
+     */
+    leftBackgroundColor: string
 
-    constructor(context: Context, data: ChronosLaneGroupDataType) {
+    /**
+     * 泳道左侧悬浮背景颜色
+     */
+    hoverLeftBackgroundColor: string
+
+    /**
+     * 泳道边框颜色
+     */
+    borderColor: string
+
+    /**
+     * 圆角
+     */
+    radius: number[] | number
+
+    /**
+     * 阴影
+     */
+    shadow: ShadowType
+
+
+    constructor(context: Context, data?: ChronosLaneGroupDataType) {
         super(context);
-        data.entry?.forEach((entry) => {
+        data?.entry?.forEach((entry) => {
             this.originalLaneEntryData.push(new ChronosLaneEntryData(context, entry));
         })
-        this.rowHeight = data.rowHeight ?? 40;
-        this.laneLeftWidth = data.laneLeftWidth ?? 60;
-        this.startOffSet = data.startOffSet;
+        this.rowHeight = data?.rowHeight ?? 40;
+        this.laneLeftWidth = data?.laneLeftWidth ?? 60;
+        this.startOffSet = data?.startOffSet??{x: 0, y: 60};
+        this.leftBackgroundColor = data?.leftBackgroundColor ?? "#ECECF4";
+        this.hoverLeftBackgroundColor = data?.hoverLeftBackgroundColor ?? "#E0DFFF";
+        this.borderColor = data?.borderColor ?? "#E0DFFF";
+        this.radius = data?.radius ?? [0, 5, 5, 0];
+        this.shadow = {
+            color: data?.shadow?.color ?? 'black',
+            blur: data?.shadow?.blur ?? 10,
+            offset: {
+                x: data?.shadow?.offset?.x ?? 0,
+                y: data?.shadow?.offset?.y ?? -5
+            },
+            opacity: data?.shadow?.opacity ?? 0.2
+        }
     }
 }
 
@@ -56,8 +101,13 @@ export class ChronosLaneGroupData extends ComponentData {
  * 泳道组-组件数据类型
  */
 export type ChronosLaneGroupDataType = {
-    startOffSet: { x: number, y: number }
+    startOffSet?: { x: number, y: number }
     entry?: ChronosLaneEntryDataType[]
     rowHeight?: number
     laneLeftWidth?: number
+    leftBackgroundColor?: string
+    hoverLeftBackgroundColor?: string
+    borderColor?: string
+    radius?: number[] | number
+    shadow?: ShadowType
 }

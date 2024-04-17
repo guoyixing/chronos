@@ -80,43 +80,43 @@ export class ChronosLaneDisplayData extends ComponentData {
     margin: number
 
 
-    constructor(context: Context, data: ChronosLaneDisplayDataType) {
+    constructor(context: Context, data?: ChronosLaneDisplayDataType) {
         super(context);
-        this.width = data.width ?? 200;
-        this.height = data.height ?? 400;
-        this.hide = data.hide ?? false;
-        this.backgroundColor = data.backgroundColor ?? 'white';
-        this.borderColor = data.borderColor ?? '#EBEBEB';
-        this.radius = data.radius ?? 10;
-        this.border = data.border ?? 1;
-        this.margin = data.margin ?? 30;
+        this.width = data?.width ?? 200;
+        this.height = data?.height ?? 400;
+        this.hide = data?.hide ?? true;
+        this.backgroundColor = data?.backgroundColor ?? 'white';
+        this.borderColor = data?.borderColor ?? '#EBEBEB';
+        this.radius = data?.radius ?? 10;
+        this.border = data?.border ?? 1;
+        this.margin = data?.margin ?? 30;
         this.shadow = {
-            color: data.shadow?.color ?? 'black',
-            blur: data.shadow?.blur ?? 10,
+            color: data?.shadow?.color ?? 'black',
+            blur: data?.shadow?.blur ?? 10,
             offset: {
-                x: data.shadow?.offset?.x ?? 0,
-                y: data.shadow?.offset?.y ?? 0
+                x: data?.shadow?.offset?.x ?? 0,
+                y: data?.shadow?.offset?.y ?? 0
             },
-            opacity: data.shadow?.opacity ?? 0.2
+            opacity: data?.shadow?.opacity ?? 0.2
         }
         this.text = {
-            fontSize: data.text?.fontSize ?? 18,
-            fontFamily: data.text?.fontFamily ?? 'Calibri',
-            color: data.text?.color ?? '#4F4F54',
-            hoverColor: data.text?.hoverColor ?? '#359EE8',
-            marginBottom: data.text?.marginBottom ?? 10,
-            offSetY: data.text?.offSetY ?? 0
+            fontSize: data?.text?.fontSize ?? 18,
+            fontFamily: data?.text?.fontFamily ?? 'Calibri',
+            color: data?.text?.color ?? '#4F4F54',
+            hoverColor: data?.text?.hoverColor ?? '#359EE8',
+            marginBottom: data?.text?.marginBottom ?? 10,
+            offSetY: data?.text?.offSetY ?? 0
         }
         const window = context.ioc.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
-        if (data.startOffSetPct) {
+        if (data?.startOffSetPct) {
             this.startOffSet = {
-                x: window.data.width * data.startOffSetPct.xPct,
-                y: window.data.height * data.startOffSetPct.yPct
+                x: window.data?.width * data?.startOffSetPct.xPct,
+                y: window.data?.height * data?.startOffSetPct.yPct
             }
         } else {
             this.startOffSet = {
-                x: window.data.width * 0.8,
-                y: window.data.height * 0.2
+                x: window.data?.width * 0.8,
+                y: window.data?.height * 0.2
             }
         }
     }

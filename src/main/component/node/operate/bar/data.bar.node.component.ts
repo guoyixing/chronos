@@ -90,42 +90,42 @@ export class ChronosNodeBarData extends ComponentData {
      */
     shadow: ShadowType
 
-    constructor(context: Context, data: ChronosNodeBarDataType) {
+    constructor(context: Context, data?: ChronosNodeBarDataType) {
         super(context);
-        this.width = data.width ?? 200;
-        this.height = data.height ?? 400;
-        this.hide = data.hide ?? false;
-        this.backgroundColor = data.backgroundColor ?? 'white';
-        this.borderColor = data.borderColor ?? '#EBEBEB';
-        this.radius = data.radius ?? 10;
-        this.border = data.border ?? 1;
-        this.middleLineColor = data.middleLineColor ?? '#F1F0FF';
-        this.middleLineWidth = data.middleLineWidth ?? 1;
+        this.width = data?.width ?? 200;
+        this.height = data?.height ?? 400;
+        this.hide = data?.hide ?? true;
+        this.backgroundColor = data?.backgroundColor ?? 'white';
+        this.borderColor = data?.borderColor ?? '#EBEBEB';
+        this.radius = data?.radius ?? 10;
+        this.border = data?.border ?? 1;
+        this.middleLineColor = data?.middleLineColor ?? '#F1F0FF';
+        this.middleLineWidth = data?.middleLineWidth ?? 1;
         this.candidateNodeName = new Map<string, string>();
-        if (data.candidateNodeName) {
-            for (let key in data.candidateNodeName) {
-                this.candidateNodeName.set(key, data.candidateNodeName[key])
+        if (data?.candidateNodeName) {
+            for (let key in data?.candidateNodeName) {
+                this.candidateNodeName.set(key, data?.candidateNodeName[key])
             }
         }
         this.shadow = {
-            color: data.shadow?.color ?? 'black',
-            blur: data.shadow?.blur ?? 10,
+            color: data?.shadow?.color ?? 'black',
+            blur: data?.shadow?.blur ?? 10,
             offset: {
-                x: data.shadow?.offset?.x ?? 0,
-                y: data.shadow?.offset?.y ?? 0
+                x: data?.shadow?.offset?.x ?? 0,
+                y: data?.shadow?.offset?.y ?? 0
             },
-            opacity: data.shadow?.opacity ?? 0.2
+            opacity: data?.shadow?.opacity ?? 0.2
         }
         const window = context.ioc.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
-        if (data.startOffSetPct) {
+        if (data?.startOffSetPct) {
             this.startOffSet = {
-                x: window.data.width * data.startOffSetPct.xPct,
-                y: window.data.height * data.startOffSetPct.yPct
+                x: window.data?.width * data?.startOffSetPct.xPct,
+                y: window.data?.height * data?.startOffSetPct.yPct
             }
         } else {
             this.startOffSet = {
-                x: window.data.width * 0.8,
-                y: window.data.height * 0.2
+                x: window.data?.width * 0.8,
+                y: window.data?.height * 0.2
             }
         }
     }
@@ -135,7 +135,7 @@ export class ChronosNodeBarData extends ComponentData {
  * 节点导航窗-组件数据类型
  */
 export type ChronosNodeBarDataType = {
-    startOffSetPct: { xPct: number, yPct: number }
+    startOffSetPct?: { xPct: number, yPct: number }
     width?: number
     height?: number
     hide?: boolean
