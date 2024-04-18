@@ -27,7 +27,7 @@ Chronos是一个计划管理、资源管理的前端插件。 Chronos致力于�
 Chronos类似于甘特图（横道图），但是Chronos更加灵活，可以自定义计划的类型，资源的类型，资源的数量等等。
 
 ## 演示地址
-[chronos](http://chronos.keyboarddog.com/)
+[chronos.keyboarddog.com](http://chronos.keyboarddog.com/)
 
 ## 文档
 - [中文文档](https://gitee.com/sleipnir-team/chronos/wikis/pages)
