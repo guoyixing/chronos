@@ -4,6 +4,7 @@ import {Context} from "../../core/context/context";
 import Konva from "konva";
 import {ChronosWindowComponent} from "../window/window.component";
 import {TYPES} from "../../config/inversify.config";
+import {ButtonConfigType, ButtonType} from "../../common/type/button.type";
 
 /**
  * 比例尺-组件数据
@@ -74,22 +75,7 @@ export class ChronosScaleData extends ComponentData {
     /**
      * 按钮
      */
-    button: {
-        stroke: {
-            length: number
-            width: number
-            color: string
-            hoverColor: string
-            margin: {
-                left: number
-                right: number
-            }
-        },
-        background: {
-            color: string
-            hoverColor: string
-        }
-    }
+    button: ButtonType
 
     constructor(context: Context, data?: ChronosScaleDataType) {
         super(context);
@@ -153,20 +139,5 @@ export type ChronosScaleDataType = {
     borderColor?: string
     textColor?: string
     fontSize?: number
-    button?: {
-        stroke?: {
-            length?: number
-            width?: number
-            color?: string
-            hoverColor?: string
-            margin?: {
-                left?: number
-                right?: number
-            }
-        },
-        background?: {
-            color?: string
-            hoverColor?: string
-        }
-    }
+    button?: ButtonConfigType
 }
