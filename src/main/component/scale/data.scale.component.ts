@@ -132,7 +132,6 @@ export type ChronosScaleDataType = {
     scaleJump?: number
     width?: number
     height?: number
-    bottomMargin?: number
     backgroundColor?: string
     radius?: number
     border?: number

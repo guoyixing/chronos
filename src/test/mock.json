@@ -22,6 +22,19 @@
     },
     "rowHeight": 40,
     "laneLeftWidth": 60,
+    "leftBackgroundColor": "#ECECF4",
+    "hoverLeftBackgroundColor": "#E0DFFF",
+    "borderColor": "#E0DFFF",
+    "radius": 0,
+    "shadow": {
+      "color": "black",
+      "blur": 0,
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "opacity": 0.2
+    },
     "entry": [
       {
         "id": "1",
@@ -143,6 +156,26 @@
         "y": 0
       },
       "opacity": 0.7
+    },
+    "time": {
+      "background": {
+        "color": "#359EE8",
+        "opacity": 1,
+        "radius": 5,
+        "width": 150,
+        "height": 20,
+        "borderColor": "#EBEBEB",
+        "border": 1
+      },
+      "text": {
+        "fontSize": 14,
+        "fontFamily": "Calibri",
+        "fill": "#FFF"
+      },
+      "offset": {
+        "x": 0,
+        "y": 10
+      }
     }
   },
   "timeline": {
