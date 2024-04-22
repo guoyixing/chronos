@@ -606,5 +606,47 @@
     "border": 1,
     "borderColor": "#ECECF4",
     "radius": 10
+  },
+  "holiday": {
+    "holiday": [
+      {
+        "startTime": "2023-12-02 00:00:00",
+        "endTime": "2023-12-03 23:59:59",
+        "hide": false
+      },
+      {
+        "startTime": "2023-12-09 00:00:00",
+        "endTime": "2023-12-10 23:59:59",
+        "hide": false
+      },
+      {
+        "startTime": "2023-12-16 00:00:00",
+        "endTime": "2023-12-17 23:59:59",
+        "hide": false
+      },
+      {
+        "startTime": "2023-12-23 00:00:00",
+        "endTime": "2023-12-24 23:59:59",
+        "hide": false
+      },
+      {
+        "startTime": "2023-12-30 00:00:00",
+        "endTime": "2024-01-01 23:59:59",
+        "hide": false
+      }
+    ],
+    "color": "#FFFF00",
+    "border": 1,
+    "borderColor": "#FF0000",
+    "opacity": 0.2,
+    "hide": false,
+    "text": {
+      "density": 40,
+      "color": "#ffcc19",
+      "font": "Calibri",
+      "size": 12,
+      "content": "休息日",
+      "rotation": 45
+    }
   }
 }

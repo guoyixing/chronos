@@ -22,4 +22,8 @@ export class ChronosHolidayComponent extends BaseComponent<ChronosHolidayData, C
         super(data, service);
     }
 
+    init() {
+        this.data.layer = this.data.context.drawContext.rootLayer
+    }
+
 }

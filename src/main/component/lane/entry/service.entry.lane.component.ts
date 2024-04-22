@@ -412,7 +412,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * @param drawLeft 左侧泳道分割块
      */
     listenDblClick(drawLeft: Konva.Rect) {
-        if(!this.data.context.drawContext.isEdit){
+        if (!this.data.context.drawContext.isEdit) {
             return
         }
         drawLeft?.on('dblclick', () => {

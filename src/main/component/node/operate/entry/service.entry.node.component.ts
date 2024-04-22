@@ -189,7 +189,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
      */
     listenDblClick(nodeShape: NodeShape) {
         const data = this._data;
-        if(!data.context.drawContext.isEdit){
+        if (!data.context.drawContext.isEdit) {
             return
         }
         const node = nodeShape.shape;

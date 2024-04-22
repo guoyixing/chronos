@@ -22,6 +22,7 @@ import {Callback} from "./core/event/callback/callback";
 import {LaneReviseConfig} from "./config/lane.revise.inversify.config";
 import {LaneDisplayConfig} from "./config/display.lane.inversifty.config";
 import {JumpTimelineConfig} from "./config/jump.timeline.inversify.config";
+import {HolidayConfig} from "./config/holiday.inversify.config";
 
 
 export class Chronos {
@@ -48,6 +49,8 @@ export class Chronos {
         new GridConfig(this.chronosContainer, rootHtml, data)
         //泳道
         new LaneConfig(this.chronosContainer, rootHtml, data)
+        //假期
+        new HolidayConfig(this.chronosContainer, rootHtml, data)
         //工具栏
         new ToolbarConfig(this.chronosContainer, rootHtml, data)
         //比例尺

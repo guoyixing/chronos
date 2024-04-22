@@ -11,7 +11,6 @@ import {ChronosNodeDetailDataType} from "../component/node/operate/detail/data.d
 import {ChronosReviseDataType} from "../component/revise/data.revise.component";
 import {ChronosLaneDisplayDataType} from "../component/lane/display/data.display.lane.component";
 import {ChronosJumpTimelineDataType} from "../component/timeline/jump/data.jump.timeline.component";
-import {HolidayConfig} from "./holiday.inversify.config";
 import {ChronosHolidayDataType} from "../component/holiday/data.holiday.component";
 
 export type DataType = {

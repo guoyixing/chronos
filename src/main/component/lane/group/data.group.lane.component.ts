@@ -80,7 +80,7 @@ export class ChronosLaneGroupData extends ComponentData {
         })
         this.rowHeight = data?.rowHeight ?? 40;
         this.laneLeftWidth = data?.laneLeftWidth ?? 60;
-        this.startOffSet = data?.startOffSet??{x: 0, y: 60};
+        this.startOffSet = data?.startOffSet ?? {x: 0, y: 60};
         this.leftBackgroundColor = data?.leftBackgroundColor ?? "#ECECF4";
         this.hoverLeftBackgroundColor = data?.hoverLeftBackgroundColor ?? "#E0DFFF";
         this.borderColor = data?.borderColor ?? "#E0DFFF";
