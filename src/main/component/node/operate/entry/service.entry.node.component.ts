@@ -119,7 +119,6 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         this.listenDblClick(nodeShape)
         //监听悬浮
         this.listenMouseOver(nodeShape)
-
         data.graphics = nodeShape
         node && data.layer?.add(node);
     }

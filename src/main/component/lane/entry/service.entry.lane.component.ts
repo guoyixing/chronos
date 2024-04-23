@@ -82,7 +82,20 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
         }
 
         //绘制边线
+        if (this.data.laneLineGraphics) {
+            this.data.laneLineGraphics.destroy()
+        }
         const [drawBorderTop, drawBorderBottom] = this.drawBorder(width, height);
+        const laneLineGroup = new Konva.Group({
+            x: data.startCoordinate.x
+        });
+        laneLineGroup.add(drawBorderTop);
+        laneLineGroup.add(drawBorderBottom);
+        this.data.laneLineGraphics = laneLineGroup
+        groupData.context.drawContext.rootLayer?.add(laneLineGroup);
+
+        laneLineGroup.moveToTop()
+
         const group = new Konva.Group({
             x: data.startCoordinate.x,
             draggable: edit,
@@ -94,8 +107,8 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
                 };
             }
         });
-        group.add(drawBorderTop);
-        group.add(drawBorderBottom);
+        // group.add(drawBorderTop);
+        // group.add(drawBorderBottom);
 
         let drawLeft: Konva.Rect
 
@@ -142,11 +155,11 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
             }
         }
 
-
         //拖动开始
         group.on('dragstart', () => {
             //浮动到最上层
             group.moveToTop();
+            laneLineGroup.moveTo(group)
             //添加选中效果
             if (drawLeft) {
                 drawLeft.fill(data.hoverLeftBackgroundColor);
@@ -170,6 +183,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * 移动x坐标
      */
     moveX(x: number): void {
+        this.data.laneLineGraphics?.x(x)
         this.data.graphics?.x(x)
         //重绘名称
         const data = this.data
@@ -381,6 +395,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      */
     clear(): void {
         const data = this.data;
+        data.laneLineGraphics?.destroy()
         data.graphics?.destroy()
         this.group.data.originalLaneEntryData.splice(data.index, 1);
         this.group.data.laneGroup.splice(data.index, 1);

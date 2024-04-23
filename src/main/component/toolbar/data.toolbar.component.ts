@@ -78,6 +78,7 @@ export class ChronosToolbarData extends ComponentData {
                 width: data?.button?.stroke?.width ?? 2,
                 color: data?.button?.stroke?.color ?? "#4F4F54",
                 hoverColor: data?.button?.stroke?.hoverColor ?? "#359EE8",
+                disabledColor: data?.button?.stroke?.disabledColor ?? "#FFF",
                 margin: {
                     left: data?.button?.stroke?.margin?.left ?? 10,
                     right: data?.button?.stroke?.margin?.right ?? 10

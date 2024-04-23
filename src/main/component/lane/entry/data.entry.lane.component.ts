@@ -14,6 +14,12 @@ export class ChronosLaneEntryData extends ComponentData {
      */
     graphics: Konva.Group | undefined
 
+
+    /**
+     * 泳道线
+     */
+    laneLineGraphics: Konva.Group | undefined
+
     /**
      * 泳道id
      */

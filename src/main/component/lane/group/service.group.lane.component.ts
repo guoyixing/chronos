@@ -80,30 +80,32 @@ export class ChronosLaneGroupService implements ComponentService {
      */
     drawAddButton() {
         const data = this._data;
-        //画一个矩形
-        const rect = new Konva.Rect({
-            x: 0,
-            y: 0,
-            width: data.laneLeftWidth,
-            height: this._window.data.height - data.startOffSet.y,
-            fill: data.leftBackgroundColor,
-            cornerRadius: data.radius,
-            stroke: data.borderColor,
-            strokeWidth: 0,
-            shadowColor: data.shadow.color,
-            shadowBlur: data.shadow.blur,
-            shadowOffset: data.shadow.offset,
-            shadowOpacity: data.shadow.opacity,
-        });
+
 
         const fixedCoordinate = this._data.context.drawContext.getFixedCoordinate();
-        const group = new Konva.Group({
-            x: fixedCoordinate.x + data.startOffSet.x,
-            y: fixedCoordinate.y + data.height,
-        });
-        group.add(rect)
-
         if (data.context.drawContext.isEdit && data.laneGroup.length < 1) {
+            //画一个矩形
+            const rect = new Konva.Rect({
+                x: 0,
+                y: 0,
+                width: data.laneLeftWidth,
+                height: this._window.data.height - data.startOffSet.y,
+                fill: data.leftBackgroundColor,
+                cornerRadius: data.radius,
+                stroke: data.borderColor,
+                strokeWidth: 0,
+                shadowColor: data.shadow.color,
+                shadowBlur: data.shadow.blur,
+                shadowOffset: data.shadow.offset,
+                shadowOpacity: data.shadow.opacity,
+            });
+            const group = new Konva.Group({
+                x: fixedCoordinate.x + data.startOffSet.x,
+                y: fixedCoordinate.y + data.height,
+            });
+            group.add(rect)
+
+
             //画一个+号
             const plus = new Konva.Text({
                 x: 0,
@@ -129,9 +131,10 @@ export class ChronosLaneGroupService implements ComponentService {
             group.on('mouseout', () => {
                 rect.fill(data.leftBackgroundColor)
             })
+            data.graphics = group
+            data.layer?.add(group)
         }
-        data.graphics = group
-        data.layer?.add(group)
+
     }
 
     /**

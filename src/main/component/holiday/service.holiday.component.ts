@@ -108,5 +108,16 @@ export class ChronosHolidayService implements ComponentService {
 
         data.graphics = group
         data.layer?.add(group)
+        group.moveToBottom()
+    }
+
+    open() {
+        this._data.hide = false;
+        this.draw()
+    }
+
+    close() {
+        this._data.hide = true;
+        this._data.graphics?.destroy();
     }
 }

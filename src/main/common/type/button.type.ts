@@ -4,6 +4,7 @@ export type ButtonConfigType = {
         width?: number
         color?: string
         hoverColor?: string
+        disabledColor?: string
         margin?: {
             left?: number
             right?: number
@@ -21,6 +22,7 @@ export type ButtonType = {
         width: number
         color: string
         hoverColor: string
+        disabledColor: string
         margin: {
             left: number
             right: number
