@@ -73,7 +73,8 @@ export class ChronosTimelineService implements ComponentService {
             shadowBlur: data.shadow.blur,
             shadowOffset: data.shadow.offset,
             shadowOpacity: data.shadow.opacity,
-            cornerRadius: data.radius
+            cornerRadius: data.radius,
+            prefectDrawEnabled: false
         });
         data.layer?.add(background)
         const texts = ['年', '月', '日']
@@ -378,6 +379,7 @@ export class ChronosTimelineService implements ComponentService {
             shadowBlur: data.shadow.blur,
             shadowOffset: data.shadow.offset,
             shadowOpacity: data.shadow.opacity,
+            prefectDrawEnabled: false
         });
         data.layer?.add(background)
     }

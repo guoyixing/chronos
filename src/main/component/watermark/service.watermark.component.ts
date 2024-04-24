@@ -32,7 +32,7 @@ export class ChronosWatermarkService implements ComponentService {
      */
     draw(): void {
         const data = this._data;
-        if (data.hide){
+        if (data.hide) {
             return
         }
 
@@ -47,8 +47,9 @@ export class ChronosWatermarkService implements ComponentService {
 
         const group = new Konva.Group({x: x, y: y});
         //绘制文字
-        for (let i = 0; i < width + data.lrSize; i += data.lrSize) {
-            for (let j = 0; j < height + data.tbSize; j += data.tbSize) {
+        const length = data.text.size * data.text.content.length;
+        for (let i = -length; i < width + data.lrSize; i += data.lrSize) {
+            for (let j = -data.text.size; j < height + data.tbSize; j += data.tbSize) {
                 group.add(new Konva.Text({
                     x: i,
                     y: j,
@@ -57,7 +58,8 @@ export class ChronosWatermarkService implements ComponentService {
                     fontFamily: data.text.font,
                     fill: data.text.color,
                     opacity: data.text.opacity,
-                    rotation: data.rotation
+                    rotation: data.rotation,
+                    prefectDrawEnabled: false
                 }));
             }
         }

@@ -86,6 +86,7 @@ export class ChronosNodeBarService implements ComponentService {
             shadowBlur: data.shadow.blur,
             shadowOffset: data.shadow.offset,
             shadowOpacity: data.shadow.opacity,
+            prefectDrawEnabled: false
         });
 
         //绘制中间分线

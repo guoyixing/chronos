@@ -156,7 +156,8 @@ export class ChronosNodeDetailService implements ComponentService {
             shadowBlur: data.shadow.blur,
             shadowOffset: data.shadow.offset,
             shadowOpacity: data.shadow.opacity,
-            cornerRadius: data.radius
+            cornerRadius: data.radius,
+            prefectDrawEnabled: false
         });
     }
 

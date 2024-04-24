@@ -52,6 +52,7 @@ export class ChronosGridService implements ComponentService {
         this._data.graphics = group;
 
         const {width, height} = this._window.service.getVisualRange()
+        const borderSize = this._window.data.border * 2;
         const tbGapSize = this._data.tbGapSize;
         const lrGapSize = this._data.lrGapSize;
         const rootLayer = this._data.context.drawContext.rootLayer;
@@ -60,10 +61,10 @@ export class ChronosGridService implements ComponentService {
         const coordinate = this._data.context.drawContext.getFixedCoordinate();
 
         //计算网格的x起始坐标
-        const x = coordinate.x - coordinate.x % lrGapSize;
+        const x = coordinate.x - startOffSet.x - startOffSet.x % lrGapSize - coordinate.x % lrGapSize - borderSize;
 
         //计算网格的y起始坐标
-        const y = coordinate.y - coordinate.y % tbGapSize;
+        const y = coordinate.y - startOffSet.y - startOffSet.y % tbGapSize - coordinate.y % tbGapSize;
 
         //绘制纵线
         for (let i = x; i < x + width + lrGapSize; i += lrGapSize) {

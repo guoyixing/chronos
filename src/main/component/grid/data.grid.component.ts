@@ -77,7 +77,7 @@ export class ChronosGridData extends ComponentData {
 
     constructor(context: Context, data?: ChronosGridDataType) {
         super(context);
-        this.startOffSet = data?.startOffSet ?? {x: 58, y: 0};
+        this.startOffSet = data?.startOffSet ?? {x: 60, y: 0};
         this.tbGapSize = data?.tbGapSize ?? 20;
         this.lrGapSize = data?.lrGapSize ?? 40;
         this.color = data?.color ?? '#EFEFEF';

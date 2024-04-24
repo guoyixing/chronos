@@ -138,6 +138,7 @@ export class ChronosNodeTransformerService implements ComponentService {
             shadowBlur: data.shadow.blur,
             shadowOffset: data.shadow.offset,
             shadowOpacity: data.shadow.opacity,
+            prefectDrawEnabled: false
 
         });
 
@@ -151,6 +152,7 @@ export class ChronosNodeTransformerService implements ComponentService {
             stroke: data.time.background.borderColor,
             cornerRadius: data.time.background.radius,
             strokeWidth: data.time.background.border,
+            prefectDrawEnabled: false
         });
         background.x(-data.time.background.width / 2 + data.time.offset.x)
         background.y(data.time.offset.y)

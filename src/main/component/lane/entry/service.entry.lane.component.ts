@@ -326,6 +326,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
             shadowBlur: data.shadow.blur,
             shadowOffset: data.shadow.offset,
             shadowOpacity: data.shadow.opacity,
+            prefectDrawEnabled: false
         });
     }
 

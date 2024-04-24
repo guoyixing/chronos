@@ -88,7 +88,8 @@ export class ChronosHolidayService implements ComponentService {
                     fontSize: data.text.size,
                     fontFamily: data.text.font,
                     fill: data.text.color,
-                    rotation: data.text.rotation
+                    rotation: data.text.rotation,
+                    prefectDrawEnabled: false
                 })
                 if (offSetX < width - text.width()) {
                     offSetX += text.width()
@@ -106,7 +107,8 @@ export class ChronosHolidayService implements ComponentService {
                 fill: data.color,
                 stroke: data.borderColor,
                 strokeWidth: data.border,
-                opacity: data.opacity
+                opacity: data.opacity,
+                prefectDrawEnabled: false
             })
             entryGroup.add(rect)
             entryGroup.clipFunc((ctx) => {

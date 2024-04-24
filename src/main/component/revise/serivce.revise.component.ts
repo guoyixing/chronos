@@ -110,7 +110,8 @@ export abstract class ChronosReviseService<T extends BaseComponent<any, any>> im
             shadowColor: data.shadow.color,
             shadowBlur: data.shadow.blur,
             shadowOffset: data.shadow.offset,
-            shadowOpacity: data.shadow.opacity
+            shadowOpacity: data.shadow.opacity,
+            prefectDrawEnabled: false
         })
     }
 
