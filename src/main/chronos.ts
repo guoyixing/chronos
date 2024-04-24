@@ -23,6 +23,7 @@ import {LaneReviseConfig} from "./config/lane.revise.inversify.config";
 import {LaneDisplayConfig} from "./config/display.lane.inversifty.config";
 import {JumpTimelineConfig} from "./config/jump.timeline.inversify.config";
 import {HolidayConfig} from "./config/holiday.inversify.config";
+import {WatermarkConfig} from "./config/watermark.inversify.config";
 
 
 export class Chronos {
@@ -47,6 +48,8 @@ export class Chronos {
         new WindowConfig(this.chronosContainer, rootHtml, data)
         //网格
         new GridConfig(this.chronosContainer, rootHtml, data)
+        //水印
+        new WatermarkConfig(this.chronosContainer, rootHtml, data)
         //泳道
         new LaneConfig(this.chronosContainer, rootHtml, data)
         //假期

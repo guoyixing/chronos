@@ -27,6 +27,7 @@ export class ChronosHolidayComponent extends BaseComponent<ChronosHolidayData, C
 
     init() {
         this.data.layer = this.data.context.drawContext.rootLayer
+        this.service.listenScale()
     }
 
     /**
@@ -52,7 +53,8 @@ export class ChronosHolidayComponent extends BaseComponent<ChronosHolidayData, C
                 data: path,
                 stroke: this.data.holiday.length > 0 ? color : button.stroke.disabledColor,
                 strokeWidth: button.stroke.width,
-                lineJoin: 'round'
+                lineJoin: 'round',
+                lineCap: 'round',
             })
         }
 

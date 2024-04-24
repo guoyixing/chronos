@@ -5,6 +5,8 @@ import {TYPES} from "../../config/inversify.config";
 import {ChronosTimelineComponent} from "../timeline/timeline.component";
 import {ChronosLaneGroupComponent} from "../lane/group/group.lane.component";
 import Konva from "konva";
+import {ChronosScaleComponent} from "../scale/scale.component";
+import {EVENT_TYPES} from "../../core/event/event";
 
 /**
  * 假期-组件服务
@@ -27,12 +29,19 @@ export class ChronosHolidayService implements ComponentService {
      */
     private _laneGroup: ChronosLaneGroupComponent
 
+    /**
+     * 比例尺
+     */
+    private _scale: ChronosScaleComponent
+
     constructor(@inject(TYPES.ChronosHolidayData) data: ChronosHolidayData,
                 @inject(TYPES.ChronosTimelineComponent) timeLine: ChronosTimelineComponent,
-                @inject(TYPES.ChronosLaneGroupComponent) laneGroup: ChronosLaneGroupComponent) {
+                @inject(TYPES.ChronosLaneGroupComponent) laneGroup: ChronosLaneGroupComponent,
+                @inject(TYPES.ChronosScaleComponent) scale: ChronosScaleComponent) {
         this._data = data;
         this._timeLine = timeLine;
         this._laneGroup = laneGroup
+        this._scale = scale
     }
 
     /**
@@ -119,5 +128,15 @@ export class ChronosHolidayService implements ComponentService {
     close() {
         this._data.hide = true;
         this._data.graphics?.destroy();
+    }
+
+    /**
+     * 监听比例尺
+     */
+    listenScale() {
+        this._scale.service.on(EVENT_TYPES.ScaleReDraw, () => {
+            this._data.graphics?.destroy()
+            this.draw()
+        })
     }
 }

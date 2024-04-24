@@ -1,9 +1,6 @@
 import {DestroyLifecycle, InitLifecycle, Lifecycle, StartLifecycle} from "../core/lifecycle/lifecycle";
 import {Container, interfaces} from "inversify";
 import {BaseComponent, Component} from "../component/component";
-import {ChronosLaneEntryData} from "../component/lane/entry/data.entry.lane.component";
-import {ToolbarPlugRegister} from "../component/toolbar/plug.toolbar.component";
-import {ChronosNodeReviseData} from "../component/revise/node/data.node.revise.component";
 import Newable = interfaces.Newable;
 
 export const TYPES = {
@@ -116,6 +113,11 @@ export const TYPES = {
     ChronosHolidayData: Symbol.for("ChronosHolidayData"),
     ChronosHolidayService: Symbol.for("ChronosHolidayService"),
     ChronosHolidayComponent: Symbol.for("ChronosHolidayComponent"),
+
+    //组件-水印
+    ChronosWatermarkData: Symbol.for("ChronosWatermarkData"),
+    ChronosWatermarkService: Symbol.for("ChronosWatermarkService"),
+    ChronosWatermarkComponent: Symbol.for("ChronosWatermarkComponent"),
 };
 
 /**

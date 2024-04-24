@@ -107,8 +107,6 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
                 };
             }
         });
-        // group.add(drawBorderTop);
-        // group.add(drawBorderBottom);
 
         let drawLeft: Konva.Rect
 

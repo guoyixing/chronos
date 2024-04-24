@@ -63,7 +63,8 @@ export class ChronosJumpTimelineComponent extends BaseComponent<ChronosJumpTimel
                 data: path,
                 stroke: this.data.hide ? button.stroke.color : button.stroke.hoverColor,
                 strokeWidth: button.stroke.width,
-                lineJoin: 'round'
+                lineJoin: 'round',
+                lineCap: 'round',
             })
         }
 

@@ -12,6 +12,7 @@ import {ChronosReviseDataType} from "../component/revise/data.revise.component";
 import {ChronosLaneDisplayDataType} from "../component/lane/display/data.display.lane.component";
 import {ChronosJumpTimelineDataType} from "../component/timeline/jump/data.jump.timeline.component";
 import {ChronosHolidayDataType} from "../component/holiday/data.holiday.component";
+import {ChronosWatermarkDataType} from "../component/watermark/data.watermark.component";
 
 export type DataType = {
     "isEdit"?: boolean,
@@ -29,5 +30,6 @@ export type DataType = {
     "nodeRevise"?: ChronosReviseDataType,
     "laneRevise"?: ChronosReviseDataType,
     "laneDisplay"?: ChronosLaneDisplayDataType,
-    "holiday"?: ChronosHolidayDataType
+    "holiday"?: ChronosHolidayDataType,
+    "watermark"?: ChronosWatermarkDataType
 }

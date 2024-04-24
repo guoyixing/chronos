@@ -648,5 +648,18 @@
       "content": "休息日",
       "rotation": 45
     }
+  },
+  "watermark": {
+    "hide": true,
+    "tbSize": 300,
+    "lrSize": 500,
+    "rotation": 45,
+    "text": {
+      "size": 50,
+      "font": "Calibri",
+      "color": "#888",
+      "opacity": 0.2,
+      "content": "Chronos"
+    }
   }
 }
