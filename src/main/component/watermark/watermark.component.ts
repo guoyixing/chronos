@@ -1,12 +1,12 @@
-import {BaseComponent} from "../component";
+import {BaseComponent} from "../component.interface";
 import {StageDragListener} from "../../core/event/event";
 import {Lifecycle} from "../../core/lifecycle/lifecycle";
-import {ChronosWatermarkData} from "./data.watermark.component";
-import {ChronosWatermarkService} from "./service.watermark.component";
+import {ChronosWatermarkData} from "./watermark.data";
+import {ChronosWatermarkService} from "./watermark.service";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../../config/inversify.config";
-import {ChronosToolPlug, ToolbarPlugRegister} from "../toolbar/plug.toolbar.component";
-import {ButtonType} from "../../common/type/button.type";
+import {ChronosToolPlug, ToolbarPlugRegister} from "../toolbar/toolbar-plug.component";
+import {ButtonType} from "../../core/common/type/button.type";
 import Konva from "konva";
 
 /**

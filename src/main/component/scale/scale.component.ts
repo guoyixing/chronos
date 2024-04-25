@@ -1,8 +1,8 @@
-import {BaseComponent} from "../component";
+import {BaseComponent} from "../component.interface";
 import {StageDragListener} from "../../core/event/event";
 import {Lifecycle} from "../../core/lifecycle/lifecycle";
-import {ChronosScaleService} from "./serivice.scale.component";
-import {ChronosScaleData} from "./data.scale.component";
+import {ChronosScaleService} from "./scale.service";
+import {ChronosScaleData} from "./scale.data";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../../config/inversify.config";
 import {ChronosWindowComponent} from "../window/window.component";

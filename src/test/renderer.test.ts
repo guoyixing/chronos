@@ -1,7 +1,7 @@
 import {Chronos} from "../main/chronos";
 import * as data from './mock.json';
-import {ChronosNodeEntryData} from "../main/component/node/operate/entry/data.entry.node.component";
-import {ChronosLaneEntryData} from "../main/component/lane/entry/data.entry.lane.component";
+import {ChronosNodeEntryData} from "../main/component/node/operate/entry/node-entry.data";
+import {ChronosLaneEntryData} from "../main/component/lane/entry/lane-entry.data";
 
 const divElement: HTMLElement | null = document.getElementById('root');
 

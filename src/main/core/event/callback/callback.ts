@@ -1,10 +1,10 @@
-import {ChronosNodeEntryData} from "../../../component/node/operate/entry/data.entry.node.component";
-import {ChronosNodeGroupComponent} from "../../../component/node/operate/group/group.node.component";
+import {ChronosNodeEntryData} from "../../../component/node/operate/entry/node-entry.data";
+import {ChronosNodeGroupComponent} from "../../../component/node/operate/group/node-group.component";
 import {injectable} from "inversify";
-import {ChronosNodeEntryComponent} from "../../../component/node/operate/entry/entry.node.component";
-import {ChronosLaneEntryData} from "../../../component/lane/entry/data.entry.lane.component";
-import {ChronosLaneGroupComponent} from "../../../component/lane/group/group.lane.component";
-import {ChronosLaneEntryComponent} from "../../../component/lane/entry/entry.lane.component";
+import {ChronosNodeEntryComponent} from "../../../component/node/operate/entry/node-entry.component";
+import {ChronosLaneEntryData} from "../../../component/lane/entry/lane-entry.data";
+import {ChronosLaneGroupComponent} from "../../../component/lane/group/lane-group.component";
+import {ChronosLaneEntryComponent} from "../../../component/lane/entry/lane-entry.component";
 
 /**
  * 回调事件

@@ -1,13 +1,13 @@
 import {inject, injectable} from "inversify";
-import {BaseComponent} from "../component";
+import {BaseComponent} from "../component.interface";
 import {MouseMoveListener, StageDragListener} from "../../core/event/event";
 import {Lifecycle} from "../../core/lifecycle/lifecycle";
-import {ChronosGridData} from "./data.grid.component";
-import {ChronosGridService} from "./service.grid.component";
+import {ChronosGridData} from "./grid.data";
+import {ChronosGridService} from "./grid.service";
 import {TYPES} from "../../config/inversify.config";
-import {ChronosToolPlug, ToolbarPlugRegister} from "../toolbar/plug.toolbar.component";
+import {ChronosToolPlug, ToolbarPlugRegister} from "../toolbar/toolbar-plug.component";
 import Konva from "konva";
-import {ButtonType} from "../../common/type/button.type";
+import {ButtonType} from "../../core/common/type/button.type";
 
 /**
  * 网格

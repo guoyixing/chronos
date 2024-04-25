@@ -1,9 +1,9 @@
 import {injectable} from "inversify";
-import {BaseComponent} from "../component";
+import {BaseComponent} from "../component.interface";
 import {Lifecycle} from "../../core/lifecycle/lifecycle";
 import {StageDragListener} from "../../core/event/event";
-import {ChronosReviseData} from "./data.revise.component";
-import {ChronosReviseService} from "./serivce.revise.component";
+import {ChronosReviseData} from "./revise.data";
+import {ChronosReviseService} from "./revise.service";
 import {TYPES} from "../../config/inversify.config";
 import {ChronosWindowComponent} from "../window/window.component";
 

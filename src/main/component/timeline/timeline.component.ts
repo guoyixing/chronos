@@ -1,8 +1,8 @@
 import {Lifecycle} from "../../core/lifecycle/lifecycle";
 import {StageDragListener} from "../../core/event/event";
-import {BaseComponent} from "../component";
-import {ChronosTimelineService} from "./service.timeline.component";
-import {ChronosTimelineData} from "./data.timeline.component";
+import {BaseComponent} from "../component.interface";
+import {ChronosTimelineService} from "./timeline.service";
+import {ChronosTimelineData} from "./timeline.data";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../../config/inversify.config";
 

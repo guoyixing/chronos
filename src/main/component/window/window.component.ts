@@ -1,6 +1,6 @@
-import {BaseComponent} from "../component";
-import {ChronosWindowData} from "./data.window.component";
-import {ChronosWindowService} from "./service.window.component";
+import {BaseComponent} from "../component.interface";
+import {ChronosWindowData} from "./window.data";
+import {ChronosWindowService} from "./window.service";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../../config/inversify.config";
 import {Lifecycle} from "../../core/lifecycle/lifecycle";

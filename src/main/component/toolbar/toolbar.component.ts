@@ -1,11 +1,11 @@
-import {BaseComponent} from "../component";
+import {BaseComponent} from "../component.interface";
 import {Lifecycle} from "../../core/lifecycle/lifecycle";
-import {ChronosToolbarService} from "./service.toolbar.component";
-import {ChronosToolbarData} from "./data.toolbar.component";
+import {ChronosToolbarService} from "./toolbar.service";
+import {ChronosToolbarData} from "./toolbar.data";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../../config/inversify.config";
 import {StageDragListener} from "../../core/event/event";
-import {ToolbarPlugRegister} from "./plug.toolbar.component";
+import {ToolbarPlugRegister} from "./toolbar-plug.component";
 
 /**
  * 工具栏-组件

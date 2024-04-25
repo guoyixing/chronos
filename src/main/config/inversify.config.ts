@@ -1,6 +1,6 @@
 import {DestroyLifecycle, InitLifecycle, Lifecycle, StartLifecycle} from "../core/lifecycle/lifecycle";
 import {Container, interfaces} from "inversify";
-import {BaseComponent, Component} from "../component/component";
+import {BaseComponent, Component} from "../component/component.interface";
 import Newable = interfaces.Newable;
 
 export const TYPES = {

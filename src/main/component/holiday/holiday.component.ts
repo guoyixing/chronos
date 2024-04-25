@@ -1,11 +1,11 @@
-import {ChronosHolidayData} from "./data.holiday.component";
-import {ChronosHolidayService} from "./service.holiday.component";
-import {BaseComponent} from "../component";
+import {ChronosHolidayData} from "./holiday.data";
+import {ChronosHolidayService} from "./holiday.service";
+import {BaseComponent} from "../component.interface";
 import {inject, injectable} from "inversify";
 import {Lifecycle} from "../../core/lifecycle/lifecycle";
 import {TYPES} from "../../config/inversify.config";
-import {ChronosToolPlug, ToolbarPlugRegister} from "../toolbar/plug.toolbar.component";
-import {ButtonType} from "../../common/type/button.type";
+import {ChronosToolPlug, ToolbarPlugRegister} from "../toolbar/toolbar-plug.component";
+import {ButtonType} from "../../core/common/type/button.type";
 import Konva from "konva";
 
 /**

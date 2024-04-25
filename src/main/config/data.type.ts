@@ -1,18 +1,18 @@
-import {ChronosWindowDataType} from "../component/window/data.window.component"
-import {ChronosGridDataType} from "../component/grid/data.grid.component";
-import {ChronosLaneGroupDataType} from "../component/lane/group/data.group.lane.component";
-import {ChronosToolbarDataType} from "../component/toolbar/data.toolbar.component";
-import {ChronosScaleDataType} from "../component/scale/data.scale.component";
-import {ChronosNodeTransformerDataType} from "../component/node/operate/transformer/data.transformer.node.component";
-import {ChronosTimelineDataType} from "../component/timeline/data.timeline.component";
-import {ChronosNodeBarDataType} from "../component/node/operate/bar/data.bar.node.component";
-import {ChronosNodeGroupDataType} from "../component/node/operate/group/data.group.node.component";
-import {ChronosNodeDetailDataType} from "../component/node/operate/detail/data.detail.node.component";
-import {ChronosReviseDataType} from "../component/revise/data.revise.component";
-import {ChronosLaneDisplayDataType} from "../component/lane/display/data.display.lane.component";
-import {ChronosJumpTimelineDataType} from "../component/timeline/jump/data.jump.timeline.component";
-import {ChronosHolidayDataType} from "../component/holiday/data.holiday.component";
-import {ChronosWatermarkDataType} from "../component/watermark/data.watermark.component";
+import {ChronosWindowDataType} from "../component/window/window.data"
+import {ChronosGridDataType} from "../component/grid/grid.data";
+import {ChronosLaneGroupDataType} from "../component/lane/group/lane-group.data";
+import {ChronosToolbarDataType} from "../component/toolbar/toolbar.data";
+import {ChronosScaleDataType} from "../component/scale/scale.data";
+import {ChronosNodeTransformerDataType} from "../component/node/operate/transformer/node-transformer.data";
+import {ChronosTimelineDataType} from "../component/timeline/timeline.data";
+import {ChronosNodeBarDataType} from "../component/node/operate/bar/node-bar.data";
+import {ChronosNodeGroupDataType} from "../component/node/operate/group/node-group.data";
+import {ChronosNodeDetailDataType} from "../component/node/operate/detail/node-detail.data";
+import {ChronosReviseDataType} from "../component/revise/revise.data";
+import {ChronosLaneDisplayDataType} from "../component/lane/display/lane-display.data";
+import {ChronosJumpTimelineDataType} from "../component/timeline/jump/timeline-jump.data";
+import {ChronosHolidayDataType} from "../component/holiday/holiday.data";
+import {ChronosWatermarkDataType} from "../component/watermark/watermark.data";
 
 export type DataType = {
     "isEdit"?: boolean,
