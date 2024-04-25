@@ -38,7 +38,7 @@ export class ArrowNodeShape implements NodeShape {
             radius: 5,
             fill: '#2F9E44',
             stroke: '#2F9E44',
-            strokeWidth: 1,
+            strokeWidth: 2,
         });
 
         const arrow = new Konva.Arrow({
@@ -50,7 +50,7 @@ export class ArrowNodeShape implements NodeShape {
             pointerWidth: 10,
             fill: '#2F9E44',
             stroke: '#2F9E44',
-            strokeWidth: 3,
+            strokeWidth: 5,
         });
         const width = arrow.width() - arrow.pointerLength();
 
@@ -84,8 +84,9 @@ export class ArrowNodeShape implements NodeShape {
      * @param xStart x起始坐标
      * @param xFinish x结束坐标
      * @param y y坐标
+     * @param progress 进度
      */
-    transform(xStart: number, y: number, xFinish?: number | undefined): void {
+    transform(xStart: number, y: number, xFinish?: number | undefined, progress?: number): void {
         if (!xFinish) {
             throw new Error("无法获取x结束坐标")
         }
@@ -97,6 +98,23 @@ export class ArrowNodeShape implements NodeShape {
             shape.x(xStart)
             shape.width(arrow.width() - arrow.pointerLength())
             text?.x((arrow.width() - arrow.pointerLength()) / 2 - text.width() / 2)
+        }
+
+        if (progress !== undefined && progress > 0 && progress < 1) {
+            const progressGroup = shape?.findOne<Konva.Group>('.progress');
+            if (progressGroup) {
+                const progressArrow = progressGroup.findOne<Konva.Arrow>('.progressArrow');
+                progressArrow?.points([0, 0, xFinish - xStart, 0])
+                if (progressArrow) {
+                    const width = progressArrow.width() - progressArrow.pointerLength();
+                    progressGroup.width(width)
+                    progressGroup.clipFunc((ctx) => {
+                        const widthProgress = width * progress;
+                        ctx.rect(0, -10, widthProgress + 3, 20);
+                    });
+                }
+
+            }
         }
     }
 
@@ -128,5 +146,58 @@ export class ArrowNodeShape implements NodeShape {
         const shape = this.shape;
         const arrow = shape?.findOne<Konva.Arrow>('.arrow');
         return arrow?.pointerLength() || 0
+    }
+
+    /**
+     * 进度
+     * @param coordinate 节点位置
+     * @param progress 节点名
+     */
+    progress(coordinate: { xStart?: number; xFinish?: number | undefined; y?: number }, progress: number) {
+        if (!coordinate.xStart || !coordinate.xFinish) {
+            throw new Error("无法获取x结束坐标")
+        }
+
+        //创建一个圆形
+        const circle = new Konva.Circle({
+            name: 'progressCircle',
+            x: 5,
+            y: 0,
+            radius: 5,
+            fill: '#FFF',
+            opacity: 0.5,
+            prefectDrawEnabled: false
+        });
+
+        const arrow = new Konva.Arrow({
+            name: 'progressArrow',
+            x: 10,
+            y: 0,
+            points: [0, 0, coordinate.xFinish - coordinate.xStart, 0],
+            pointerLength: 10,
+            pointerWidth: 10,
+            fill: '#FFF',
+            stroke: '#FFF',
+            strokeWidth: 3,
+            opacity: 0.5,
+            prefectDrawEnabled: false
+        });
+        const width = arrow.width() - arrow.pointerLength();
+
+        const group = new Konva.Group({
+            name: 'progress',
+            width: width,
+            x: 0,
+            y: 0,
+        });
+        group.add(arrow)
+        group.add(circle)
+
+        //创建遮罩
+        group.clipFunc((ctx) => {
+            const widthProgress = width * progress;
+            ctx.rect(0, -10, widthProgress + 3, 20);
+        });
+        return group
     }
 }

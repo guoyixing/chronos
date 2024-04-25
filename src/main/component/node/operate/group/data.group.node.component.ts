@@ -34,6 +34,11 @@ export class ChronosNodeGroupData extends ComponentData {
      */
     moveRangeBorder: number
 
+    /**
+     * 进度是否隐藏
+     */
+    hideProgress: boolean
+
 
     constructor(context: Context, data?: ChronosNodeGroupDataType) {
         super(context);
@@ -43,6 +48,7 @@ export class ChronosNodeGroupData extends ComponentData {
         this.moveRangeColor = data?.moveRangeColor ?? 'rgba(0,255,0,0.3)'
         this.moveRangeBorderColor = data?.moveRangeBorderColor ?? 'rgba(0,0,0,0)'
         this.moveRangeBorder = data?.moveRangeBorder ?? 0
+        this.hideProgress = data?.hideProgress ?? false
     }
 }
 
@@ -51,4 +57,5 @@ export type ChronosNodeGroupDataType = {
     moveRangeColor?: string
     moveRangeBorderColor?: string
     moveRangeBorder?: number
+    hideProgress?: boolean
 }

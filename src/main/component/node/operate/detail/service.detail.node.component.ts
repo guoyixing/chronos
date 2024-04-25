@@ -86,6 +86,9 @@ export class ChronosNodeDetailService implements ComponentService {
         if (node.data.finishTime) {
             text += '\n结束时间：' + node.data.finishTime.toLocaleString()
         }
+        if (node.data.progress) {
+            text += '\n进度：' + node.data.progress * 100 + "%"
+        }
 
         return new Konva.Text({
             name: "textDetail",

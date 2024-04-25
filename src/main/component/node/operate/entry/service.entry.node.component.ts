@@ -348,9 +348,11 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
             node.on('mouseover', () => {
                 this._nodeDetail.data.bindNodeId = data.id;
                 this._nodeDetail.service.draw()
+                document.body.style.cursor = 'pointer';
             });
             node.on('mouseout', () => {
                 this._nodeDetail.service.clear()
+                document.body.style.cursor = 'default';
             });
         }
     }

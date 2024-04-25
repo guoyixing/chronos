@@ -1,4 +1,4 @@
-import {injectable, interfaces} from "inversify";
+import {injectable} from "inversify";
 import {ComponentData} from "../data.component";
 import Konva from "konva";
 import {Context} from "../../core/context/context";
@@ -64,7 +64,7 @@ export class ChronosWatermarkData extends ComponentData {
         content: string
     }
 
-    constructor(context:Context, data?: ChronosWatermarkDataType) {
+    constructor(context: Context, data?: ChronosWatermarkDataType) {
         super(context);
         this.hide = data?.hide ?? true;
         this.tbSize = data?.tbSize ?? 300;

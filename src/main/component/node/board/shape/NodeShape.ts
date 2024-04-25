@@ -28,12 +28,24 @@ export interface NodeShape {
     create(coordinate: { xStart?: number; xFinish?: number | undefined; y?: number }, name: string): Konva.Group;
 
     /**
+     * 进度
+     * @param coordinate 节点位置
+     * @param progress 节点名
+     */
+    progress(coordinate: {
+        xStart?: number;
+        xFinish?: number | undefined;
+        y?: number
+    }, progress: number): Konva.Group | undefined;
+
+    /**
      * 图形变形
      * @param xStart x起始坐标
      * @param xFinish x结束坐标
      * @param y y坐标
+     * @param progress 进度
      */
-    transform(xStart: number, y: number, xFinish?: number): void;
+    transform(xStart: number, y: number, xFinish?: number, progress?: number): void;
 
     /**
      * 坐标

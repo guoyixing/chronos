@@ -141,6 +141,14 @@ export class ChronosNodeTransformerService implements ComponentService {
             prefectDrawEnabled: false
 
         });
+        //鼠标悬浮
+        point.on('mouseover', () => {
+            document.body.style.cursor = 'pointer';
+        })
+        //鼠标移出
+        point.on('mouseout', function () {
+            document.body.style.cursor = 'default';
+        })
 
         //绘制时间背景
         const background = new Konva.Rect({
@@ -215,7 +223,7 @@ export class ChronosNodeTransformerService implements ComponentService {
                 if (coordinate && coordinate.xFinish && nodeGraphics) {
                     const minCoordinateX = coordinate.xFinish - nodeGraphics.minWidth() - nodeGraphics.transformerOffset().left;
                     leftControlPoint.x() >= minCoordinateX && leftControlPoint.x(minCoordinateX)
-                    nodeGraphics.transform(coordinate.xStart + (leftControlPoint.x() - leftX), coordinate.y, coordinate.xFinish)
+                    nodeGraphics.transform(coordinate.xStart + (leftControlPoint.x() - leftX), coordinate.y, coordinate.xFinish, data.bindNode?.data.progress)
                 }
                 //更新节点的坐标
                 const nodeCoordinate = data.bindNode?.data.coordinate;
@@ -252,7 +260,7 @@ export class ChronosNodeTransformerService implements ComponentService {
                 if (coordinate && nodeGraphics) {
                     const maxCoordinateX = coordinate.xStart + nodeGraphics.minWidth() + nodeGraphics.transformerOffset().right;
                     rightControlPoint.x() <= maxCoordinateX && rightControlPoint.x(maxCoordinateX)
-                    nodeGraphics?.transform(coordinate.xStart, coordinate.y, (coordinate.xFinish || 0) + (rightControlPoint.x() - rightX))
+                    nodeGraphics?.transform(coordinate.xStart, coordinate.y, (coordinate.xFinish || 0) + (rightControlPoint.x() - rightX), data.bindNode?.data.progress)
                 }
                 //更新节点的坐标
                 const nodeCoordinate = data.bindNode?.data.coordinate;

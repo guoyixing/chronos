@@ -14,13 +14,16 @@ import {ChronosNodeDetailComponent} from "../detail/detail.node.component";
 import {ChronosScaleComponent} from "../../../scale/scale.component";
 import {ChronosNodeReviseComponent} from "../../../revise/node/node.revise.component";
 import {Callback} from "../../../../core/event/callback/callback";
+import {ChronosToolPlug, ToolbarPlugRegister} from "../../../toolbar/plug.toolbar.component";
+import {ButtonType} from "../../../../common/type/button.type";
+import Konva from "konva";
 
 /**
  * 节点组-组件
  */
 @injectable()
 export class ChronosNodeGroupComponent extends BaseComponent<ChronosNodeGroupData, ChronosNodeGroupService>
-    implements Lifecycle {
+    implements Lifecycle, ToolbarPlugRegister {
 
     /**
      * 组件名称
@@ -79,6 +82,38 @@ export class ChronosNodeGroupComponent extends BaseComponent<ChronosNodeGroupDat
             entryComponent.service.listenLane()
         })
         super.start();
+    }
+
+    toolbar(): ChronosToolPlug {
+        const graphics = (button: ButtonType) => {
+            //线条长度
+            const line = button.stroke.length * 1.5;
+            const line_2 = line / 2;
+            const x = line / 8;
+            const x2 = line / 2;
+            const path = `
+            M-${x} -${line_2}l${line_2} ${line_2}
+            M-${x} ${line_2}l${line_2} -${line_2}
+            M${x2} -${line_2}l${line_2} ${line_2}
+            M${x2} ${line_2}l${line_2} -${line_2}
+            `
+            return new Konva.Path({
+                x: 0,
+                y: 0,
+                data: path,
+                stroke: this.data.hideProgress ? button.stroke.color : button.stroke.hoverColor,
+                strokeWidth: button.stroke.width,
+                lineJoin: 'round',
+                lineCap: 'round',
+            })
+        }
+
+        const callback = (graphics: Konva.Path, button: ButtonType) => {
+            this.data.hideProgress ? graphics.stroke(button.stroke.hoverColor) : graphics.stroke(button.stroke.color)
+            this.data.hideProgress ? this.service.open() : this.service.close()
+        }
+
+        return new ChronosToolPlug("进度", graphics, callback)
     }
 
 }

@@ -7,7 +7,6 @@ import {ChronosWatermarkData} from "../component/watermark/data.watermark.compon
 import {ChronosWatermarkComponent} from "../component/watermark/watermark.component";
 import {ChronosWatermarkService} from "../component/watermark/service.watermark.component";
 import {ToolbarPlugRegister} from "../component/toolbar/plug.toolbar.component";
-import {ChronosGridComponent} from "../component/grid/grid.component";
 
 /**
  * 水印配置

@@ -131,6 +131,16 @@ export class ChronosNodeBarService implements ComponentService {
             const nodeName = data.candidateNodeName.get(node.code);
             const candidateNode = node.create({xStart: xStart, xFinish: xFinish, y: originalY}, nodeName ?? node.code);
             candidateNode.draggable(edit)
+
+            //鼠标悬浮
+            candidateNode.on('mouseover', () => {
+                document.body.style.cursor = 'pointer';
+            })
+            //鼠标移出
+            candidateNode.on('mouseout', function () {
+                document.body.style.cursor = 'default';
+            })
+
             candidateNode.on('dragend', () => {
                 candidateNode.y(originalY)
                 candidateNode.x(xStart)
@@ -210,7 +220,15 @@ export class ChronosNodeBarService implements ComponentService {
         if (type) {
             const nodeShape = new type();
             nodeShape.create(nodeData.coordinate, nodeData.name);
-            nodeShape.shape?.draggable(this._data.context.drawContext.isEdit)
+            const shape = nodeShape.shape;
+            const progress = nodeData.progress;
+            if (!this._nodeGroup.data.hideProgress && progress !== undefined
+                && progress > 0 && progress < 1) {
+                const progressGroup = nodeShape.progress(nodeData.coordinate, progress);
+                progressGroup && shape?.add(progressGroup)
+            }
+
+            shape?.draggable(this._data.context.drawContext.isEdit)
             return nodeShape;
         }
         console.warn('未知的节点类型', nodeData)

@@ -6,7 +6,6 @@ import {ChronosHolidayData} from "../component/holiday/data.holiday.component";
 import {ChronosHolidayService} from "../component/holiday/service.holiday.component";
 import {ChronosHolidayComponent} from "../component/holiday/holiday.component";
 import {ToolbarPlugRegister} from "../component/toolbar/plug.toolbar.component";
-import {ChronosJumpTimelineComponent} from "../component/timeline/jump/jump.timeline.component";
 
 export class HolidayConfig {
     constructor(chronosContainer: Container, divElement: HTMLDivElement, data: DataType) {

@@ -43,6 +43,11 @@ export class ChronosNodeEntryData extends ComponentData {
     finishTime: Date | undefined
 
     /**
+     * 进度
+     */
+    progress: number | undefined
+
+    /**
      * 泳道id
      */
     laneId: string
@@ -82,6 +87,7 @@ export class ChronosNodeEntryData extends ComponentData {
         if (data.finishTime) {
             this.finishTime = new Date(data.finishTime);
         }
+        this.progress = data.progress;
         this.laneId = data.laneId;
         this.row = data.row;
         this.hidden = data.hidden ?? false;
@@ -109,6 +115,7 @@ export type ChronosNodeEntryDataType = {
     row: number
     finishTime?: string
     hidden?: boolean
+    progress?: number
     extendField?: {}
 
 }

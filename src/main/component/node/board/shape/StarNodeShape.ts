@@ -97,4 +97,13 @@ export class StarNodeShape implements NodeShape {
     minWidth(): number {
         throw new Error("star类型的节点无法变形.");
     }
+
+    /**
+     * 进度
+     * @param coordinate 节点位置
+     * @param progress 节点名
+     */
+    progress(coordinate: { xStart?: number; xFinish?: number | undefined; y?: number }, progress: number) {
+        return undefined
+    }
 }

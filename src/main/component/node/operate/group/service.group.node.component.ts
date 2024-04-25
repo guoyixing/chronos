@@ -63,6 +63,12 @@ export class ChronosNodeGroupService implements ComponentService {
         })
     }
 
+    reDraw() {
+        this._data.nodeGroup.forEach((entry) => {
+            entry.service.reDraw();
+        })
+    }
+
     /**
      * 获取节点条目
      * @param nodeId 节点ID
@@ -200,5 +206,15 @@ export class ChronosNodeGroupService implements ComponentService {
         service.listenLane()
         service.draw();
         this._callback.nodeAdd && this._callback.nodeAdd(entryData, data.context.ioc.get<ChronosNodeGroupComponent>(TYPES.ChronosNodeGroupComponent))
+    }
+
+    open() {
+        this._data.hideProgress = false;
+        this.reDraw()
+    }
+
+    close() {
+        this._data.hideProgress = true;
+        this.reDraw()
     }
 }

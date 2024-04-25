@@ -5,6 +5,7 @@ import {ChronosNodeGroupData} from "../component/node/operate/group/data.group.n
 import {ChronosNodeGroupComponent} from "../component/node/operate/group/group.node.component";
 import {ChronosNodeGroupService} from "../component/node/operate/group/service.group.node.component";
 import {DataType} from "./data.type";
+import {ToolbarPlugRegister} from "../component/toolbar/plug.toolbar.component";
 
 /**
  * 节点配置
@@ -17,6 +18,8 @@ export class NodeConfig {
         chronosContainer.bind<ChronosNodeGroupData>(TYPES.ChronosNodeGroupData).toConstantValue(new ChronosNodeGroupData(context, node));
         chronosContainer.bind<ChronosNodeGroupService>(TYPES.ChronosNodeGroupService).to(ChronosNodeGroupService);
         chronosContainer.bind<ChronosNodeGroupComponent>(TYPES.ChronosNodeGroupComponent).to(ChronosNodeGroupComponent);
+
+        chronosContainer.bind<ToolbarPlugRegister>(TYPES.ToolbarPlugRegister).to(ChronosNodeGroupComponent);
 
         bindComponent(chronosContainer, ChronosNodeGroupComponent)
         bindLifecycle(chronosContainer, ChronosNodeGroupComponent)
