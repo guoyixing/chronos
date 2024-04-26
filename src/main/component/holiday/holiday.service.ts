@@ -17,7 +17,7 @@ export class ChronosHolidayService implements ComponentService {
     /**
      * 数据
      */
-    private _data: ChronosHolidayData
+    _data: ChronosHolidayData
 
     /**
      * 时间轴
@@ -48,18 +48,16 @@ export class ChronosHolidayService implements ComponentService {
      * 绘制
      */
     draw(): void {
-        const laneGroupData = this._laneGroup.data;
         const data = this._data;
-        const timeline = this._timeLine.service
-
         if (data.hide) {
             return
         }
 
+        const laneGroupData = this._laneGroup.data;
+        const timeline = this._timeLine.service
+
         //获取泳道的高度
         const height = laneGroupData.height;
-        //获取y轴起始位置
-        const y = laneGroupData.startOffSet.y;
 
         const group = new Konva.Group();
 
@@ -77,7 +75,7 @@ export class ChronosHolidayService implements ComponentService {
 
             const entryGroup = new Konva.Group({
                 x: startX,
-                y: y
+                y: 0
             });
 
             for (let i = 0; i < interval; i++) {
@@ -137,6 +135,16 @@ export class ChronosHolidayService implements ComponentService {
      */
     listenScale() {
         this._scale.service.on(EVENT_TYPES.ScaleReDraw, () => {
+            this._data.graphics?.destroy()
+            this.draw()
+        })
+    }
+
+    /**
+     * 监听泳道组
+     */
+    listenLaneGroup() {
+        this._laneGroup.service.on(EVENT_TYPES.ReDraw, () => {
             this._data.graphics?.destroy()
             this.draw()
         })

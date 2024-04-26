@@ -4,7 +4,7 @@ import {ChronosLaneGroupData} from "./lane-group.data";
 import {ChronosWindowComponent} from "../../window/window.component";
 import {TYPES} from "../../../config/inversify.config";
 import {ChronosLaneEntryComponent} from "../entry/lane-entry.component";
-import {EVENT_TYPES} from "../../../core/event/event";
+import {EVENT_TYPES, EventPublisher} from "../../../core/event/event";
 import {ChronosLaneEntryService} from "../entry/lane-entry.service";
 import {ChronosLaneGroupComponent} from "./lane-group.component";
 import {ChronosLaneEntryData} from "../entry/lane-entry.data";
@@ -16,22 +16,24 @@ import Konva from "konva";
  * 泳道组-组件服务
  */
 @injectable()
-export class ChronosLaneGroupService implements ComponentService {
+export class ChronosLaneGroupService implements ComponentService, EventPublisher {
+
+    id: string
 
     /**
      * 数据
      */
-    private _data: ChronosLaneGroupData
+    _data: ChronosLaneGroupData
 
     /**
      * 回调
      */
-    private _callback: Callback
+    _callback: Callback
 
     /**
      * 窗体
      */
-    private _window: ChronosWindowComponent
+    _window: ChronosWindowComponent
 
     constructor(@inject(TYPES.ChronosLaneGroupData) data: ChronosLaneGroupData,
                 @inject(TYPES.Callback) callback: Callback,
@@ -39,6 +41,7 @@ export class ChronosLaneGroupService implements ComponentService {
         this._data = data;
         this._callback = callback;
         this._window = window;
+        this.id = "laneGroup"
     }
 
     /**
@@ -162,6 +165,7 @@ export class ChronosLaneGroupService implements ComponentService {
         this._data.laneGroup.forEach(lane => {
             lane.service.publish(EVENT_TYPES.ReDraw)
         })
+        this.publish(EVENT_TYPES.ReDraw)
     }
 
     /**
@@ -240,5 +244,24 @@ export class ChronosLaneGroupService implements ComponentService {
 
         this.reDraw();
         return component;
+    }
+
+    /**
+     * 事件绑定
+     * @param event 事件名称
+     * @param callback 回调
+     */
+    on(event: symbol, callback: (data?: any) => void): void {
+        const eventManager = this._data.context.eventManager;
+        eventManager?.listen(this, event, callback)
+    }
+
+    /**
+     * 发布事件
+     * @param event 事件名称
+     */
+    publish(event: symbol): void {
+        const eventManager = this._data.context.eventManager;
+        eventManager?.publish(this, event)
     }
 }

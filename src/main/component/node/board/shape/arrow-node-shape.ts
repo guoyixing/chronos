@@ -100,17 +100,17 @@ export class ArrowNodeShape implements NodeShape {
             text?.x((arrow.width() - arrow.pointerLength()) / 2 - text.width() / 2)
         }
 
-        if (progress !== undefined && progress > 0 && progress < 1) {
+        if (progress !== undefined && progress > 0 && progress <= 1) {
             const progressGroup = shape?.findOne<Konva.Group>('.progress');
             if (progressGroup) {
                 const progressArrow = progressGroup.findOne<Konva.Arrow>('.progressArrow');
-                progressArrow?.points([0, 0, xFinish - xStart, 0])
+                progressArrow?.points([10, 0, xFinish - xStart, 0])
                 if (progressArrow) {
                     const width = progressArrow.width() - progressArrow.pointerLength();
                     progressGroup.width(width)
                     progressGroup.clipFunc((ctx) => {
                         const widthProgress = width * progress;
-                        ctx.rect(0, -10, widthProgress + 3, 20);
+                        ctx.rect(0, -10, widthProgress + 13, 20);
                     });
                 }
 
@@ -171,9 +171,9 @@ export class ArrowNodeShape implements NodeShape {
 
         const arrow = new Konva.Arrow({
             name: 'progressArrow',
-            x: 10,
+            x: 0,
             y: 0,
-            points: [0, 0, coordinate.xFinish - coordinate.xStart, 0],
+            points: [10, 0, coordinate.xFinish - coordinate.xStart, 0],
             pointerLength: 10,
             pointerWidth: 10,
             fill: '#FFF',
@@ -196,7 +196,7 @@ export class ArrowNodeShape implements NodeShape {
         //创建遮罩
         group.clipFunc((ctx) => {
             const widthProgress = width * progress;
-            ctx.rect(0, -10, widthProgress + 3, 20);
+            ctx.rect(0, -10, widthProgress + 13, 20);
         });
         return group
     }

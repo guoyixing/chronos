@@ -39,6 +39,27 @@ export class ChronosNodeGroupData extends ComponentData {
      */
     hideProgress: boolean
 
+    /**
+     * 进度
+     */
+    progress: {
+        offset: { x: number, y: number }
+        background: {
+            height: number
+            //左右边距
+            lrMargin: number
+            color: string
+            stroke: number
+            strokeColor: string
+            radius: number | number[]
+        },
+        text: {
+            color: string
+            fontSize: number
+            fontFamily: string
+        }
+    }
+
 
     constructor(context: Context, data?: ChronosNodeGroupDataType) {
         super(context);
@@ -49,6 +70,22 @@ export class ChronosNodeGroupData extends ComponentData {
         this.moveRangeBorderColor = data?.moveRangeBorderColor ?? 'rgba(0,0,0,0)'
         this.moveRangeBorder = data?.moveRangeBorder ?? 0
         this.hideProgress = data?.hideProgress ?? false
+        this.progress = {
+            offset: data?.progress?.offset ?? {x: -5, y: -8},
+            background: {
+                height: data?.progress?.background?.height ?? 16,
+                lrMargin: data?.progress?.background?.lrMargin ?? 5,
+                color: data?.progress?.background?.color ?? '#359EE8',
+                stroke: data?.progress?.background?.stroke ?? 0,
+                strokeColor: data?.progress?.background?.strokeColor ?? '#359EE8',
+                radius: data?.progress?.background?.radius ?? 10
+            },
+            text: {
+                color: data?.progress?.text?.color ?? '#FFF',
+                fontSize: data?.progress?.text?.fontSize ?? 10,
+                fontFamily: data?.progress?.text?.fontFamily ?? 'Calibri'
+            }
+        }
     }
 }
 
@@ -58,4 +95,20 @@ export type ChronosNodeGroupDataType = {
     moveRangeBorderColor?: string
     moveRangeBorder?: number
     hideProgress?: boolean
+    progress?: {
+        offset?: { x: number, y: number }
+        background?: {
+            height?: number
+            lrMargin?: number
+            color?: string
+            stroke?: number
+            strokeColor?: string
+            radius?: number | number[]
+        },
+        text?: {
+            color?: string
+            fontSize?: number
+            fontFamily?: string
+        }
+    }
 }

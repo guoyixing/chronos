@@ -25,7 +25,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
     /**
      * 数据
      */
-    private _data: ChronosNodeEntryData
+    _data: ChronosNodeEntryData
 
     /**
      * 回调
@@ -40,17 +40,17 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
     /**
      * 泳道组
      */
-    private _laneGroup: ChronosLaneGroupComponent
+    _laneGroup: ChronosLaneGroupComponent
 
     /**
      * 时间轴
      */
-    private _timeline: ChronosTimelineComponent
+    _timeline: ChronosTimelineComponent
 
     /**
      * 节点组
      */
-    private _nodeGroup: ChronosNodeGroupComponent
+    _nodeGroup: ChronosNodeGroupComponent
 
     /**
      * 节点变形器

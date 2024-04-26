@@ -137,7 +137,7 @@ export class RectNodeShape implements NodeShape {
             text?.x(rect.width() / 2 - text.width() / 2)
         }
 
-        if (progress !== undefined && progress > 0 && progress < 1) {
+        if (progress !== undefined && progress > 0 && progress <= 1) {
             const progressGroup = shape?.findOne<Konva.Group>('.progress');
             if (progressGroup) {
                 const progressRect = progressGroup.findOne<Konva.Rect>('.progressRect');

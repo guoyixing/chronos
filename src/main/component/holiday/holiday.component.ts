@@ -28,6 +28,7 @@ export class ChronosHolidayComponent extends BaseComponent<ChronosHolidayData, C
     init() {
         this.data.layer = this.data.context.drawContext.rootLayer
         this.service.listenScale()
+        this.service.listenLaneGroup()
     }
 
     /**

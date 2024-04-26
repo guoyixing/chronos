@@ -33,10 +33,14 @@ function nodeDoubleClick(node: ChronosNodeEntryData) {
     let name = document.getElementById('nodeName') as HTMLInputElement;
     let startTime = document.getElementById('starTime') as HTMLInputElement;
     let finishTime = document.getElementById('endTime') as HTMLInputElement;
+    let progress = document.getElementById('progress') as HTMLInputElement;
     name.value = node.name;
     startTime.value = formatLocalDate(node.startTime)
     if (node.finishTime) {
         finishTime.value = formatLocalDate(node.finishTime)
+    }
+    if (node.progress) {
+        progress.value = node.progress * 100 + ''
     }
 }
 
@@ -60,9 +64,11 @@ function nodeReviseConfirm(node: ChronosNodeEntryData) {
     let name = document.getElementById('nodeName') as HTMLInputElement;
     let startTime = document.getElementById('starTime') as HTMLInputElement;
     let finishTime = document.getElementById('endTime') as HTMLInputElement;
+    let progress = document.getElementById('progress') as HTMLInputElement;
     node.name = name.value;
     node.startTime = new Date(startTime.value);
     node.finishTime = new Date(finishTime.value);
+    node.progress = parseInt(progress.value) / 100;
 }
 
 function laneReviseConfirm(node: ChronosLaneEntryData) {

@@ -1,0 +1,3931 @@
+{
+  "isEdit": true,
+  "window": {
+    "border": 1,
+    "borderColor": "#E0DFFF"
+  },
+  "grid": {
+    "startOffSet": {
+      "x": 60,
+      "y": 0
+    },
+    "tbGapSize": 20,
+    "lrGapSize": 40,
+    "color": "#EFEFEF",
+    "width": 1,
+    "hide": false
+  },
+  "lane": {
+    "startOffSet": {
+      "x": 0,
+      "y": 60
+    },
+    "rowHeight": 40,
+    "laneLeftWidth": 60,
+    "leftBackgroundColor": "#ECECF4",
+    "hoverLeftBackgroundColor": "#E0DFFF",
+    "borderColor": "#E0DFFF",
+    "radius": 0,
+    "shadow": {
+      "color": "black",
+      "blur": 0,
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "opacity": 0.2
+    },
+    "entry": [
+      {
+        "id": "1",
+        "name": "里程碑",
+        "rowNum": 1
+      },
+      {
+        "id": "2",
+        "name": "整体\n规划",
+        "rowNum": 4
+      },
+      {
+        "id": "3",
+        "name": "研发\n确认",
+        "rowNum": 3
+      },
+      {
+        "id": "4",
+        "name": "系统\n集成",
+        "rowNum": 3
+      },
+      {
+        "id": "5",
+        "name": "调研",
+        "rowNum": 3
+      },
+      {
+        "id": "6",
+        "name": "系统\n设计",
+        "rowNum": 3
+      },
+      {
+        "id": "7",
+        "name": "质量\n计划",
+        "rowNum": 3
+      },
+      {
+        "id": "8",
+        "name": "原价\n管理",
+        "rowNum": 3
+      },
+      {
+        "id": "9",
+        "name": "性能\n目标",
+        "rowNum": 3
+      }
+    ]
+  },
+  "toolbar": {
+    "startOffSetPct": {
+      "xPct": 0.5,
+      "yPct": 0.95
+    },
+    "width": 300,
+    "height": 35,
+    "backgroundColor": "#ECECF4",
+    "border": 1,
+    "borderColor": "#ECECF4",
+    "radius": 10,
+    "button": {
+      "stroke": {
+        "length": 10,
+        "width": 2,
+        "color": "#4F4F54",
+        "hoverColor": "#359EE8",
+        "margin": {
+          "left": 15,
+          "right": 15
+        }
+      },
+      "background": {
+        "color": "#ECECF4",
+        "hoverColor": "#E0DFFF"
+      }
+    }
+  },
+  "scale": {
+    "startOffSetPct": {
+      "xPct": 0.91,
+      "yPct": 0.95
+    },
+    "scaleX": 1,
+    "scaleJump": 0.1,
+    "width": 160,
+    "height": 35,
+    "backgroundColor": "#ECECF4",
+    "radius": 10,
+    "border": 1,
+    "borderColor": "#ECECF4",
+    "textColor": "#4F4F54",
+    "fontSize": 16,
+    "button": {
+      "stroke": {
+        "length": 10,
+        "width": 2,
+        "color": "#4F4F54",
+        "hoverColor": "#359EE8",
+        "margin": {
+          "left": 15,
+          "right": 15
+        }
+      },
+      "background": {
+        "color": "#ECECF4",
+        "hoverColor": "#E0DFFF"
+      }
+    }
+  },
+  "transformer": {
+    "pointRadius": 5,
+    "pointColor": "#FFF",
+    "pointBorder": 2,
+    "pointBorderColor": "#359EE8",
+    "shadow": {
+      "color": "#359EE8",
+      "blur": 5,
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "opacity": 0.7
+    },
+    "time": {
+      "background": {
+        "color": "#359EE8",
+        "opacity": 1,
+        "radius": 5,
+        "width": 150,
+        "height": 20,
+        "borderColor": "#EBEBEB",
+        "border": 1
+      },
+      "text": {
+        "fontSize": 14,
+        "fontFamily": "Calibri",
+        "fill": "#FFF"
+      },
+      "offset": {
+        "x": 0,
+        "y": 10
+      }
+    }
+  },
+  "timeline": {
+    "initTime": "2023-12-01 00:00:00",
+    "startOffSet": {
+      "x": 0,
+      "y": 1
+    },
+    "dayWidth": 40,
+    "textMinWidth": 15,
+    "rowHeight": 20,
+    "headWidth": 60,
+    "border": 1,
+    "borderColor": "#DADADA",
+    "backgroundColor": [
+      "#FFF",
+      "#ECECF4"
+    ],
+    "textColor": "#4F4F54",
+    "fontSize": 12,
+    "textMargin": 10,
+    "fontFamily": "Calibre"
+  },
+  "bar": {
+    "startOffSetPct": {
+      "xPct": 0.8,
+      "yPct": 0.2
+    },
+    "width": 200,
+    "height": 400,
+    "hide": false,
+    "backgroundColor": "white",
+    "borderColor": "#EBEBEB",
+    "radius": 10,
+    "border": 1,
+    "middleLineColor": "#F1F0FF",
+    "middleLineWidth": 1,
+    "shadow": {
+      "color": "black",
+      "blur": 10,
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "opacity": 0.2
+    },
+    "candidateNodeName": {
+      "star": "里程碑",
+      "arrow": "设计",
+      "rect": "开发"
+    }
+  },
+  "node": {
+    "entry": [
+      {
+        "id": "1",
+        "name": "项目启动",
+        "type": "star",
+        "startTime": "2023-12-03 00:00:00",
+        "laneId": "1",
+        "row": 0,
+        "extendField": {
+          "leader": "小明"
+        }
+      },
+      {
+        "id": "2",
+        "name": "方案评审",
+        "type": "star",
+        "startTime": "2023-12-12 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "3",
+        "name": "详细设计评审",
+        "type": "star",
+        "startTime": "2023-12-27 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "4",
+        "name": "发开启动",
+        "type": "star",
+        "startTime": "2023-12-31 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "5",
+        "name": "试运行转阶段",
+        "type": "star",
+        "startTime": "2024-5-11 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "6",
+        "name": "试运行报告",
+        "type": "star",
+        "startTime": "2024-6-11 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "7",
+        "name": "交付评审",
+        "type": "star",
+        "startTime": "2024-6-18 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "8",
+        "name": "正式上线",
+        "type": "star",
+        "startTime": "2024-6-26 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2023-11-30 00:00:00",
+        "finishTime": "2023-12-05 00:00:00",
+        "laneId": "2",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2023-12-03 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "2",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2023-12-05 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "2",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2023-12-06 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "2",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2023-12-13 00:00:00",
+        "finishTime": "2023-12-27 00:00:00",
+        "laneId": "2",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2023-12-14 00:00:00",
+        "finishTime": "2023-12-27 00:00:00",
+        "laneId": "2",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2023-12-28 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "2",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2023-12-29 00:00:00",
+        "finishTime": "2024-03-20 00:00:00",
+        "laneId": "2",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2023-12-29 00:00:00",
+        "finishTime": "2024-03-24 00:00:00",
+        "laneId": "2",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2024-03-15 00:00:00",
+        "finishTime": "2024-04-06 00:00:00",
+        "laneId": "2",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2024-04-01 00:00:00",
+        "finishTime": "2024-04-10 00:00:00",
+        "laneId": "2",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2024-03-21 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "2",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2024-04-11 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "2",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2024-05-12 00:00:00",
+        "finishTime": "2024-06-02 00:00:00",
+        "laneId": "2",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2024-04-12 00:00:00",
+        "finishTime": "2024-06-10 00:00:00",
+        "laneId": "2",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2024-05-12 00:00:00",
+        "finishTime": "2024-06-10 00:00:00",
+        "laneId": "2",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2023-11-30 00:00:00",
+        "finishTime": "2023-12-05 00:00:00",
+        "laneId": "3",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2023-12-03 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "3",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2023-12-05 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "3",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2023-12-06 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "3",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2023-12-13 00:00:00",
+        "finishTime": "2023-12-27 00:00:00",
+        "laneId": "3",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2023-12-14 00:00:00",
+        "finishTime": "2023-12-27 00:00:00",
+        "laneId": "3",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2023-12-28 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "3",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2023-12-29 00:00:00",
+        "finishTime": "2024-03-20 00:00:00",
+        "laneId": "3",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2023-12-29 00:00:00",
+        "finishTime": "2024-03-24 00:00:00",
+        "laneId": "3",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2024-03-15 00:00:00",
+        "finishTime": "2024-04-06 00:00:00",
+        "laneId": "3",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2024-04-01 00:00:00",
+        "finishTime": "2024-04-10 00:00:00",
+        "laneId": "3",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2024-03-21 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "3",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2024-04-11 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "3",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2024-05-12 00:00:00",
+        "finishTime": "2024-06-02 00:00:00",
+        "laneId": "3",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2024-04-12 00:00:00",
+        "finishTime": "2024-06-10 00:00:00",
+        "laneId": "3",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2024-05-12 00:00:00",
+        "finishTime": "2024-06-10 00:00:00",
+        "laneId": "3",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2023-11-30 00:00:00",
+        "finishTime": "2023-12-05 00:00:00",
+        "laneId": "4",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2023-12-03 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "4",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2023-12-05 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "4",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2023-12-06 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "4",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2023-12-13 00:00:00",
+        "finishTime": "2023-12-27 00:00:00",
+        "laneId": "4",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2023-12-14 00:00:00",
+        "finishTime": "2023-12-27 00:00:00",
+        "laneId": "4",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2023-12-28 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "4",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2023-12-29 00:00:00",
+        "finishTime": "2024-03-20 00:00:00",
+        "laneId": "4",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2023-12-29 00:00:00",
+        "finishTime": "2024-03-24 00:00:00",
+        "laneId": "4",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2024-03-15 00:00:00",
+        "finishTime": "2024-04-06 00:00:00",
+        "laneId": "4",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2024-04-01 00:00:00",
+        "finishTime": "2024-04-10 00:00:00",
+        "laneId": "4",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2024-03-21 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "4",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2024-04-11 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "4",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2024-05-12 00:00:00",
+        "finishTime": "2024-06-02 00:00:00",
+        "laneId": "4",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2024-04-12 00:00:00",
+        "finishTime": "2024-06-10 00:00:00",
+        "laneId": "4",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2024-05-12 00:00:00",
+        "finishTime": "2024-06-10 00:00:00",
+        "laneId": "4",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2023-11-30 00:00:00",
+        "finishTime": "2023-12-05 00:00:00",
+        "laneId": "5",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2023-12-03 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "5",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2023-12-05 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "5",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2023-12-06 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "5",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2023-12-13 00:00:00",
+        "finishTime": "2023-12-27 00:00:00",
+        "laneId": "5",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2023-12-14 00:00:00",
+        "finishTime": "2023-12-27 00:00:00",
+        "laneId": "5",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2023-12-28 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "5",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2023-12-29 00:00:00",
+        "finishTime": "2024-03-20 00:00:00",
+        "laneId": "5",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2023-12-29 00:00:00",
+        "finishTime": "2024-03-24 00:00:00",
+        "laneId": "5",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2024-03-15 00:00:00",
+        "finishTime": "2024-04-06 00:00:00",
+        "laneId": "5",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2024-04-01 00:00:00",
+        "finishTime": "2024-04-10 00:00:00",
+        "laneId": "5",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2024-03-21 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "5",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2024-04-11 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "5",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2024-05-12 00:00:00",
+        "finishTime": "2024-06-02 00:00:00",
+        "laneId": "5",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2024-04-12 00:00:00",
+        "finishTime": "2024-06-10 00:00:00",
+        "laneId": "5",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2024-05-12 00:00:00",
+        "finishTime": "2024-06-10 00:00:00",
+        "laneId": "5",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2023-11-30 00:00:00",
+        "finishTime": "2023-12-05 00:00:00",
+        "laneId": "6",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2023-12-03 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "6",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2023-12-05 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "6",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2023-12-06 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "6",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2023-12-13 00:00:00",
+        "finishTime": "2023-12-27 00:00:00",
+        "laneId": "6",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2023-12-14 00:00:00",
+        "finishTime": "2023-12-27 00:00:00",
+        "laneId": "6",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2023-12-28 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "6",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2023-12-29 00:00:00",
+        "finishTime": "2024-03-20 00:00:00",
+        "laneId": "6",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2023-12-29 00:00:00",
+        "finishTime": "2024-03-24 00:00:00",
+        "laneId": "6",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2024-03-15 00:00:00",
+        "finishTime": "2024-04-06 00:00:00",
+        "laneId": "6",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2024-04-01 00:00:00",
+        "finishTime": "2024-04-10 00:00:00",
+        "laneId": "6",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2024-03-21 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "6",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2024-04-11 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "6",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2024-05-12 00:00:00",
+        "finishTime": "2024-06-02 00:00:00",
+        "laneId": "6",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2024-04-12 00:00:00",
+        "finishTime": "2024-06-10 00:00:00",
+        "laneId": "6",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2024-05-12 00:00:00",
+        "finishTime": "2024-06-10 00:00:00",
+        "laneId": "6",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2023-11-30 00:00:00",
+        "finishTime": "2023-12-05 00:00:00",
+        "laneId": "7",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2023-12-03 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "7",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2023-12-05 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "7",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2023-12-06 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "7",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2023-12-13 00:00:00",
+        "finishTime": "2023-12-27 00:00:00",
+        "laneId": "7",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2023-12-14 00:00:00",
+        "finishTime": "2023-12-27 00:00:00",
+        "laneId": "7",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2023-12-28 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "7",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2023-12-29 00:00:00",
+        "finishTime": "2024-03-20 00:00:00",
+        "laneId": "7",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2023-12-29 00:00:00",
+        "finishTime": "2024-03-24 00:00:00",
+        "laneId": "7",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2024-03-15 00:00:00",
+        "finishTime": "2024-04-06 00:00:00",
+        "laneId": "7",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2024-04-01 00:00:00",
+        "finishTime": "2024-04-10 00:00:00",
+        "laneId": "7",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2024-03-21 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "7",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2024-04-11 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "7",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2024-05-12 00:00:00",
+        "finishTime": "2024-06-02 00:00:00",
+        "laneId": "7",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2024-04-12 00:00:00",
+        "finishTime": "2024-06-10 00:00:00",
+        "laneId": "7",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2024-05-12 00:00:00",
+        "finishTime": "2024-06-10 00:00:00",
+        "laneId": "7",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2023-11-30 00:00:00",
+        "finishTime": "2023-12-05 00:00:00",
+        "laneId": "8",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2023-12-03 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "8",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2023-12-05 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "8",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2023-12-06 00:00:00",
+        "finishTime": "2023-12-12 00:00:00",
+        "laneId": "8",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2023-12-13 00:00:00",
+        "finishTime": "2023-12-27 00:00:00",
+        "laneId": "8",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2023-12-14 00:00:00",
+        "finishTime": "2023-12-27 00:00:00",
+        "laneId": "8",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2023-12-28 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "8",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2023-12-29 00:00:00",
+        "finishTime": "2024-03-20 00:00:00",
+        "laneId": "8",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2023-12-29 00:00:00",
+        "finishTime": "2024-03-24 00:00:00",
+        "laneId": "8",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2024-03-15 00:00:00",
+        "finishTime": "2024-04-06 00:00:00",
+        "laneId": "8",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2024-04-01 00:00:00",
+        "finishTime": "2024-04-10 00:00:00",
+        "laneId": "8",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2024-03-21 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "8",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2024-04-11 00:00:00",
+        "finishTime": "2024-05-10 00:00:00",
+        "laneId": "8",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2024-05-12 00:00:00",
+        "finishTime": "2024-06-02 00:00:00",
+        "laneId": "8",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2024-04-12 00:00:00",
+        "finishTime": "2024-06-10 00:00:00",
+        "laneId": "8",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2024-05-12 00:00:00",
+        "finishTime": "2024-06-10 00:00:00",
+        "laneId": "8",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "1",
+        "name": "项目启动",
+        "type": "star",
+        "startTime": "2025-12-03 00:00:00",
+        "laneId": "1",
+        "row": 0,
+        "extendField": {
+          "leader": "小明"
+        }
+      },
+      {
+        "id": "2",
+        "name": "方案评审",
+        "type": "star",
+        "startTime": "2025-12-12 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "3",
+        "name": "详细设计评审",
+        "type": "star",
+        "startTime": "2025-12-27 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "4",
+        "name": "发开启动",
+        "type": "star",
+        "startTime": "2025-12-31 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "5",
+        "name": "试运行转阶段",
+        "type": "star",
+        "startTime": "2026-5-11 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "6",
+        "name": "试运行报告",
+        "type": "star",
+        "startTime": "2026-6-11 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "7",
+        "name": "交付评审",
+        "type": "star",
+        "startTime": "2026-6-18 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "8",
+        "name": "正式上线",
+        "type": "star",
+        "startTime": "2026-6-26 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2025-11-30 00:00:00",
+        "finishTime": "2025-12-05 00:00:00",
+        "laneId": "2",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2025-12-03 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "2",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2025-12-05 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "2",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2025-12-06 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "2",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2025-12-13 00:00:00",
+        "finishTime": "2025-12-27 00:00:00",
+        "laneId": "2",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2025-12-14 00:00:00",
+        "finishTime": "2025-12-27 00:00:00",
+        "laneId": "2",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2025-12-28 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "2",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2025-12-29 00:00:00",
+        "finishTime": "2026-03-20 00:00:00",
+        "laneId": "2",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2025-12-29 00:00:00",
+        "finishTime": "2026-03-24 00:00:00",
+        "laneId": "2",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2026-03-15 00:00:00",
+        "finishTime": "2026-04-06 00:00:00",
+        "laneId": "2",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2026-04-01 00:00:00",
+        "finishTime": "2026-04-10 00:00:00",
+        "laneId": "2",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2026-03-21 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "2",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2026-04-11 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "2",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2026-05-12 00:00:00",
+        "finishTime": "2026-06-02 00:00:00",
+        "laneId": "2",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2026-04-12 00:00:00",
+        "finishTime": "2026-06-10 00:00:00",
+        "laneId": "2",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2026-05-12 00:00:00",
+        "finishTime": "2026-06-10 00:00:00",
+        "laneId": "2",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2025-11-30 00:00:00",
+        "finishTime": "2025-12-05 00:00:00",
+        "laneId": "3",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2025-12-03 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "3",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2025-12-05 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "3",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2025-12-06 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "3",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2025-12-13 00:00:00",
+        "finishTime": "2025-12-27 00:00:00",
+        "laneId": "3",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2025-12-14 00:00:00",
+        "finishTime": "2025-12-27 00:00:00",
+        "laneId": "3",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2025-12-28 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "3",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2025-12-29 00:00:00",
+        "finishTime": "2026-03-20 00:00:00",
+        "laneId": "3",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2025-12-29 00:00:00",
+        "finishTime": "2026-03-24 00:00:00",
+        "laneId": "3",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2026-03-15 00:00:00",
+        "finishTime": "2026-04-06 00:00:00",
+        "laneId": "3",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2026-04-01 00:00:00",
+        "finishTime": "2026-04-10 00:00:00",
+        "laneId": "3",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2026-03-21 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "3",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2026-04-11 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "3",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2026-05-12 00:00:00",
+        "finishTime": "2026-06-02 00:00:00",
+        "laneId": "3",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2026-04-12 00:00:00",
+        "finishTime": "2026-06-10 00:00:00",
+        "laneId": "3",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2026-05-12 00:00:00",
+        "finishTime": "2026-06-10 00:00:00",
+        "laneId": "3",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2025-11-30 00:00:00",
+        "finishTime": "2025-12-05 00:00:00",
+        "laneId": "4",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2025-12-03 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "4",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2025-12-05 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "4",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2025-12-06 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "4",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2025-12-13 00:00:00",
+        "finishTime": "2025-12-27 00:00:00",
+        "laneId": "4",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2025-12-14 00:00:00",
+        "finishTime": "2025-12-27 00:00:00",
+        "laneId": "4",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2025-12-28 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "4",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2025-12-29 00:00:00",
+        "finishTime": "2026-03-20 00:00:00",
+        "laneId": "4",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2025-12-29 00:00:00",
+        "finishTime": "2026-03-24 00:00:00",
+        "laneId": "4",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2026-03-15 00:00:00",
+        "finishTime": "2026-04-06 00:00:00",
+        "laneId": "4",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2026-04-01 00:00:00",
+        "finishTime": "2026-04-10 00:00:00",
+        "laneId": "4",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2026-03-21 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "4",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2026-04-11 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "4",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2026-05-12 00:00:00",
+        "finishTime": "2026-06-02 00:00:00",
+        "laneId": "4",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2026-04-12 00:00:00",
+        "finishTime": "2026-06-10 00:00:00",
+        "laneId": "4",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2026-05-12 00:00:00",
+        "finishTime": "2026-06-10 00:00:00",
+        "laneId": "4",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2025-11-30 00:00:00",
+        "finishTime": "2025-12-05 00:00:00",
+        "laneId": "5",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2025-12-03 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "5",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2025-12-05 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "5",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2025-12-06 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "5",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2025-12-13 00:00:00",
+        "finishTime": "2025-12-27 00:00:00",
+        "laneId": "5",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2025-12-14 00:00:00",
+        "finishTime": "2025-12-27 00:00:00",
+        "laneId": "5",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2025-12-28 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "5",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2025-12-29 00:00:00",
+        "finishTime": "2026-03-20 00:00:00",
+        "laneId": "5",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2025-12-29 00:00:00",
+        "finishTime": "2026-03-24 00:00:00",
+        "laneId": "5",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2026-03-15 00:00:00",
+        "finishTime": "2026-04-06 00:00:00",
+        "laneId": "5",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2026-04-01 00:00:00",
+        "finishTime": "2026-04-10 00:00:00",
+        "laneId": "5",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2026-03-21 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "5",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2026-04-11 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "5",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2026-05-12 00:00:00",
+        "finishTime": "2026-06-02 00:00:00",
+        "laneId": "5",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2026-04-12 00:00:00",
+        "finishTime": "2026-06-10 00:00:00",
+        "laneId": "5",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2026-05-12 00:00:00",
+        "finishTime": "2026-06-10 00:00:00",
+        "laneId": "5",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2025-11-30 00:00:00",
+        "finishTime": "2025-12-05 00:00:00",
+        "laneId": "6",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2025-12-03 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "6",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2025-12-05 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "6",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2025-12-06 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "6",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2025-12-13 00:00:00",
+        "finishTime": "2025-12-27 00:00:00",
+        "laneId": "6",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2025-12-14 00:00:00",
+        "finishTime": "2025-12-27 00:00:00",
+        "laneId": "6",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2025-12-28 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "6",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2025-12-29 00:00:00",
+        "finishTime": "2026-03-20 00:00:00",
+        "laneId": "6",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2025-12-29 00:00:00",
+        "finishTime": "2026-03-24 00:00:00",
+        "laneId": "6",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2026-03-15 00:00:00",
+        "finishTime": "2026-04-06 00:00:00",
+        "laneId": "6",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2026-04-01 00:00:00",
+        "finishTime": "2026-04-10 00:00:00",
+        "laneId": "6",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2026-03-21 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "6",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2026-04-11 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "6",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2026-05-12 00:00:00",
+        "finishTime": "2026-06-02 00:00:00",
+        "laneId": "6",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2026-04-12 00:00:00",
+        "finishTime": "2026-06-10 00:00:00",
+        "laneId": "6",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2026-05-12 00:00:00",
+        "finishTime": "2026-06-10 00:00:00",
+        "laneId": "6",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2025-11-30 00:00:00",
+        "finishTime": "2025-12-05 00:00:00",
+        "laneId": "7",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2025-12-03 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "7",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2025-12-05 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "7",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2025-12-06 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "7",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2025-12-13 00:00:00",
+        "finishTime": "2025-12-27 00:00:00",
+        "laneId": "7",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2025-12-14 00:00:00",
+        "finishTime": "2025-12-27 00:00:00",
+        "laneId": "7",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2025-12-28 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "7",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2025-12-29 00:00:00",
+        "finishTime": "2026-03-20 00:00:00",
+        "laneId": "7",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2025-12-29 00:00:00",
+        "finishTime": "2026-03-24 00:00:00",
+        "laneId": "7",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2026-03-15 00:00:00",
+        "finishTime": "2026-04-06 00:00:00",
+        "laneId": "7",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2026-04-01 00:00:00",
+        "finishTime": "2026-04-10 00:00:00",
+        "laneId": "7",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2026-03-21 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "7",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2026-04-11 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "7",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2026-05-12 00:00:00",
+        "finishTime": "2026-06-02 00:00:00",
+        "laneId": "7",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2026-04-12 00:00:00",
+        "finishTime": "2026-06-10 00:00:00",
+        "laneId": "7",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2026-05-12 00:00:00",
+        "finishTime": "2026-06-10 00:00:00",
+        "laneId": "7",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2025-11-30 00:00:00",
+        "finishTime": "2025-12-05 00:00:00",
+        "laneId": "8",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2025-12-03 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "8",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2025-12-05 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "8",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2025-12-06 00:00:00",
+        "finishTime": "2025-12-12 00:00:00",
+        "laneId": "8",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2025-12-13 00:00:00",
+        "finishTime": "2025-12-27 00:00:00",
+        "laneId": "8",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2025-12-14 00:00:00",
+        "finishTime": "2025-12-27 00:00:00",
+        "laneId": "8",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2025-12-28 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "8",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2025-12-29 00:00:00",
+        "finishTime": "2026-03-20 00:00:00",
+        "laneId": "8",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2025-12-29 00:00:00",
+        "finishTime": "2026-03-24 00:00:00",
+        "laneId": "8",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2026-03-15 00:00:00",
+        "finishTime": "2026-04-06 00:00:00",
+        "laneId": "8",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2026-04-01 00:00:00",
+        "finishTime": "2026-04-10 00:00:00",
+        "laneId": "8",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2026-03-21 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "8",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2026-04-11 00:00:00",
+        "finishTime": "2026-05-10 00:00:00",
+        "laneId": "8",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2026-05-12 00:00:00",
+        "finishTime": "2026-06-02 00:00:00",
+        "laneId": "8",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2026-04-12 00:00:00",
+        "finishTime": "2026-06-10 00:00:00",
+        "laneId": "8",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2026-05-12 00:00:00",
+        "finishTime": "2026-06-10 00:00:00",
+        "laneId": "8",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "1",
+        "name": "项目启动",
+        "type": "star",
+        "startTime": "2028-12-03 00:00:00",
+        "laneId": "1",
+        "row": 0,
+        "extendField": {
+          "leader": "小明"
+        }
+      },
+      {
+        "id": "2",
+        "name": "方案评审",
+        "type": "star",
+        "startTime": "2028-12-12 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "3",
+        "name": "详细设计评审",
+        "type": "star",
+        "startTime": "2028-12-27 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "4",
+        "name": "发开启动",
+        "type": "star",
+        "startTime": "2028-12-31 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "5",
+        "name": "试运行转阶段",
+        "type": "star",
+        "startTime": "2029-5-11 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "6",
+        "name": "试运行报告",
+        "type": "star",
+        "startTime": "2029-6-11 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "7",
+        "name": "交付评审",
+        "type": "star",
+        "startTime": "2029-6-18 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "8",
+        "name": "正式上线",
+        "type": "star",
+        "startTime": "2029-6-26 00:00:00",
+        "laneId": "1",
+        "row": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2028-11-30 00:00:00",
+        "finishTime": "2028-12-05 00:00:00",
+        "laneId": "2",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2028-12-03 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "2",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2028-12-05 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "2",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2028-12-06 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "2",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2028-12-13 00:00:00",
+        "finishTime": "2028-12-27 00:00:00",
+        "laneId": "2",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2028-12-14 00:00:00",
+        "finishTime": "2028-12-27 00:00:00",
+        "laneId": "2",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2028-12-28 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "2",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2028-12-29 00:00:00",
+        "finishTime": "2029-03-20 00:00:00",
+        "laneId": "2",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2028-12-29 00:00:00",
+        "finishTime": "2029-03-24 00:00:00",
+        "laneId": "2",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2029-03-15 00:00:00",
+        "finishTime": "2029-04-06 00:00:00",
+        "laneId": "2",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2029-04-01 00:00:00",
+        "finishTime": "2029-04-10 00:00:00",
+        "laneId": "2",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2029-03-21 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "2",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2029-04-11 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "2",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2029-05-12 00:00:00",
+        "finishTime": "2029-06-02 00:00:00",
+        "laneId": "2",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2029-04-12 00:00:00",
+        "finishTime": "2029-06-10 00:00:00",
+        "laneId": "2",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2029-05-12 00:00:00",
+        "finishTime": "2029-06-10 00:00:00",
+        "laneId": "2",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2028-11-30 00:00:00",
+        "finishTime": "2028-12-05 00:00:00",
+        "laneId": "3",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2028-12-03 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "3",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2028-12-05 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "3",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2028-12-06 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "3",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2028-12-13 00:00:00",
+        "finishTime": "2028-12-27 00:00:00",
+        "laneId": "3",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2028-12-14 00:00:00",
+        "finishTime": "2028-12-27 00:00:00",
+        "laneId": "3",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2028-12-28 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "3",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2028-12-29 00:00:00",
+        "finishTime": "2029-03-20 00:00:00",
+        "laneId": "3",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2028-12-29 00:00:00",
+        "finishTime": "2029-03-24 00:00:00",
+        "laneId": "3",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2029-03-15 00:00:00",
+        "finishTime": "2029-04-06 00:00:00",
+        "laneId": "3",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2029-04-01 00:00:00",
+        "finishTime": "2029-04-10 00:00:00",
+        "laneId": "3",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2029-03-21 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "3",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2029-04-11 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "3",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2029-05-12 00:00:00",
+        "finishTime": "2029-06-02 00:00:00",
+        "laneId": "3",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2029-04-12 00:00:00",
+        "finishTime": "2029-06-10 00:00:00",
+        "laneId": "3",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2029-05-12 00:00:00",
+        "finishTime": "2029-06-10 00:00:00",
+        "laneId": "3",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2028-11-30 00:00:00",
+        "finishTime": "2028-12-05 00:00:00",
+        "laneId": "4",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2028-12-03 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "4",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2028-12-05 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "4",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2028-12-06 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "4",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2028-12-13 00:00:00",
+        "finishTime": "2028-12-27 00:00:00",
+        "laneId": "4",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2028-12-14 00:00:00",
+        "finishTime": "2028-12-27 00:00:00",
+        "laneId": "4",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2028-12-28 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "4",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2028-12-29 00:00:00",
+        "finishTime": "2029-03-20 00:00:00",
+        "laneId": "4",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2028-12-29 00:00:00",
+        "finishTime": "2029-03-24 00:00:00",
+        "laneId": "4",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2029-03-15 00:00:00",
+        "finishTime": "2029-04-06 00:00:00",
+        "laneId": "4",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2029-04-01 00:00:00",
+        "finishTime": "2029-04-10 00:00:00",
+        "laneId": "4",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2029-03-21 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "4",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2029-04-11 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "4",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2029-05-12 00:00:00",
+        "finishTime": "2029-06-02 00:00:00",
+        "laneId": "4",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2029-04-12 00:00:00",
+        "finishTime": "2029-06-10 00:00:00",
+        "laneId": "4",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2029-05-12 00:00:00",
+        "finishTime": "2029-06-10 00:00:00",
+        "laneId": "4",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2028-11-30 00:00:00",
+        "finishTime": "2028-12-05 00:00:00",
+        "laneId": "5",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2028-12-03 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "5",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2028-12-05 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "5",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2028-12-06 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "5",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2028-12-13 00:00:00",
+        "finishTime": "2028-12-27 00:00:00",
+        "laneId": "5",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2028-12-14 00:00:00",
+        "finishTime": "2028-12-27 00:00:00",
+        "laneId": "5",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2028-12-28 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "5",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2028-12-29 00:00:00",
+        "finishTime": "2029-03-20 00:00:00",
+        "laneId": "5",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2028-12-29 00:00:00",
+        "finishTime": "2029-03-24 00:00:00",
+        "laneId": "5",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2029-03-15 00:00:00",
+        "finishTime": "2029-04-06 00:00:00",
+        "laneId": "5",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2029-04-01 00:00:00",
+        "finishTime": "2029-04-10 00:00:00",
+        "laneId": "5",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2029-03-21 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "5",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2029-04-11 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "5",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2029-05-12 00:00:00",
+        "finishTime": "2029-06-02 00:00:00",
+        "laneId": "5",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2029-04-12 00:00:00",
+        "finishTime": "2029-06-10 00:00:00",
+        "laneId": "5",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2029-05-12 00:00:00",
+        "finishTime": "2029-06-10 00:00:00",
+        "laneId": "5",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2028-11-30 00:00:00",
+        "finishTime": "2028-12-05 00:00:00",
+        "laneId": "6",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2028-12-03 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "6",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2028-12-05 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "6",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2028-12-06 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "6",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2028-12-13 00:00:00",
+        "finishTime": "2028-12-27 00:00:00",
+        "laneId": "6",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2028-12-14 00:00:00",
+        "finishTime": "2028-12-27 00:00:00",
+        "laneId": "6",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2028-12-28 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "6",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2028-12-29 00:00:00",
+        "finishTime": "2029-03-20 00:00:00",
+        "laneId": "6",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2028-12-29 00:00:00",
+        "finishTime": "2029-03-24 00:00:00",
+        "laneId": "6",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2029-03-15 00:00:00",
+        "finishTime": "2029-04-06 00:00:00",
+        "laneId": "6",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2029-04-01 00:00:00",
+        "finishTime": "2029-04-10 00:00:00",
+        "laneId": "6",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2029-03-21 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "6",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2029-04-11 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "6",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2029-05-12 00:00:00",
+        "finishTime": "2029-06-02 00:00:00",
+        "laneId": "6",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2029-04-12 00:00:00",
+        "finishTime": "2029-06-10 00:00:00",
+        "laneId": "6",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2029-05-12 00:00:00",
+        "finishTime": "2029-06-10 00:00:00",
+        "laneId": "6",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2028-11-30 00:00:00",
+        "finishTime": "2028-12-05 00:00:00",
+        "laneId": "7",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2028-12-03 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "7",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2028-12-05 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "7",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2028-12-06 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "7",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2028-12-13 00:00:00",
+        "finishTime": "2028-12-27 00:00:00",
+        "laneId": "7",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2028-12-14 00:00:00",
+        "finishTime": "2028-12-27 00:00:00",
+        "laneId": "7",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2028-12-28 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "7",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2028-12-29 00:00:00",
+        "finishTime": "2029-03-20 00:00:00",
+        "laneId": "7",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2028-12-29 00:00:00",
+        "finishTime": "2029-03-24 00:00:00",
+        "laneId": "7",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2029-03-15 00:00:00",
+        "finishTime": "2029-04-06 00:00:00",
+        "laneId": "7",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2029-04-01 00:00:00",
+        "finishTime": "2029-04-10 00:00:00",
+        "laneId": "7",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2029-03-21 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "7",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2029-04-11 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "7",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2029-05-12 00:00:00",
+        "finishTime": "2029-06-02 00:00:00",
+        "laneId": "7",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2029-04-12 00:00:00",
+        "finishTime": "2029-06-10 00:00:00",
+        "laneId": "7",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2029-05-12 00:00:00",
+        "finishTime": "2029-06-10 00:00:00",
+        "laneId": "7",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "9",
+        "name": "项目启动动员",
+        "type": "arrow",
+        "startTime": "2028-11-30 00:00:00",
+        "finishTime": "2028-12-05 00:00:00",
+        "laneId": "8",
+        "row": 0
+      },
+      {
+        "id": "10",
+        "name": "需求调研提纲",
+        "type": "arrow",
+        "startTime": "2028-12-03 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "8",
+        "row": 1
+      },
+      {
+        "id": "11",
+        "name": "方案设计",
+        "type": "arrow",
+        "startTime": "2028-12-05 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "8",
+        "row": 2
+      },
+      {
+        "id": "12",
+        "name": "原型设计",
+        "type": "arrow",
+        "startTime": "2028-12-06 00:00:00",
+        "finishTime": "2028-12-12 00:00:00",
+        "laneId": "8",
+        "row": 3
+      },
+      {
+        "id": "13",
+        "name": "详细设计",
+        "type": "arrow",
+        "startTime": "2028-12-13 00:00:00",
+        "finishTime": "2028-12-27 00:00:00",
+        "laneId": "8",
+        "row": 2,
+        "progress": 0.2
+      },
+      {
+        "id": "14",
+        "name": "开发计划",
+        "type": "rect",
+        "startTime": "2028-12-14 00:00:00",
+        "finishTime": "2028-12-27 00:00:00",
+        "laneId": "8",
+        "row": 3,
+        "progress": 0.2
+      },
+      {
+        "id": "15",
+        "name": "业务基本信息梳理、导入",
+        "type": "arrow",
+        "startTime": "2028-12-28 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "8",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "16",
+        "name": "功能开发",
+        "type": "rect",
+        "startTime": "2028-12-29 00:00:00",
+        "finishTime": "2029-03-20 00:00:00",
+        "laneId": "8",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "17",
+        "name": "单元测试",
+        "type": "rect",
+        "startTime": "2028-12-29 00:00:00",
+        "finishTime": "2029-03-24 00:00:00",
+        "laneId": "8",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "18",
+        "name": "集成测试",
+        "type": "rect",
+        "startTime": "2029-03-15 00:00:00",
+        "finishTime": "2029-04-06 00:00:00",
+        "laneId": "8",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "19",
+        "name": "系统架构安装（测试）",
+        "type": "rect",
+        "startTime": "2029-04-01 00:00:00",
+        "finishTime": "2029-04-10 00:00:00",
+        "laneId": "8",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "20",
+        "name": "业务测试",
+        "type": "rect",
+        "startTime": "2029-03-21 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "8",
+        "row": 1,
+        "progress": 0
+      },
+      {
+        "id": "21",
+        "name": "业务培训",
+        "type": "arrow",
+        "startTime": "2029-04-11 00:00:00",
+        "finishTime": "2029-05-10 00:00:00",
+        "laneId": "8",
+        "row": 3,
+        "progress": 0
+      },
+      {
+        "id": "22",
+        "name": "运行数据迁移",
+        "type": "rect",
+        "startTime": "2029-05-12 00:00:00",
+        "finishTime": "2029-06-02 00:00:00",
+        "laneId": "8",
+        "row": 0,
+        "progress": 0
+      },
+      {
+        "id": "23",
+        "name": "版本迭代更新",
+        "type": "arrow",
+        "startTime": "2029-04-12 00:00:00",
+        "finishTime": "2029-06-10 00:00:00",
+        "laneId": "8",
+        "row": 2,
+        "progress": 0
+      },
+      {
+        "id": "24",
+        "name": "大范围业务培训",
+        "type": "arrow",
+        "startTime": "2029-05-12 00:00:00",
+        "finishTime": "2029-06-10 00:00:00",
+        "laneId": "8",
+        "row": 3,
+        "progress": 0
+      }
+    ],
+    "moveRangeColor": "rgba(0,255,0,0.3)",
+    "moveRangeBorderColor": "rgba(0,0,0,0)",
+    "moveRangeBorder": 0
+  },
+  "detail": {
+    "width": 250,
+    "backgroundColor": "white",
+    "borderColor": "#F1F0FF",
+    "border": 1,
+    "radius": 5,
+    "titleHeight": 25,
+    "titleBackgroundColor": "#ECECF4",
+    "titleText": "详细信息",
+    "titleFontColor": "#4F4F54",
+    "titleFontSize": 15,
+    "titleFontFamily": "Calibri",
+    "textLeftMargin": 10,
+    "textTopMargin": 10,
+    "textFontColor": "#4F4F54",
+    "textFontSize": 15,
+    "textFontFamily": "Calibri",
+    "textLineHeight": 1.5,
+    "mouseOffset": {
+      "x": 25,
+      "y": 25
+    },
+    "shadow": {
+      "color": "black",
+      "blur": 10,
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "opacity": 0.5
+    }
+  },
+  "nodeRevise": {
+    "formId": "nodeForm",
+    "startOffSetPct": {
+      "xPct": 0.5,
+      "yPct": 0.5
+    },
+    "width": 400,
+    "height": 200,
+    "hide": true,
+    "backgroundColor": "white",
+    "borderColor": "#EBEBEB",
+    "radius": 10,
+    "border": 1,
+    "shadow": {
+      "color": "black",
+      "blur": 10,
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "opacity": 0.2
+    },
+    "button": {
+      "margin": {
+        "right": 10,
+        "bottom": 10
+      },
+      "text": {
+        "color": "#359EE8",
+        "hoverColor": "#359EE8",
+        "fontSize": 14,
+        "fontFamily": "Calibri"
+      },
+      "background": {
+        "height": 30,
+        "width": 60,
+        "color": "#ECECF4",
+        "hoverColor": "#E0DFFF",
+        "stroke": 1,
+        "strokeColor": "#ECECF4",
+        "radius": 5
+      }
+    }
+  },
+  "laneRevise": {
+    "formId": "laneForm",
+    "startOffSetPct": {
+      "xPct": 0.5,
+      "yPct": 0.5
+    },
+    "width": 400,
+    "height": 200,
+    "hide": true,
+    "backgroundColor": "white",
+    "borderColor": "#EBEBEB",
+    "radius": 10,
+    "border": 1,
+    "shadow": {
+      "color": "black",
+      "blur": 10,
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "opacity": 0.2
+    },
+    "button": {
+      "margin": {
+        "right": 10,
+        "bottom": 10
+      },
+      "text": {
+        "color": "#359EE8",
+        "hoverColor": "#359EE8",
+        "fontSize": 14,
+        "fontFamily": "Calibri"
+      },
+      "background": {
+        "height": 30,
+        "width": 60,
+        "color": "#ECECF4",
+        "hoverColor": "#E0DFFF",
+        "stroke": 1,
+        "strokeColor": "#ECECF4",
+        "radius": 5
+      }
+    }
+  },
+  "laneDisplay": {
+    "startOffSetPct": {
+      "xPct": 0.8,
+      "yPct": 0.2
+    },
+    "width": 200,
+    "height": 400,
+    "hide": true,
+    "backgroundColor": "white",
+    "borderColor": "#EBEBEB",
+    "radius": 10,
+    "border": 1,
+    "margin": 30,
+    "shadow": {
+      "color": "black",
+      "blur": 10,
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "opacity": 0.2
+    },
+    "text": {
+      "fontSize": 18,
+      "fontFamily": "Calibri",
+      "color": "#4F4F54",
+      "hoverColor": "#359EE8",
+      "marginBottom": 10,
+      "offSetY": 0
+    }
+  },
+  "jumpTimeline": {
+    "hide": true,
+    "width": 240,
+    "height": 30,
+    "bottomMargin": 10,
+    "backgroundColor": "#ECECF4",
+    "border": 1,
+    "borderColor": "#ECECF4",
+    "radius": 10
+  },
+  "holiday": {
+    "holiday": [
+      {
+        "startTime": "2023-12-02 00:00:00",
+        "endTime": "2023-12-03 23:59:59",
+        "hide": false
+      },
+      {
+        "startTime": "2023-12-09 00:00:00",
+        "endTime": "2023-12-10 23:59:59",
+        "hide": false
+      },
+      {
+        "startTime": "2023-12-16 00:00:00",
+        "endTime": "2023-12-17 23:59:59",
+        "hide": false
+      },
+      {
+        "startTime": "2023-12-23 00:00:00",
+        "endTime": "2023-12-24 23:59:59",
+        "hide": false
+      },
+      {
+        "startTime": "2023-12-30 00:00:00",
+        "endTime": "2024-01-01 23:59:59",
+        "hide": false
+      }
+    ],
+    "color": "#FFFF00",
+    "border": 1,
+    "borderColor": "#FF0000",
+    "opacity": 0.2,
+    "hide": false,
+    "text": {
+      "density": 40,
+      "color": "#ffcc19",
+      "font": "Calibri",
+      "size": 12,
+      "content": "休息日",
+      "rotation": 45
+    }
+  },
+  "watermark": {
+    "hide": true,
+    "tbSize": 300,
+    "lrSize": 500,
+    "rotation": 45,
+    "text": {
+      "size": 50,
+      "font": "Calibri",
+      "color": "#888",
+      "opacity": 0.2,
+      "content": "Chronos"
+    }
+  }
+}
