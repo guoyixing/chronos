@@ -149,4 +149,22 @@ export class ChronosHolidayService implements ComponentService {
             this.draw()
         })
     }
+
+    /**
+     * 获取两个时间中休假日天数
+     */
+    getHolidayDays(startTime: Date, endTime: Date) {
+        //休息总时长
+        let total = 0;
+        //获取这两个时间之间的所有的休息时间
+        this._data.holiday.forEach((entry) => {
+            //获取两个时间断相交的时间长度
+            const start = Math.max(startTime.getTime(), entry.startTime.getTime());
+            const end = Math.min(endTime.getTime(), entry.endTime.getTime());
+            if (start < end) {
+                total += (end - start)
+            }
+        })
+        return total / 1000 / 60 / 60 / 24
+    }
 }

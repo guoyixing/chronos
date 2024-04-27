@@ -5,6 +5,7 @@ import {TYPES} from "../../../../config/inversify.config";
 import Konva from "konva";
 import {ChronosNodeGroupComponent} from "../group/node-group.component";
 import {ChronosNodeEntryComponent} from "../entry/node-entry.component";
+import {ChronosHolidayComponent} from "../../../holiday/holiday.component";
 
 /**
  * 节点详情-组件服务
@@ -15,17 +16,24 @@ export class ChronosNodeDetailService implements ComponentService {
     /**
      * 数据
      */
-    private _data: ChronosNodeDetailData;
+    _data: ChronosNodeDetailData;
 
     /**
      * 节点组
      */
     private _nodeGroup: ChronosNodeGroupComponent;
 
+    /**
+     * 休假日
+     */
+    private _holiday: ChronosHolidayComponent
+
     constructor(@inject(TYPES.ChronosNodeDetailData) data: ChronosNodeDetailData,
-                @inject(TYPES.ChronosNodeGroupComponent) nodeGroup: ChronosNodeGroupComponent) {
+                @inject(TYPES.ChronosNodeGroupComponent) nodeGroup: ChronosNodeGroupComponent,
+                @inject(TYPES.ChronosHolidayComponent) holiday: ChronosHolidayComponent){
         this._data = data;
         this._nodeGroup = nodeGroup;
+        this._holiday = holiday;
     }
 
     /**
@@ -85,6 +93,12 @@ export class ChronosNodeDetailService implements ComponentService {
             '开始时间：' + node.data.startTime.toLocaleString()
         if (node.data.finishTime) {
             text += '\n结束时间：' + node.data.finishTime.toLocaleString()
+            //总时长，单位天
+            const total = (node.data.finishTime.getTime() - node.data.startTime.getTime()) / 1000 / 60 / 60 / 24
+            text += '\n总时长：' + total.toFixed(2) + "天"
+            //工作日时长，单位天
+            const holiday = this._holiday.service.getHolidayDays(node.data.startTime, node.data.finishTime)
+            text += '\n工作日：' + (total - holiday).toFixed(2) + "天"
         }
         if (node.data.progress) {
             text += '\n进度：' + node.data.progress * 100 + "%"
