@@ -16,7 +16,7 @@ export class ChronosNodeTransformerService implements ComponentService {
     /**
      * 数据
      */
-    private _data: ChronosNodeTransformerData
+    _data: ChronosNodeTransformerData
 
     /**
      * 回调
@@ -26,7 +26,7 @@ export class ChronosNodeTransformerService implements ComponentService {
     /**
      * 节点组
      */
-    private _nodeGroup: ChronosNodeGroupComponent
+    _nodeGroup: ChronosNodeGroupComponent
 
     constructor(@inject(TYPES.ChronosNodeTransformerData) data: ChronosNodeTransformerData,
                 @inject(TYPES.Callback) callback: Callback,
@@ -224,6 +224,7 @@ export class ChronosNodeTransformerService implements ComponentService {
                     const minCoordinateX = coordinate.xFinish - nodeGraphics.minWidth() - nodeGraphics.transformerOffset().left;
                     leftControlPoint.x() >= minCoordinateX && leftControlPoint.x(minCoordinateX)
                     nodeGraphics.transform(coordinate.xStart + (leftControlPoint.x() - leftX), coordinate.y, coordinate.xFinish, data.bindNode?.data.progress)
+                    data.bindNode?.service.publish(EVENT_TYPES.Transform)
                 }
                 //更新节点的坐标
                 const nodeCoordinate = data.bindNode?.data.coordinate;
@@ -261,6 +262,7 @@ export class ChronosNodeTransformerService implements ComponentService {
                     const maxCoordinateX = coordinate.xStart + nodeGraphics.minWidth() + nodeGraphics.transformerOffset().right;
                     rightControlPoint.x() <= maxCoordinateX && rightControlPoint.x(maxCoordinateX)
                     nodeGraphics?.transform(coordinate.xStart, coordinate.y, (coordinate.xFinish || 0) + (rightControlPoint.x() - rightX), data.bindNode?.data.progress)
+                    data.bindNode?.service.publish(EVENT_TYPES.Transform)
                 }
                 //更新节点的坐标
                 const nodeCoordinate = data.bindNode?.data.coordinate;

@@ -11,6 +11,7 @@ import {ChronosNodeDetailComponent} from "../detail/node-detail.component";
 import {ChronosScaleComponent} from "../../../scale/scale.component";
 import {ChronosNodeReviseComponent} from "../../../revise/node/node-revise.component";
 import {Callback} from "../../../../core/event/callback/callback";
+import Konva from "konva";
 
 /**
  * 节点条目-组件服务
@@ -105,7 +106,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
             return
         }
         //获取bar
-        const nodeShape = this._bar.service.getGraphicsByNode(data);
+        const nodeShape = this._bar.service.getGraphicsByNode(data, this);
         if (!nodeShape) {
             return
         }
@@ -133,7 +134,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         this.initCoordinate();
         this.followLane()
         this.draw()
-        this.publish(EVENT_TYPES.ReDraw)
+        this.publishAndPop(EVENT_TYPES.ReDraw)
     }
 
     /**
@@ -144,7 +145,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         data.graphics?.shape?.destroy()
         data.graphics = undefined
         this._nodeGroup.service.removeNodeEntry(data.id)
-        this.publish(EVENT_TYPES.Delete)
+        this.publishAndPop(EVENT_TYPES.Delete)
         this._callback.nodeDelete && this._callback.nodeDelete(data, this._nodeGroup)
     }
 
@@ -162,7 +163,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
             this.updateLane()
             this.updateTime()
             this.followLane()
-            this.publish(EVENT_TYPES.Drag)
+            this.publishAndPop(EVENT_TYPES.Drag)
             this._callback.nodeDrag && this._callback.nodeDrag(this._data, this._nodeGroup)
         });
     }
@@ -382,9 +383,18 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
      * 发布事件
      * @param event 事件名称
      */
-    publish(event: symbol): void {
+    publishAndPop(event: symbol): void {
         const eventManager = this._data.context.eventManager;
         eventManager?.publishAndPop(this, event)
+    }
+
+    /**
+     * 发布事件
+     * @param event 事件名称
+     */
+    publish(event: symbol): void {
+        const eventManager = this._data.context.eventManager;
+        eventManager?.publish(this, event)
     }
 
     /**
@@ -394,5 +404,19 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         this._scale.service.on(EVENT_TYPES.ScaleReDraw, () => {
             this.reDraw()
         })
+    }
+
+    /**
+     * 重绘进度文本
+     */
+    reDrawProgressText(): Konva.Group | undefined {
+        const data = this._data;
+        const node = data.progressTextGraphics
+        if (node) {
+            node.destroy()
+        }
+        if (data.progress) {
+            return this._nodeGroup.service.drawProgressText(data.graphics?.shape, data.progress)
+        }
     }
 }

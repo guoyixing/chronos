@@ -10,6 +10,8 @@ import {ChronosNodeGroupComponent} from "../group/node-group.component";
 import {ChronosLaneGroupComponent} from "../../../lane/group/lane-group.component";
 import {ChronosTimelineComponent} from "../../../timeline/timeline.component";
 import {afterDay} from "../../../../core/common/utils/date.utils";
+import {ChronosNodeEntryService} from "../entry/node-entry.service";
+import {EVENT_TYPES} from "../../../../core/event/event";
 
 /**
  * 节点导航窗-组件服务
@@ -210,7 +212,7 @@ export class ChronosNodeBarService implements ComponentService {
     /**
      * 根据节点获取一个图形
      */
-    getGraphicsByNode(nodeData: ChronosNodeEntryData): NodeShape | undefined {
+    getGraphicsByNode(nodeData: ChronosNodeEntryData,nodeService:ChronosNodeEntryService): NodeShape | undefined {
         let type = this._data.candidateNode.get(nodeData.type);
 
         if (!type) {
@@ -227,8 +229,14 @@ export class ChronosNodeBarService implements ComponentService {
                 const progressGroup = nodeShape.progress(nodeData.coordinate, progress);
                 progressGroup && shape?.add(progressGroup)
                 //绘制进度文本
-                this.drawProgressText(shape, progress);
-
+                const progressTextGroup = this._nodeGroup.service.drawProgressText(shape, progress);
+                nodeData.progressTextGraphics = progressTextGroup;
+                nodeService.on(EVENT_TYPES.Transform, (progress: number) => {
+                    const reProgressTextGroup =nodeService.reDrawProgressText();
+                    nodeData.progressTextGraphics =  reProgressTextGroup
+                    reProgressTextGroup && shape?.add(reProgressTextGroup)
+                })
+                progressTextGroup && shape?.add(progressTextGroup)
             }
 
             shape?.draggable(this._data.context.drawContext.isEdit)
@@ -236,46 +244,6 @@ export class ChronosNodeBarService implements ComponentService {
         }
         console.warn('未知的节点类型', nodeData)
         return undefined
-    }
-
-    /**
-     * 绘制进度文本
-     * @param shape 图形
-     * @param progress 进度
-     */
-    drawProgressText(shape: Konva.Group | undefined, progress: number) {
-        const width = shape?.width();
-        if (width !== undefined) {
-            const data = this._nodeGroup.data.progress;
-            const progressText = new Konva.Text({
-                x: 0,
-                y: -data.text.fontSize / 2,
-                text: `${progress * 100}%`,
-                fontSize: data.text.fontSize,
-                fill: data.text.color,
-                fontFamily: data.text.fontFamily,
-                align: 'center',
-            })
-            //绘制文字背景
-            const progressBackground = new Konva.Rect({
-                x: -data.background.lrMargin,
-                y: -data.background.height / 2 - 1,
-                width: data.background.lrMargin * 2 + progressText.width(),
-                height: data.background.height,
-                fill: data.background.color,
-                cornerRadius: data.background.radius,
-                stroke: data.background.strokeColor,
-                strokeWidth: data.background.stroke,
-                prefectDrawEnabled: false
-            });
-            const progressTextGroup = new Konva.Group({
-                x: progress * width + data.offset.x,
-                y: data.offset.y
-            });
-            progressTextGroup.add(progressBackground)
-            progressTextGroup.add(progressText)
-            shape?.add(progressTextGroup)
-        }
     }
 
     /**

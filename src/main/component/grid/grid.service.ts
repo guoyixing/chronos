@@ -61,7 +61,8 @@ export class ChronosGridService implements ComponentService {
         const coordinate = this._data.context.drawContext.getFixedCoordinate();
 
         //计算网格的x起始坐标
-        const x = coordinate.x - startOffSet.x - startOffSet.x % lrGapSize - coordinate.x % lrGapSize - borderSize;
+        const offSetX = startOffSet.x + startOffSet.x % lrGapSize;
+        const x = coordinate.x - offSetX - coordinate.x % lrGapSize - borderSize;
 
         //计算网格的y起始坐标
         const y = coordinate.y - startOffSet.y - startOffSet.y % tbGapSize - coordinate.y % tbGapSize;
@@ -83,7 +84,7 @@ export class ChronosGridService implements ComponentService {
         for (let j = y; j < y + height + tbGapSize; j += tbGapSize) {
             this._data.yLine.push(j);
             group.add(new Konva.Line({
-                points: [x - tbGapSize, j, x + width + tbGapSize, j],
+                points: [x - tbGapSize, j, x + width + tbGapSize + offSetX, j],
                 stroke: this._data.color,
                 strokeWidth: this._data.width,
             }));

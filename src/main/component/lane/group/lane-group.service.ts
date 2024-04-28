@@ -163,9 +163,9 @@ export class ChronosLaneGroupService implements ComponentService, EventPublisher
         this.draw();
         //发布事件
         this._data.laneGroup.forEach(lane => {
-            lane.service.publish(EVENT_TYPES.ReDraw)
+            lane.service.publishAndPop(EVENT_TYPES.ReDraw)
         })
-        this.publish(EVENT_TYPES.ReDraw)
+        this.publishAndPop(EVENT_TYPES.ReDraw)
     }
 
     /**
@@ -260,7 +260,7 @@ export class ChronosLaneGroupService implements ComponentService, EventPublisher
      * 发布事件
      * @param event 事件名称
      */
-    publish(event: symbol): void {
+    publishAndPop(event: symbol): void {
         const eventManager = this._data.context.eventManager;
         eventManager?.publish(this, event)
     }

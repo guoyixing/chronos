@@ -39,7 +39,7 @@ export interface EventPublisher {
      * 发布事件
      * @param event 事件名称
      */
-    publish(event: symbol): void
+    publishAndPop(event: symbol): void
 }
 
 /**
@@ -54,6 +54,8 @@ export const EVENT_TYPES = {
     Delete: Symbol.for("Delete"),
     //拖拽事件
     Drag: Symbol.for("Drag"),
+    //变形
+    Transform: Symbol.for("Transform"),
     //比例尺更新
     ScaleUpdate: Symbol.for("ScaleUpdate"),
     //比例尺重绘

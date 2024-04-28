@@ -2,6 +2,7 @@ import {ComponentData} from "../../../component-data.interface";
 import {ChronosLaneEntryComponent} from "../../../lane/entry/lane-entry.component";
 import {Context} from "../../../../core/context/context";
 import {NodeShape} from "../../board/shape/node-shape.interface";
+import Konva from "konva";
 
 /**
  * 节点条目-组件数据
@@ -66,6 +67,11 @@ export class ChronosNodeEntryData extends ComponentData {
      * 图形
      */
     graphics: NodeShape | undefined
+
+    /**
+     * 进度文字图形
+     */
+    progressTextGraphics: Konva.Group | undefined
 
     /**
      * 是否隐藏

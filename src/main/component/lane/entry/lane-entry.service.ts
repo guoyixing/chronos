@@ -398,7 +398,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
         data.graphics?.destroy()
         this.group.data.originalLaneEntryData.splice(data.index, 1);
         this.group.data.laneGroup.splice(data.index, 1);
-        this.publish(EVENT_TYPES.Delete)
+        this.publishAndPop(EVENT_TYPES.Delete)
         this._callback.laneDelete && this._callback.laneDelete(data, this.group);
     }
 
@@ -416,7 +416,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * 发布事件
      * @param event 事件名称
      */
-    publish(event: symbol): void {
+    publishAndPop(event: symbol): void {
         const eventManager = this.data.context.eventManager;
         eventManager?.publish(this, event)
     }

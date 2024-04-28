@@ -115,8 +115,8 @@ export class ChronosScaleService implements ComponentService, EventPublisher {
                 //解决精度问题
                 data.scaleX = (data.scaleX * 10 - data.scaleJump * 10) / 10
                 this.redraw()
-                this.publish(EVENT_TYPES.ScaleUpdate)
-                this.publish(EVENT_TYPES.ScaleReDraw)
+                this.publishAndPop(EVENT_TYPES.ScaleUpdate)
+                this.publishAndPop(EVENT_TYPES.ScaleReDraw)
             }
         })
         return minus;
@@ -197,8 +197,8 @@ export class ChronosScaleService implements ComponentService, EventPublisher {
             //解决精度问题
             data.scaleX = (data.scaleX * 10 + data.scaleJump * 10) / 10
             this.redraw()
-            this.publish(EVENT_TYPES.ScaleUpdate)
-            this.publish(EVENT_TYPES.ScaleReDraw)
+            this.publishAndPop(EVENT_TYPES.ScaleUpdate)
+            this.publishAndPop(EVENT_TYPES.ScaleReDraw)
         })
         return plus;
     }
@@ -235,7 +235,7 @@ export class ChronosScaleService implements ComponentService, EventPublisher {
      * 发布事件
      * @param event 事件名称
      */
-    publish(event: symbol): void {
+    publishAndPop(event: symbol): void {
         const eventManager = this._data.context.eventManager;
         eventManager?.publish(this, event)
     }
