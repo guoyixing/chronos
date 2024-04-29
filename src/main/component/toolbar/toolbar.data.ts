@@ -66,7 +66,7 @@ export class ChronosToolbarData extends ComponentData {
 
     constructor(context: Context, data?: ChronosToolbarDataType) {
         super(context);
-        this.width = data?.width ?? 300
+        this.width = data?.width ?? 275
         this.height = data?.height ?? 35
         this.backgroundColor = data?.backgroundColor ?? "#ECECF4"
         this.border = data?.border ?? 1
