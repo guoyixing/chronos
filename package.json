@@ -1,6 +1,6 @@
 {
   "name": "other-chronos",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "dist/chronos.js",
   "description": "Chronos is a front-end plug-in for project management and resource management.",
   "author": "KeyboardDog",
