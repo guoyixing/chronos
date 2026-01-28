@@ -1,27 +1,25 @@
 {
   "compilerOptions": {
-    "module": "commonJs",
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "moduleResolution": "node",
     "strict": true,
     "skipLibCheck": true,
     "outDir": "./dist",
     "declaration": true,
-    "emitDeclarationOnly": true,
+    "declarationDir": "./dist",
     "resolveJsonModule": true,
     "types": ["node"],
     "lib": [
-      "decorators",
-      "dom",
-      "es5",
-      "scripthost",
-      "es2015.promise",
-      "es2015.collection",
-      "es2015.symbol"
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
     ]
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "demo"]
 }
-

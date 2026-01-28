@@ -6,25 +6,26 @@ export default defineConfig({
     build: {
         lib: {
             name: 'chronos',
-            fileName: 'chronos',
-            entry: resolve(__dirname, './src/main/chronos.ts'),
+            fileName: (format) => `chronos.${format === 'es' ? 'js' : 'cjs'}`,
+            entry: resolve(__dirname, './src/chronos.ts'),
+            formats: ['es', 'cjs']
         },
         outDir: resolve(__dirname, 'dist'),
-        emptyOutDir: false,
+        emptyOutDir: true,
         rollupOptions: {
+            external: ['konva', 'inversify', 'reflect-metadata'],
             output: {
                 globals: {
-                    packageName: 'chronos',
-                    konva: 'konva'
+                    konva: 'Konva',
+                    inversify: 'inversify',
+                    'reflect-metadata': 'Reflect'
                 }
             },
         },
     },
-    optimizeDeps: {
-        include: ['konva'],
-        exclude: ['./index.html']
-    },
     plugins: [
-        dts(),
+        dts({
+            insertTypesEntry: true,
+        }),
     ]
 });

@@ -1,27 +1,43 @@
 {
   "name": "other-chronos",
   "version": "1.0.0",
-  "main": "dist/chronos.js",
   "description": "Chronos is a front-end plug-in for project management and resource management.",
   "author": "KeyboardDog",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "dist/chronos.cjs",
+  "module": "dist/chronos.js",
+  "types": "dist/chronos.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/chronos.d.ts",
+      "import": "./dist/chronos.js",
+      "require": "./dist/chronos.cjs"
+    }
+  },
+  "sideEffects": false,
   "files": [
     "dist",
     "README.md",
-    "LICENSE",
-    "package.json"
+    "LICENSE"
   ],
   "keywords": [
     "chronos",
     "gantt",
     "project management",
-    "resource management"
+    "resource management",
+    "konva",
+    "canvas"
   ],
-  "license": "Apache-2.0",
-  "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "lint": "eslint --fix --ext .ts ./",
-    "build:vite": "vite build"
+    "lint": "eslint --fix --ext .ts ./src",
+    "build": "vite build"
+  },
+  "peerDependencies": {
+    "konva": "^9.0.0",
+    "inversify": "^6.0.0",
+    "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
     "@types/node": "^20.12.2",
@@ -29,16 +45,12 @@
     "@typescript-eslint/parser": "^7.1.1",
     "eslint": "^8.57.0",
     "konva": "^9.3.5",
+    "inversify": "^6.0.2",
+    "reflect-metadata": "^0.2.2",
     "typescript": "^5.3.3",
     "vite": "^5.1.5",
     "vite-plugin-dts": "^3.7.3"
   },
-  "dependencies": {
-    "inversify": "^6.0.2",
-    "konva": "^9.3.5",
-    "reflect-metadata": "0.1.13"
-  },
-  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
     "url": "git://github.com/guoyixing/chronos.git"
