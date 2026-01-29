@@ -35,14 +35,22 @@ export class ChronosGridComponent extends BaseComponent<ChronosGridData, Chronos
      */
     toolbar(): ChronosToolPlug {
         const graphics = (button: ButtonType) => {
-            //线条长度
-            const line = button.stroke.length;
-            //计算竖线开始的位置
-            const vY = -line / 2;
-            const vX = line / 3;
-            //计算横线开始的位置
-            const hY = line / 6;
-            const path = `M${vX} ${vY}v${line}M${vX * 2} ${vY}v${line}M0 ${hY}h${line}M0 ${-hY}h${line}`
+            const size = button.stroke.length;
+            const halfSize = size / 2;
+            // 网格图标：两条竖线 + 两条横线
+            // 坐标系统：x 从 0 到 size（中心在 halfSize），y 从 -size/2 到 +size/2
+            const vX1 = halfSize - size / 6;  // 左竖线
+            const vX2 = halfSize + size / 6;  // 右竖线
+            const hY1 = -size / 6;  // 上横线
+            const hY2 = size / 6;   // 下横线
+            const halfLen = size / 2;
+            
+            const path = `
+                M${vX1} ${-halfLen}v${size}
+                M${vX2} ${-halfLen}v${size}
+                M${halfSize - halfLen} ${hY1}h${size}
+                M${halfSize - halfLen} ${hY2}h${size}
+            `;
             return new Konva.Path({
                 x: 0,
                 y: 0,

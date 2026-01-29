@@ -37,15 +37,25 @@ export class ChronosHolidayComponent extends BaseComponent<ChronosHolidayData, C
     toolbar(): ChronosToolPlug {
 
         const graphics = (button: ButtonType) => {
-            //线条长度
-            const line = button.stroke.length * 1.5;
-
+            const size = button.stroke.length;
+            const halfSize = size / 2;
+            // 日历图标
+            // 坐标系统：x 从 0 到 size（中心在 halfSize），y 从 -size/2 到 +size/2
+            const w = size * 0.9;  // 日历宽度（放大以与其他图标视觉一致）
+            const h = size * 0.8;  // 日历高度
+            const hookH = size * 0.18;  // 挂钩高度
+            const hookW = size * 0.15;  // 挂钩间距
+            
+            const left = halfSize - w / 2;
+            const top = -h / 2;
+            const headerY = top + h * 0.28;  // 日历头部分割线
+            
             const path = `
-            M-${line / 8} -${line / 4}h${line}v${line / 4 * 3}h-${line}z
-            M${line / 7} -${line / 4}v-${line / 4}h${line / 2}v${line / 4}
-            M${line / 4} -${line / 8}v${line / 2}
-            M${line / 2} -${line / 8}v${line / 2}
-            `
+                M${left} ${top}h${w}v${h}h${-w}z
+                M${left} ${headerY}h${w}
+                M${halfSize - hookW} ${top}v${-hookH}
+                M${halfSize + hookW} ${top}v${-hookH}
+            `;
             const color = this.data.hide ? button.stroke.color : button.stroke.hoverColor;
 
             return new Konva.Path({

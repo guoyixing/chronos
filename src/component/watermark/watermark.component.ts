@@ -36,18 +36,22 @@ export class ChronosWatermarkComponent extends BaseComponent<ChronosWatermarkDat
 
     toolbar(): ChronosToolPlug {
         const graphics = (button: ButtonType) => {
-            //线条长度
-            const line = button.stroke.length * 1.5;
-            const line_2 = line / 2;
-            const line_5_2 = line / 5 * 2;
-            const x = line / 8;
+            const size = button.stroke.length;
+            const halfSize = size / 2;
+            // 水印图标：水滴形状
+            // 坐标系统：x 从 0 到 size（中心在 halfSize），y 从 -size/2 到 +size/2
+            const r = size * 0.35;  // 水滴底部圆的半径
+            const topY = -size * 0.45;  // 水滴顶点
+            const bottomY = size * 0.25;  // 水滴底部
+            
+            // 水滴路径：顶点 -> 右曲线 -> 底部圆弧 -> 左曲线 -> 回到顶点
             const path = `
-            M-${x} -${line_2}v${line_2 + line / 5}
-            M-${x} -${line_2}h${line_5_2}
-            M-${x} -${line / 6}h${line_5_2}
-            M-${x} ${line / 5}h${line_5_2}
-            M${-x + line / 5 * 3} ${line_2}v-${line}h${line_5_2}v${line / 3 * 2}h-${line / 5}
-            `
+                M${halfSize} ${topY}
+                Q${halfSize + r * 1.2} ${0} ${halfSize + r} ${bottomY}
+                A${r} ${r} 0 1 1 ${halfSize - r} ${bottomY}
+                Q${halfSize - r * 1.2} ${0} ${halfSize} ${topY}
+                Z
+            `;
             return new Konva.Path({
                 x: 0,
                 y: 0,

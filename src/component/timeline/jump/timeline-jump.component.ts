@@ -47,15 +47,20 @@ export class ChronosJumpTimelineComponent extends BaseComponent<ChronosJumpTimel
     toolbar(): ChronosToolPlug {
 
         const graphics = (button: ButtonType) => {
-            //线条长度
-            const line = button.stroke.length * 1.5;
-
+            const size = button.stroke.length;
+            const halfSize = size / 2;
+            // 时间轴跳转图标：简单的日历形状
+            // 坐标系统：x 从 0 到 size（中心在 halfSize），y 从 -size/2 到 +size/2
+            const w = size * 0.85;
+            const h = size * 0.75;
+            const left = halfSize - w / 2;
+            const top = -h / 2;
+            const headerH = h * 0.3;
+            
             const path = `
-            M-${line / 8} -${line / 2}h${line}v${line}h-${line}z
-            M-${line / 8} -${line / 2 - line / 4}h${line}
-            M${line / 8} 0h${line / 2}
-            M${line / 8} ${line / 2 - line / 4}h${line / 2}
-            `
+                M${left} ${top}h${w}v${h}h${-w}z
+                M${left} ${top + headerH}h${w}
+            `;
 
             return new Konva.Path({
                 x: 0,

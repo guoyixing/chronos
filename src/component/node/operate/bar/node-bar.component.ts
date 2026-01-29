@@ -32,28 +32,25 @@ export class ChronosNodeBarComponent extends BaseComponent<ChronosNodeBarData, C
     toolbar(): ChronosToolPlug {
 
         const graphics = (button: ButtonType) => {
-            //线条长度
-            const line = button.stroke.length * 1.5;
-            const edgeLength = line / 12 * 5;
-            //计算第一个方框开始的位置
-            const x1 = -line / 8;
-            const y1 = -line / 2;
-            //计算第二个方框开始的位置
-            const x2 = line / 2;
-            const y2 = -line / 2;
-            //计算第三个方框开始的位置
-            const x3 = -line / 8;
-            const y3 = line / 12;
-            //计算第四个方框开始的位置
-            const x4 = line / 2;
-            const y4 = line / 12
+            const size = button.stroke.length;
+            const halfSize = size / 2;
+            // 节点导航图标：四个小方块（2x2网格布局）
+            // 坐标系统：x 从 0 到 size（中心在 halfSize），y 从 -size/2 到 +size/2
+            const boxSize = size * 0.35;  // 每个方块的大小
+            const gap = size * 0.1;       // 方块之间的间距
+            
+            // 四个方块的位置（以 halfSize, 0 为中心）
+            const x1 = halfSize - gap / 2 - boxSize;  // 左列
+            const x2 = halfSize + gap / 2;             // 右列
+            const y1 = -gap / 2 - boxSize;             // 上行
+            const y2 = gap / 2;                        // 下行
 
             const path = `
-            M${x1} ${y1}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength}z
-            M${x2} ${y2}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength}z
-            M${x3} ${y3}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength}z
-            M${x4} ${y4}v${edgeLength}h${edgeLength}v${-edgeLength}h${-edgeLength}z
-            `
+                M${x1} ${y1}h${boxSize}v${boxSize}h${-boxSize}z
+                M${x2} ${y1}h${boxSize}v${boxSize}h${-boxSize}z
+                M${x1} ${y2}h${boxSize}v${boxSize}h${-boxSize}z
+                M${x2} ${y2}h${boxSize}v${boxSize}h${-boxSize}z
+            `;
             return new Konva.Path({
                 x: 0,
                 y: 0,

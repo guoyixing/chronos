@@ -86,17 +86,20 @@ export class ChronosNodeGroupComponent extends BaseComponent<ChronosNodeGroupDat
 
     toolbar(): ChronosToolPlug {
         const graphics = (button: ButtonType) => {
-            //线条长度
-            const line = button.stroke.length * 1.5;
-            const line_2 = line / 2;
-            const x = line / 8;
-            const x2 = line / 2;
+            const size = button.stroke.length;
+            const halfSize = size / 2;
+            // 进度条图标：简单水平进度条
+            // 坐标系统：x 从 0 到 size（中心在 halfSize），y 从 -size/2 到 +size/2
+            const barW = size * 0.95;
+            const barH = size * 0.5;
+            const left = halfSize - barW / 2;
+            const top = -barH / 2;
+            const progressW = barW * 0.6;
+            
             const path = `
-            M-${x} -${line_2}l${line_2} ${line_2}
-            M-${x} ${line_2}l${line_2} -${line_2}
-            M${x2} -${line_2}l${line_2} ${line_2}
-            M${x2} ${line_2}l${line_2} -${line_2}
-            `
+                M${left} ${top}h${barW}v${barH}h${-barW}z
+                M${left} ${top}h${progressW}v${barH}h${-progressW}z
+            `;
             return new Konva.Path({
                 x: 0,
                 y: 0,
