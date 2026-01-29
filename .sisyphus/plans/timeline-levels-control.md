@@ -1193,7 +1193,7 @@ Critical Path: Task 1 → Task 2 → Task 3 → Task 4 → Task 7
 
 ---
 
-- [ ] 7. 注册到 chronos.ts 并集成
+- [x] 7. 注册到 chronos.ts 并集成
 
   **What to do**:
   - 在 `src/chronos.ts` 中导入并注册 TimelineControlConfig:

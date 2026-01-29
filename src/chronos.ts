@@ -22,6 +22,7 @@ import {Callback} from "./core/event/callback/callback";
 import {LaneReviseConfig} from "./config/lane-revise.inversify";
 import {LaneDisplayConfig} from "./config/lane-display.inversify";
 import {JumpTimelineConfig} from "./config/timeline-jump.inversify";
+import {TimelineControlConfig} from "./config/timeline-control.inversify";
 import {HolidayConfig} from "./config/holiday.inversify";
 import {WatermarkConfig} from "./config/watermark.inversify";
 import {FullscreenConfig} from "./config/fullscreen.inversify";
@@ -62,6 +63,8 @@ export class Chronos {
         new NodeTransformerConfig(this.chronosContainer, rootHtml, data)
         //时间轴
         new TimelineConfig(this.chronosContainer, rootHtml, data)
+        //时间轴控制面板
+        new TimelineControlConfig(this.chronosContainer, rootHtml, data)
         //时间轴跳转
         new JumpTimelineConfig(this.chronosContainer, rootHtml, data)
         //节点导航栏

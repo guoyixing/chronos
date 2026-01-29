@@ -127,3 +127,23 @@
 - npm run type-check: ✓ PASS (0 errors)
 - npm run lint: ✓ PASS
 - npm run build: ✓ SUCCESS (dist/chronos.js 170.37 kB)
+
+## [2026-01-29T08:37:00Z] Task 7: 最终集成完成
+
+### 实现细节
+- 在 chronos.ts 导入 TimelineControlConfig
+- 在 TimelineConfig 和 JumpTimelineConfig 之间注册
+- 保持正确的配置顺序（时间轴相关配置组合在一起）
+
+### 验证结果
+- npm run type-check: ✓ PASS
+- npm run lint: ✓ PASS
+- npm run build: ✓ SUCCESS
+  - dist/chronos.js: 177.28 kB (增加了 ~7KB，符合预期)
+  - dist/chronos.cjs: 127.79 kB
+
+### 交付物清单
+✅ 所有 7 个任务完成
+✅ 所有文件类型检查通过
+✅ 构建成功
+✅ 代码质量检查通过
