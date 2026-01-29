@@ -7,7 +7,7 @@ import {TYPES} from "../../../config/inversify.config";
 import {ChronosWindowComponent} from "../../window/window.component";
 import {ChronosLaneEntryService} from "../entry/lane-entry.service";
 import {ChronosLaneEntryComponent} from "../entry/lane-entry.component";
-import {StageDragListener} from "../../../core/event/event";
+import {ResizeListener, StageDragListener} from "../../../core/event/event";
 import {Callback} from "../../../core/event/callback/callback";
 import {ChronosLaneReviseComponent} from "../../revise/lane/lane-revise.component";
 
@@ -16,7 +16,7 @@ import {ChronosLaneReviseComponent} from "../../revise/lane/lane-revise.componen
  */
 @injectable()
 export class ChronosLaneGroupComponent extends BaseComponent<ChronosLaneGroupData, ChronosLaneGroupService>
-    implements Lifecycle, StageDragListener {
+    implements Lifecycle, StageDragListener, ResizeListener {
 
     /**
      * 组件名称
@@ -67,5 +67,15 @@ export class ChronosLaneGroupComponent extends BaseComponent<ChronosLaneGroupDat
      */
     stageDragListen(): void {
         this.service.keepPos()
+    }
+
+    /**
+     * 视口尺寸变化监听
+     * @param _width 新的宽度（未使用）
+     * @param _height 新的高度（未使用）
+     */
+    resizeListen(_width: number, _height: number): void {
+        // 重绘泳道组
+        this.service.reDraw();
     }
 }

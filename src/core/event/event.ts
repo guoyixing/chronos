@@ -22,6 +22,20 @@ export interface MouseMoveListener {
 }
 
 /**
+ * 视口尺寸变化事件接口
+ * 当窗口尺寸发生变化时（如全屏切换）触发
+ */
+export interface ResizeListener {
+
+    /**
+     * 视口尺寸变化事件监听
+     * @param width 新的宽度
+     * @param height 新的高度
+     */
+    resizeListen(width: number, height: number): void
+}
+
+/**
  * 事件回调类型
  */
 export type EventCallback<T = unknown> = (data?: T) => void;

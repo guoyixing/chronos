@@ -3,7 +3,7 @@ import {Context} from "../core/context/context";
 import {bindComponent, bindLifecycle, TYPES} from "./inversify.config";
 import {ChronosTimelineData} from "../component/timeline/timeline.data";
 import {ChronosTimelineComponent} from "../component/timeline/timeline.component";
-import {StageDragListener} from "../core/event/event";
+import {ResizeListener, StageDragListener} from "../core/event/event";
 import {ChronosTimelineService} from "../component/timeline/timeline.service";
 import {DataType} from "./data.type";
 
@@ -25,6 +25,7 @@ export class TimelineConfig {
         chronosContainer.bind<ChronosTimelineComponent>(TYPES.ChronosTimelineComponent).to(ChronosTimelineComponent);
 
         chronosContainer.bind<StageDragListener>(TYPES.StageDragListener).to(ChronosTimelineComponent);
+        chronosContainer.bind<ResizeListener>(TYPES.ResizeListener).to(ChronosTimelineComponent);
 
         bindComponent(chronosContainer, ChronosTimelineComponent)
         bindLifecycle(chronosContainer, ChronosTimelineComponent)

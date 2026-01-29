@@ -1,7 +1,7 @@
 import {Container} from "inversify";
 import {Context} from "../core/context/context";
 import {bindComponent, bindLifecycle, TYPES} from "./inversify.config";
-import {StageDragListener} from "../core/event/event";
+import {ResizeListener, StageDragListener} from "../core/event/event";
 import {ChronosToolbarComponent} from "../component/toolbar/toolbar.component";
 import {ChronosToolbarService} from "../component/toolbar/toolbar.service";
 import {ChronosToolbarData} from "../component/toolbar/toolbar.data";
@@ -20,6 +20,7 @@ export class ToolbarConfig {
         chronosContainer.bind<ChronosToolbarComponent>(TYPES.ChronosToolbarComponent).to(ChronosToolbarComponent);
 
         chronosContainer.bind<StageDragListener>(TYPES.StageDragListener).to(ChronosToolbarComponent);
+        chronosContainer.bind<ResizeListener>(TYPES.ResizeListener).to(ChronosToolbarComponent);
 
         bindComponent(chronosContainer, ChronosToolbarComponent)
         bindLifecycle(chronosContainer, ChronosToolbarComponent)

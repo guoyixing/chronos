@@ -4,7 +4,7 @@ import {ChronosToolbarService} from "./toolbar.service";
 import {ChronosToolbarData} from "./toolbar.data";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../../config/inversify.config";
-import {StageDragListener} from "../../core/event/event";
+import {ResizeListener, StageDragListener} from "../../core/event/event";
 import {ToolbarPlugRegister} from "./toolbar-plug.component";
 
 /**
@@ -12,7 +12,7 @@ import {ToolbarPlugRegister} from "./toolbar-plug.component";
  */
 @injectable()
 export class ChronosToolbarComponent extends BaseComponent<ChronosToolbarData, ChronosToolbarService>
-    implements StageDragListener, Lifecycle {
+    implements StageDragListener, ResizeListener, Lifecycle {
 
     /**
      * 组件名称
@@ -37,6 +37,17 @@ export class ChronosToolbarComponent extends BaseComponent<ChronosToolbarData, C
     }
 
     stageDragListen() {
+        this.data.graphics?.destroy();
+        this.service.draw();
+    }
+
+    /**
+     * 视口尺寸变化监听
+     */
+    resizeListen(width: number, height: number): void {
+        // 重新计算位置
+        this.data.recalculatePosition(width, height);
+        // 重绘
         this.data.graphics?.destroy();
         this.service.draw();
     }

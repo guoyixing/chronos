@@ -32,6 +32,7 @@ export const TYPES = {
     //事件
     StageDragListener: Symbol.for("StageDragListener"),
     MouseMoveListener: Symbol.for("MouseMoveListener"),
+    ResizeListener: Symbol.for("ResizeListener"),
 
     //组件
     Component: Symbol.for("Component"),
@@ -127,6 +128,11 @@ export const TYPES = {
     ChronosWatermarkData: Symbol.for("ChronosWatermarkData"),
     ChronosWatermarkService: Symbol.for("ChronosWatermarkService"),
     ChronosWatermarkComponent: Symbol.for("ChronosWatermarkComponent"),
+
+    //组件-全屏
+    ChronosFullscreenData: Symbol.for("ChronosFullscreenData"),
+    ChronosFullscreenService: Symbol.for("ChronosFullscreenService"),
+    ChronosFullscreenComponent: Symbol.for("ChronosFullscreenComponent"),
 };
 
 /**

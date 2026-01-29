@@ -6,7 +6,7 @@ import {ChronosWindowService} from "../component/window/window.service";
 import {bindComponent, bindLifecycle, TYPES} from "./inversify.config";
 import {Context} from "../core/context/context";
 import {ChronosWindowComponent} from "../component/window/window.component";
-import {StageDragListener} from "../core/event/event";
+import {ResizeListener, StageDragListener} from "../core/event/event";
 import {DataType} from "./data.type";
 
 /**
@@ -28,6 +28,7 @@ export class WindowConfig {
         chronosContainer.bind<ChronosWindowComponent>(TYPES.ChronosWindowComponent).to(ChronosWindowComponent);
 
         chronosContainer.bind<StageDragListener>(TYPES.StageDragListener).to(ChronosWindowComponent);
+        chronosContainer.bind<ResizeListener>(TYPES.ResizeListener).to(ChronosWindowComponent);
 
         bindComponent(chronosContainer, ChronosWindowComponent)
         bindLifecycle(chronosContainer, ChronosWindowComponent)

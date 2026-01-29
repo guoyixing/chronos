@@ -29,6 +29,11 @@ export class ChronosToolbarData extends ComponentData {
     startOffSet: { x: number, y: number }
 
     /**
+     * 定位百分比（用于 resize 时重新计算位置）
+     */
+    startOffSetPct: { xPct: number, yPct: number }
+
+    /**
      * 宽度
      */
     width: number
@@ -89,17 +94,22 @@ export class ChronosToolbarData extends ComponentData {
                 hoverColor: data?.button?.background?.hoverColor ?? "#E0DFFF",
             }
         }
+        // 保存定位百分比
+        this.startOffSetPct = data?.startOffSetPct ?? { xPct: 0.5, yPct: 0.95 }
         const window = context.ioc.get<ChronosWindowComponent>(TYPES.ChronosWindowComponent);
-        if (data?.startOffSetPct) {
-            this.startOffSet = {
-                x: window.data?.width * data?.startOffSetPct.xPct - this.width / 2,
-                y: window.data?.height * data?.startOffSetPct.yPct - this.height / 2
-            }
-        } else {
-            this.startOffSet = {
-                x: window.data?.width * 0.5 - this.width / 2,
-                y: window.data?.height * 0.95 - this.height / 2
-            }
+        this.startOffSet = {
+            x: window.data?.width * this.startOffSetPct.xPct - this.width / 2,
+            y: window.data?.height * this.startOffSetPct.yPct - this.height / 2
+        }
+    }
+
+    /**
+     * 根据新的窗口尺寸重新计算位置
+     */
+    recalculatePosition(windowWidth: number, windowHeight: number): void {
+        this.startOffSet = {
+            x: windowWidth * this.startOffSetPct.xPct - this.width / 2,
+            y: windowHeight * this.startOffSetPct.yPct - this.height / 2
         }
     }
 }

@@ -1,7 +1,7 @@
 import {Container} from "inversify";
 import {Context} from "../core/context/context";
 import {bindComponent, bindLifecycle, TYPES} from "./inversify.config";
-import {StageDragListener} from "../core/event/event";
+import {ResizeListener, StageDragListener} from "../core/event/event";
 import {ChronosScaleData} from "../component/scale/scale.data";
 import {ChronosScaleService} from "../component/scale/scale.service";
 import {ChronosScaleComponent} from "../component/scale/scale.component";
@@ -21,6 +21,7 @@ export class ScaleConfig {
         chronosContainer.bind<ChronosScaleComponent>(TYPES.ChronosScaleComponent).to(ChronosScaleComponent);
 
         chronosContainer.bind<StageDragListener>(TYPES.StageDragListener).to(ChronosScaleComponent);
+        chronosContainer.bind<ResizeListener>(TYPES.ResizeListener).to(ChronosScaleComponent);
 
         bindComponent(chronosContainer, ChronosScaleComponent)
         bindLifecycle(chronosContainer, ChronosScaleComponent)

@@ -1,6 +1,6 @@
 import {inject, injectable} from "inversify";
 import {BaseComponent} from "../component.interface";
-import {MouseMoveListener, StageDragListener} from "../../core/event/event";
+import {MouseMoveListener, ResizeListener, StageDragListener} from "../../core/event/event";
 import {Lifecycle} from "../../core/lifecycle/lifecycle";
 import {ChronosGridData} from "./grid.data";
 import {ChronosGridService} from "./grid.service";
@@ -14,7 +14,7 @@ import {ButtonType} from "../../core/common/type/button.type";
  */
 @injectable()
 export class ChronosGridComponent extends BaseComponent<ChronosGridData, ChronosGridService>
-    implements StageDragListener, MouseMoveListener, Lifecycle, ToolbarPlugRegister {
+    implements StageDragListener, MouseMoveListener, ResizeListener, Lifecycle, ToolbarPlugRegister {
 
     /**
      * 组件名称
@@ -81,6 +81,14 @@ export class ChronosGridComponent extends BaseComponent<ChronosGridData, Chronos
      * 舞台拖拽监听
      */
     stageDragListen() {
+        this.data.graphics?.destroy()
+        this.service.draw()
+    }
+
+    /**
+     * 视口尺寸变化监听
+     */
+    resizeListen(_width: number, _height: number): void {
         this.data.graphics?.destroy()
         this.service.draw()
     }

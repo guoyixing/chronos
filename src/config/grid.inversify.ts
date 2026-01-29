@@ -1,7 +1,7 @@
 import {Container} from "inversify";
 import {Context} from "../core/context/context";
 import {bindComponent, bindLifecycle, TYPES} from "./inversify.config";
-import {MouseMoveListener, StageDragListener} from "../core/event/event";
+import {MouseMoveListener, ResizeListener, StageDragListener} from "../core/event/event";
 import {ChronosGridService} from "../component/grid/grid.service";
 import {ChronosGridComponent} from "../component/grid/grid.component";
 import {ChronosGridData} from "../component/grid/grid.data";
@@ -21,6 +21,7 @@ export class GridConfig {
 
         chronosContainer.bind<StageDragListener>(TYPES.StageDragListener).to(ChronosGridComponent);
         chronosContainer.bind<MouseMoveListener>(TYPES.MouseMoveListener).to(ChronosGridComponent);
+        chronosContainer.bind<ResizeListener>(TYPES.ResizeListener).to(ChronosGridComponent);
         chronosContainer.bind<ToolbarPlugRegister>(TYPES.ToolbarPlugRegister).to(ChronosGridComponent);
 
         bindComponent(chronosContainer, ChronosGridComponent)

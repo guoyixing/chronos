@@ -24,6 +24,7 @@ import {LaneDisplayConfig} from "./config/lane-display.inversify";
 import {JumpTimelineConfig} from "./config/timeline-jump.inversify";
 import {HolidayConfig} from "./config/holiday.inversify";
 import {WatermarkConfig} from "./config/watermark.inversify";
+import {FullscreenConfig} from "./config/fullscreen.inversify";
 
 
 export class Chronos {
@@ -75,6 +76,8 @@ export class Chronos {
         new LaneReviseConfig(this.chronosContainer, rootHtml, data)
         //泳道显示控制器
         new LaneDisplayConfig(this.chronosContainer, rootHtml, data)
+        //全屏
+        new FullscreenConfig(this.chronosContainer, rootHtml, data)
 
         //事件监听
         new EventManager(this.chronosContainer)

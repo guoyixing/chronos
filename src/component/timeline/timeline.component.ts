@@ -1,5 +1,5 @@
 import {Lifecycle} from "../../core/lifecycle/lifecycle";
-import {StageDragListener} from "../../core/event/event";
+import {ResizeListener, StageDragListener} from "../../core/event/event";
 import {BaseComponent} from "../component.interface";
 import {ChronosTimelineService} from "./timeline.service";
 import {ChronosTimelineData} from "./timeline.data";
@@ -11,7 +11,7 @@ import {TYPES} from "../../config/inversify.config";
  */
 @injectable()
 export class ChronosTimelineComponent extends BaseComponent<ChronosTimelineData, ChronosTimelineService>
-    implements StageDragListener, Lifecycle {
+    implements StageDragListener, ResizeListener, Lifecycle {
 
     /**
      * 组件名称
@@ -31,5 +31,16 @@ export class ChronosTimelineComponent extends BaseComponent<ChronosTimelineData,
     stageDragListen(): void {
         this.data.layer?.destroyChildren()
         this.service.draw()
+    }
+
+    /**
+     * 视口尺寸变化监听
+     * @param _width 新的宽度（未使用）
+     * @param _height 新的高度（未使用）
+     */
+    resizeListen(_width: number, _height: number): void {
+        // 重绘时间轴
+        this.data.layer?.destroyChildren();
+        this.service.draw();
     }
 }

@@ -3,7 +3,7 @@ import {bindComponent, bindLifecycle, TYPES} from "./inversify.config";
 import {ChronosLaneGroupComponent} from "../component/lane/group/lane-group.component";
 import {ChronosLaneGroupService} from "../component/lane/group/lane-group.service";
 import {ChronosLaneGroupData} from "../component/lane/group/lane-group.data";
-import {StageDragListener} from "../core/event/event";
+import {ResizeListener, StageDragListener} from "../core/event/event";
 import {Context} from "../core/context/context";
 import {DataType} from "./data.type";
 
@@ -21,6 +21,7 @@ export class LaneConfig {
         chronosContainer.bind<ChronosLaneGroupComponent>(TYPES.ChronosLaneGroupComponent).to(ChronosLaneGroupComponent);
 
         chronosContainer.bind<StageDragListener>(TYPES.StageDragListener).to(ChronosLaneGroupComponent);
+        chronosContainer.bind<ResizeListener>(TYPES.ResizeListener).to(ChronosLaneGroupComponent);
         // chronosContainer.bind<ToolbarPlugRegister>(TYPES.ToolbarPlugRegister).to(ChronosLaneGroupComponent);
 
         bindComponent(chronosContainer, ChronosLaneGroupComponent)
