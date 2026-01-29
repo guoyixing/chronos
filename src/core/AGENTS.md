@@ -7,11 +7,18 @@ Cross-cutting concerns: context, events, lifecycle, shared utilities.
 ```
 core/
 ├── context/        # Application state containers
+│   ├── context.ts      # Context class (ioc, drawContext, eventManager)
+│   └── draw.context.ts # DrawContext (stage, layers, bounds)
 ├── event/          # Pub/sub event system
+│   ├── event.ts        # Listener interfaces + EVENT_TYPES
+│   ├── manager.event.ts # EventManager orchestration
+│   └── callback/       # User-facing callback hooks
 ├── lifecycle/      # Component lifecycle management
+│   ├── lifecycle.ts    # Lifecycle interface
+│   └── manager.lifecycle.ts # LifecycleManager
 └── common/         # Shared types and utils
     ├── type/       # ButtonType, ShadowType
-    └── utils/      # Date utilities
+    └── utils/      # date.utils.ts (betweenDays, betweenMs)
 ```
 
 ## WHERE TO LOOK
@@ -20,9 +27,27 @@ core/
 |------|----------|
 | Access IoC container | `context.ts` → `Context.ioc` |
 | Manage Konva stage | `draw.context.ts` → `DrawContext` |
-| Add new event type | `event.ts` → Add to `EVENT_TYPES` |
+| Add event listener type | `event.ts` → Add interface + bind in TYPES |
 | Subscribe to events | `manager.event.ts` → `listen()` |
 | Control init order | Component's `order()` method |
+| Date calculations | `common/utils/date.utils.ts` |
+
+## EVENT LISTENER INTERFACES
+
+```typescript
+// In event.ts - components implement these
+export interface StageDragListener {
+  bindStageDragListener(): void  // Stage pan events
+}
+
+export interface MouseMoveListener {
+  bindMouseMoveListener(): void  // Cursor tracking
+}
+
+export interface ResizeListener {
+  resizeListen(width: number, height: number): void  // Fullscreen/resize
+}
+```
 
 ## KEY PATTERNS
 
@@ -42,14 +67,9 @@ DrawContext {
   rootLayer: Konva.Layer   // Base layer
   isEdit: boolean          // Edit mode flag
   stageMoveLimit: {yTop, yBottom}  // Drag bounds
+  applyLayer(name): Layer  // Get/create named layer
 }
 ```
-
-### Event System
-- Symbol-based event IDs (`EVENT_TYPES`)
-- `EventManager.listen(publisher, event, callback)`
-- `EventManager.publish(publisher, event, data)`
-- Built-in: `StageDragListener`, `MouseMoveListener`
 
 ### Lifecycle
 ```typescript

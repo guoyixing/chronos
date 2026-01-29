@@ -84,40 +84,44 @@ export class ChronosFullscreenComponent extends BaseComponent<ChronosFullscreenD
     /**
      * 进入全屏的图标路径
      * 四个角的 L 形，向外扩展
+     * 坐标系统：x 从 0 到 size，y 从 -size/2 到 +size/2（与网格图标一致）
      */
     private getEnterFullscreenPath(size: number): string {
+        const halfSize = size / 2;
         const s = size * 0.4;  // 半边长
         const corner = size * 0.15;  // 角落线长度
-        // 四个角的 L 形
+        // 四个角的 L 形（以 halfSize 为中心偏移）
         return [
             // 左上角
-            `M${-s} ${-s + corner}V${-s}H${-s + corner}`,
+            `M${halfSize - s} ${-s + corner}V${-s}H${halfSize - s + corner}`,
             // 右上角
-            `M${s - corner} ${-s}H${s}V${-s + corner}`,
+            `M${halfSize + s - corner} ${-s}H${halfSize + s}V${-s + corner}`,
             // 右下角
-            `M${s} ${s - corner}V${s}H${s - corner}`,
+            `M${halfSize + s} ${s - corner}V${s}H${halfSize + s - corner}`,
             // 左下角
-            `M${-s + corner} ${s}H${-s}V${s - corner}`
+            `M${halfSize - s + corner} ${s}H${halfSize - s}V${s - corner}`
         ].join('');
     }
 
     /**
      * 退出全屏的图标路径
      * 四个角的 L 形，向内收缩
+     * 坐标系统：x 从 0 到 size，y 从 -size/2 到 +size/2（与网格图标一致）
      */
     private getExitFullscreenPath(size: number): string {
+        const halfSize = size / 2;
         const s = size * 0.4;  // 半边长
         const inner = size * 0.1;  // 内部偏移
-        // 四个角向内的 L 形
+        // 四个角向内的 L 形（以 halfSize 为中心偏移）
         return [
             // 左上角（向内）
-            `M${-s} ${-inner}V${-inner}H${-inner}`,
+            `M${halfSize - s} ${-inner}V${-inner}H${halfSize - inner}`,
             // 右上角（向内）
-            `M${inner} ${-inner}H${inner}V${-s}`,
+            `M${halfSize + inner} ${-inner}H${halfSize + inner}V${-s}`,
             // 右下角（向内）
-            `M${inner} ${inner}V${inner}H${s}`,
+            `M${halfSize + inner} ${inner}V${inner}H${halfSize + s}`,
             // 左下角（向内）
-            `M${-inner} ${inner}H${-inner}V${s}`
+            `M${halfSize - inner} ${inner}H${halfSize - inner}V${s}`
         ].join('');
     }
 

@@ -1,8 +1,8 @@
 # CHRONOS KNOWLEDGE BASE
 
-**Generated:** 2026-01-28
-**Commit:** 6a4305c
-**Branch:** master
+**Generated:** 2026-01-29
+**Commit:** 6f95a75
+**Branch:** vibe_coding
 
 ## OVERVIEW
 
@@ -12,14 +12,13 @@ Gantt-like chart frontend plugin for project/resource management. Built with Typ
 
 ```
 chronos/
-├── src/                # Source code
-│   ├── chronos.ts      # Library entry point - exports Chronos class
-│   ├── config/         # Inversify DI configurations
-│   ├── component/      # UI components (triad pattern)
-│   ├── core/           # Shared context, events, lifecycle
-│   └── debug/          # Debugger utilities
-├── demo/               # Demo files for development
-├── doc/                # Documentation with localized subdirs (zh_CN/)
+├── src/
+│   ├── chronos.ts      # Library entry - exports Chronos class, binding order
+│   ├── config/         # Inversify DI configurations (21 files)
+│   ├── component/      # UI components - triad pattern (see AGENTS.md there)
+│   └── core/           # Context, events, lifecycle, utilities
+├── demo/               # Example usage with mock data (not tests)
+├── doc/zh_CN/          # Chinese documentation
 └── index.html          # Demo page entry
 ```
 
@@ -27,46 +26,60 @@ chronos/
 
 | Task | Location | Notes |
 |------|----------|-------|
-| Add new component | `src/component/` | Follow triad pattern: `.component.ts`, `.data.ts`, `.service.ts` |
-| Register component DI | `src/config/` | Create `{name}.inversify.ts`, update `chronos.ts` |
-| Modify lifecycle | `src/core/lifecycle/` | Components implement `Lifecycle` interface |
-| Add event listener | `src/core/event/` | Implement `StageDragListener` or `MouseMoveListener` |
+| Add component | `src/component/{name}/` | Create 3 files: `.component.ts`, `.data.ts`, `.service.ts` |
+| Register DI | `src/config/{name}.inversify.ts` | Then add to `chronos.ts` constructor |
+| Add event listener | `src/core/event/event.ts` | Implement `StageDragListener`, `MouseMoveListener`, or `ResizeListener` |
 | External callbacks | `src/core/event/callback/callback.ts` | User-facing event hooks |
-| Data types for API | `src/config/data.type.ts` | Main configuration interface |
+| Public API types | `src/config/data.type.ts` | DataType interface |
+| Lifecycle control | Component's `order()` method | Lower = earlier execution |
 
 ## ARCHITECTURE
 
-### Component Triad Pattern
-Every component has 3 files:
-- `{name}.component.ts` - Extends `BaseComponent`, implements lifecycle
-- `{name}.data.ts` - Extends `ComponentData`, holds state
-- `{name}.service.ts` - Implements `ComponentService.draw()`
+### Component Triad (MANDATORY)
+```
+{feature}/
+├── {feature}.component.ts   # Extends BaseComponent, implements Lifecycle
+├── {feature}.data.ts        # Extends ComponentData, holds state + graphics
+└── {feature}.service.ts     # Implements ComponentService.draw()
+```
 
-### Inversify DI Flow
-1. Define symbols in `config/inversify.config.ts` (TYPES)
-2. Create `{name}.inversify.ts` config class
-3. Bind in `chronos.ts` constructor (order matters for lifecycle)
-4. Use `@inject(TYPES.X)` in constructors
+### DI Binding Order (in chronos.ts)
+Order matters for lifecycle execution:
+1. ContextConfig → 2. CallbackConfig → 3. WindowConfig → 4. GridConfig
+→ 5. WatermarkConfig → 6. LaneConfig → 7. HolidayConfig → 8. ToolbarConfig
+→ 9. ScaleConfig → 10. NodeTransformerConfig → 11. TimelineConfig → ...
 
-### Lifecycle Phases
+### Event Listeners
+Components can implement multiple listener interfaces:
+- `StageDragListener.bindStageDragListener()` - Stage pan events
+- `MouseMoveListener.bindMouseMoveListener()` - Cursor tracking
+- `ResizeListener.resizeListen(width, height)` - Fullscreen/resize events
+
+### Lifecycle
 ```
 init() → start() → destroy()
 ```
-- `order()` controls execution sequence (lower = earlier)
+- `order()` controls execution sequence
 - Components auto-register via `bindLifecycle()`
-
-### Rendering
-- Konva.js Stage → Layers → Shapes
-- Each component gets own layer via `drawContext.applyLayer()`
-- `service.draw()` called on `start()`
+- `service.draw()` called during `start()`
 
 ## CONVENTIONS
 
-- **Language**: Chinese comments throughout codebase
-- **File naming**: Kebab-case with dot separator (`node-entry.component.ts`)
-- **DI symbols**: PascalCase prefixed with `Chronos` (`ChronosGridData`)
-- **No barrel exports**: Use explicit imports (no `index.ts`)
+- **Comments**: Chinese throughout codebase
+- **File naming**: `kebab-case.type.ts` (e.g., `node-entry.component.ts`)
+- **DI symbols**: `Chronos{Feature}{Type}` (e.g., `ChronosGridData`)
+- **No barrel exports**: Explicit imports only, no `index.ts`
 - **Decorators**: `@injectable()` on all DI classes
+
+## ANTI-PATTERNS
+
+- Never use `as any`, `@ts-ignore`, `@ts-expect-error`
+- Never skip the triad pattern (all 3 files required)
+- Never render outside `service.draw()`
+- Never create layers manually; use `applyLayer(name)`
+- Never bind without adding to TYPES first
+- Data must use `toConstantValue` (singleton per instance)
+- Always destroy `graphics` before redraw
 
 ## COMMANDS
 
@@ -74,10 +87,12 @@ init() → start() → destroy()
 npm run dev         # Vite dev server
 npm run lint        # ESLint with auto-fix
 npm run build       # Production build → dist/chronos.js
+npm run type-check  # TypeScript check (no emit)
 ```
 
 ## NOTES
 
 - `reflect-metadata` must be imported before Inversify usage
 - Stage draggable by default; components listen via `StageDragListener`
-- Demo code is in `demo/` directory (not unit tests)
+- No test suite; demo/ serves as integration examples
+- Peer deps: konva, inversify, reflect-metadata (not bundled)

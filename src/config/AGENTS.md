@@ -10,7 +10,8 @@ config/
 ├── data.type.ts           # Public API data interface (DataType)
 ├── context.inversify.ts   # Context bindings
 ├── callback.inversify.ts  # User callback bindings
-└── {component}.inversify.ts  # Per-component DI config
+├── fullscreen.inversify.ts # Fullscreen component config
+└── {component}.inversify.ts  # Per-component DI config (18 files)
 ```
 
 ## WHERE TO LOOK
@@ -20,6 +21,7 @@ config/
 | Add new TYPES symbol | `inversify.config.ts` |
 | Define public config | `data.type.ts` (DataType) |
 | Bind new component | Create `{name}.inversify.ts` |
+| Bind event listener | Add `chronosContainer.bind<ListenerType>(TYPES.Listener).to(Component)` |
 
 ## DI BINDING PATTERN
 
@@ -32,7 +34,7 @@ export class XxxConfig {
     divElement: HTMLDivElement,
     data: DataType
   ) {
-    // 1. Bind Data (toConstantValue with context)
+    // 1. Bind Data (toConstantValue - singleton)
     chronosContainer.bind<ChronosXxxData>(TYPES.ChronosXxxData)
       .toConstantValue(new ChronosXxxData(
         chronosContainer.get<Context>(TYPES.Context),
@@ -50,6 +52,8 @@ export class XxxConfig {
     // 4. Bind event listeners (if applicable)
     chronosContainer.bind<StageDragListener>(TYPES.StageDragListener)
       .to(ChronosXxxComponent);
+    chronosContainer.bind<ResizeListener>(TYPES.ResizeListener)
+      .to(ChronosXxxComponent);
     
     // 5. Register as component + lifecycle
     bindComponent(chronosContainer, ChronosXxxComponent);
@@ -61,11 +65,8 @@ export class XxxConfig {
 ## HELPER FUNCTIONS
 
 ```typescript
-// Registers component for iteration
-bindComponent(container, ComponentClass)
-
-// Registers for init/start/destroy phases
-bindLifecycle(container, ComponentClass)
+bindComponent(container, ComponentClass)  // Registers for iteration
+bindLifecycle(container, ComponentClass)  // Registers for init/start/destroy
 ```
 
 ## TYPES SYMBOL NAMING
@@ -77,6 +78,10 @@ TYPES = {
   ChronosXxxData: Symbol.for("ChronosXxxData"),
   ChronosXxxService: Symbol.for("ChronosXxxService"),
   ChronosXxxComponent: Symbol.for("ChronosXxxComponent"),
+  // Event listeners
+  StageDragListener: Symbol.for("StageDragListener"),
+  MouseMoveListener: Symbol.for("MouseMoveListener"),
+  ResizeListener: Symbol.for("ResizeListener"),
 }
 ```
 
@@ -89,11 +94,14 @@ In `chronos.ts`, binding order determines lifecycle order:
 4. GridConfig, WatermarkConfig (background)
 5. LaneConfig, HolidayConfig (structure)
 6. ToolbarConfig, ScaleConfig (controls)
-7. TimelineConfig, NodeConfig (content)
-8. ReviseConfig, DisplayConfig (overlays)
+7. NodeTransformerConfig, TimelineConfig (content)
+8. NodeConfig, NodeDetailConfig (nodes)
+9. ReviseConfig, DisplayConfig (overlays)
+10. FullscreenConfig (last - toggles others)
 
 ## ANTI-PATTERNS
 
 - Never bind without adding to TYPES first
 - Never skip `bindLifecycle` for visual components
 - Data must use `toConstantValue` (singleton per instance)
+- Never forget to bind listener interfaces for event-responding components

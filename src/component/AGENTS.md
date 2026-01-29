@@ -9,13 +9,14 @@ component/
 ├── component.interface.ts      # BaseComponent abstract class
 ├── component-data.interface.ts # ComponentData base class  
 ├── component-service.interface.ts # ComponentService interface
+├── fullscreen/  # Fullscreen toggle with ResizeListener dispatch
 ├── window/      # Main container window
 ├── grid/        # Background grid lines
 ├── toolbar/     # Tool buttons (plugins register here)
 ├── timeline/    # Time axis with jump feature
 ├── scale/       # Zoom controls
 ├── lane/        # Swim lanes (group/entry/display)
-├── node/        # Task nodes (board/operate subdirs)
+├── node/        # Task nodes (board/operate subdirs) - see AGENTS.md there
 ├── revise/      # Edit dialogs (node/lane)
 ├── holiday/     # Holiday markers
 └── watermark/   # Watermark overlay
@@ -77,25 +78,18 @@ export class ChronosXxxService implements ComponentService {
 | Custom node shape | `node/board/shape/` - implement `NodeShape` |
 | Lane operations | `lane/entry/` for items, `lane/group/` for container |
 | Node transforms | `node/operate/transformer/` |
+| Respond to resize | Implement `ResizeListener.resizeListen(width, height)` |
 
-## DEEP SUBDIRECTORIES
+## EVENT LISTENER INTERFACES
 
+Components can implement to respond to global events:
+```typescript
+implements StageDragListener  // Stage pan/drag
+implements MouseMoveListener  // Cursor position
+implements ResizeListener     // Fullscreen/window resize
 ```
-node/
-├── board/          # Node drawing/brushing
-│   └── shape/      # Shape implementations (rect, star, arrow)
-└── operate/        # Node operations
-    ├── bar/        # Node navigation bar
-    ├── detail/     # Node detail popup
-    ├── entry/      # Individual node handling
-    ├── group/      # Node container
-    └── transformer/ # Resize/move transformer
 
-lane/
-├── display/        # Lane visibility controls
-├── entry/          # Individual lane handling
-└── group/          # Lane container
-```
+Bind in inversify config: `chronosContainer.bind<ResizeListener>(TYPES.ResizeListener).to(Component)`
 
 ## ANTI-PATTERNS
 
