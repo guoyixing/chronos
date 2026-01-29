@@ -1,8 +1,13 @@
 {
-  "active_plan": "D:\\Workspace\\Code\\OpenSource\\chronos\\.sisyphus\\plans\\timeline-levels-control.md",
+  "active_plan": "D:\Workspace\Code\OpenSource\chronos\.sisyphus\plans\timeline-levels-control.md",
   "started_at": "2026-01-29T07:36:00.003Z",
+  "completed_at": "2026-01-29T08:40:00.000Z",
   "session_ids": [
+    "ses_3f721186fffesPAUBbQ4v6sA0d",
     "ses_3fbb2fe62fferMYtzAxJLgOZMy"
   ],
-  "plan_name": "timeline-levels-control"
+  "plan_name": "timeline-levels-control",
+  "status": "completed",
+  "tasks_completed": 24,
+  "tasks_total": 24
 }
