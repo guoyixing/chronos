@@ -108,3 +108,22 @@
 
 ### 验证结果
 - npm run type-check: 只剩 1 个错误（reDraw 方法未定义，Task 4 解决）
+
+## [2026-01-29T08:35:00Z] Task 4: 条件渲染和 reDraw() 完成
+
+### 实现细节
+- draw() 使用 isLevelEffectivelyVisible() 条件调用各级别绘制方法
+- drawHead() 动态渲染可见级别标签（替换硬编码的 ['年','月','日']）
+- drawShadow() 使用 getEffectiveVisibleLevelCount() 动态计算高度
+- drawYear/Month/Day 使用 getEffectiveRowNumForLevel() 动态计算 rowNum
+- timeline.component.ts 添加 reDraw() 公共方法
+
+### 关键变更
+- rowHeight * 3 → rowHeight * getEffectiveVisibleLevelCount()
+- 硬编码 rowNum (0,1,2) → getEffectiveRowNumForLevel(level)
+- 硬编码标签 ['年','月','日'] → levelOrder.filter(...).map(...)
+
+### 验证结果
+- npm run type-check: ✓ PASS (0 errors)
+- npm run lint: ✓ PASS
+- npm run build: ✓ SUCCESS (dist/chronos.js 170.37 kB)

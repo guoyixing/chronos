@@ -43,4 +43,12 @@ export class ChronosTimelineComponent extends BaseComponent<ChronosTimelineData,
         this.data.layer?.destroyChildren();
         this.service.draw();
     }
+
+    /**
+     * 重绘时间轴（供外部调用）
+     */
+    reDraw(): void {
+        this.data.layer?.destroyChildren();
+        this.service.draw();
+    }
 }

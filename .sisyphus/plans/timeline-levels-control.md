@@ -600,7 +600,7 @@ Critical Path: Task 1 → Task 2 → Task 3 → Task 4 → Task 7
 
 ---
 
-- [ ] 4. 修改 draw()/drawHead() 支持条件渲染并添加 reDraw() 方法
+- [x] 4. 修改 draw()/drawHead() 支持条件渲染并添加 reDraw() 方法
 
   **What to do**:
   

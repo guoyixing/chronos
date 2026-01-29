@@ -59,9 +59,12 @@ export class ChronosTimelineService implements ComponentService {
 
     draw(): void {
         this.drawShadow()
-        this.drawYear()
-        this.drawMonth()
-        this.drawDay()
+        if (this.isLevelEffectivelyVisible('year')) this.drawYear()
+        if (this.isLevelEffectivelyVisible('month')) this.drawMonth()
+        if (this.isLevelEffectivelyVisible('day')) this.drawDay()
+        if (this.isLevelEffectivelyVisible('hour')) this.drawHour()
+        if (this.isLevelEffectivelyVisible('minute')) this.drawMinute()
+        if (this.isLevelEffectivelyVisible('second')) this.drawSecond()
         this.drawHead()
     }
 
@@ -77,12 +80,18 @@ export class ChronosTimelineService implements ComponentService {
         //y坐标
         let y = coordinate.y + data.startOffSet.y
 
+        // 获取有效可见级别数量和标签
+        const visibleCount = this.getEffectiveVisibleLevelCount();
+        const labels = this._data.levelOrder
+            .filter(level => this.isLevelEffectivelyVisible(level))
+            .map(level => this._data.levelLabels[level]);
+
         //绘制背景
         const background = new Konva.Rect({
             x: x,
             y: y,
             width: data.headWidth,
-            height: data.rowHeight * 3,
+            height: data.rowHeight * visibleCount,
             fill: 'white',
             shadowColor: data.shadow.color,
             shadowBlur: data.shadow.blur,
@@ -92,13 +101,12 @@ export class ChronosTimelineService implements ComponentService {
             prefectDrawEnabled: false
         });
         data.layer?.add(background)
-        const texts = ['年', '月', '日']
 
-        texts.forEach((text, index) => {
+        labels.forEach((text, index) => {
             let radius: number[] = [0, 0, 0, 0]
             if (index === 0) {
                 radius = [0, data.radius, 0, 0]
-            } else if (index === texts.length - 1) {
+            } else if (index === labels.length - 1) {
                 radius = [0, 0, data.radius, 0]
             }
 
@@ -131,9 +139,13 @@ export class ChronosTimelineService implements ComponentService {
     }
 
     /**
-     * 绘制年份
+     * 绘制年
      */
     drawYear() {
+        if (!this.isLevelEffectivelyVisible('year')) return;
+        const rowNum = this.getEffectiveRowNumForLevel('year');
+        if (rowNum < 0) return;
+
         //获取下一个时间
         const getNextTime = (time: Date) => {
             return new Date(time.getFullYear() + 1, 0, 1)
@@ -144,7 +156,7 @@ export class ChronosTimelineService implements ComponentService {
             return time.getFullYear()
         };
 
-        this.calculateTime(0, getNextTime, getText, "年",
+        this.calculateTime(rowNum, getNextTime, getText, "年",
             (text, width, isMoveRight) => this.updateTimeX(text, width, isMoveRight))
     }
 
@@ -152,6 +164,10 @@ export class ChronosTimelineService implements ComponentService {
      * 绘制月份
      */
     drawMonth() {
+        if (!this.isLevelEffectivelyVisible('month')) return;
+        const rowNum = this.getEffectiveRowNumForLevel('month');
+        if (rowNum < 0) return;
+
         //获取下一个时间
         const getNextTime = (time: Date) => {
             if (time.getMonth() >= 11) {
@@ -166,7 +182,7 @@ export class ChronosTimelineService implements ComponentService {
             return time.getMonth() + 1
         };
 
-        this.calculateTime(1, getNextTime, getText, "月",
+        this.calculateTime(rowNum, getNextTime, getText, "月",
             (text, width, isMoveRight) => this.updateTimeX(text, width, isMoveRight))
     }
 
@@ -174,6 +190,9 @@ export class ChronosTimelineService implements ComponentService {
      * 绘制天
      */
     drawDay() {
+        if (!this.isLevelEffectivelyVisible('day')) return;
+        const rowNum = this.getEffectiveRowNumForLevel('day');
+        if (rowNum < 0) return;
         //获取下一个时间
         const getNextTime = (time: Date) => {
             if (time.getDate() >= getDaysInMonth(time)) {
@@ -211,7 +230,7 @@ export class ChronosTimelineService implements ComponentService {
             }
         };
 
-        this.calculateTime(2, getNextTime, getText, "", updateTimeX)
+        this.calculateTime(rowNum, getNextTime, getText, "", updateTimeX)
     }
 
     /**
@@ -494,7 +513,7 @@ export class ChronosTimelineService implements ComponentService {
             x: x,
             y: y,
             width: this._window.service.getVisualRange().width + this._window.data.border + data.border * 2,
-            height: data.rowHeight * 3,
+            height: data.rowHeight * this.getEffectiveVisibleLevelCount(),
             fill: 'white',
             shadowColor: data.shadow.color,
             shadowBlur: data.shadow.blur,
