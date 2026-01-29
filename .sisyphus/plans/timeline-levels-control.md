@@ -214,12 +214,12 @@ constructor(context: Context, data?: ChronosTimelineControlDataType) {
 - `src/chronos.ts` - 注册新配置
 
 ### Definition of Done
-- [ ] `npm run build` 成功，无错误
-- [ ] `npm run type-check` 通过，无类型错误
-- [ ] `npm run lint` 通过，无 lint 错误
-- [ ] 开发服务器启动无控制台错误
-- [ ] 时间轴可显示6个级别
-- [ ] 控制面板可打开/关闭，切换可见性生效
+- [x] `npm run build` 成功，无错误
+- [x] `npm run type-check` 通过，无类型错误
+- [x] `npm run lint` 通过，无 lint 错误
+- [x] 开发服务器启动无控制台错误
+- [x] 时间轴可显示6个级别
+- [x] 控制面板可打开/关闭，切换可见性生效
 
 ### Must Have
 - 遵循 triad 模式 (component/data/service)
@@ -1294,14 +1294,14 @@ npm run dev         # Expected: Dev server starts on localhost:5173
 ```
 
 ### Final Checklist
-- [ ] 所有 "Must Have" 功能已实现
-- [ ] 所有 "Must NOT Have" 均已避免
-- [ ] `npm run build` 成功
-- [ ] `npm run lint` 无错误
-- [ ] 时间轴默认显示年/月/日
-- [ ] 控制面板可打开/关闭
-- [ ] 切换级别可见性后时间轴正确重绘
-- [ ] 默认缩放下开启 second 不会卡死（自动隐藏生效）
-- [ ] 高缩放下 hour/minute/second 可正常显示
-- [ ] timeline-control 复用 window layer（未创建新图层）
-- [ ] 面板点击切换正确调用 timeline.reDraw()
+- [x] 所有 "Must Have" 功能已实现
+- [x] 所有 "Must NOT Have" 均已避免
+- [x] `npm run build` 成功
+- [x] `npm run lint` 无错误
+- [x] 时间轴默认显示年/月/日
+- [x] 控制面板可打开/关闭
+- [x] 切换级别可见性后时间轴正确重绘
+- [x] 默认缩放下开启 second 不会卡死（自动隐藏生效）
+- [x] 高缩放下 hour/minute/second 可正常显示
+- [x] timeline-control 复用 window layer（未创建新图层）
+- [x] 面板点击切换正确调用 timeline.reDraw()
