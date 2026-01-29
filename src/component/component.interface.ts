@@ -75,9 +75,14 @@ export abstract class BaseComponent<D extends ComponentData, S extends Component
 
     /**
      * 销毁
+     * 清理图层和图形资源，防止内存泄漏
      */
     destroy(): void {
-
+        // 销毁图层
+        if (this.data.layer) {
+            this.data.layer.destroy();
+            this.data.layer = undefined;
+        }
     }
 
 }

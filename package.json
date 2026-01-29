@@ -32,11 +32,14 @@
   "scripts": {
     "dev": "vite dev",
     "lint": "eslint --fix --ext .ts ./src",
-    "build": "vite build"
+    "build": "vite build",
+    "type-check": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "peerDependencies": {
-    "konva": "^9.0.0",
     "inversify": "^6.0.0",
+    "konva": "^9.0.0",
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
@@ -44,9 +47,10 @@
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "eslint": "^8.57.0",
-    "konva": "^9.3.5",
     "inversify": "^6.0.2",
+    "konva": "^9.3.5",
     "reflect-metadata": "^0.2.2",
+    "rimraf": "^6.1.2",
     "typescript": "^5.3.3",
     "vite": "^5.1.5",
     "vite-plugin-dts": "^3.7.3"

@@ -1,10 +1,14 @@
-import {ChronosReviseService} from "./revise.service";
+import {ChronosReviseService, ReviseBindComponent} from "./revise.service";
 
+/**
+ * 修订窗管理器
+ * 单例模式，确保同一时间只有一个修订窗打开
+ */
 export class ReviseManagerComponent {
     /**
-     * 数据
+     * 当前显示的修订服务
      */
-    display: ChronosReviseService<any> | undefined
+    display: ChronosReviseService<ReviseBindComponent> | undefined
 
     private static _instance: ReviseManagerComponent;
 
@@ -18,7 +22,11 @@ export class ReviseManagerComponent {
         return ReviseManagerComponent._instance;
     }
 
-    open(service: ChronosReviseService<any>) {
+    /**
+     * 打开修订窗
+     * @param service 修订服务
+     */
+    open(service: ChronosReviseService<ReviseBindComponent>): void {
         this.display?.close()
         this.display = service;
     }

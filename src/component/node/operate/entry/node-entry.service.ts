@@ -374,7 +374,7 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
      * @param event 事件名称
      * @param callback 回调
      */
-    on(event: symbol, callback: (data?: any) => void): void {
+    on<T = unknown>(event: symbol, callback: (data?: T) => void): void {
         const eventManager = this._data.context.eventManager;
         eventManager?.listen(this, event, callback)
     }

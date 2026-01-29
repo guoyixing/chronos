@@ -13,6 +13,7 @@
     "declaration": true,
     "declarationDir": "./dist",
     "resolveJsonModule": true,
+    "noUncheckedIndexedAccess": true,
     "types": ["node"],
     "lib": [
       "ES2020",

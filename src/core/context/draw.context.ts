@@ -48,7 +48,7 @@ export class DrawContext {
     /**
      * 申请图层
      */
-    applyLayer(name: string): Konva.Layer {
+    applyLayer(_name: string): Konva.Layer {
         const layer = new Konva.Layer();
         this.stage.add(layer)
         return layer

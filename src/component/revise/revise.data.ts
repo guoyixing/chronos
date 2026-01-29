@@ -7,12 +7,18 @@ import {ShadowConfigType, ShadowType} from "../../core/common/type/shadow.type";
 import {ButtonTextConfigType, ButtonTextType} from "../../core/common/type/button.type";
 import Konva from "konva";
 import {BaseComponent} from "../component.interface";
+import {ComponentService} from "../component-service.interface";
+
+/**
+ * 修订窗绑定的组件类型
+ */
+export type ReviseBindComponent = BaseComponent<ComponentData, ComponentService>;
 
 /**
  * 修订窗-组件数据
  */
 @injectable()
-export abstract class ChronosReviseData<T extends BaseComponent<any, any>> extends ComponentData {
+export abstract class ChronosReviseData<T extends ReviseBindComponent> extends ComponentData {
     /**
      * 图形
      */

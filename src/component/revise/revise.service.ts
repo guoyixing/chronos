@@ -4,12 +4,18 @@ import Konva from "konva";
 import {ChronosReviseData} from "./revise.data";
 import {BaseComponent} from "../component.interface";
 import {ReviseManagerComponent} from "./revise-manager.component";
+import {ComponentData} from "../component-data.interface";
+
+/**
+ * 修订窗绑定的组件类型
+ */
+export type ReviseBindComponent = BaseComponent<ComponentData, ComponentService>;
 
 /**
  * 修订窗-组件服务
  */
 @injectable()
-export abstract class ChronosReviseService<T extends BaseComponent<any, any>> implements ComponentService {
+export abstract class ChronosReviseService<T extends ReviseBindComponent> implements ComponentService {
     /**
      * 数据
      */
@@ -111,14 +117,14 @@ export abstract class ChronosReviseService<T extends BaseComponent<any, any>> im
             shadowBlur: data.shadow.blur,
             shadowOffset: data.shadow.offset,
             shadowOpacity: data.shadow.opacity,
-            prefectDrawEnabled: false
+            perfectDrawEnabled: false
         })
     }
 
     /**
      * 绘制按钮
      */
-    drawButton(textStr: string, offSetX?: number) {
+    drawButton(textStr: string, offSetX?: number): Konva.Group {
         const data = this._data;
         const button = data.button;
 
@@ -146,11 +152,9 @@ export abstract class ChronosReviseService<T extends BaseComponent<any, any>> im
             verticalAlign: 'middle'
         });
 
-        if (!offSetX) {
-            offSetX = 0
-        }
+        const offsetValue = offSetX ?? 0;
         const group = new Konva.Group({
-            x: data.width - button.background.width - button.margin.right - offSetX,
+            x: data.width - button.background.width - button.margin.right - offsetValue,
             y: data.height - button.background.height - button.margin.bottom,
             width: button.background.width,
             height: button.background.height,
@@ -169,7 +173,7 @@ export abstract class ChronosReviseService<T extends BaseComponent<any, any>> im
         return group
     }
 
-    drawForm() {
+    drawForm(): void {
         const data = this._data;
         if (!data.form) {
             return
@@ -198,7 +202,7 @@ export abstract class ChronosReviseService<T extends BaseComponent<any, any>> im
     /**
      * 关闭图层
      */
-    close() {
+    close(): void {
         this._data.hide = true;
         if (this._data.form) {
             this._data.form.style.display = 'none';
@@ -210,7 +214,7 @@ export abstract class ChronosReviseService<T extends BaseComponent<any, any>> im
     /**
      * 开启图层
      */
-    open() {
+    open(): void {
         ReviseManagerComponent.getInstance().open(this);
         this._data.hide = false;
         if (this._data.form) {

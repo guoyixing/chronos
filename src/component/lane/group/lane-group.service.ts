@@ -61,17 +61,18 @@ export class ChronosLaneGroupService implements ComponentService, EventPublisher
         if (this._data.height < height - this._data.startOffSet.y) {
             this.drawAddButton();
         }
-        for (let i = 0; i < this._data.laneGroup.length; i++) {
-            const lane = this._data.laneGroup[i];
-            lane.data.index = i;
-            if (lane.data.hide) {
-                lane.data.startCoordinate = {x: startX, y: -99999}
-            } else {
-                lane.data.startCoordinate = {x: startX, y: this._data.height}
-                lane.service.draw()
-                this._data.height += lane.data.height;
-            }
-        }
+         for (let i = 0; i < this._data.laneGroup.length; i++) {
+             const lane = this._data.laneGroup[i];
+             if (!lane) continue;
+             lane.data.index = i;
+             if (lane.data.hide) {
+                 lane.data.startCoordinate = {x: startX, y: -99999}
+             } else {
+                 lane.data.startCoordinate = {x: startX, y: this._data.height}
+                 lane.service.draw()
+                 this._data.height += lane.data.height;
+             }
+         }
 
         //修改舞台移动限制
         this._data.context.drawContext.stageMoveLimit.yTop = -(this._data.height - height);
@@ -185,16 +186,16 @@ export class ChronosLaneGroupService implements ComponentService, EventPublisher
      * 根据y轴坐标获取泳道
      * @param y y轴坐标
      */
-    laneByY(y: number): ChronosLaneEntryComponent | undefined {
-        for (let i = this._data.laneGroup.length - 1; i >= 0; i--) {
-            //遍历的泳道
-            const laneEntry = this._data.laneGroup[i];
-            if (y >= laneEntry.data.startCoordinate.y) {
-                //获取鼠标移动到的泳道的索引
-                return laneEntry;
-            }
-        }
-    }
+     laneByY(y: number): ChronosLaneEntryComponent | undefined {
+         for (let i = this._data.laneGroup.length - 1; i >= 0; i--) {
+             //遍历的泳道
+             const laneEntry = this._data.laneGroup[i];
+             if (laneEntry && y >= laneEntry.data.startCoordinate.y) {
+                 //获取鼠标移动到的泳道的索引
+                 return laneEntry;
+             }
+         }
+     }
 
     /**
      * 移除泳道条目
@@ -206,13 +207,13 @@ export class ChronosLaneGroupService implements ComponentService, EventPublisher
         if (!lane) {
             return
         }
-        for (let i = 0; i < data.laneGroup.length; i++) {
-            const laneEntry = data.laneGroup[i];
-            if (laneEntry.data.id === id) {
-                laneEntry.service.clear()
-                break
-            }
-        }
+         for (let i = 0; i < data.laneGroup.length; i++) {
+             const laneEntry = data.laneGroup[i];
+             if (laneEntry && laneEntry.data.id === id) {
+                 laneEntry.service.clear()
+                 break
+             }
+         }
         this.reDraw();
     }
 
@@ -251,7 +252,7 @@ export class ChronosLaneGroupService implements ComponentService, EventPublisher
      * @param event 事件名称
      * @param callback 回调
      */
-    on(event: symbol, callback: (data?: any) => void): void {
+    on<T = unknown>(event: symbol, callback: (data?: T) => void): void {
         const eventManager = this._data.context.eventManager;
         eventManager?.listen(this, event, callback)
     }

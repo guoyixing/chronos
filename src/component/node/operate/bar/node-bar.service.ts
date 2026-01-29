@@ -231,7 +231,7 @@ export class ChronosNodeBarService implements ComponentService {
                 //绘制进度文本
                 const progressTextGroup = this._nodeGroup.service.drawProgressText(shape, progress);
                 nodeData.progressTextGraphics = progressTextGroup;
-                nodeService.on(EVENT_TYPES.Transform, (progress: number) => {
+                nodeService.on(EVENT_TYPES.Transform, (_progress?: number) => {
                     const reProgressTextGroup =nodeService.reDrawProgressText();
                     nodeData.progressTextGraphics =  reProgressTextGroup
                     reProgressTextGroup && shape?.add(reProgressTextGroup)

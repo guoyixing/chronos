@@ -65,7 +65,7 @@ export class StarNodeShape implements NodeShape {
      * @param xFinish x结束坐标
      * @param y y坐标
      */
-    transform(xStart: number, y: number, xFinish?: number | undefined): void {
+    transform(xStart: number, y: number, _xFinish?: number | undefined): void {
         this.shape?.x(xStart)
         this.shape?.y(y)
     }
@@ -103,7 +103,7 @@ export class StarNodeShape implements NodeShape {
      * @param coordinate 节点位置
      * @param progress 节点名
      */
-    progress(coordinate: { xStart?: number; xFinish?: number | undefined; y?: number }, progress: number) {
+    progress(_coordinate: { xStart?: number; xFinish?: number | undefined; y?: number }, _progress: number) {
         return undefined
     }
 }

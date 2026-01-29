@@ -68,7 +68,7 @@ export class ChronosJumpTimelineComponent extends BaseComponent<ChronosJumpTimel
             })
         }
 
-        const callback = (graphics: Konva.Path, button: ButtonType, toolbar: ChronosToolbarData) => {
+        const callback = (graphics: Konva.Path, button: ButtonType, _toolbar: ChronosToolbarData) => {
             this.data.hide ? graphics.stroke(button.stroke.hoverColor) : graphics.stroke(button.stroke.color)
             this.data.hide ? this.service.open() : this.service.close()
         }

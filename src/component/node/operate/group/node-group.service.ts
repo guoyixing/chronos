@@ -87,14 +87,15 @@ export class ChronosNodeGroupService implements ComponentService {
      * 移除节点条目
      * @param id
      */
-    removeNodeEntry(id: string) {
-        for (let i = 0; i < this._data.nodeGroup.length; i++) {
-            if (this._data.nodeGroup[i].data.id === id) {
-                this._data.nodeGroup.splice(i, 1);
-                break;
-            }
-        }
-    }
+     removeNodeEntry(id: string) {
+         for (let i = 0; i < this._data.nodeGroup.length; i++) {
+             const node = this._data.nodeGroup[i];
+             if (node && node.data.id === id) {
+                 this._data.nodeGroup.splice(i, 1);
+                 break;
+             }
+         }
+     }
 
     /**
      * 绘制移动范围
@@ -164,7 +165,7 @@ export class ChronosNodeGroupService implements ComponentService {
             //监听移动结束
             node?.on('dragend', () => {
                 //移动结束后，移除移动范围
-                moveRange && moveRange.destroy();
+                moveRange?.destroy();
             });
         }
     }

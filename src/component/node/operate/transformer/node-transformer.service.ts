@@ -104,7 +104,7 @@ export class ChronosNodeTransformerService implements ComponentService {
         //获取节点的偏移量
         const transformerOffset = nodeGraphics?.transformerOffset();
 
-        if (coordinate === undefined || coordinate.xFinish === undefined || transformerOffset === undefined) {
+        if (coordinate?.xFinish === undefined || transformerOffset === undefined) {
             //如果没有获取到坐标则直接返回
             return
         }
@@ -123,7 +123,7 @@ export class ChronosNodeTransformerService implements ComponentService {
         const coordinate = nodeGraphics?.coordinate();
 
 
-        if (coordinate === undefined || coordinate.xFinish === undefined) {
+        if (coordinate?.xFinish === undefined) {
             //如果没有获取到坐标则直接返回
             return
         }
@@ -220,23 +220,26 @@ export class ChronosNodeTransformerService implements ComponentService {
 
             //获取节点的偏移量
             leftControlPoint?.on('dragmove', () => {
-                if (coordinate && coordinate.xFinish && nodeGraphics) {
+                if (coordinate?.xFinish && nodeGraphics) {
                     const minCoordinateX = coordinate.xFinish - nodeGraphics.minWidth() - nodeGraphics.transformerOffset().left;
                     leftControlPoint.x() >= minCoordinateX && leftControlPoint.x(minCoordinateX)
                     nodeGraphics.transform(coordinate.xStart + (leftControlPoint.x() - leftX), coordinate.y, coordinate.xFinish, data.bindNode?.data.progress)
                     data.bindNode?.service.publish(EVENT_TYPES.Transform)
                 }
                 //更新节点的坐标
-                const nodeCoordinate = data.bindNode?.data.coordinate;
+                if (!data.bindNode) {
+                    return;
+                }
+                const nodeCoordinate = data.bindNode.data.coordinate;
                 //更新节点的坐标，这里并不是把同样的对象赋值给coordinate，coordinate会根据节点状态获取新的坐标
-                data.bindNode!.data.coordinate = {
+                data.bindNode.data.coordinate = {
                     xStart: nodeCoordinate?.xStart,
                     xFinish: nodeCoordinate?.xFinish,
                     y: nodeCoordinate?.y
                 }
                 //更新时间
-                data.bindNode?.service.updateTime();
-                leftControlPoint.findOne<Konva.Text>('Text')?.text(data.bindNode?.data.startTime?.toLocaleString() ?? '')
+                data.bindNode.service.updateTime();
+                leftControlPoint.findOne<Konva.Text>('Text')?.text(data.bindNode.data.startTime?.toLocaleString() ?? '')
             })
 
             leftControlPoint?.on('dragend', () => {
@@ -265,16 +268,19 @@ export class ChronosNodeTransformerService implements ComponentService {
                     data.bindNode?.service.publish(EVENT_TYPES.Transform)
                 }
                 //更新节点的坐标
-                const nodeCoordinate = data.bindNode?.data.coordinate;
+                if (!data.bindNode) {
+                    return;
+                }
+                const nodeCoordinate = data.bindNode.data.coordinate;
                 //更新节点的坐标，这里并不是把同样的对象赋值给coordinate，coordinate会根据节点状态获取新的坐标
-                data.bindNode!.data.coordinate = {
+                data.bindNode.data.coordinate = {
                     xStart: nodeCoordinate?.xStart,
                     xFinish: nodeCoordinate?.xFinish,
                     y: nodeCoordinate?.y
                 }
                 //更新时间
-                data.bindNode?.service.updateTime();
-                rightControlPoint.findOne<Konva.Text>('Text')?.text(data.bindNode?.data.finishTime?.toLocaleString() ?? '')
+                data.bindNode.service.updateTime();
+                rightControlPoint.findOne<Konva.Text>('Text')?.text(data.bindNode.data.finishTime?.toLocaleString() ?? '')
             })
 
             rightControlPoint?.on('dragend', () => {

@@ -22,6 +22,11 @@ export interface MouseMoveListener {
 }
 
 /**
+ * 事件回调类型
+ */
+export type EventCallback<T = unknown> = (data?: T) => void;
+
+/**
  * 事件发布者
  */
 export interface EventPublisher {
@@ -33,7 +38,7 @@ export interface EventPublisher {
      * @param event 事件名称
      * @param callback 回调
      */
-    on(event: symbol, callback: (data?: any) => void): void
+    on<T = unknown>(event: symbol, callback: EventCallback<T>): void
 
     /**
      * 发布事件
@@ -60,4 +65,22 @@ export const EVENT_TYPES = {
     ScaleUpdate: Symbol.for("ScaleUpdate"),
     //比例尺重绘
     ScaleReDraw: Symbol.for("ScaleReDraw"),
+    //视口变更
+    ViewportChanged: Symbol.for("ViewportChanged"),
+    //泳道添加
+    LaneAdded: Symbol.for("LaneAdded"),
+    //泳道删除
+    LaneRemoved: Symbol.for("LaneRemoved"),
+    //泳道更新
+    LaneUpdated: Symbol.for("LaneUpdated"),
+    //节点添加
+    NodeAdded: Symbol.for("NodeAdded"),
+    //节点删除
+    NodeRemoved: Symbol.for("NodeRemoved"),
+    //节点移动
+    NodeMoved: Symbol.for("NodeMoved"),
+    //节点缩放
+    NodeResized: Symbol.for("NodeResized"),
+    //选择变更
+    SelectionChanged: Symbol.for("SelectionChanged"),
 }

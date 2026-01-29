@@ -1,0 +1,39 @@
+{
+  "isEdit": true,
+  "window": {
+  },
+  "grid": {
+  },
+  "lane": {
+  },
+  "toolbar": {
+  },
+  "scale": {
+  },
+  "transformer": {
+  },
+  "timeline": {
+    "initTime": "2023-12-01 00:00:00"
+  },
+  "bar": {
+  },
+  "node": {
+  },
+  "detail": {
+  },
+  "nodeRevise": {
+  },
+  "laneRevise": {
+  },
+  "laneDisplay": {
+  },
+  "jumpTimeline": {
+  },
+  "holiday": {
+  },
+  "watermark": {
+    "hide": true,
+    "tbSize": 300,
+    "lrSize": 500
+  }
+}

@@ -1,6 +1,16 @@
 import {DestroyLifecycle, InitLifecycle, Lifecycle, StartLifecycle} from "../core/lifecycle/lifecycle";
 import {Container} from "inversify";
 import {BaseComponent, Component} from "../component/component.interface";
+import {ComponentData} from "../component/component-data.interface";
+import {ComponentService} from "../component/component-service.interface";
+
+/**
+ * 可实例化类型
+ * 注意：使用 any[] 是因为 Inversify DI 容器在运行时注入参数，
+ * 类型检查器无法验证构造函数参数的确切类型
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Newable<T> = new (...args: any[]) => T;
 
 export const TYPES = {
     //节点图形
@@ -124,7 +134,7 @@ export const TYPES = {
  * @param container 容器
  * @param constructor 构造函数
  */
-export function bindLifecycle(container: Container, constructor: Newable<any>) {
+export function bindLifecycle<T extends Lifecycle>(container: Container, constructor: Newable<T>): void {
     container.bind<Lifecycle>(TYPES.Lifecycle).to(constructor);
     container.bind<InitLifecycle>(TYPES.InitLifecycle).to(constructor);
     container.bind<StartLifecycle>(TYPES.StartLifecycle).to(constructor);
@@ -136,8 +146,8 @@ export function bindLifecycle(container: Container, constructor: Newable<any>) {
  * @param container 容器
  * @param constructor 构造函数
  */
-export function bindComponent(container: Container, constructor: Newable<any>) {
-    container.bind<Component<any, any>>(TYPES.Component).to(constructor);
-    container.bind<BaseComponent<any, any>>(TYPES.BaseComponent).to(constructor);
+export function bindComponent<T extends BaseComponent<ComponentData, ComponentService>>(container: Container, constructor: Newable<T>): void {
+    container.bind<Component<ComponentData, ComponentService>>(TYPES.Component).to(constructor);
+    container.bind<BaseComponent<ComponentData, ComponentService>>(TYPES.BaseComponent).to(constructor);
 }
 

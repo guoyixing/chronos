@@ -85,12 +85,16 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
         if (this.data.laneLineGraphics) {
             this.data.laneLineGraphics.destroy()
         }
-        const [drawBorderTop, drawBorderBottom] = this.drawBorder(width, height);
-        const laneLineGroup = new Konva.Group({
-            x: data.startCoordinate.x
-        });
-        laneLineGroup.add(drawBorderTop);
-        laneLineGroup.add(drawBorderBottom);
+         const [drawBorderTop, drawBorderBottom] = this.drawBorder(width, height);
+         const laneLineGroup = new Konva.Group({
+             x: data.startCoordinate.x
+         });
+         if (drawBorderTop) {
+             laneLineGroup.add(drawBorderTop);
+         }
+         if (drawBorderBottom) {
+             laneLineGroup.add(drawBorderBottom);
+         }
         this.data.laneLineGraphics = laneLineGroup
         groupData.context.drawContext.rootLayer?.add(laneLineGroup);
 
@@ -205,21 +209,26 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
     /**
      * 根据y坐标获取泳道的行号
      */
-    getRowByY(y: number): number {
-        if (y < this.data.startCoordinate.y || y > this.data.startCoordinate.y + this.data.rowNum * this.group.data.rowHeight) {
-            throw new Error('y坐标超出范围')
-        }
-        //在row中找到最接近的行
-        let row = 0;
-        let min = Math.abs(y - this.data.row[0]);
-        for (let i = 1; i < this.data.row.length; i++) {
-            if (Math.abs(y - this.data.row[i]) < min) {
-                min = Math.abs(y - this.data.row[i]);
-                row = i;
-            }
-        }
-        return row;
-    }
+     getRowByY(y: number): number {
+         if (y < this.data.startCoordinate.y || y > this.data.startCoordinate.y + this.data.rowNum * this.group.data.rowHeight) {
+             throw new Error('y坐标超出范围')
+         }
+         //在row中找到最接近的行
+         let row = 0;
+         const firstRow = this.data.row[0];
+         if (firstRow === undefined) {
+             return row;
+         }
+         let min = Math.abs(y - firstRow);
+         for (let i = 1; i < this.data.row.length; i++) {
+             const currentRow = this.data.row[i];
+             if (currentRow !== undefined && Math.abs(y - currentRow) < min) {
+                 min = Math.abs(y - currentRow);
+                 row = i;
+             }
+         }
+         return row;
+     }
 
     /**
      * 移动索引
@@ -241,22 +250,25 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
             //泳道需要移动到的索引
             let index = data.index;
 
-            //计算当前鼠标停留的泳道，倒叙遍历
-            for (let i = groupData.laneGroup.length - 1; i >= 0; i--) {
-                //遍历的泳道
-                const laneEntry = groupData.laneGroup[i];
-                if (mouseY > laneEntry.data.startCoordinate.y) {
-                    //获取鼠标移动到的泳道的索引
-                    index = laneEntry.data.index;
-                    break;
-                }
-            }
+             //计算当前鼠标停留的泳道，倒叙遍历
+             for (let i = groupData.laneGroup.length - 1; i >= 0; i--) {
+                 //遍历的泳道
+                 const laneEntry = groupData.laneGroup[i];
+                 if (laneEntry && mouseY > laneEntry.data.startCoordinate.y) {
+                     //获取鼠标移动到的泳道的索引
+                     index = laneEntry.data.index;
+                     break;
+                 }
+             }
 
-            //移动泳道
-            if (index !== data.index) {
-                const laneEntry = groupData.laneGroup.splice(data.index, 1);
-                groupData.laneGroup.splice(index, 0, laneEntry[0]);
-            }
+             //移动泳道
+             if (index !== data.index) {
+                 const laneEntry = groupData.laneGroup.splice(data.index, 1);
+                 const firstEntry = laneEntry[0];
+                 if (firstEntry) {
+                     groupData.laneGroup.splice(index, 0, firstEntry);
+                 }
+             }
         }
     }
 
@@ -407,7 +419,7 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
      * @param event 事件名称
      * @param callback 回调
      */
-    on(event: symbol, callback: (data?: any) => void): void {
+    on<T = unknown>(event: symbol, callback: (data?: T) => void): void {
         const eventManager = this.data.context.eventManager;
         eventManager?.listen(this, event, callback)
     }

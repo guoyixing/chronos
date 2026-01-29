@@ -57,7 +57,7 @@ export class ChronosToolbarService implements ComponentService {
         let nextX = 0;
 
         //绘制工具
-        data.toolPlugs.forEach((tool, index) => {
+        data.toolPlugs.forEach((tool, _index) => {
             const background = new Konva.Rect({
                 x: 0,
                 y: 0,
@@ -103,7 +103,7 @@ export class ChronosToolbarService implements ComponentService {
     private drawBackground(group: Konva.Group) {
         const data = this._data;
         //获取固定坐标
-        const fixedCoordinate = data.context.drawContext.getFixedCoordinate();
+        // fixedCoordinate 未使用，但保留注释说明原意
         //绘制工具栏底色
         const rect = new Konva.Rect({
             x: 0,
