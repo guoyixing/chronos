@@ -84,6 +84,47 @@ export class ChronosTimelineData extends ComponentData {
      */
     shadow: ShadowType
 
+    /**
+     * 级别可见性配置（年/月/日/时/分/秒）
+     */
+    levelVisibility: {
+        year: boolean;
+        month: boolean;
+        day: boolean;
+        hour: boolean;
+        minute: boolean;
+        second: boolean;
+    }
+
+    /**
+     * 级别顺序
+     */
+    readonly levelOrder = ['year', 'month', 'day', 'hour', 'minute', 'second'] as const;
+
+    /**
+     * 级别标签
+     */
+    readonly levelLabels: Record<typeof this.levelOrder[number], string> = {
+        year: '年',
+        month: '月',
+        day: '日',
+        hour: '时',
+        minute: '分',
+        second: '秒'
+    };
+
+    /**
+     * 每个级别的最小像素宽度阈值（低于此值时自动隐藏）
+     */
+    readonly levelMinWidth: Record<typeof this.levelOrder[number], number> = {
+        year: 0,      // 年始终可绘制
+        month: 0,     // 月始终可绘制
+        day: 0,       // 日始终可绘制
+        hour: 2,      // 至少 2px/小时 才绘制
+        minute: 1,    // 至少 1px/分钟 才绘制
+        second: 1     // 至少 1px/秒 才绘制
+    };
+
 
     constructor(context: Context, data: ChronosTimelineDataType) {
         super(context);
@@ -110,6 +151,14 @@ export class ChronosTimelineData extends ComponentData {
             },
             opacity: data.shadow?.opacity ?? 0.2
         }
+        this.levelVisibility = {
+            year: data.levelVisibility?.year ?? true,
+            month: data.levelVisibility?.month ?? true,
+            day: data.levelVisibility?.day ?? true,
+            hour: data.levelVisibility?.hour ?? false,
+            minute: data.levelVisibility?.minute ?? false,
+            second: data.levelVisibility?.second ?? false
+        }
     }
 }
 
@@ -132,4 +181,12 @@ export type ChronosTimelineDataType = {
     textMargin?: number
     fontFamily?: string
     shadow?: ShadowConfigType
+    levelVisibility?: {
+        year?: boolean;
+        month?: boolean;
+        day?: boolean;
+        hour?: boolean;
+        minute?: boolean;
+        second?: boolean;
+    }
 }
