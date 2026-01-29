@@ -119,6 +119,11 @@ export const TYPES = {
     ChronosJumpTimelineService: Symbol.for("ChronosJumpTimelineService"),
     ChronosJumpTimelineComponent: Symbol.for("ChronosJumpTimelineComponent"),
 
+    //组件-时间轴控制面板
+    ChronosTimelineControlData: Symbol.for("ChronosTimelineControlData"),
+    ChronosTimelineControlService: Symbol.for("ChronosTimelineControlService"),
+    ChronosTimelineControlComponent: Symbol.for("ChronosTimelineControlComponent"),
+
     //组件-假期
     ChronosHolidayData: Symbol.for("ChronosHolidayData"),
     ChronosHolidayService: Symbol.for("ChronosHolidayService"),

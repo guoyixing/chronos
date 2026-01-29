@@ -11,6 +11,7 @@ import {ChronosNodeDetailDataType} from "../component/node/operate/detail/node-d
 import {ChronosReviseDataType} from "../component/revise/revise.data";
 import {ChronosLaneDisplayDataType} from "../component/lane/display/lane-display.data";
 import {ChronosJumpTimelineDataType} from "../component/timeline/jump/timeline-jump.data";
+import {ChronosTimelineControlDataType} from "../component/timeline/control/timeline-control.data";
 import {ChronosHolidayDataType} from "../component/holiday/holiday.data";
 import {ChronosWatermarkDataType} from "../component/watermark/watermark.data";
 
@@ -23,6 +24,7 @@ export type DataType = {
     "scale"?: ChronosScaleDataType,
     "transformer"?: ChronosNodeTransformerDataType,
     "timeline": ChronosTimelineDataType,
+    "timelineControl"?: ChronosTimelineControlDataType,
     "jumpTimeline"?: ChronosJumpTimelineDataType,
     "bar"?: ChronosNodeBarDataType,
     "node"?: ChronosNodeGroupDataType,

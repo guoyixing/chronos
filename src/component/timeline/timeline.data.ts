@@ -160,6 +160,34 @@ export class ChronosTimelineData extends ComponentData {
             second: data.levelVisibility?.second ?? false
         }
     }
+
+    /**
+     * 获取可见级别数量
+     */
+    getVisibleLevelCount(): number {
+        return this.levelOrder.filter(level => this.levelVisibility[level]).length;
+    }
+
+    /**
+     * 获取级别在可见级别中的行号
+     */
+    getRowNumForLevel(level: typeof this.levelOrder[number]): number {
+        let rowNum = 0;
+        for (const l of this.levelOrder) {
+            if (l === level) return rowNum;
+            if (this.levelVisibility[l]) rowNum++;
+        }
+        return -1;
+    }
+
+    /**
+     * 获取可见级别的标签列表
+     */
+    getLevelLabels(): string[] {
+        return this.levelOrder
+            .filter(level => this.levelVisibility[level])
+            .map(level => this.levelLabels[level]);
+    }
 }
 
 /**

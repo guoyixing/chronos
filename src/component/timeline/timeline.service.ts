@@ -14,6 +14,21 @@ import {ChronosScaleComponent} from "../scale/scale.component";
 const oneDayMillisecond = 86400000;
 
 /**
+ * 1小时所需要的毫秒
+ */
+const oneHourMillisecond = 3600000;
+
+/**
+ * 1分钟所需要的毫秒
+ */
+const oneMinuteMillisecond = 60000;
+
+/**
+ * 1秒所需要的毫秒
+ */
+const oneSecondMillisecond = 1000;
+
+/**
  * 时间轴-组件服务
  */
 @injectable()
@@ -197,6 +212,112 @@ export class ChronosTimelineService implements ComponentService {
         };
 
         this.calculateTime(2, getNextTime, getText, "", updateTimeX)
+    }
+
+    /**
+     * 绘制小时
+     */
+    drawHour() {
+        if (!this.isLevelEffectivelyVisible('hour')) return;
+        const rowNum = this.getEffectiveRowNumForLevel('hour');
+        if (rowNum < 0) return;
+        
+        const getNextTime = (time: Date) => {
+            const next = new Date(time);
+            next.setHours(next.getHours() + 1, 0, 0, 0);
+            return next;
+        };
+        const getText = (time: Date) => time.getHours();
+        
+        this.calculateTime(rowNum, getNextTime, getText, "时",
+            (text, width, isMoveRight) => this.updateTimeX(text, width, isMoveRight))
+    }
+
+    /**
+     * 绘制分钟
+     */
+    drawMinute() {
+        if (!this.isLevelEffectivelyVisible('minute')) return;
+        const rowNum = this.getEffectiveRowNumForLevel('minute');
+        if (rowNum < 0) return;
+        
+        const getNextTime = (time: Date) => {
+            const next = new Date(time);
+            next.setMinutes(next.getMinutes() + 1, 0, 0);
+            return next;
+        };
+        const getText = (time: Date) => time.getMinutes();
+        
+        this.calculateTime(rowNum, getNextTime, getText, "分",
+            (text, width, isMoveRight) => this.updateTimeX(text, width, isMoveRight))
+    }
+
+    /**
+     * 绘制秒
+     */
+    drawSecond() {
+        if (!this.isLevelEffectivelyVisible('second')) return;
+        const rowNum = this.getEffectiveRowNumForLevel('second');
+        if (rowNum < 0) return;
+        
+        const getNextTime = (time: Date) => {
+            const next = new Date(time);
+            next.setSeconds(next.getSeconds() + 1, 0);
+            return next;
+        };
+        const getText = (time: Date) => time.getSeconds();
+        
+        this.calculateTime(rowNum, getNextTime, getText, "秒",
+            (text, width, isMoveRight) => this.updateTimeX(text, width, isMoveRight))
+    }
+
+    /**
+     * 获取级别的时间单位毫秒数
+     */
+    private getLevelUnitMs(level: string): number {
+        switch(level) {
+            case 'year': return 365 * oneDayMillisecond;
+            case 'month': return 30 * oneDayMillisecond;
+            case 'day': return oneDayMillisecond;
+            case 'hour': return oneHourMillisecond;
+            case 'minute': return oneMinuteMillisecond;
+            case 'second': return oneSecondMillisecond;
+            default: return oneDayMillisecond;
+        }
+    }
+
+    /**
+     * 检查级别是否有效可见（用户开启 AND 缩放允许）
+     * 这是防止性能问题的关键检查
+     */
+    isLevelEffectivelyVisible(level: string): boolean {
+        const levelVisibility = this._data.levelVisibility as Record<string, boolean>;
+        if (!levelVisibility[level]) {
+            return false;
+        }
+        const unitMs = this.getLevelUnitMs(level);
+        const unitWidthPx = this._data.dayWidth * (unitMs / oneDayMillisecond);
+        const levelMinWidth = this._data.levelMinWidth as Record<string, number>;
+        return unitWidthPx >= (levelMinWidth[level] ?? 0);
+    }
+
+    /**
+     * 获取有效可见的级别数量（用于动态计算行数）
+     */
+    getEffectiveVisibleLevelCount(): number {
+        return this._data.levelOrder.filter(level => this.isLevelEffectivelyVisible(level)).length;
+    }
+
+    /**
+     * 获取级别在有效可见级别中的行号
+     */
+    private getEffectiveRowNumForLevel(level: string): number {
+        let rowNum = 0;
+        for (const l of this._data.levelOrder) {
+            if (l === level) return this.isLevelEffectivelyVisible(l) ? rowNum : -1;
+            if (this.isLevelEffectivelyVisible(l)) rowNum++;
+        }
+        return -1;
     }
 
     /**
