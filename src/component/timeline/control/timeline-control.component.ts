@@ -31,14 +31,17 @@ export class ChronosTimelineControlComponent
      */
     toolbar(): ChronosToolPlug {
         const graphics = (button: ButtonType) => {
-            const r = button.stroke.length / 2;
+            const size = button.stroke.length;
+            const halfSize = size / 2;
+            const r = size / 2;
             // 时钟图标 SVG path
+            // 坐标系统：x 从 0 到 size（中心在 halfSize），y 从 -size/2 到 +size/2（中心在 0）
             const path = `
-                M0 ${-r}
-                A${r} ${r} 0 1 1 0 ${r}
-                A${r} ${r} 0 1 1 0 ${-r}
-                M0 0 L0 ${-r * 0.6}
-                M0 0 L${r * 0.4} 0
+                M${halfSize} ${-r}
+                A${r} ${r} 0 1 1 ${halfSize} ${r}
+                A${r} ${r} 0 1 1 ${halfSize} ${-r}
+                M${halfSize} 0 L${halfSize} ${-r * 0.6}
+                M${halfSize} 0 L${halfSize + r * 0.4} 0
             `;
             return new Konva.Path({
                 x: 0,

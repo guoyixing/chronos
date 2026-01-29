@@ -5,6 +5,7 @@ import {ChronosTimelineService} from "./timeline.service";
 import {ChronosTimelineData} from "./timeline.data";
 import {inject, injectable} from "inversify";
 import {TYPES} from "../../config/inversify.config";
+import {ChronosLaneGroupComponent} from "../lane/group/lane-group.component";
 
 /**
  * 时间轴组件
@@ -18,9 +19,16 @@ export class ChronosTimelineComponent extends BaseComponent<ChronosTimelineData,
      */
     name = () => "timeline"
 
+    /**
+     * 泳道组组件（用于时间轴级别变化时触发泳道重绘）
+     */
+    private _laneGroup: ChronosLaneGroupComponent
+
     constructor(@inject(TYPES.ChronosTimelineData) data: ChronosTimelineData,
-                @inject(TYPES.ChronosTimelineService) service: ChronosTimelineService) {
+                @inject(TYPES.ChronosTimelineService) service: ChronosTimelineService,
+                @inject(TYPES.ChronosLaneGroupComponent) laneGroup: ChronosLaneGroupComponent) {
         super(data, service);
+        this._laneGroup = laneGroup;
     }
 
     init() {
@@ -45,10 +53,13 @@ export class ChronosTimelineComponent extends BaseComponent<ChronosTimelineData,
     }
 
     /**
-     * 重绘时间轴（供外部调用）
+     * 重绘时间轴（供外部调用，时间轴级别变化时调用）
+     * 同时触发泳道组重绘以调整位置
      */
     reDraw(): void {
         this.data.layer?.destroyChildren();
         this.service.draw();
+        // 时间轴级别变化后，触发泳道组重绘以更新位置
+        this._laneGroup.service.reDraw();
     }
 }

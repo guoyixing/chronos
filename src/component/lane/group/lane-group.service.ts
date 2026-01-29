@@ -10,6 +10,8 @@ import {ChronosLaneGroupComponent} from "./lane-group.component";
 import {ChronosLaneEntryData} from "../entry/lane-entry.data";
 import {ChronosLaneReviseComponent} from "../../revise/lane/lane-revise.component";
 import {Callback} from "../../../core/event/callback/callback";
+import {ChronosTimelineService} from "../../timeline/timeline.service";
+import {ChronosTimelineData} from "../../timeline/timeline.data";
 import Konva from "konva";
 
 /**
@@ -35,12 +37,26 @@ export class ChronosLaneGroupService implements ComponentService, EventPublisher
      */
     _window: ChronosWindowComponent
 
+    /**
+     * 时间轴服务（用于获取有效可见级别数量）
+     */
+    _timelineService: ChronosTimelineService
+
+    /**
+     * 时间轴数据（用于获取行高）
+     */
+    _timelineData: ChronosTimelineData
+
     constructor(@inject(TYPES.ChronosLaneGroupData) data: ChronosLaneGroupData,
                 @inject(TYPES.Callback) callback: Callback,
-                @inject(TYPES.ChronosWindowComponent) window: ChronosWindowComponent) {
+                @inject(TYPES.ChronosWindowComponent) window: ChronosWindowComponent,
+                @inject(TYPES.ChronosTimelineService) timelineService: ChronosTimelineService,
+                @inject(TYPES.ChronosTimelineData) timelineData: ChronosTimelineData) {
         this._data = data;
         this._callback = callback;
         this._window = window;
+        this._timelineService = timelineService;
+        this._timelineData = timelineData;
         this.id = "laneGroup"
     }
 
@@ -56,10 +72,17 @@ export class ChronosLaneGroupService implements ComponentService, EventPublisher
         //泳道组起始坐标
         const startX = fixedCoordinate.x + this._data.startOffSet.x;
         const data = this._data;
+        
+        //动态计算起始Y坐标：基于时间轴有效可见级别数量 × 时间轴行高 + 时间轴起始Y偏移
+        const timelineRowHeight = this._timelineData.rowHeight;
+        const effectiveLevelCount = this._timelineService.getEffectiveVisibleLevelCount();
+        const timelineStartY = this._timelineData.startOffSet.y;
+        const dynamicStartY = timelineStartY + effectiveLevelCount * timelineRowHeight;
+        
         //绘制泳道
-        data.height = data.startOffSet.y;
-        if (this._data.height < height - this._data.startOffSet.y) {
-            this.drawAddButton();
+        data.height = dynamicStartY;
+        if (this._data.height < height - dynamicStartY) {
+            this.drawAddButton(dynamicStartY);
         }
          for (let i = 0; i < this._data.laneGroup.length; i++) {
              const lane = this._data.laneGroup[i];
@@ -81,8 +104,9 @@ export class ChronosLaneGroupService implements ComponentService, EventPublisher
 
     /**
      * 绘制添加按钮
+     * @param dynamicStartY 动态计算的起始Y坐标
      */
-    drawAddButton() {
+    drawAddButton(dynamicStartY: number) {
         const data = this._data;
 
 
@@ -93,7 +117,7 @@ export class ChronosLaneGroupService implements ComponentService, EventPublisher
                 x: 0,
                 y: 0,
                 width: data.laneLeftWidth,
-                height: this._window.data.height - data.startOffSet.y,
+                height: this._window.data.height - dynamicStartY,
                 fill: data.leftBackgroundColor,
                 cornerRadius: data.radius,
                 stroke: data.borderColor,

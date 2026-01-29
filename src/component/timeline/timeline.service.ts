@@ -248,7 +248,7 @@ export class ChronosTimelineService implements ComponentService {
         };
         const getText = (time: Date) => time.getHours();
         
-        this.calculateTime(rowNum, getNextTime, getText, "时",
+        this.calculateTime(rowNum, getNextTime, getText, "",
             (text, width, isMoveRight) => this.updateTimeX(text, width, isMoveRight))
     }
 
@@ -267,7 +267,7 @@ export class ChronosTimelineService implements ComponentService {
         };
         const getText = (time: Date) => time.getMinutes();
         
-        this.calculateTime(rowNum, getNextTime, getText, "分",
+        this.calculateTime(rowNum, getNextTime, getText, "",
             (text, width, isMoveRight) => this.updateTimeX(text, width, isMoveRight))
     }
 
@@ -286,7 +286,7 @@ export class ChronosTimelineService implements ComponentService {
         };
         const getText = (time: Date) => time.getSeconds();
         
-        this.calculateTime(rowNum, getNextTime, getText, "秒",
+        this.calculateTime(rowNum, getNextTime, getText, "",
             (text, width, isMoveRight) => this.updateTimeX(text, width, isMoveRight))
     }
 
