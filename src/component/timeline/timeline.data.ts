@@ -9,10 +9,57 @@ import {ShadowConfigType, ShadowType} from "../../core/common/type/shadow.type";
 @injectable()
 export class ChronosTimelineData extends ComponentData {
 
+    // ===== 运行时属性 =====
+
+    /**
+     * 级别顺序
+     */
+    readonly levelOrder = ['year', 'month', 'day', 'hour', 'minute', 'second'] as const;
+
+    /**
+     * 级别标签
+     */
+    readonly levelLabels: Record<typeof this.levelOrder[number], string> = {
+        year: '年',
+        month: '月',
+        day: '日',
+        hour: '时',
+        minute: '分',
+        second: '秒'
+    };
+
+    /**
+     * 每个级别的最小像素宽度阈值（低于此值时自动隐藏）
+     */
+    readonly levelMinWidth: Record<typeof this.levelOrder[number], number> = {
+        year: 0,      // 年始终可绘制
+        month: 0,     // 月始终可绘制
+        day: 0,       // 日始终可绘制
+        hour: 2,      // 至少 2px/小时 才绘制
+        minute: 1,    // 至少 1px/分钟 才绘制
+        second: 1     // 至少 1px/秒 才绘制
+    };
+
+    // ===== 业务属性 =====
+
     /**
      * 初始化时间
      */
     initTime: Date;
+
+    /**
+     * 级别可见性配置（年/月/日/时/分/秒）
+     */
+    levelVisibility: {
+        year: boolean;
+        month: boolean;
+        day: boolean;
+        hour: boolean;
+        minute: boolean;
+        second: boolean;
+    }
+
+    // ===== 样式属性 =====
 
     /**
      * 渲染起始坐标
@@ -84,47 +131,6 @@ export class ChronosTimelineData extends ComponentData {
      */
     shadow: ShadowType
 
-    /**
-     * 级别可见性配置（年/月/日/时/分/秒）
-     */
-    levelVisibility: {
-        year: boolean;
-        month: boolean;
-        day: boolean;
-        hour: boolean;
-        minute: boolean;
-        second: boolean;
-    }
-
-    /**
-     * 级别顺序
-     */
-    readonly levelOrder = ['year', 'month', 'day', 'hour', 'minute', 'second'] as const;
-
-    /**
-     * 级别标签
-     */
-    readonly levelLabels: Record<typeof this.levelOrder[number], string> = {
-        year: '年',
-        month: '月',
-        day: '日',
-        hour: '时',
-        minute: '分',
-        second: '秒'
-    };
-
-    /**
-     * 每个级别的最小像素宽度阈值（低于此值时自动隐藏）
-     */
-    readonly levelMinWidth: Record<typeof this.levelOrder[number], number> = {
-        year: 0,      // 年始终可绘制
-        month: 0,     // 月始终可绘制
-        day: 0,       // 日始终可绘制
-        hour: 2,      // 至少 2px/小时 才绘制
-        minute: 1,    // 至少 1px/分钟 才绘制
-        second: 1     // 至少 1px/秒 才绘制
-    };
-
 
     constructor(context: Context, data: ChronosTimelineDataType) {
         super(context);
@@ -191,10 +197,26 @@ export class ChronosTimelineData extends ComponentData {
 }
 
 /**
- * 时间轴-组件数据类型
+ * 时间轴-业务数据类型
+ * Business properties: time initialization and level visibility
  */
-export type ChronosTimelineDataType = {
+export type ChronosTimelineBusinessType = {
     initTime: string;
+    levelVisibility?: {
+        year?: boolean;
+        month?: boolean;
+        day?: boolean;
+        hour?: boolean;
+        minute?: boolean;
+        second?: boolean;
+    }
+}
+
+/**
+ * 时间轴-样式数据类型
+ * Style properties: colors, fonts, dimensions, visual appearance
+ */
+export type ChronosTimelineStyleType = {
     startOffSet?: { x: number, y: number }
     dayWidth?: number
     textMinWidth?: number
@@ -209,12 +231,10 @@ export type ChronosTimelineDataType = {
     textMargin?: number
     fontFamily?: string
     shadow?: ShadowConfigType
-    levelVisibility?: {
-        year?: boolean;
-        month?: boolean;
-        day?: boolean;
-        hour?: boolean;
-        minute?: boolean;
-        second?: boolean;
-    }
 }
+
+/**
+ * 时间轴-组件数据类型 (向后兼容)
+ * Combined type for backward compatibility
+ */
+export type ChronosTimelineDataType = ChronosTimelineBusinessType & ChronosTimelineStyleType

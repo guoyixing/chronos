@@ -2,12 +2,15 @@ import {ComponentData} from "../../component-data.interface";
 import {injectable} from "inversify";
 import Konva from "konva";
 import {Context} from "../../../core/context/context";
+import {ShadowConfigType, ShadowType} from "../../../core/common/type/shadow.type";
 
 /**
  * 时间轴跳转-组件数据
  */
 @injectable()
 export class ChronosJumpTimelineData extends ComponentData {
+
+    // ===== 运行时属性 =====
 
     /**
      * 图形
@@ -19,10 +22,14 @@ export class ChronosJumpTimelineData extends ComponentData {
      */
     startOffSet?: { x: number, y: number }
 
+    // ===== 业务属性 =====
+
     /**
      * 是否隐藏
      */
     hide: boolean
+
+    // ===== 样式属性 =====
 
     /**
      * 宽度
@@ -59,6 +66,11 @@ export class ChronosJumpTimelineData extends ComponentData {
      */
     radius: number
 
+    /**
+     * 阴影
+     */
+    shadow: ShadowType
+
     constructor(context: Context, data?: ChronosJumpTimelineDataType) {
         super(context);
         this.hide = data?.hide ?? true
@@ -70,11 +82,23 @@ export class ChronosJumpTimelineData extends ComponentData {
         this.border = data?.border ?? 1
         this.borderColor = data?.borderColor ?? "#ECECF4"
         this.radius = data?.radius ?? 10
+        this.shadow = {
+            color: data?.shadow?.color ?? 'black',
+            blur: data?.shadow?.blur ?? 5,
+            offset: {
+                x: data?.shadow?.offset?.x ?? 0,
+                y: data?.shadow?.offset?.y ?? 2
+            },
+            opacity: data?.shadow?.opacity ?? 0.1
+        }
     }
 }
 
-export type ChronosJumpTimelineDataType = {
+export type ChronosJumpTimelineBusinessType = {
     hide?: boolean
+}
+
+export type ChronosJumpTimelineStyleType = {
     startOffSet?: { x: number, y: number }
     width?: number
     height?: number
@@ -83,4 +107,7 @@ export type ChronosJumpTimelineDataType = {
     border?: number
     borderColor?: string
     radius?: number
+    shadow?: ShadowConfigType
 }
+
+export type ChronosJumpTimelineDataType = ChronosJumpTimelineBusinessType & ChronosJumpTimelineStyleType

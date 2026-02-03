@@ -11,16 +11,74 @@ import {TYPES} from "../../../config/inversify.config";
  */
 @injectable()
 export class ChronosTimelineControlData extends ComponentData {
+    
+    // ===== 运行时属性 =====
+
     graphics: Konva.Group | undefined
-    startOffSet: { x: number, y: number }
-    width: number
-    height: number
+
+    /**
+     * 位置计算临时变量
+     */
+    private startOffSetValue: { x: number, y: number } = {x: 0, y: 0}
+
+    /**
+     * 起始坐标 (getter for backward compatibility)
+     */
+    get startOffSet(): { x: number, y: number } {
+        return this.startOffSetValue;
+    }
+
+    set startOffSet(value: { x: number, y: number }) {
+        this.startOffSetValue = value;
+    }
+
+    // ===== 业务属性 =====
+
+    /**
+     * 是否隐藏
+     */
     hide: boolean
+
+    // ===== 样式属性 =====
+
+    /**
+     * 宽度
+     */
+    width: number
+    
+    /**
+     * 高度
+     */
+    height: number
+
+    /**
+     * 背景颜色
+     */
     backgroundColor: string
+
+    /**
+     * 边框颜色
+     */
     borderColor: string
+
+    /**
+     * 边框宽度
+     */
     border: number
+
+    /**
+     * 圆角
+     */
     radius: number
+
+    /**
+     * 阴影
+     */
     shadow: ShadowType
+
+    /**
+     * 文本样式
+     */
     text: {
         fontSize: number,
         fontFamily: string,
@@ -28,6 +86,10 @@ export class ChronosTimelineControlData extends ComponentData {
         hoverColor: string,
         marginRight: number
     }
+
+    /**
+     * 内边距
+     */
     padding: { horizontal: number, vertical: number }
 
     constructor(context: Context, data?: ChronosTimelineControlDataType) {
@@ -88,10 +150,13 @@ export class ChronosTimelineControlData extends ComponentData {
     }
 }
 
-export type ChronosTimelineControlDataType = {
+export type ChronosTimelineControlBusinessType = {
+    hide?: boolean
+}
+
+export type ChronosTimelineControlStyleType = {
     width?: number
     height?: number
-    hide?: boolean
     backgroundColor?: string
     borderColor?: string
     border?: number
@@ -106,3 +171,5 @@ export type ChronosTimelineControlDataType = {
         marginRight?: number
     }
 }
+
+export type ChronosTimelineControlDataType = ChronosTimelineControlBusinessType & ChronosTimelineControlStyleType
