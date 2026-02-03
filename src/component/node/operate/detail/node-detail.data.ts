@@ -10,6 +10,8 @@ import {ShadowConfigType, ShadowType} from "../../../../core/common/type/shadow.
  */
 @injectable()
 export class ChronosNodeDetailData extends ComponentData {
+    // ===== 运行时属性 =====
+
     /**
      * 绑定的节点
      */
@@ -24,6 +26,8 @@ export class ChronosNodeDetailData extends ComponentData {
      * 图形
      */
     graphics: Konva.Group | undefined
+
+    // ===== 样式属性 =====
 
     /**
      * 宽度
@@ -157,9 +161,16 @@ export class ChronosNodeDetailData extends ComponentData {
 }
 
 /**
- * 节点详情-组件数据类型
+ * 节点详情-业务数据类型
+ * Business properties: (no external business properties - all style)
  */
-export type ChronosNodeDetailDataType = {
+export type ChronosNodeDetailBusinessType = object
+
+/**
+ * 节点详情-样式数据类型
+ * Style properties: dimensions, colors, fonts, and visual appearance
+ */
+export type ChronosNodeDetailStyleType = {
     width?: number
     backgroundColor?: string
     borderColor?: string
@@ -180,3 +191,9 @@ export type ChronosNodeDetailDataType = {
     mouseOffset?: { x?: number, y?: number }
     shadow?: ShadowConfigType
 }
+
+/**
+ * 节点详情-组件数据类型 (向后兼容)
+ * Combined type for backward compatibility
+ */
+export type ChronosNodeDetailDataType = ChronosNodeDetailBusinessType & ChronosNodeDetailStyleType

@@ -10,6 +10,8 @@ import {ShadowConfigType, ShadowType} from "../../../../core/common/type/shadow.
  */
 @injectable()
 export class ChronosNodeTransformerData extends ComponentData {
+    // ===== 运行时属性 =====
+
     /**
      * 绑定的节点
      */
@@ -29,6 +31,28 @@ export class ChronosNodeTransformerData extends ComponentData {
      * 右控制点
      */
     rightControlPoint: Konva.Group | undefined
+
+    /**
+     * 图形
+     */
+    graphics: Konva.Group | undefined
+
+    /**
+     * 左时间
+     */
+    leftTime: Konva.Group | undefined
+
+    /**
+     * 右时间
+     */
+    rightTime: Konva.Group | undefined
+
+    /**
+     * 绑定拖动的节点id
+     */
+    dragBindNodeId: string | undefined
+
+    // ===== 样式属性 =====
 
     /**
      * 控制点半径
@@ -118,9 +142,16 @@ export class ChronosNodeTransformerData extends ComponentData {
 }
 
 /**
- * 节点变形器-组件数据类型
+ * 节点变形器-业务数据类型
+ * Business properties: (no external business properties - all style)
  */
-export type ChronosNodeTransformerDataType = {
+export type ChronosNodeTransformerBusinessType = object
+
+/**
+ * 节点变形器-样式数据类型
+ * Style properties: point appearance and time display styling
+ */
+export type ChronosNodeTransformerStyleType = {
     pointRadius?: number
     pointColor?: string
     pointBorder?: number
@@ -147,3 +178,9 @@ export type ChronosNodeTransformerDataType = {
         }
     }
 }
+
+/**
+ * 节点变形器-组件数据类型 (向后兼容)
+ * Combined type for backward compatibility
+ */
+export type ChronosNodeTransformerDataType = ChronosNodeTransformerBusinessType & ChronosNodeTransformerStyleType

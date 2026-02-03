@@ -9,6 +9,8 @@ import Konva from "konva";
  */
 export class ChronosNodeEntryData extends ComponentData {
 
+    // ===== 运行时属性 =====
+
     /**
      * 坐标
      * xStart: 开始x坐标
@@ -16,6 +18,23 @@ export class ChronosNodeEntryData extends ComponentData {
      * y: y坐标
      */
     private _coordinate: { xStart?: number, xFinish?: number | undefined, y?: number } = {}
+
+    /**
+     * 泳道
+     */
+    lane: ChronosLaneEntryComponent | undefined
+
+    /**
+     * 图形
+     */
+    graphics: NodeShape | undefined
+
+    /**
+     * 进度文字图形
+     */
+    progressTextGraphics: Konva.Group | undefined
+
+    // ===== 业务属性 =====
 
     /**
      * 节点id
@@ -59,21 +78,6 @@ export class ChronosNodeEntryData extends ComponentData {
     row: number
 
     /**
-     * 泳道
-     */
-    lane: ChronosLaneEntryComponent | undefined
-
-    /**
-     * 图形
-     */
-    graphics: NodeShape | undefined
-
-    /**
-     * 进度文字图形
-     */
-    progressTextGraphics: Konva.Group | undefined
-
-    /**
      * 是否隐藏
      */
     hidden: boolean
@@ -110,9 +114,10 @@ export class ChronosNodeEntryData extends ComponentData {
 }
 
 /**
- * 节点条目-组件数据类型
+ * 节点条目-业务数据类型
+ * Business properties: domain logic, identifiers, relationships, time, and progress
  */
-export type ChronosNodeEntryDataType = {
+export type ChronosNodeEntryBusinessType = {
     id: string
     name: string
     type: string
@@ -123,5 +128,16 @@ export type ChronosNodeEntryDataType = {
     hidden?: boolean
     progress?: number
     extendField?: Record<string, unknown>
-
 }
+
+/**
+ * 节点条目-样式数据类型
+ * Style properties: (all styling is handled by node shape implementations)
+ */
+export type ChronosNodeEntryStyleType = object
+
+/**
+ * 节点条目-组件数据类型 (向后兼容)
+ * Combined type for backward compatibility
+ */
+export type ChronosNodeEntryDataType = ChronosNodeEntryBusinessType & ChronosNodeEntryStyleType

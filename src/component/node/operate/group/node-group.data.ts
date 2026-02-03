@@ -9,6 +9,8 @@ import {injectable} from "inversify";
  */
 @injectable()
 export class ChronosNodeGroupData extends ComponentData {
+    // ===== 运行时属性 =====
+
     /**
      * 节点组
      */
@@ -18,6 +20,15 @@ export class ChronosNodeGroupData extends ComponentData {
      * 原始节点条目数据
      */
     originalNodeEntryData: Array<ChronosNodeEntryData> = []
+
+    // ===== 业务属性 =====
+
+    /**
+     * 进度是否隐藏
+     */
+    hideProgress: boolean
+
+    // ===== 样式属性 =====
 
     /**
      * 移动范围的颜色
@@ -33,11 +44,6 @@ export class ChronosNodeGroupData extends ComponentData {
      * 移动范围的边框大小
      */
     moveRangeBorder: number
-
-    /**
-     * 进度是否隐藏
-     */
-    hideProgress: boolean
 
     /**
      * 进度
@@ -89,12 +95,23 @@ export class ChronosNodeGroupData extends ComponentData {
     }
 }
 
-export type ChronosNodeGroupDataType = {
+/**
+ * 节点组-业务数据类型
+ * Business properties: domain logic and node visibility settings
+ */
+export type ChronosNodeGroupBusinessType = {
     entry?: ChronosNodeEntryDataType[]
+    hideProgress?: boolean
+}
+
+/**
+ * 节点组-样式数据类型
+ * Style properties: colors, spacing, and progress visual appearance
+ */
+export type ChronosNodeGroupStyleType = {
     moveRangeColor?: string
     moveRangeBorderColor?: string
     moveRangeBorder?: number
-    hideProgress?: boolean
     progress?: {
         offset?: { x: number, y: number }
         background?: {
@@ -112,3 +129,9 @@ export type ChronosNodeGroupDataType = {
         }
     }
 }
+
+/**
+ * 节点组-组件数据类型 (向后兼容)
+ * Combined type for backward compatibility
+ */
+export type ChronosNodeGroupDataType = ChronosNodeGroupBusinessType & ChronosNodeGroupStyleType

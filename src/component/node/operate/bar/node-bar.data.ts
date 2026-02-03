@@ -13,17 +13,17 @@ import {ShadowConfigType, ShadowType} from "../../../../core/common/type/shadow.
 @injectable()
 export class ChronosNodeBarData extends ComponentData {
 
+    // ===== 运行时属性 =====
+
     /**
      * 图形
      */
     graphics: Konva.Group | undefined
 
-
     /**
      * 渲染起始坐标
      */
     startOffSet: { x: number, y: number }
-
 
     /**
      * 候选的变形节点
@@ -40,6 +40,15 @@ export class ChronosNodeBarData extends ComponentData {
      */
     candidateNodeName: Map<string, string>
 
+    // ===== 业务属性 =====
+
+    /**
+     * 是否隐藏
+     */
+    hide: boolean
+
+    // ===== 样式属性 =====
+
     /**
      * 宽度
      */
@@ -49,11 +58,6 @@ export class ChronosNodeBarData extends ComponentData {
      * 高度
      */
     height: number
-
-    /**
-     * 是否隐藏
-     */
-    hide: boolean
 
     /**
      * 背景颜色
@@ -135,13 +139,22 @@ export class ChronosNodeBarData extends ComponentData {
 }
 
 /**
- * 节点导航窗-组件数据类型
+ * 节点导航窗-业务数据类型
+ * Business properties: visibility and positioning
  */
-export type ChronosNodeBarDataType = {
+export type ChronosNodeBarBusinessType = {
     startOffSetPct?: { xPct: number, yPct: number }
+    hide?: boolean
+    candidateNodeName?: Record<string, string>
+}
+
+/**
+ * 节点导航窗-样式数据类型
+ * Style properties: dimensions, colors, and visual appearance
+ */
+export type ChronosNodeBarStyleType = {
     width?: number
     height?: number
-    hide?: boolean
     radius?: number
     backgroundColor?: string
     borderColor?: string
@@ -149,5 +162,10 @@ export type ChronosNodeBarDataType = {
     middleLineColor?: string
     middleLineWidth?: number
     shadow?: ShadowConfigType
-    candidateNodeName?: Record<string, string>
 }
+
+/**
+ * 节点导航窗-组件数据类型 (向后兼容)
+ * Combined type for backward compatibility
+ */
+export type ChronosNodeBarDataType = ChronosNodeBarBusinessType & ChronosNodeBarStyleType
