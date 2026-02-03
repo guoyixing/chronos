@@ -9,6 +9,8 @@ import {ButtonLaneConfigType, ButtonLaneType} from "../../../core/common/type/bu
  */
 export class ChronosLaneEntryData extends ComponentData {
 
+    // ===== 运行时属性 =====
+
     /**
      * 图形
      */
@@ -19,21 +21,6 @@ export class ChronosLaneEntryData extends ComponentData {
      * 泳道线
      */
     laneLineGraphics: Konva.Group | undefined
-
-    /**
-     * 泳道id
-     */
-    id: string
-
-    /**
-     * 泳道名称
-     */
-    name: string
-
-    /**
-     * 泳道行数
-     */
-    rowNum: number
 
     /**
      * 泳道行高度
@@ -62,6 +49,35 @@ export class ChronosLaneEntryData extends ComponentData {
      * 隐藏泳道左侧
      */
     hideLeft: boolean = false
+
+    // ===== 业务属性 =====
+
+    /**
+     * 泳道id
+     */
+    id: string
+
+    /**
+     * 泳道名称
+     */
+    name: string
+
+    /**
+     * 泳道行数
+     */
+    rowNum: number
+
+    /**
+     * 隐藏
+     */
+    hide: boolean = false
+
+    /**
+     * 扩展字段
+     */
+    extendField: Record<string, unknown>
+
+    // ===== 样式属性 =====
 
     /**
      * 泳道左侧背景颜色
@@ -128,16 +144,6 @@ export class ChronosLaneEntryData extends ComponentData {
      */
     button: ButtonLaneType
 
-    /**
-     * 隐藏
-     */
-    hide: boolean = false
-
-    /**
-     * 扩展字段
-     */
-    extendField: Record<string, unknown>
-
 
     constructor(context: Context, data: ChronosLaneEntryDataType) {
         super(context);
@@ -195,12 +201,22 @@ export class ChronosLaneEntryData extends ComponentData {
 }
 
 /**
- * 泳道条目-组件数据类型
+ * 泳道条目-业务数据类型
+ * Business properties: domain logic, identifiers, relationships
  */
-export type ChronosLaneEntryDataType = {
+export type ChronosLaneEntryBusinessType = {
     id: string
     name: string
     rowNum?: number
+    hide?: boolean
+    extendField?: Record<string, unknown>
+}
+
+/**
+ * 泳道条目-样式数据类型
+ * Style properties: colors, fonts, margins, visual appearance
+ */
+export type ChronosLaneEntryStyleType = {
     leftBackgroundColor?: string
     hoverLeftBackgroundColor?: string
     borderColor?: string
@@ -212,8 +228,12 @@ export type ChronosLaneEntryDataType = {
     textTopMargin?: number
     textBottomMargin?: number
     radius?: number[] | number
-    hide?: boolean
     shadow?: ShadowConfigType
     button?: ButtonLaneConfigType
-    extendField?: Record<string, unknown>
 }
+
+/**
+ * 泳道条目-组件数据类型 (向后兼容)
+ * Combined type for backward compatibility
+ */
+export type ChronosLaneEntryDataType = ChronosLaneEntryBusinessType & ChronosLaneEntryStyleType
