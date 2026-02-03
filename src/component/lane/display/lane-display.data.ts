@@ -11,16 +11,27 @@ import {TYPES} from "../../../config/inversify.config";
  */
 @injectable()
 export class ChronosLaneDisplayData extends ComponentData {
+
+    // ===== 运行时属性 =====
+
     /**
      * 图形
      */
     graphics: Konva.Group | undefined
 
-
     /**
      * 渲染起始坐标
      */
     startOffSet: { x: number, y: number }
+
+    // ===== 业务属性 =====
+
+    /**
+     * 是否隐藏
+     */
+    hide: boolean
+
+    // ===== 样式属性 =====
 
     /**
      * 宽度
@@ -31,11 +42,6 @@ export class ChronosLaneDisplayData extends ComponentData {
      * 高度
      */
     height: number
-
-    /**
-     * 是否隐藏
-     */
-    hide: boolean
 
     /**
      * 背景颜色
@@ -79,7 +85,6 @@ export class ChronosLaneDisplayData extends ComponentData {
      */
     margin: number
 
-
     constructor(context: Context, data?: ChronosLaneDisplayDataType) {
         super(context);
         this.width = data?.width ?? 200;
@@ -122,11 +127,22 @@ export class ChronosLaneDisplayData extends ComponentData {
     }
 }
 
-export type ChronosLaneDisplayDataType = {
+/**
+ * 泳道显示控制器-业务数据类型
+ * Business properties: domain logic, identifiers, relationships
+ */
+export type ChronosLaneDisplayBusinessType = {
+    hide?: boolean
+}
+
+/**
+ * 泳道显示控制器-样式数据类型
+ * Style properties: colors, fonts, margins, visual appearance
+ */
+export type ChronosLaneDisplayStyleType = {
     startOffSetPct?: { xPct: number, yPct: number }
     width?: number
     height?: number
-    hide?: boolean
     backgroundColor?: string
     borderColor?: string
     border?: number
@@ -142,3 +158,9 @@ export type ChronosLaneDisplayDataType = {
         offSetY?: number
     }
 }
+
+/**
+ * 泳道显示控制器-组件数据类型 (向后兼容)
+ * Combined type for backward compatibility
+ */
+export type ChronosLaneDisplayDataType = ChronosLaneDisplayBusinessType & ChronosLaneDisplayStyleType
