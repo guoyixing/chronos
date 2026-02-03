@@ -1,7 +1,6 @@
 import {ChronosWindowDataType, ChronosWindowStyleType} from "../component/window/window.data"
 import {ChronosGridDataType, ChronosGridBusinessType, ChronosGridStyleType} from "../component/grid/grid.data";
 import {ChronosLaneGroupDataType, ChronosLaneGroupBusinessType, ChronosLaneGroupStyleType} from "../component/lane/group/lane-group.data";
-import {ChronosLaneEntryDataType, ChronosLaneEntryBusinessType, ChronosLaneEntryStyleType} from "../component/lane/entry/lane-entry.data";
 import {ChronosLaneDisplayDataType, ChronosLaneDisplayBusinessType, ChronosLaneDisplayStyleType} from "../component/lane/display/lane-display.data";
 import {ChronosToolbarDataType, ChronosToolbarBusinessType, ChronosToolbarStyleType} from "../component/toolbar/toolbar.data";
 import {ChronosScaleDataType, ChronosScaleBusinessType, ChronosScaleStyleType} from "../component/scale/scale.data";
@@ -9,7 +8,6 @@ import {ChronosNodeTransformerDataType, ChronosNodeTransformerBusinessType, Chro
 import {ChronosNodeBarDataType, ChronosNodeBarBusinessType, ChronosNodeBarStyleType} from "../component/node/operate/bar/node-bar.data";
 import {ChronosNodeGroupDataType, ChronosNodeGroupBusinessType, ChronosNodeGroupStyleType} from "../component/node/operate/group/node-group.data";
 import {ChronosNodeDetailDataType, ChronosNodeDetailBusinessType, ChronosNodeDetailStyleType} from "../component/node/operate/detail/node-detail.data";
-import {ChronosNodeEntryDataType, ChronosNodeEntryBusinessType, ChronosNodeEntryStyleType} from "../component/node/operate/entry/node-entry.data";
 import {ChronosTimelineDataType, ChronosTimelineBusinessType, ChronosTimelineStyleType} from "../component/timeline/timeline.data";
 import {ChronosTimelineControlDataType, ChronosTimelineControlBusinessType, ChronosTimelineControlStyleType} from "../component/timeline/control/timeline-control.data";
 import {ChronosJumpTimelineDataType, ChronosJumpTimelineBusinessType, ChronosJumpTimelineStyleType} from "../component/timeline/jump/timeline-jump.data";
@@ -145,4 +143,69 @@ export type {
 export type {
     ChronosWindowStyleType
 } from "../component/window/window.data";
+
+// ========== Aggregate Types for Separated API ==========
+
+/**
+ * 业务数据聚合类型 - 所有组件的业务数据
+ * Aggregate of all component business data types
+ */
+export type ChronosBusinessDataType = {
+    isEdit?: boolean;
+    grid?: ChronosGridBusinessType;
+    lane?: ChronosLaneGroupBusinessType;
+    toolbar?: ChronosToolbarBusinessType;
+    scale?: ChronosScaleBusinessType;
+    transformer?: ChronosNodeTransformerBusinessType;
+    timeline: ChronosTimelineBusinessType;  // Required!
+    timelineControl?: ChronosTimelineControlBusinessType;
+    jumpTimeline?: ChronosJumpTimelineBusinessType;
+    bar?: ChronosNodeBarBusinessType;
+    node?: ChronosNodeGroupBusinessType;
+    detail?: ChronosNodeDetailBusinessType;
+    nodeRevise?: ChronosReviseBusinessType;
+    laneRevise?: ChronosReviseBusinessType;
+    laneDisplay?: ChronosLaneDisplayBusinessType;
+    holiday?: ChronosHolidayBusinessType;
+    watermark?: ChronosWatermarkBusinessType;
+}
+
+/**
+ * 样式数据聚合类型 - 所有组件的样式数据
+ * Aggregate of all component style data types
+ */
+export type ChronosStyleDataType = {
+    window?: ChronosWindowStyleType;
+    grid?: ChronosGridStyleType;
+    lane?: ChronosLaneGroupStyleType;
+    toolbar?: ChronosToolbarStyleType;
+    scale?: ChronosScaleStyleType;
+    transformer?: ChronosNodeTransformerStyleType;
+    timeline?: ChronosTimelineStyleType;
+    timelineControl?: ChronosTimelineControlStyleType;
+    jumpTimeline?: ChronosJumpTimelineStyleType;
+    bar?: ChronosNodeBarStyleType;
+    node?: ChronosNodeGroupStyleType;
+    detail?: ChronosNodeDetailStyleType;
+    nodeRevise?: ChronosReviseStyleType;
+    laneRevise?: ChronosReviseStyleType;
+    laneDisplay?: ChronosLaneDisplayStyleType;
+    holiday?: ChronosHolidayStyleType;
+    watermark?: ChronosWatermarkStyleType;
+}
+
+/**
+ * 分离数据类型 - 业务和样式分开传入
+ * Separated input format with business and style keys
+ */
+export type ChronosSeparatedDataType = {
+    business: ChronosBusinessDataType;
+    style: ChronosStyleDataType;
+}
+
+/**
+ * 输入类型 - 支持旧API和新API
+ * Union type supporting both legacy and new API formats
+ */
+export type ChronosInputType = DataType | ChronosSeparatedDataType;
 
