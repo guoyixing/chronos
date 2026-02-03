@@ -20,7 +20,7 @@ export class ChronosWindowData extends ComponentData {
     /**
      * 图层
      */
-    layer: Konva.Layer | undefined
+    declare layer: Konva.Layer | undefined
 
     // ===== 样式属性 =====
 

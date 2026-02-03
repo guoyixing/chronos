@@ -1,5 +1,10 @@
+/**
+ * 分离式API演示
+ * 展示如何使用 business/style 分离的配置方式初始化 Chronos
+ */
 import {Chronos} from "../src/chronos";
-import * as data from './mock.json';
+import * as businessData from './business.json';
+import * as styleData from './style.json';
 import {ChronosNodeEntryData} from "../src/component/node/operate/entry/node-entry.data";
 import {ChronosLaneEntryData} from "../src/component/lane/entry/lane-entry.data";
 
@@ -11,15 +16,17 @@ if (!(divElement instanceof HTMLDivElement)) {
 }
 
 try {
-
-    let chronos = new Chronos(divElement as HTMLDivElement, data);
+    // 使用分离式API：业务数据和样式数据分开传入
+    let chronos = new Chronos(divElement as HTMLDivElement, {
+        business: businessData,
+        style: styleData
+    });
     chronos.callback.nodeDoubleClick = nodeDoubleClick
     chronos.callback.nodeReviseConfirm = nodeReviseConfirm
     chronos.callback.laneDoubleClick = laneDoubleClick
     chronos.callback.laneReviseConfirm = laneReviseConfirm
 
 } catch (e) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     console.log(e)
     if (e instanceof Error) {
         window.open(`https://stackoverflow.com/search?q=js+${e.message}`, '_blank');
@@ -76,6 +83,3 @@ function laneReviseConfirm(node: ChronosLaneEntryData) {
     let name = document.getElementById('laneName') as HTMLInputElement;
     node.name = name.value;
 }
-
-
-
