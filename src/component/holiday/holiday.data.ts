@@ -9,15 +9,26 @@ import {Context} from "../../core/context/context";
 @injectable()
 export class ChronosHolidayData extends ComponentData {
 
+    // ===== 运行时属性 =====
+
     /**
      * 图形
      */
     graphics: Konva.Group | undefined
 
+    // ===== 业务属性 =====
+
     /**
      * 休假日
      */
     holiday: { startTime: Date, endTime: Date, hide: boolean }[]
+
+    /**
+     * 是否显示
+     */
+    hide: boolean
+
+    // ===== 样式属性 =====
 
     /**
      * 颜色
@@ -38,11 +49,6 @@ export class ChronosHolidayData extends ComponentData {
      * 不透明度
      */
     opacity: number
-
-    /**
-     * 是否显示
-     */
-    hide: boolean
 
     /**
      * 文字设置
@@ -103,17 +109,28 @@ export class ChronosHolidayData extends ComponentData {
     }
 }
 
-export type ChronosHolidayDataType = {
+/**
+ * 假期-业务数据类型
+ * Business properties: holiday dates and visibility
+ */
+export type ChronosHolidayBusinessType = {
     holiday?: {
         startTime: string,
         endTime: string,
         hide?: boolean
     }[],
+    hide?: boolean
+}
+
+/**
+ * 假期-样式数据类型
+ * Style properties: colors, borders, and text styling
+ */
+export type ChronosHolidayStyleType = {
     color?: string,
     border?: number,
     borderColor?: string,
     opacity?: number,
-    hide?: boolean,
     text?: {
         density?: number
         color?: string
@@ -123,3 +140,9 @@ export type ChronosHolidayDataType = {
         rotation?: number
     }
 }
+
+/**
+ * 假期-组件数据类型 (向后兼容)
+ * Combined type for backward compatibility
+ */
+export type ChronosHolidayDataType = ChronosHolidayBusinessType & ChronosHolidayStyleType

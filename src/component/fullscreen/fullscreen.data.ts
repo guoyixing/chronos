@@ -8,6 +8,8 @@ import {injectable} from "inversify";
 @injectable()
 export class ChronosFullscreenData extends ComponentData {
 
+    // ===== 运行时属性 =====
+
     /**
      * 是否处于全屏状态
      */

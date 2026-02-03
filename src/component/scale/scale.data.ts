@@ -12,6 +12,8 @@ import {ButtonConfigType, ButtonType} from "../../core/common/type/button.type";
 @injectable()
 export class ChronosScaleData extends ComponentData {
 
+    // ===== 运行时属性 =====
+
     /**
      * 图形
      */
@@ -22,10 +24,7 @@ export class ChronosScaleData extends ComponentData {
      */
     startOffSet: { x: number, y: number }
 
-    /**
-     * 定位百分比（用于 resize 时重新计算位置）
-     */
-    startOffSetPct: { xPct: number, yPct: number }
+    // ===== 业务属性 =====
 
     /**
      * 比例尺百分比
@@ -36,6 +35,13 @@ export class ChronosScaleData extends ComponentData {
      * 比例尺跳跃值
      */
     scaleJump: number
+
+    // ===== 样式属性 =====
+
+    /**
+     * 定位百分比（用于 resize 时重新计算位置）
+     */
+    startOffSetPct: { xPct: number, yPct: number }
 
     /**
      * 宽度
@@ -132,15 +138,23 @@ export class ChronosScaleData extends ComponentData {
 }
 
 /**
- * 比例尺-组件数据类型
+ * 比例尺-业务数据类型
+ * Business properties: zoom levels
  */
-export type ChronosScaleDataType = {
+export type ChronosScaleBusinessType = {
+    scaleX?: number
+    scaleJump?: number
+}
+
+/**
+ * 比例尺-样式数据类型
+ * Style properties: positioning, appearance, and button styling
+ */
+export type ChronosScaleStyleType = {
     /**
      * 百分比定位
      */
     startOffSetPct?: { xPct: number, yPct: number }
-    scaleX?: number
-    scaleJump?: number
     width?: number
     height?: number
     backgroundColor?: string
@@ -151,3 +165,9 @@ export type ChronosScaleDataType = {
     fontSize?: number
     button?: ButtonConfigType
 }
+
+/**
+ * 比例尺-组件数据类型 (向后兼容)
+ * Combined type for backward compatibility
+ */
+export type ChronosScaleDataType = ChronosScaleBusinessType & ChronosScaleStyleType

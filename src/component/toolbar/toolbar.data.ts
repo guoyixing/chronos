@@ -11,6 +11,8 @@ import {ButtonConfigType, ButtonType} from "../../core/common/type/button.type";
 @injectable()
 export class ChronosToolbarData extends ComponentData {
 
+    // ===== 运行时属性 =====
+
     /**
      * 图形
      */
@@ -27,14 +29,16 @@ export class ChronosToolbarData extends ComponentData {
     startOffSet: { x: number, y: number }
 
     /**
-     * 定位百分比（用于 resize 时重新计算位置）
+     * 按钮高度（私有）
      */
-    startOffSetPct: { xPct: number, yPct: number }
+    private _buttonHeight: number
 
     /**
      * 宽度（根据工具数量动态计算）
      */
     private _width: number | undefined
+
+    // ===== 业务属性 =====
 
     /**
      * 每行显示的按钮数量（0 表示不限制，单行显示所有）
@@ -61,6 +65,38 @@ export class ChronosToolbarData extends ComponentData {
      */
     expandDirection: 'up' | 'down'
 
+    // ===== 样式属性 =====
+
+    /**
+     * 定位百分比（用于 resize 时重新计算位置）
+     */
+    startOffSetPct: { xPct: number, yPct: number }
+
+    /**
+     * 背景颜色
+     */
+    backgroundColor: string
+
+    /**
+     * 边框宽度
+     */
+    border: number
+
+    /**
+     * 边框颜色
+     */
+    borderColor: string
+
+    /**
+     * 圆角
+     */
+    radius: number
+
+    /**
+     * 按钮
+     */
+    button: ButtonType
+
     /**
      * 获取单个按钮的宽度
      */
@@ -74,11 +110,6 @@ export class ChronosToolbarData extends ComponentData {
     get buttonHeight(): number {
         return this._buttonHeight
     }
-
-    /**
-     * 按钮高度（私有）
-     */
-    private _buttonHeight: number
 
     /**
      * 获取总行数
@@ -148,31 +179,6 @@ export class ChronosToolbarData extends ComponentData {
     set height(value: number) {
         this._buttonHeight = value
     }
-
-    /**
-     * 背景颜色
-     */
-    backgroundColor: string
-
-    /**
-     * 边框宽度
-     */
-    border: number
-
-    /**
-     * 边框颜色
-     */
-    borderColor: string
-
-    /**
-     * 圆角
-     */
-    radius: number
-
-    /**
-     * 按钮
-     */
-    button: ButtonType
 
 
     constructor(context: Context, data?: ChronosToolbarDataType) {
@@ -244,17 +250,10 @@ export class ChronosToolbarData extends ComponentData {
 }
 
 /**
- * 工具栏-组件数据类型
+ * 工具栏-业务数据类型
+ * Business properties: layout and expansion behavior
  */
-export type ChronosToolbarDataType = {
-    startOffSetPct?: { xPct: number, yPct: number }
-    width?: number
-    height?: number
-    backgroundColor?: string
-    border?: number
-    borderColor?: string
-    radius?: number
-    button?: ButtonConfigType
+export type ChronosToolbarBusinessType = {
     /**
      * 每行显示的按钮数量（0 表示不限制，单行显示所有）
      */
@@ -276,3 +275,24 @@ export type ChronosToolbarDataType = {
      */
     expandDirection?: 'up' | 'down'
 }
+
+/**
+ * 工具栏-样式数据类型
+ * Style properties: positioning, colors, and dimensions
+ */
+export type ChronosToolbarStyleType = {
+    startOffSetPct?: { xPct: number, yPct: number }
+    width?: number
+    height?: number
+    backgroundColor?: string
+    border?: number
+    borderColor?: string
+    radius?: number
+    button?: ButtonConfigType
+}
+
+/**
+ * 工具栏-组件数据类型 (向后兼容)
+ * Combined type for backward compatibility
+ */
+export type ChronosToolbarDataType = ChronosToolbarBusinessType & ChronosToolbarStyleType

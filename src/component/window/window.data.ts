@@ -10,10 +10,19 @@ import Konva from "konva";
 @injectable()
 export class ChronosWindowData extends ComponentData {
 
+    // ===== 运行时属性 =====
+
     /**
      * 图形
      */
     graphics: Konva.Group | undefined
+
+    /**
+     * 图层
+     */
+    layer: Konva.Layer | undefined
+
+    // ===== 样式属性 =====
 
     /**
      * 宽度
@@ -46,11 +55,18 @@ export class ChronosWindowData extends ComponentData {
 }
 
 /**
- * 窗体-组件数据类型
+ * 窗体-样式数据类型
+ * Style properties: dimensions and border styling
  */
-export type ChronosWindowDataType = {
+export type ChronosWindowStyleType = {
     width?: number,
     height?: number,
     border?: number,
     borderColor?: string
 }
+
+/**
+ * 窗体-组件数据类型 (向后兼容)
+ * Combined type for backward compatibility
+ */
+export type ChronosWindowDataType = ChronosWindowStyleType

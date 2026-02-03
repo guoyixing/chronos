@@ -19,10 +19,30 @@ export type ReviseBindComponent = BaseComponent<ComponentData, ComponentService>
  */
 @injectable()
 export abstract class ChronosReviseData<T extends ReviseBindComponent> extends ComponentData {
+    
+    // ===== 运行时属性 =====
+    
     /**
      * 图形
      */
     graphics: Konva.Group | undefined
+
+    /**
+     * 编辑器图形
+     */
+    editorGraphics: Konva.Group | undefined
+
+    /**
+     * 渲染起始坐标
+     */
+    startOffSet: { x: number, y: number }
+
+    /**
+     * 表单
+     */
+    form: HTMLDivElement | undefined
+
+    // ===== 业务属性 =====
 
     /**
      * 绑定的组件
@@ -40,14 +60,11 @@ export abstract class ChronosReviseData<T extends ReviseBindComponent> extends C
     formId: string | undefined
 
     /**
-     * 表单
+     * 是否隐藏
      */
-    form: HTMLDivElement | undefined
+    hide: boolean
 
-    /**
-     * 渲染起始坐标
-     */
-    startOffSet: { x: number, y: number }
+    // ===== 样式属性 =====
 
     /**
      * 宽度
@@ -58,11 +75,6 @@ export abstract class ChronosReviseData<T extends ReviseBindComponent> extends C
      * 高度
      */
     height: number
-
-    /**
-     * 是否隐藏
-     */
-    hide: boolean
 
     /**
      * 背景颜色
@@ -152,14 +164,24 @@ export abstract class ChronosReviseData<T extends ReviseBindComponent> extends C
 }
 
 /**
- * 修订窗-组件数据
+ * 修订窗-业务数据类型
+ * Business properties: bindings and visibility
  */
-export type ChronosReviseDataType = {
-    startOffSetPct?: { xPct: number, yPct: number },
+export type ChronosReviseBusinessType = {
     formId?: string,
+    hide?: boolean,
+    bind?: ReviseBindComponent,
+    bindId?: string
+}
+
+/**
+ * 修订窗-样式数据类型
+ * Style properties: positioning, dimensions, and appearance
+ */
+export type ChronosReviseStyleType = {
+    startOffSetPct?: { xPct: number, yPct: number },
     width?: number,
     height?: number,
-    hide?: boolean,
     backgroundColor?: string,
     borderColor?: string,
     border?: number,
@@ -167,3 +189,9 @@ export type ChronosReviseDataType = {
     shadow?: ShadowConfigType,
     button?: ButtonTextConfigType
 }
+
+/**
+ * 修订窗-组件数据类型 (向后兼容)
+ * Combined type for backward compatibility
+ */
+export type ChronosReviseDataType = ChronosReviseBusinessType & ChronosReviseStyleType
