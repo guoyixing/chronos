@@ -13,7 +13,8 @@ import {NodeConfig} from "./config/node.inversify";
 import {NodeTransformerConfig} from "./config/node-transformer.inversify";
 import {NodeDetailConfig} from "./config/node-detail.inversify";
 import {ScaleConfig} from "./config/scale.inversify";
-import {DataType, ChronosInputType, ChronosSeparatedDataType} from "./config/data.type";
+import {DataType, ChronosInputType, ChronosSeparatedDataType, ChronosOptions} from "./config/data.type";
+import {PluginManager} from "./plugin/manager.plugin";
 import {deepMerge} from "./core/common/utils/merge.utils";
 import {Context} from "./core/context/context";
 import {TYPES} from "./config/inversify.config";
@@ -58,6 +59,18 @@ export class Chronos {
     callback: Callback
 
     /**
+     * 生命周期管理器
+     * Lifecycle manager for component cleanup
+     */
+    private lifecycleManager: LifecycleManager
+
+    /**
+     * 插件管理器
+     * Plugin manager for plugin lifecycle hooks
+     */
+    private pluginManager?: PluginManager
+
+    /**
      * 创建Chronos实例
      * 支持两种输入格式:
      * 1. 旧API: new Chronos(div, { timeline: {...}, lane: {...} })
@@ -65,8 +78,9 @@ export class Chronos {
      * 
      * @param rootHtml 容器DOM元素
      * @param input 配置数据 (DataType 或 ChronosSeparatedDataType)
+     * @param options 可选配置（插件等）
      */
-    constructor(rootHtml: HTMLDivElement, input: ChronosInputType) {
+    constructor(rootHtml: HTMLDivElement, input: ChronosInputType, options?: ChronosOptions) {
         if (!rootHtml) {
             throw Error("div 还没有被渲染")
         }
@@ -80,6 +94,16 @@ export class Chronos {
         this.chronosContainer = new Container()
         // 上下文
         new ContextConfig(this.chronosContainer, rootHtml, data)
+
+        // 初始化插件管理器（如果有插件）
+        if (options?.plugins?.length) {
+            this.pluginManager = new PluginManager();
+            this.pluginManager.installAll(options.plugins);
+            const context = this.chronosContainer.get<Context>(TYPES.Context);
+            this.pluginManager.setContext(this.chronosContainer, context);
+            this.pluginManager.invokeHook('onInstall');
+        }
+
         //回调
         this.callback = new CallbackConfig(this.chronosContainer).callback
         //窗口外框
@@ -122,18 +146,31 @@ export class Chronos {
         //事件监听
         new EventManager(this.chronosContainer)
 
+        // 插件钩子：初始化前
+        this.pluginManager?.invokeHook('onBeforeInit');
+
         //生命周期管理器
-        const lifecycleManager = new LifecycleManager(this.chronosContainer);
-        lifecycleManager.init()
-        lifecycleManager.start()
+        this.lifecycleManager = new LifecycleManager(this.chronosContainer);
+        this.lifecycleManager.init()
+
+        // 插件钩子：初始化后
+        this.pluginManager?.invokeHook('onAfterInit');
+
+        this.lifecycleManager.start()
+
+        // 插件钩子：启动后
+        this.pluginManager?.invokeHook('onAfterStart');
     }
 
     /**
      * 销毁
      */
     destroy() {
+        // 插件钩子：销毁
+        this.pluginManager?.invokeHook('onDestroy');
+        this.lifecycleManager.destroy();
         const context = this.chronosContainer.get<Context>(TYPES.Context);
-        context.drawContext.stage.destroy()
+        context.drawContext.stage.destroy();
     }
 
 }

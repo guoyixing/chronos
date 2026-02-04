@@ -14,6 +14,7 @@ import {ChronosJumpTimelineDataType, ChronosJumpTimelineBusinessType, ChronosJum
 import {ChronosReviseDataType, ChronosReviseBusinessType, ChronosReviseStyleType} from "../component/revise/revise.data";
 import {ChronosHolidayDataType, ChronosHolidayBusinessType, ChronosHolidayStyleType} from "../component/holiday/holiday.data";
 import {ChronosWatermarkDataType, ChronosWatermarkBusinessType, ChronosWatermarkStyleType} from "../component/watermark/watermark.data";
+import { ChronosPlugin } from "../plugin/plugin.interface";
 
 export type DataType = {
     "isEdit"?: boolean,
@@ -209,3 +210,11 @@ export type ChronosSeparatedDataType = {
  */
 export type ChronosInputType = DataType | ChronosSeparatedDataType;
 
+/**
+ * Chronos 配置选项
+ * Optional configuration for Chronos instance
+ */
+export type ChronosOptions = {
+    /** 插件列表 */
+    plugins?: ChronosPlugin[];
+}
