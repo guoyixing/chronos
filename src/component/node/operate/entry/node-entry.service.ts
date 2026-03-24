@@ -11,6 +11,8 @@ import {ChronosNodeDetailComponent} from "../detail/node-detail.component";
 import {ChronosScaleComponent} from "../../../scale/scale.component";
 import {ChronosNodeReviseComponent} from "../../../revise/node/node-revise.component";
 import {Callback} from "../../../../core/event/callback/callback";
+import {HistoryHelper} from "../../../../history/commands/history.helper";
+import {NodeStateSnapshot} from "../../../../history/commands/base.command";
 import Konva from "konva";
 
 /**
@@ -142,9 +144,21 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
      */
     clear() {
         const data = this._data;
+        
+        // 创建删除命令（在销毁图形前）
+        const command = HistoryHelper.createNodeDeleteCommand(
+            data.context,
+            data.id,
+            data
+        );
+        
         data.graphics?.shape?.destroy()
         data.graphics = undefined
         this._nodeGroup.service.removeNodeEntry(data.id)
+        
+        // 执行历史命令
+        HistoryHelper.push(data.context, command);
+        
         this.publishAndPop(EVENT_TYPES.Delete)
         this._callback.nodeDelete && this._callback.nodeDelete(data, this._nodeGroup)
     }
@@ -157,12 +171,35 @@ export class ChronosNodeEntryService implements ComponentService, EventPublisher
         this._nodeGroup.service.listenMove(nodeShape, true)
 
         const node = nodeShape.shape;
-        //监听移动结束
+        const data = this._data;
+        
+        // 捕获拖拽前状态
+        let beforeState: NodeStateSnapshot | undefined;
+        
+        // 监听拖拽开始 - 捕获状态
+        node?.on('dragstart', () => {
+            beforeState = HistoryHelper.captureNodeSnapshot(data);
+        });
+        
+        // 监听移动结束
         node?.on('dragend', () => {
             this.clearFollowLane()
             this.updateLane()
             this.updateTime()
             this.followLane()
+            
+            // 创建并执行历史命令
+            if (beforeState) {
+                const afterState = HistoryHelper.captureNodeSnapshot(data);
+                const command = HistoryHelper.createNodeDragCommand(
+                    data.context,
+                    data.id,
+                    beforeState,
+                    afterState
+                );
+                HistoryHelper.push(data.context, command);
+            }
+            
             this.publishAndPop(EVENT_TYPES.Drag)
             this._callback.nodeDrag && this._callback.nodeDrag(this._data, this._nodeGroup)
         });

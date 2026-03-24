@@ -13,6 +13,7 @@ import {Callback} from "../../../core/event/callback/callback";
 import {ChronosTimelineService} from "../../timeline/timeline.service";
 import {ChronosTimelineData} from "../../timeline/timeline.data";
 import Konva from "konva";
+import {HistoryHelper} from "../../../history/commands/history.helper";
 
 /**
  * 泳道组-组件服务
@@ -245,8 +246,9 @@ export class ChronosLaneGroupService implements ComponentService, EventPublisher
      * 在指定泳道上方添加泳道
      * @param id 泳道id
      * @param indexOffSet 索引偏移
+     * @param recordHistory 是否记录历史，默认 true
      */
-    addLaneEntry(id?: string, indexOffSet?: number): ChronosLaneEntryComponent | undefined {
+    addLaneEntry(id?: string, indexOffSet?: number, recordHistory: boolean = true): ChronosLaneEntryComponent | undefined {
         const data = this._data;
 
         const window = this._window;
@@ -260,14 +262,33 @@ export class ChronosLaneGroupService implements ComponentService, EventPublisher
         });
         const service = new ChronosLaneEntryService(entryData, callback, window, laneGroup, revise);
         const component = new ChronosLaneEntryComponent(entryData, service);
+        
+        let insertIndex: number;
         if (id && indexOffSet) {
             const lane = this.laneById(id);
-            lane && data.laneGroup.splice(lane.data.index + indexOffSet, 0, component);
+            if (lane) {
+                insertIndex = lane.data.index + indexOffSet;
+                data.laneGroup.splice(insertIndex, 0, component);
+            } else {
+                insertIndex = data.laneGroup.length;
+                data.laneGroup.push(component);
+            }
         } else {
+            insertIndex = data.laneGroup.length;
             data.laneGroup.push(component);
         }
+        
+        // 更新 entryData 的 index
+        entryData.index = insertIndex;
 
         this.reDraw();
+        
+        // 历史记录：记录泳道添加操作
+        if (recordHistory) {
+            const command = HistoryHelper.createLaneAddCommand(data.context, entryData);
+            HistoryHelper.push(data.context, command);
+        }
+        
         return component;
     }
 

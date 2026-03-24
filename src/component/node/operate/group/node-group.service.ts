@@ -17,6 +17,7 @@ import {ChronosNodeGroupComponent} from "./node-group.component";
 import {ChronosNodeEntryData} from "../entry/node-entry.data";
 import {ChronosNodeReviseComponent} from "../../../revise/node/node-revise.component";
 import {Callback} from "../../../../core/event/callback/callback";
+import {HistoryHelper} from "../../../../history/commands/history.helper";
 
 /**
  * 节点组-组件服务
@@ -172,8 +173,10 @@ export class ChronosNodeGroupService implements ComponentService {
 
     /**
      * 添加节点条目
+     * @param entryData 节点数据
+     * @param recordHistory 是否记录历史，默认 true
      */
-    addNodeEntry(entryData: ChronosNodeEntryData) {
+    addNodeEntry(entryData: ChronosNodeEntryData, recordHistory: boolean = true) {
         const data = this._data;
         //回调
         const callback = data.context.ioc.get<Callback>(TYPES.Callback)
@@ -206,6 +209,13 @@ export class ChronosNodeGroupService implements ComponentService {
         service.followLane()
         service.listenLane()
         service.draw();
+        
+        // 历史记录：记录节点添加操作
+        if (recordHistory) {
+            const command = HistoryHelper.createNodeAddCommand(data.context, entryData.id, entryData);
+            HistoryHelper.push(data.context, command);
+        }
+        
         this._callback.nodeAdd && this._callback.nodeAdd(entryData, data.context.ioc.get<ChronosNodeGroupComponent>(TYPES.ChronosNodeGroupComponent))
     }
 

@@ -2,6 +2,7 @@ import Konva from "konva";
 import {ChronosLaneEntryService} from "./lane-entry.service";
 import {Callback} from "../../../core/event/callback/callback";
 import {TYPES} from "../../../config/inversify.config";
+import { HistoryHelper } from "../../../history/commands/history.helper";
 
 export class ChronosLaneEntryButton {
 
@@ -148,7 +149,20 @@ export class ChronosLaneEntryButton {
     clickAddRow(buttonGroup: Konva.Group) {
         const data = this._service.data;
         buttonGroup.on('click', () => {
+            // 捕获变更前的行数
+            const oldRowNum = data.rowNum;
+            
             data.rowNum = data.rowNum + 1;
+            
+            // 创建并执行历史命令
+            const command = HistoryHelper.createLaneRowChangeCommand(
+                data.context,
+                data.id,
+                oldRowNum,
+                data.rowNum
+            );
+            HistoryHelper.push(data.context, command);
+            
             //重新绘制泳道
             this._service.group.service.reDraw();
             this._callback.laneAddRow && this._callback.laneAddRow(data, this._service.group);
@@ -164,7 +178,21 @@ export class ChronosLaneEntryButton {
             if (data.rowNum <= 1) {
                 return
             }
+            
+            // 捕获变更前的行数
+            const oldRowNum = data.rowNum;
+            
             data.rowNum = data.rowNum - 1;
+            
+            // 创建并执行历史命令
+            const command = HistoryHelper.createLaneRowChangeCommand(
+                data.context,
+                data.id,
+                oldRowNum,
+                data.rowNum
+            );
+            HistoryHelper.push(data.context, command);
+            
             //重新绘制泳道
             this._service.group.service.reDraw();
             this._callback.laneReduceRow && this._callback.laneReduceRow(data, this._service.group);

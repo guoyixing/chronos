@@ -7,6 +7,7 @@ import {EVENT_TYPES, EventPublisher} from "../../../core/event/event";
 import {ChronosLaneEntryButton} from "./lane-entry-button.component";
 import {Callback} from "../../../core/event/callback/callback";
 import {ChronosLaneReviseComponent} from "../../revise/lane/lane-revise.component";
+import { HistoryHelper } from "../../../history/commands/history.helper";
 
 /**
  * 泳道条目-组件服务
@@ -238,6 +239,9 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
     moveIndex() {
         const data = this.data;
         const groupData = this.group.data;
+        
+        // 历史记录：记录移动前的索引
+        const oldIndex = data.index;
 
         //调整移动泳道的顺序
         //获取当前鼠标的位置
@@ -267,6 +271,15 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
                  const firstEntry = laneEntry[0];
                  if (firstEntry) {
                      groupData.laneGroup.splice(index, 0, firstEntry);
+                     
+                     // 历史记录：创建泳道移动命令（使用 push 因为移动操作已完成）
+                     const command = HistoryHelper.createLaneMoveCommand(
+                         data.context,
+                         data.id,
+                         oldIndex,
+                         index
+                     );
+                     HistoryHelper.push(data.context, command);
                  }
              }
         }
@@ -403,15 +416,31 @@ export class ChronosLaneEntryService implements ComponentService, EventPublisher
 
     /**
      * 清除
+     * @param recordHistory 是否记录历史，默认 true
      */
-    clear(): void {
+    clear(recordHistory: boolean = true): void {
         const data = this.data;
+        
+        // 创建删除命令（在移除泳道前）
+        let command = null;
+        if (recordHistory) {
+            command = HistoryHelper.createLaneDeleteCommand(
+                data.context,
+                data.id
+            );
+        }
+        
         data.laneLineGraphics?.destroy()
         data.graphics?.destroy()
         this.group.data.originalLaneEntryData.splice(data.index, 1);
         this.group.data.laneGroup.splice(data.index, 1);
         this.publishAndPop(EVENT_TYPES.Delete)
         this._callback.laneDelete && this._callback.laneDelete(data, this.group);
+        
+        // 执行历史命令
+        if (recordHistory && command) {
+            HistoryHelper.push(data.context, command);
+        }
     }
 
     /**

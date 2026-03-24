@@ -6,6 +6,8 @@ import Konva from "konva";
 import {ChronosNodeGroupComponent} from "../group/node-group.component";
 import {EVENT_TYPES} from "../../../../core/event/event";
 import {Callback} from "../../../../core/event/callback/callback";
+import {HistoryHelper} from "../../../../history/commands/history.helper";
+import {NodeStateSnapshot} from "../../../../history/commands/base.command";
 
 /**
  * 节点变形器-组件服务
@@ -205,6 +207,9 @@ export class ChronosNodeTransformerService implements ComponentService {
         //获取节点的图像
         const nodeGraphics = data.bindNode?.data.graphics;
         let coordinate: { xStart: number, xFinish: number | undefined, y: number } | undefined;
+        
+        // 历史记录：变形前的状态快照
+        let beforeState: NodeStateSnapshot | null = null;
 
         //绑定左节点的移动事件
         const leftControlPoint = data.leftControlPoint;
@@ -216,6 +221,11 @@ export class ChronosNodeTransformerService implements ComponentService {
                 coordinate = nodeGraphics?.coordinate();
                 leftX = leftControlPoint.x();
                 leftControlPoint.moveUp()
+                
+                // 历史记录：捕获变形前的状态
+                if (data.bindNode) {
+                    beforeState = HistoryHelper.captureNodeSnapshot(data.bindNode.data);
+                }
             })
 
             //获取节点的偏移量
@@ -246,6 +256,20 @@ export class ChronosNodeTransformerService implements ComponentService {
                 if (!data.bindNode) {
                     throw Error("绑定的节点不存在")
                 }
+                
+                // 历史记录：创建变形命令
+                if (beforeState) {
+                    const afterState = HistoryHelper.captureNodeSnapshot(data.bindNode.data);
+                    const command = HistoryHelper.createNodeTransformCommand(
+                        data.context,
+                        data.bindNode.data.id,
+                        beforeState,
+                        afterState
+                    );
+                    HistoryHelper.push(data.context, command);
+                    beforeState = null;
+                }
+                
                 this._callback.nodeTransform && this._callback.nodeTransform(data.bindNode.data, this._nodeGroup)
             })
         }
@@ -257,6 +281,11 @@ export class ChronosNodeTransformerService implements ComponentService {
                 coordinate = nodeGraphics?.coordinate();
                 rightX = rightControlPoint.x();
                 rightControlPoint.moveUp()
+                
+                // 历史记录：捕获变形前的状态
+                if (data.bindNode) {
+                    beforeState = HistoryHelper.captureNodeSnapshot(data.bindNode.data);
+                }
             })
 
             //获取节点的偏移量
@@ -287,6 +316,20 @@ export class ChronosNodeTransformerService implements ComponentService {
                 if (!data.bindNode) {
                     throw Error("绑定的节点不存在")
                 }
+                
+                // 历史记录：创建变形命令
+                if (beforeState) {
+                    const afterState = HistoryHelper.captureNodeSnapshot(data.bindNode.data);
+                    const command = HistoryHelper.createNodeTransformCommand(
+                        data.context,
+                        data.bindNode.data.id,
+                        beforeState,
+                        afterState
+                    );
+                    HistoryHelper.push(data.context, command);
+                    beforeState = null;
+                }
+                
                 this._callback.nodeTransform && this._callback.nodeTransform(data.bindNode.data, this._nodeGroup)
             })
         }

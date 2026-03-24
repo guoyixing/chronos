@@ -15,6 +15,7 @@ import {ChronosReviseDataType, ChronosReviseBusinessType, ChronosReviseStyleType
 import {ChronosHolidayDataType, ChronosHolidayBusinessType, ChronosHolidayStyleType} from "../component/holiday/holiday.data";
 import {ChronosWatermarkDataType, ChronosWatermarkBusinessType, ChronosWatermarkStyleType} from "../component/watermark/watermark.data";
 import { ChronosPlugin } from "../plugin/plugin.interface";
+import { HistoryOptions } from "../history/history.interface";
 
 export type DataType = {
     "isEdit"?: boolean,
@@ -217,4 +218,6 @@ export type ChronosInputType = DataType | ChronosSeparatedDataType;
 export type ChronosOptions = {
     /** 插件列表 */
     plugins?: ChronosPlugin[];
+    /** 历史记录配置（撤销/重做） */
+    history?: HistoryOptions;
 }
